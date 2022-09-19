@@ -9,6 +9,7 @@ packages = [{include = "web", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^2.2.2"
+python-dotenv = "^0.21.0"
 
 
 [tool.poetry.group.dev.dependencies]
