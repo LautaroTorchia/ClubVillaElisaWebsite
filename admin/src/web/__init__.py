@@ -7,6 +7,6 @@ def create_app(env="development"):
 
     @app.get("/")
     def home():
-        return "Hello, world!" + 12
+        return "Hello, world!"
 
     return app
