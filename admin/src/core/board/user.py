@@ -4,8 +4,9 @@ from src.core.db import db
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    username = Column(String(50), unique=True)
-    password = Column(String(50))
+    username = Column(String(255), unique=True)
+    password = Column(String(255))
+    email = Column(String(255), unique=True)
 
     def __init__(self, username, password):
         self.username = username
