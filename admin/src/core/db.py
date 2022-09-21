@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 from src.core.board.user import User
 from src.core.board.discipline import Discipline
+from src.core.board.associate import Associate
 migrate = Migrate()
 
 def init_db(app):
