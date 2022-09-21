@@ -1,8 +1,18 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
 from src.core.db import db
 
+
 class Discipline(db.Model):
-    __tablename__ = 'disciplines'
+    """Modelo de las disciplinas del club
+    Args:
+        name (str): Discipline name
+        category (str): Discipline category
+        instructors (str): Discipline instructors
+        dates (str): Discipline dates and times
+        monthly_cost (str): Discipline monthly cost
+        available (bool): Discipline availability
+    """    
+    __tablename__ = "disciplines"
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
     category = Column(String(255))
@@ -20,4 +30,6 @@ class Discipline(db.Model):
         self.available = available
 
     def __repr__(self):
-        return f"{self.name} em la categoría {self.category} con los instructores {self.instructors} en las fechas {self.dates} con un costo de {self.monthly_cost} y está disponible en los días y horaios{self.dates}"
+        return f"""{self.name} en la categoría {self.category} 
+        con los instructores {self.instructors} 
+        con un costo de {self.monthly_cost} y está disponible en los días y horaios{self.dates}"""
