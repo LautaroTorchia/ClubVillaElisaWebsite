@@ -2,6 +2,7 @@ from datetime import datetime
 from sqlalchemy import Column, String, Integer, Boolean
 from src.core.db import db
 
+
 class User(db.Model):
     """Modelo de los usuarios del club
     Args:
@@ -11,8 +12,9 @@ class User(db.Model):
         first_name (str): User first name
         last_name (str): User last name
         active (bool): User active status (default True)
-    """    
-    __tablename__ = 'users'
+    """
+
+    __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     email = Column(String(255), unique=True)
     username = Column(String(255), unique=True)
@@ -35,5 +37,3 @@ class User(db.Model):
         return f"""{self.username} con el correo {self.email}
                 con el nombre {self.first_name} {self.last_name}
                 y con el estado {self.active}"""
-
-
