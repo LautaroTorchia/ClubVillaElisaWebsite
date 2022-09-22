@@ -44,6 +44,6 @@ class Associate(db.Model):
         self.entry_date=datetime.utcnow
 
     def __repr__(self):
-        #Falta nombre y apellido que los robo de user
+        #TODO add user relation  
         return f"""con el dni {self.DNI_number} con el correo {self.email}, del genero {self.gender}"""
         
