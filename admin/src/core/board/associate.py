@@ -27,7 +27,7 @@ class Associate(db.Model):
     """    
     __tablename__ = "associates"
     associate_number = Column(Integer, primary_key=True)
-    #Falta relacion con usuario
+     # TODO add relation to user
     DNI_number = Column(Integer,unique=True)
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
     gender = Column(Enum(GenderOptions,validate_string=True))
