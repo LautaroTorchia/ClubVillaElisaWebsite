@@ -6,6 +6,9 @@ db = SQLAlchemy()
 from src.core.board.user import User
 from src.core.board.discipline import Discipline
 from src.core.board.associate import Associate
+from src.core.board.role import Role
+from src.core.board.payment import Payment
+from src.core.board.permission import Permission
 migrate = Migrate()
 
 def init_db(app):
