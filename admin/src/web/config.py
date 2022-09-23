@@ -19,12 +19,18 @@ class DevelopmentConfig(Config):
     ENV = "development"
     DEVELOPMENT = True
     DEBUG = True
+    BD_SERVER = "localhost"
+    DB_DATABASE = "grupo12"
+    DB_USER = ""
+    DB_PASSWORD = ""
+    SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{BD_SERVER}:5432/{DB_DATABASE}"
 
 class TestingConfig(Config):
     TESTING = True
 
-config = {
+def get_config():
+    return {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-}
+    }
