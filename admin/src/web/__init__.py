@@ -2,9 +2,9 @@ from flask import Flask, render_template
 from src.web.config import get_config
 from src.core.db import db, init_db
 
-def create_app(env="development", static_folder="static", template_folder="templates"):
+def create_app(env="development", static_url_path="/static", template_folder="templates"):
     config = get_config()
-    app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
+    app = Flask(__name__, static_url_path=static_url_path, template_folder=template_folder)
     
     app.config.from_object(config[env])
 
