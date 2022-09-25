@@ -21,6 +21,8 @@ class Discipline(db.Model):
     monthly_cost = Column(Numeric())
     available = Column(Boolean())
 
+    associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
+
     def __init__(self, name, category, instructors, dates, monthly_cost, available):
         self.name = name
         self.category = category

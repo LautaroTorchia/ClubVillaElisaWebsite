@@ -15,7 +15,12 @@ class Payment(db.Model):
     date = Column(DateTime)
     amount = Column(Float)
     installment_number = Column(Integer)
-    # TODO add fk -> disciplines
+    
+
+    associate = db.relationship("Associate")
+    associate_associate_number = Column(Integer, db.ForeignKey("associates.associate_number"), nullable=False)
+    discipline = db.relationship("Discipline", back_populates="payments")
+    discipline_id = Column(Integer, db.ForeignKey("disciplines.id"), nullable=False)
 
     def __init__(self, date, amount, installment_number):
         self.date = date
