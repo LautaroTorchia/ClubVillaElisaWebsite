@@ -11,6 +11,7 @@ class Role(db.Model):
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
     name=Column(String)
+    users= db.relationship("User", secondary="user_roles", back_populates="roles")
     # TODO add relation
 
     def __init__(self, name):
