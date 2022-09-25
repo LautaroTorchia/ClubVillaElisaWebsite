@@ -132,3 +132,6 @@ dmypy.json
 
 # Windows
 desktop.ini
+
+# VSCode
+.vscode/
