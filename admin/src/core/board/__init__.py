@@ -1,7 +1,8 @@
-from grupo12.admin.src.core.board.associate import Associate
-
 #here is where CRUD are made
 #QUESTION TO ASK TO GROUP, shall we do it in a CLASS or in different functions?
+from src.core.board.associate import Associate
+
+
 def get_associate_by_id(associate_number):
     """ Get associate by id
     Args:
