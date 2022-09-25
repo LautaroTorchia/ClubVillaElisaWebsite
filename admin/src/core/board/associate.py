@@ -3,6 +3,11 @@ import enum
 from sqlalchemy import Column, String, Integer, Sequence , Enum
 from src.core.db import db
 
+associate_disciplines = db.Table(
+    "associate_disciplines",
+    Column("associate_id", Integer, db.ForeignKey("associates.associate_number"), primary_key=True),
+    Column("discipline_id", Integer, db.ForeignKey("disciplines.id"), primary_key=True),
+)
 
 class GenderOptions(enum.Enum):
     male = 1
@@ -27,13 +32,17 @@ class Associate(db.Model):
     """    
     __tablename__ = "associates"
     associate_number = Column(Integer, primary_key=True)
-     # TODO add relation to user
     DNI_number = Column(Integer,unique=True)
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
     gender = Column(Enum(GenderOptions,validate_string=True))
     address = Column(String(255))
     phone_number= Column(Integer,nullable=True)
     entry_date=Column(db.DateTime)
+
+    users = db.relationship("User")
+    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=False)
+    payments = db.relationship("Payment", back_populates="associate", lazy=True)
+    disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associate")
 
     def __init__(self, DNI_number, DNI_type, gender, address, phone_number):
         self.DNI_number = DNI_number
