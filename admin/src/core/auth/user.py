@@ -1,15 +1,13 @@
 from datetime import datetime
 from sqlalchemy import Column, String, Integer, Boolean, Table, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base as Base
 from src.core.db import db
 
 
-user_roles = Table(
-    "association",
-    Base.metadata,
-    Column("user_id", ForeignKey("users.id"), primary_key=True),
-    Column("role_id", ForeignKey("roles.id"), primary_key=True),
-)
+#user_roles = Table(
+#    "user_roles",
+#    Column("user_id", Integer, ForeignKey("users.id"), primary_key=True),
+#    Column("role_id", Integer, ForeignKey("roles.id"), primary_key=True),
+#)
 
 class User(db.Model):
     """Modelo de los usuarios del club
@@ -32,7 +30,7 @@ class User(db.Model):
     created_at = Column(db.DateTime, default=datetime.utcnow)
     first_name = Column(String(255))
     last_name = Column(String(255))
-    roles = db.relationship("Role", secondary="user_roles", back_populates="users")
+#    roles = db.relationship("Role", secondary="user_roles", back_populates="users")
 
     def __init__(self, username, password, email, first_name, last_name, active=True):
         self.username = username
