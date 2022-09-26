@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {% block head %} 
+    {% block css %} 
+      <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
+    {% endblock css %}
+    <title>{% block title %} titulo {% endblock title %}</title>
+    {% endblock head %}
+  </head>
+  <body>
+    <nav id="navbar">
+      {% block navbar %}
+      <p>navbar</p>
+      <p>{% endblock navbar%}</p>
+    </nav>
+
+    <main id="main">
+      {% block content %}
+      <p>main</p>
+      <p>{% endblock content%}</p>
+    </main>
+
+    <footer id="footer">
+      {% block footer %}
+      <p>footer</p>
+      <p>{% endblock footer%}</p>
+    </footer>
+  </body>
+</html>

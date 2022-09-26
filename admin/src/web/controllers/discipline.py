@@ -15,8 +15,9 @@ def index():
 def add():
     discipline = Discipline(request.json)
     add_discipline(discipline)
+    return redirect(url_for("discipline.index"))
 
 @discipline_blueprint.delete("/delete/<id>")
 def delete(id):
     delete_discipline(id)
-    return redirect(url_for("discipline.index") )
+    return redirect(url_for("discipline.index"))
