@@ -1,6 +1,7 @@
 #here is where CRUD are made
 #QUESTION TO ASK TO GROUP, shall we do it in a CLASS or in different functions?
 from src.core.board.associate import Associate
+from src.core.board.discipline import Discipline
 
 
 def get_associate_by_id(associate_number):
@@ -18,3 +19,10 @@ def list_associates():
         - List of Associate objects
     """
     return Associate.query.all()
+
+def list_disciplines():
+    """ List all disciplines
+    Returns:
+        - List of Discipline objects
+    """
+    return Discipline.query.all()
