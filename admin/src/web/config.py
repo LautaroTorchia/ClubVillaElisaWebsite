@@ -1,4 +1,5 @@
 import os
+from os import environ as env
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 from dotenv import load_dotenv
@@ -9,21 +10,31 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = os.getenv("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://relderf:asd1@localhost:5432/grupo12"
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://localhost:5432/grupo12"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
     DEBUG = False
+    DB_USER = env.get("DB_USER")
+    DB_PASSWORD = env.get("DB_PASSWORD")
+    DB_HOST = env.get("DB_HOST")
+    DB_NAME = env.get("DB_NAME")
+    DB_PORT = 5432
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 class DevelopmentConfig(Config):
     ENV = "development"
     DEVELOPMENT = True
     DEBUG = True
-    BD_SERVER = "localhost"
-    DB_DATABASE = "grupo12"
-    DB_USER = ""
-    DB_PASSWORD = ""
-    SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{BD_SERVER}:5432/{DB_DATABASE}"
+    DB_USER = env.get("DB_USER")
+    DB_PASSWORD = env.get("DB_PASSWORD")
+    DB_HOST = env.get("DB_HOST")
+    DB_NAME = env.get("DB_NAME")
+    DB_PORT = 5432
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
 
 class TestingConfig(Config):
     TESTING = True
@@ -33,4 +44,4 @@ def get_config():
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-    }
+}
