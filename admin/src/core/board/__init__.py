@@ -40,7 +40,8 @@ def delete_discipline(id):
     Returns:
         - Get discipline by id
     """
-    return get_discipline(id).delete()
+    db.session.query(Discipline).filter(Discipline.id == id).delete()
+    db.session.commit()
 
 def update_discipline(discipline_data):
     """ Get discipline

@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request
-from src.core.board import list_disciplines, add_discipline
+from flask import Blueprint, render_template, request, redirect, url_for
+from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
 from src.core.board.discipline import Discipline
 
 
@@ -15,3 +15,8 @@ def index():
 def add():
     discipline = Discipline(request.json)
     add_discipline(discipline)
+
+@discipline_blueprint.delete("/delete/<id>")
+def delete(id):
+    delete_discipline(id)
+    return redirect(url_for("discipline.index") )
