@@ -1,12 +1,14 @@
 from flask import Flask, render_template
 from src.web.config import get_config
 from src.core.db import db, init_db
+from src.web.helpers import handlers
 
 def create_app(env="development", static_url_path="/static", template_folder="templates"):
     config = get_config()
     app = Flask(__name__, static_url_path=static_url_path, template_folder=template_folder)
     
     app.config.from_object(config[env])
+    app.register_error_handler(404, handlers.not_found_error)
 
     with app.app_context():
         init_db(app)
