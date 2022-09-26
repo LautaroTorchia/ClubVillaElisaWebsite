@@ -23,13 +23,13 @@ class Discipline(db.Model):
 
     associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
 
-    def __init__(self, name, category, instructors, dates, monthly_cost, available):
-        self.name = name
-        self.category = category
-        self.instructors = instructors
-        self.dates = dates
-        self.monthly_cost = monthly_cost
-        self.available = available
+    def __init__(self, discipline_data):
+        self.name=discipline_data["name"]
+        self.category=discipline_data["category"]
+        self.instructors=discipline_data["instructors"]
+        self.dates=discipline_data["dates"]
+        self.monthly_cost=discipline_data["monthly_cost"]
+        self.available=bool(discipline_data["available"])
 
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 

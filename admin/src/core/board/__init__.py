@@ -1,8 +1,9 @@
 #here is where CRUD are made
 #QUESTION TO ASK TO GROUP, shall we do it in a CLASS or in different functions?
+from dis import dis
 from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
-
+from src.core.db import db
 
 def get_associate_by_id(associate_number):
     """ Get associate by id
@@ -26,3 +27,32 @@ def list_disciplines():
         - List of Discipline objects
     """
     return Discipline.query.all()
+
+def get_discipline(id):
+    """ Get discipline
+    Returns:
+        - Get discipline by id
+    """
+    return Discipline.query.get(id)
+
+def delete_discipline(id):
+    """ Get discipline
+    Returns:
+        - Get discipline by id
+    """
+    return get_discipline(id).delete()
+
+def update_discipline(discipline_data):
+    """ Get discipline
+    Returns:
+        - Get discipline by id
+    """
+    return get_discipline(discipline_data.id).update(discipline_data)
+
+def add_discipline(discipline_data):
+    """ Add discipline
+    Returns:
+        - Add discipline
+    """
+    db.session.add(discipline_data )
+    db.session.commit()
