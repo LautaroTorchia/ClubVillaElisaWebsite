@@ -42,7 +42,7 @@ class Associate(db.Model):
     users = db.relationship("User")
     user_id = Column(Integer, db.ForeignKey("users.id"), nullable=False)
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
-    disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associate")
+    disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 
     def __init__(self, DNI_number, DNI_type, gender, address, phone_number):
         self.DNI_number = DNI_number

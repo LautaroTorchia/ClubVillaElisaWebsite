@@ -18,7 +18,7 @@ class Role(db.Model):
     name = Column(String)
 
     users = db.relationship("User", secondary="user_roles", back_populates="roles")
-    permissions = db.relationship("Permission", secondary="roles_permissions", back_populates="roles")
+    permissions = db.relationship("Permission", secondary="roles_permissions")
 
     def __init__(self, name):
         self.name = name
