@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {% block head %}
+{% extends "base.html" %}
+  {% block css %} 
     <link rel="stylesheet" href="{{ url_for('static', filename='error.css') }}" />
-    {% endblock %}
-    <title>Error!</title>
-  </head>
+    {% endblock css %}
+    {% block title %} Error! {% endblock title %}
+
   <body>
+    {% block content %}
     <h1>{{ error_name }}</h1>
     <p class="zoom-area"><b>Error!</b> {{ error_description }} </p>
       <div class="link-container">
         <a href="{{ url_for('home') }}" class="more-link">Go to the homepage</a>
       </div>
+    {% endblock content %}
   </body>
-</html>

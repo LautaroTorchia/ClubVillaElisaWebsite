@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    {% block head %} 
-    {% block css %} 
-      <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    {% block css %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='base.css') }}" />
     {% endblock css %}
-    <title>{% block title %} titulo {% endblock title %}</title>
-    {% endblock head %}
+    <title>{% block title %} Club Villa Elisa {% endblock title %}</title>
   </head>
-  <body>
-    <nav id="navbar">
-      {% block navbar %}
-      <p>navbar</p>
-      <p>{% endblock navbar%}</p>
-    </nav>
 
-    <main id="main">
-      {% block content %}
-      <p>main</p>
-      <p>{% endblock content%}</p>
-    </main>
+  {% include "navbar.html" %}
 
-    <footer id="footer">
-      {% block footer %}
-      <p>footer</p>
-      <p>{% endblock footer%}</p>
-    </footer>
-  </body>
+  <main id="main">{% block content %} {% endblock content%}</main>
+
+  <footer id="footer">
+    {% block footer %}
+    <p>{% endblock footer%}</p>
+  </footer>
 </html>

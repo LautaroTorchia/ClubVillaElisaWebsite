@@ -19,11 +19,11 @@ def create_app(env="development", static_url_path="/static", template_folder="te
     def home():
         return render_template('index.html')
     @app.get("/listado_socios")
-    def listado_socios():
-        return render_template('listado_socios.html')
+    def associates_list():
+        return render_template('associates_list.html')
     @app.get("/configuracion")
-    def configuracion():
-        return render_template('configuracion.html')
+    def configuration():
+        return render_template('configuration.html')
     @app.get("/public_index")
     def public_home():
         return render_template('public_index.html')
