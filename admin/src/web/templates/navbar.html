@@ -29,53 +29,57 @@
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-            {% if current_template == "index.html" %}
-                <a class="nav-link active" href="#">Home</a>
-            {% else %}
-                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-            {% endif %}
+          {% if current_template == "index.html" %}
+          <a class="nav-link active" href="#">Home</a>
+          {% else %}
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          {% endif %}
         </li>
         <li class="nav-item">
-            {% if current_template == "users.html" %}
-                <a class="nav-link active" href="#">Usuarios</a>
-                {% else %}
-                <a class="nav-link" href="users.html">Usuarios</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-        {% if current_template == "disciplines.html" %}
-                <a class="nav-link active" href="#">Disciplinas</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('discipline.index') }}">Disciplinas</a>
-        {% endif %}
+          {% if current_template == "users.html" %}
+          <a class="nav-link active" href="#">Usuarios</a>
+          {% else %}
+          <a class="nav-link" href="users.html">Usuarios</a>
+          {% endif %}
         </li>
         <li class="nav-item">
-            {% if current_template == "associates_list.html" %}
-                <a class="nav-link active" href="#">Socies</a>
-            {% else %}
-                <a class="nav-link" href="{{ url_for('associates_list') }}">Socies</a>    
-            {% endif %}
+          {% if current_template == "disciplines.html" %}
+          <a class="nav-link active" href="#">Disciplinas</a>
+          {% else %}
+          <a class="nav-link" href="{{ url_for('discipline.index') }}"
+            >Disciplinas</a
+          >
+          {% endif %}
         </li>
         <li class="nav-item">
-            {% if current_template == "payments.html" %}
-                <a class="nav-link active" href="#">Pagos</a>
-            {% else %}
-                <a class="nav-link" href="payments.html">Pagos</a>
-            {% endif %}
+          {% if current_template == "associates_list.html" %}
+          <a class="nav-link active" href="#">Socies</a>
+          {% else %}
+          <a class="nav-link" href="{{ url_for('associates_list') }}">Socies</a>
+          {% endif %}
         </li>
         <li class="nav-item">
-            {% if current_template == "configuration.html" %}
-                <a class="nav-link active" href="#">Configuración</a>
-            {% else %}
-                <a class="nav-link" href="{{ url_for('configuration') }}">Configuración</a>
-            {% endif %}
+          {% if current_template == "payments.html" %}
+          <a class="nav-link active" href="#">Pagos</a>
+          {% else %}
+          <a class="nav-link" href="payments.html">Pagos</a>
+          {% endif %}
+        </li>
+        <li class="nav-item">
+          {% if current_template == "configuration.html" %}
+          <a class="nav-link active" href="#">Configuración</a>
+          {% else %}
+          <a class="nav-link" href="{{ url_for('configuration') }}"
+            >Configuración</a
+          >
+          {% endif %}
         </li>
       </ul>
-      
+
       <a
         class="btn btn-primary shadow"
         role="button"
-        href="signup.html"
+        href="{{ url_for('public_home') }}"
         style="border-radius: 5px"
         >Cerrar sesión</a
       >
