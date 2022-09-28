@@ -16,6 +16,9 @@ def create_app(env="development", static_url_path="/static", template_folder="te
         database.init_app(app)
 
     @app.get("/")
+    def bar():
+        return render_template('index.html')
+    @app.get("/home")
     def home():
         return render_template('index.html')
     @app.get("/listado_socios")
@@ -27,6 +30,10 @@ def create_app(env="development", static_url_path="/static", template_folder="te
     @app.get("/public_index")
     def public_home():
         return render_template('public_index.html')
+    @app.get("/signup")
+    def signup():
+        return render_template('signup.html')
+
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         database.db.session.remove()
