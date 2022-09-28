@@ -16,7 +16,7 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     DB_USER = env.get("DB_USER")
-    DB_PASSWORD = env.get("DB_PASSWORD")
+    DB_PASSWORD = env.get("DB_PASS")
     DB_HOST = env.get("DB_HOST")
     DB_NAME = env.get("DB_NAME")
     DB_PORT = 5432
