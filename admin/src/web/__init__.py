@@ -4,7 +4,7 @@ import src.core.db as database
 from src.web.controllers.discipline import discipline_blueprint
 from src.web.helpers import handlers
 
-def create_app(env="development", template_folder="templates"):
+def create_app(env="development", static_url_path="/static", template_folder="templates"):
     config = get_config()
     app = Flask(__name__, static_url_path="/static", template_folder=template_folder)
     
