@@ -5,24 +5,13 @@
 {% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
 
 {% block content %}
-    <form method="POST" class="d-flex flex-column"> 
-        <input type="text" name="name" placeholder="nombre" required>
-        <input type="text" name="surname" placeholder="apellido" required>
-        <input type="email" name="email" placeholder="email" required>
-        <input type="number" name="DNI_number" placeholder="DNI" required>
-        <select required name="DNI_type"> 
-            <option value="DNI">DNI</option>
-            <option value="LC">LC</option>
-            <option value="LE">LE</option>
-        </select>
-        <select required name="gender"> 
-            <option value="male">Hombre</option>
-            <option value="female">Mujer</option>
-            <option value="other">Otro</option>
-        </select>
-        <input type="text" name="address" placeholder="direccion" required>
-        <input type="number" name="phone_number" placeholder="telefono">
-        <input type="submit" value="Agregar Asociado">
+    <form action="" method="POST" class="d-flex flex-column"> 
+        {% for field in form %}
+            <tr>
+                <th>{{ field.label }}</th>
+                <td>{{ field }}</td>
+            </tr>
+        {% endfor %}
     </form>
 
     

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
 from src.core.board.associate import Associate
+from src.web.forms.associate import AssociateForm
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -15,7 +16,7 @@ def index():
 #adding associates
 @associate_blueprint.get("/add")
 def get_add():
-    return render_template("associate/add.html")
+    return render_template("associate/add.html",form=AssociateForm())
 
 @associate_blueprint.post("/add")
 def post_add():
