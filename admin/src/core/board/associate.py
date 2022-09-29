@@ -44,12 +44,12 @@ class Associate(db.Model):
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
     disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 
-    def __init__(self, DNI_number, DNI_type, gender, address, phone_number):
-        self.DNI_number = DNI_number
-        self.DNI_type = DNI_type
-        self.gender = gender
-        self.address = address
-        self.phone_number = phone_number
+    def __init__(self, **data):
+        self.DNI_number = data["DNI_number"]
+        self.DNI_type = data["DNI_type"]
+        self.gender = data["gender"]
+        self.address = data["address"]
+        self.phone_number = data["phone_number"]
         self.entry_date=datetime.utcnow
 
     def __repr__(self):
