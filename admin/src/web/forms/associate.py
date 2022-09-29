@@ -14,6 +14,6 @@ class AssociateForm(Form):
     add_associate= SubmitField('Agregar Asociado')
     
     
-    def validate_age(form, field):
+    def validate_DNI_number(form, field):
         if field.data < 13:
             raise ValidationError("We're sorry, you must be 13 or older to register")

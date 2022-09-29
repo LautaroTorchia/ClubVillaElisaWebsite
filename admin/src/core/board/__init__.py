@@ -21,6 +21,16 @@ def list_associates():
     """
     return Associate.query.all()
 
+def create_associate(form):
+    """ Create associate
+    Returns:
+        - Create associate
+    """
+    associate = Associate(**form.data)
+    db.session.add(associate)
+    db.session.commit()
+    return associate
+
 def list_disciplines():
     """ List all disciplines
     Returns:

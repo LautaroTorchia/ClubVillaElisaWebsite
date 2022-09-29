@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
+from src.core.board import create_associate, delete_discipline
 from src.core.board.associate import Associate
 from src.web.forms.associate import AssociateForm
 
@@ -20,10 +20,10 @@ def get_add():
 
 @associate_blueprint.post("/add")
 def post_add():
-    
-    #QUEDA CHECKEAR SI PUEDO USAR FLASK-WTF
-    associate = Associate(request.json)
-    return redirect(url_for("discipline.index"))
+    form = AssociateForm(request.form)
+    if form.validate():
+        create_associate(form)
+    return redirect(url_for("associate.index"))
 
 
 #deleting associates

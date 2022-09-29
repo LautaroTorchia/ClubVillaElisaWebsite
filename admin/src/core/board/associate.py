@@ -39,8 +39,8 @@ class Associate(db.Model):
     phone_number= Column(Integer,nullable=True)
     entry_date=Column(db.DateTime)
 
-    users = db.relationship("User")
-    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=False)
+    user = db.relationship("User")
+    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=True)
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
     disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 
@@ -50,9 +50,9 @@ class Associate(db.Model):
         self.gender = data["gender"]
         self.address = data["address"]
         self.phone_number = data["phone_number"]
-        self.entry_date=datetime.utcnow
+        self.entry_date=datetime.utcnow()
 
     def __repr__(self):
         #TODO add user relation  
-        return f"""con el dni {self.DNI_number} con el correo {self.email}, del genero {self.gender}"""
+        return f"""con el dni {self.DNI_number} con el correo {self.user.email}, del genero {self.gender}"""
         
