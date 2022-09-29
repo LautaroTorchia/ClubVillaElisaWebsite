@@ -36,7 +36,7 @@ class Associate(db.Model):
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
     gender = Column(Enum(GenderOptions,validate_string=True))
     address = Column(String(255))
-    phone_number= Column(Integer,nullable=True)
+    phone_number= Column(String,nullable=True)
     entry_date=Column(db.DateTime)
 
     user = db.relationship("User")

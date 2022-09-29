@@ -10,7 +10,7 @@ class AssociateForm(Form):
     DNI_type  = SelectField('Tipo de documento', choices=[('DNI', 'DNI'), ('LC', 'LC'), ('LE', 'LE')],validators=[validators.input_required()])
     gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
     address = StringField('Direccion', validators=[validators.input_required()])
-    phone_number = IntegerField('Telefono')
+    phone_number = StringField('Telefono')
     add_associate= SubmitField('Agregar Asociado')
     
     

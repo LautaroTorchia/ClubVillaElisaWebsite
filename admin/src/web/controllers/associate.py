@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.core.board import create_associate, delete_discipline
+from src.core.board import create_associate, delete_discipline, list_associates
 from src.core.board.associate import Associate
 from src.web.forms.associate import AssociateForm
 
@@ -10,7 +10,7 @@ associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 #Listing associates
 @associate_blueprint.route("/")
 def index():
-    return render_template("associate/list.html")
+    return render_template("associate/list.html", associates=list_associates())
 
 
 #adding associates

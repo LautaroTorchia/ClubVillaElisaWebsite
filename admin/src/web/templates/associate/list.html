@@ -75,195 +75,32 @@ self._TemplateReference__context.name %}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Perez</td>
-          <td>12345678</td>
-          <td>56 y 9</td>
-          <td>activo</td>
-          <td>Basket, Futbol</td>
-          <td>
-            <button
-              class="btn btn-outline-info w-100 p-1"
-              style="border-radius: 5px">
-              Modificar
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger w-100 p-1"
-              style="border-radius: 5px">
-              Eliminar
-            </button>
-          </td>
-        </tr>
+        {% for associate in associates %}
+          <tr>
+            <td> EMPTY FOR NOW </td>
+            <td> {{ associate.DNI_number }} </td>
+            <td> {{ associate.address }} </td>
+            <td> EMPTY FOR NOW </td>
+            <td  {% for disciplina in associate.disciplines %} 
+                {{ disciplina }} , 
+                {% endfor %}
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-info w-100 p-1"
+                style="border-radius: 5px">
+                Modificar
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-danger w-100 p-1"
+                style="border-radius: 5px">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
   </section>
