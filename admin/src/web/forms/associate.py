@@ -1,3 +1,4 @@
+from core.board import get_associate_by_DNI
 from wtforms.form import Form
 from wtforms import StringField, SubmitField, SelectField, IntegerField,validators
 from wtforms.validators import ValidationError
@@ -15,5 +16,8 @@ class AssociateForm(Form):
     
     
     def validate_DNI_number(form, field):
-        if field.data < 13:
-            raise ValidationError("We're sorry, you must be 13 or older to register")
+        try:
+            get_associate_by_DNI(field.data)
+            raise ValidationError('DNI ya registrado')
+        except:
+            return True

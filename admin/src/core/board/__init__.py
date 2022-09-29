@@ -14,6 +14,15 @@ def get_associate_by_id(associate_number):
     """
     return Associate.query.get(associate_number)
 
+def get_associate_by_DNI(DNI_number):
+    """ Get associate by DNI
+    Args:
+        - DNI_number (integer): Associate DNI number
+    Returns:
+        - Associate object
+    """
+    return Associate.query.filter_by(DNI_number=DNI_number).first()
+
 def list_associates():
     """ List all associates
     Returns:
