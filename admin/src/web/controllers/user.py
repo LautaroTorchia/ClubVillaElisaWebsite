@@ -8,13 +8,13 @@ user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 def index():
     return f"<p>users {list_users()} index<p>"
 
-@user_blueprint.post("/add")
+@user_blueprint.post("/add", methods=["POST"])
 def add():
     user = User(request.json)
     add_user(user)
     return redirect(url_for("user.index"))
 
-@user_blueprint.delete("/delete/<id>")
+@user_blueprint.delete("/delete/<id>", methods=["DELETE"])
 def delete(id):
     delete_user(id)
     return redirect(url_for("user.index"))
