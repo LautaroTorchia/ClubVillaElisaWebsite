@@ -36,23 +36,23 @@ class Associate(db.Model):
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
     gender = Column(Enum(GenderOptions,validate_string=True))
     address = Column(String(255))
-    phone_number= Column(Integer,nullable=True)
+    phone_number= Column(String,nullable=True)
     entry_date=Column(db.DateTime)
 
-    users = db.relationship("User")
-    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=False)
+    user = db.relationship("User")
+    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=True)
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
     disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 
-    def __init__(self, DNI_number, DNI_type, gender, address, phone_number):
-        self.DNI_number = DNI_number
-        self.DNI_type = DNI_type
-        self.gender = gender
-        self.address = address
-        self.phone_number = phone_number
-        self.entry_date=datetime.utcnow
+    def __init__(self, **data):
+        self.DNI_number = data["DNI_number"]
+        self.DNI_type = data["DNI_type"]
+        self.gender = data["gender"]
+        self.address = data["address"]
+        self.phone_number = data["phone_number"]
+        self.entry_date=datetime.utcnow()
 
     def __repr__(self):
         #TODO add user relation  
-        return f"""con el dni {self.DNI_number} con el correo {self.email}, del genero {self.gender}"""
+        return f"""con el dni {self.DNI_number} con el correo {self.user.email}, del genero {self.gender}"""
         
