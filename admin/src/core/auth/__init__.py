@@ -17,13 +17,15 @@ def list_users():
     """
     return User.query.all()
 
-def add_user(user_data):
-    """ Add user
+def create_user(form):
+    """ Create user
     Returns:
-        - Add user
+        - Create user
     """
-    db.session.add(user_data)
+    user = User(**form.data)
+    db.session.add(user)
     db.session.commit()
+    return user
 
 def delete_user(user_id):
     """ Delete user
