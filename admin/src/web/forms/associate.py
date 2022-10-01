@@ -7,6 +7,9 @@ from wtforms.validators import ValidationError
 
 class AssociateForm(Form):
     
+    name= StringField('Nombre', validators=[validators.DataRequired()])
+    surname= StringField('Apellido', validators=[validators.DataRequired()])
+    email= StringField('Email')
     DNI_number = IntegerField('DNI', validators=[validators.input_required()])
     DNI_type  = SelectField('Tipo de documento', choices=[('DNI', 'DNI'), ('LC', 'LC'), ('LE', 'LE')],validators=[validators.input_required()])
     gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
