@@ -34,3 +34,17 @@ def delete_user(user_id):
     """
     db.session.query(User).filter(User.id == user_id).delete()
     db.session.commit()
+
+def update_user(user_id, form):
+    """ Update user
+    Returns:
+        - Update user
+    """
+    user = get_user_by_id(user_id)
+    user.username = form.username.data
+    user.password = form.password.data
+    user.email = form.email.data
+    user.first_name = form.first_name.data
+    user.last_name = form.last_name.data
+    db.session.commit()
+    return user

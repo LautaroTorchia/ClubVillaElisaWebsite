@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, url_for, request, render_template
-from src.core.auth import create_user, list_users, get_user_by_id, delete_user
+from src.core.auth import create_user, list_users, update_user, delete_user
 from src.core.auth.user import User
 from src.web.forms.user import UserForm
 
@@ -17,8 +17,6 @@ def get_add():
 @user_blueprint.post("/add")
 def post_add():
     form = UserForm(request.form)
-    print(form.data)
-    print(form.validate())
     if form.validate():
         create_user(form)
     return redirect(url_for("user.index"))
@@ -30,7 +28,9 @@ def delete(id):
 
 @user_blueprint.post("/modify/<id>")
 def modify(id):
-    delete_user(id)
+    form = UserForm(request.form)
+    if form.validate():
+        update_user(id, form)
     return redirect(url_for("user.index"))
 
     
