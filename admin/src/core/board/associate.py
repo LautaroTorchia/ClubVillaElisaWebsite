@@ -60,5 +60,5 @@ class Associate(db.Model):
 
     def __repr__(self):
         #TODO add user relation  
-        return f"""con el dni {self.DNI_number} con el correo {self.user.email}, del genero {self.gender}"""
+        return f"""con el dni {self.DNI_number} con el correo {self.email}, del genero {self.gender}"""
         

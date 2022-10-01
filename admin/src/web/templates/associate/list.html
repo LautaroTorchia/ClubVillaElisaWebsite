@@ -22,19 +22,20 @@
   <section
     class="d-flex d-xxl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center justify-content-xxl-center"
     style="display: flex; margin: 43px; color: rgba(45, 45, 45, 0.82)">
-    <button
-      class="btn btn-primary"
-      type="button"
-      style="
-        width: auto;
-        border-radius: 5px;
-        font-size: 20px;
-        padding: -28.4px 32px;
-        margin: 37px;
-      ">
-
-     <a href="{{ url_for('associate.get_add') }}"> Agregar Personas </a>
-    </button>
+    <a href="{{ url_for('associate.get_add') }}">
+      <button
+        class="btn btn-primary"
+        type="button"
+        style="
+          width: auto;
+          border-radius: 5px;
+          font-size: 20px;
+          padding: -28.4px 32px;
+          margin: 37px;
+        ">
+        Agregar Personas 
+      </button>
+  </a>
     <form class="search-form" style="box-shadow: 0px 0px">
       <div class="input-group">
         <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"
@@ -141,7 +142,29 @@
         </li>
       </ul>
     </nav>
-  </section>
+  </section>  
+  <button
+    class="btn btn-primary"
+    type="button"
+    style="
+      width: auto;
+      border-radius: 5px;
+      font-size: 20px;
+      padding: -28.4px 32px;
+      margin: 37px;
+    "> Exportar a PDF 
+  </button>
+  <button
+    class="btn btn-primary"
+    type="button"
+    style="
+      width: auto;
+      border-radius: 5px;
+      font-size: 20px;
+      padding: -28.4px 32px;
+      margin: 37px;
+    "> Exportar a Excel 
+</button>
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
   {% endblock content%}

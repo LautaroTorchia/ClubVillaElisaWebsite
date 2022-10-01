@@ -5,7 +5,7 @@ from wtforms.validators import ValidationError
 
 
 
-class AssociateForm(Form):
+class CreateAssociateForm(Form):
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
@@ -19,8 +19,20 @@ class AssociateForm(Form):
     
     
     def validate_DNI_number(form, field):
-        try:
-            get_associate_by_DNI(field.data)
+        print("validating DNI")
+        print(get_associate_by_DNI(field.data))
+        if get_associate_by_DNI(field.data):
             raise ValidationError('DNI ya registrado')
-        except:
-            return True
+        return True
+
+
+class ModifyAssociateForm(Form):
+    
+    name= StringField('Nombre', validators=[validators.DataRequired()])
+    surname= StringField('Apellido', validators=[validators.DataRequired()])
+    email= StringField('Email')
+    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
+    address = StringField('Direccion', validators=[validators.input_required()])
+    phone_number = StringField('Telefono')
+    modify_associate= SubmitField('Modificar Asociado')
+    
