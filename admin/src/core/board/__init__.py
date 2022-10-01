@@ -40,6 +40,15 @@ def create_associate(form):
     db.session.commit()
     return associate
 
+def update_associate(form,id):
+    """ Update associate
+    Returns:
+        - Update associate
+    """
+    print(form.data)
+    db.session.query(Associate).filter(Associate.associate_number==id).update(form.data)
+    db.session.commit()
+
 def list_disciplines():
     """ List all disciplines
     Returns:

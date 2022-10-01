@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from src.core.board import create_associate, delete_discipline, list_associates
+from src.core.board import create_associate, delete_discipline, get_associate_by_id, list_associates, update_associate
 from src.core.board.associate import Associate
-from src.web.forms.associate import CreateAssociateForm
+from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -31,11 +31,21 @@ def post_add():
 @associate_blueprint.delete("/delete/<id>")
 def delete(id):
     delete_discipline(id)
-    return redirect(url_for("discipline.index"))
+    return redirect(url_for("associate/add.html"))
 
 #updating associates
-@associate_blueprint.get("/modify/<id>")
-def modify(id):
-    delete_discipline(id)
-    return redirect(url_for("discipline.index"))\
+@associate_blueprint.get("/update/<id>")
+def get_update(id):
+    associate=get_associate_by_id(id)
+    form=UpdateAssociateForm(obj=associate)
+    return render_template("associate/update.html",form=form)
+
+#updating associates
+@associate_blueprint.post("/update/<id>")
+def post_update(id):
+    form = UpdateAssociateForm(request.form)
+    if form.validate():
+        update_associate(form,id)
+        return redirect(url_for("associate.index"))
+    return render_template("associate/add.html", form=form)
         

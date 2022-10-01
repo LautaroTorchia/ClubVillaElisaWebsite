@@ -91,11 +91,13 @@
                 {% endif %}
             </td>
             <td>
+              <a href={{ url_for('associate.get_update' ,id=associate.associate_number) }} >
               <button
                 class="btn btn-outline-info w-100 p-1"
                 style="border-radius: 5px">
                 Modificar
               </button>
+              </a>
             </td>
             <td>
               <button

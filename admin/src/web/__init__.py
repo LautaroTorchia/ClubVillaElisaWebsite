@@ -26,10 +26,6 @@ def create_app(env="development", static_url_path="/static", template_folder="te
     @app.get("/home")
     def home():
         return render_template('index.html')
-    
-    @app.get("/listado_socios")
-    def associates_list():
-        return render_template('associates_list.html')
     @app.get("/configuracion")
     def configuration():
         return render_template('configuration.html')

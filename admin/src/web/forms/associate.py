@@ -15,7 +15,6 @@ class CreateAssociateForm(Form):
     gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
     address = StringField('Direccion', validators=[validators.input_required()])
     phone_number = StringField('Telefono')
-    add_associate= SubmitField('Agregar Asociado')
     
     
     def validate_DNI_number(form, field):
@@ -26,7 +25,7 @@ class CreateAssociateForm(Form):
         return True
 
 
-class ModifyAssociateForm(Form):
+class UpdateAssociateForm(Form):
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
@@ -34,5 +33,4 @@ class ModifyAssociateForm(Form):
     gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
     address = StringField('Direccion', validators=[validators.input_required()])
     phone_number = StringField('Telefono')
-    modify_associate= SubmitField('Modificar Asociado')
     
