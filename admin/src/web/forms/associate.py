@@ -1,6 +1,6 @@
 from core.board import get_associate_by_DNI
 from wtforms.form import Form
-from wtforms import StringField, SubmitField, SelectField, IntegerField,validators
+from wtforms import StringField, SubmitField, SelectField, IntegerField, validators
 from wtforms.validators import ValidationError
 
 
