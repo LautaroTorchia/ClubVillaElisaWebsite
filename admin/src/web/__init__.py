@@ -21,6 +21,7 @@ def create_app(env="development", static_url_path="/static", template_folder="te
     with app.app_context():
         database.init_app(app)
 
+    #Routes
     @app.get("/")
     def bar():
         return render_template('home.html')

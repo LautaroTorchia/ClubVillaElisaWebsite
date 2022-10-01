@@ -17,6 +17,8 @@ def get_add():
 @user_blueprint.post("/add")
 def post_add():
     form = UserForm(request.form)
+    print(form.data)
+    print(form.validate())
     if form.validate():
         create_user(form)
     return redirect(url_for("user.index"))
@@ -30,4 +32,5 @@ def delete(id):
 def modify(id):
     delete_user(id)
     return redirect(url_for("user.index"))
+
     
