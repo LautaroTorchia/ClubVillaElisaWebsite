@@ -36,6 +36,6 @@ def get_update(id):
 def post_update(id):
     form = UpdateUserForm(request.form)
     if form.validate():
-        update_user(form, id)
+        update_user(id, dict(request.form))
         return redirect(url_for("user.index"))
     return render_template("user/update.html", form=form)

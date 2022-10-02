@@ -32,23 +32,14 @@
                     <p class="d-xl-flex justify-content-xl-center align-items-xl-center"
                         style="text-align: center;font-style: italic;">Los que tengan el * son datos que se tienen
                         <br>que rellenar obligatoriamente</p>
-                    <form action="{{ url_for('user.post_add') }}" method="post" enctype="multipart/form-data"
+                    <form method="post" enctype="multipart/form-data"
                         role="form" style="box-shadow: 0px 0px 5px;">
-                        <div class="form-group mb-3"><label class="form-label">Nombre de usuario*</label><input
-                                class="form-control form-control-sm" placeholder="*" name="username"
-                                required=""></div>
-                        <div class="form-group mb-3"><label class="form-label">Contraseña*</label><input
-                                class="form-control form-control-sm" placeholder="*" name="password" required="">
+                        {% for field in form %}
+                        <div class="form-group mb-3">
+                            <label class="form-label"> {{ field.label }}*</label>
+                            <td> {{ field }} </td>
                         </div>
-                        <div class="form-group mb-3"><label class="form-label">Email*</label><input
-                                class="form-control form-control-sm" placeholder="*" name="email"
-                                required=""></div>
-                        <div class="form-group mb-3"><label class="form-label">Nombre de pila*</label><input
-                                class="form-control form-control-sm" placeholder="*" name="first_name" required="">
-                        </div>
-                        <div class="form-group mb-3"><label class="form-label">Apellido*</label><input
-                                class="form-control form-control-sm" placeholder="*" name="last_name" required="">
-                        </div>
+                        {% endfor %}
                         <hr style="margin-top: 30px;margin-bottom: 10px;">
                         <div class="form-group mb-3">
                             <button class="btn btn-primary d-block w-100" method="POST"

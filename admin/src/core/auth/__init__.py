@@ -40,11 +40,5 @@ def update_user(user_id, form):
     Returns:
         - Update user
     """
-    user = get_user_by_id(user_id)
-    user.username = form.username.data
-    user.password = form.password.data
-    user.email = form.email.data
-    user.first_name = form.first_name.data
-    user.last_name = form.last_name.data
+    db.session.query(User).filter(User.id == user_id).update(form)
     db.session.commit()
-    return user
