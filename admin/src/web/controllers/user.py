@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, url_for, request, render_template
-from src.core.auth import create_user, list_users, update_user, delete_user
+from src.core.auth import create_user, list_users, update_user, delete_user, get_user_by_id
 from src.core.auth.user import User
-from src.web.forms.user import UserForm
+from src.web.forms.user import UserForm, UpdateUserForm
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 
@@ -26,11 +26,16 @@ def delete(id):
     delete_user(id)
     return redirect(url_for("user.index"))
 
-@user_blueprint.post("/modify/<id>")
-def modify(id):
-    form = UserForm(request.form)
-    if form.validate():
-        update_user(id, form)
-    return redirect(url_for("user.index"))
+@user_blueprint.get("/update/<id>")
+def get_update(id):
+    user = get_user_by_id(id)
+    form = UpdateUserForm(obj=user)
+    return render_template("user/update.html", form=form)
 
-    
+@user_blueprint.post("/update/<id>")
+def post_update(id):
+    form = UpdateUserForm(request.form)
+    if form.validate():
+        update_user(form, id)
+        return redirect(url_for("user.index"))
+    return render_template("user/update.html", form=form)
