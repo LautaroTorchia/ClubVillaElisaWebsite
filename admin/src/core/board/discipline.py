@@ -20,6 +20,7 @@ class Discipline(db.Model):
     dates = Column(String(255))
     monthly_cost = Column(Numeric())
     available = Column(Boolean())
+    active = Column(Boolean(), default=True)
 
     associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
 
@@ -29,7 +30,7 @@ class Discipline(db.Model):
         self.instructors=discipline_data["instructors"]
         self.dates=discipline_data["dates"]
         self.monthly_cost=discipline_data["monthly_cost"]
-        self.available=bool_checker(discipline_data["available"])
+        self.available=bool_checker(discipline_data["available"] or None)
 
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 

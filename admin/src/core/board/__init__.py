@@ -77,5 +77,5 @@ def add_discipline(discipline_data):
     Returns:
         - Add discipline
     """
-    db.session.add(discipline_data )
+    db.session.add(discipline_data)
     db.session.commit()

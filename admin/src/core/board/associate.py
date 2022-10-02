@@ -39,8 +39,8 @@ class Associate(db.Model):
     phone_number= Column(String,nullable=True)
     entry_date=Column(db.DateTime)
 
-    user = db.relationship("User")
-    user_id = Column(Integer, db.ForeignKey("users.id"), nullable=True)
+    #user = db.relationship("User")
+    #user_id = Column(Integer, db.ForeignKey("users.id"), nullable=True)
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
     disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 
