@@ -1,14 +1,22 @@
-from flask import Blueprint, redirect, url_for, request, render_template
-from src.core.auth import create_user, list_users, update_user, delete_user, get_user_by_id
+from flask import Blueprint, redirect, url_for, request, render_template, flash
+from src.core.auth import create_user, list_active_users, update_user, delete_user, get_user_by_id
 from src.core.auth.user import User
 from src.web.forms.user import UserForm, UpdateUserForm
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 
 
-@user_blueprint.route("/")
+@user_blueprint.get("/")
 def index():
-    return render_template("user/list.html", users=list_users())
+    return render_template("user/list.html", users=list_active_users())
+
+@user_blueprint.post("/")
+def post_index():
+    user_id = request.form["Delete"]
+    if list(request.form.keys())[0] == "Delete":
+        flash(f"Se elimino {get_user_by_id(user_id)}", category="alert alert-warning")
+        delete_user(user_id)
+        return redirect(request.url)
 
 @user_blueprint.get("/add")
 def get_add():
@@ -21,7 +29,7 @@ def post_add():
         create_user(form)
     return redirect(url_for("user.index"))
 
-@user_blueprint.delete("/delete/<id>")
+@user_blueprint.post("/delete/<id>")
 def delete(id):
     delete_user(id)
     return redirect(url_for("user.index"))
