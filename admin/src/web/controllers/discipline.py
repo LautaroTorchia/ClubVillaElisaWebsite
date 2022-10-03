@@ -18,7 +18,9 @@ def post_index():
     if list(request.form.keys())[0] == "Delete":
         flash(f"Se elimino {get_discipline(request.form['Delete'])}", category="alert alert-warning")
         delete_discipline(request.form["Delete"])
-    return redirect(request.url)
+        return redirect(request.url)
+    elif list(request.form.keys())[0] == "Update":
+        return redirect(url_for("discipline.get_update", id=request.form["Update"]))
 
 @discipline_blueprint.get("/add")
 def get_add():
@@ -29,16 +31,17 @@ def post_add():
     add_discipline(Discipline(request.form))
     return redirect(url_for("discipline.index"))
 
-@discipline_blueprint.put("/update/<id>")
-def update(id):
+@discipline_blueprint.get("/update/<id>")
+def get_update(id):
+    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id)))
+
+
+@discipline_blueprint.post("/update/<id>")
+def put_update(id):
     form = dict(request.form)
+    form.pop("csrf_token")
     form["available"] = bool_checker(form["available"])
     update_discipline(id,form)
-    return redirect(url_for("discipline.index"))
-
-@discipline_blueprint.delete("/delete/<id>")
-def delete(id):
-    
     return redirect(url_for("discipline.index"))
 
 def bool_checker(attribute):

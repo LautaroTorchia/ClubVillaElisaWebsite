@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% set current_template = self._TemplateReference__context.name %} 
+{% block css %}
+{{ super() }}
+{% endblock css %} {% block title %} Agregar disciplina {% endblock title %}
+
+{% block content %}
+    <form action="#" method="POST" class="d-flex flex-column"> 
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <tr>
+            <th>{{ field.label }}</th>
+            <td>{{ field }}</td>
+        </tr>
+        {% endfor %}
+        <button type="submit">Modificar Disciplina</button>
+    </form>
+{% endblock content %}
