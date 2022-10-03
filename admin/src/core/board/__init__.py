@@ -1,11 +1,6 @@
 #here is where CRUD are made
 #QUESTION TO ASK TO GROUP, shall we do it in a CLASS or in different functions?
-<<<<<<< HEAD
-from dis import dis
-from this import d
-=======
 from src.core.board.configuration import Configuration
->>>>>>> development
 from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
