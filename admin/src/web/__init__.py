@@ -3,6 +3,7 @@ from src.web.config import get_config
 import src.core.db as database
 from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
+from src.web.controllers.configuration import configuration_blueprint
 from src.web.helpers import handlers
 
 def create_app(env="development", static_url_path="/static", template_folder="templates"):
@@ -14,6 +15,7 @@ def create_app(env="development", static_url_path="/static", template_folder="te
     #Blueprints
     app.register_blueprint(discipline_blueprint)
     app.register_blueprint(associate_blueprint)
+    app.register_blueprint(configuration_blueprint)
     
 
 

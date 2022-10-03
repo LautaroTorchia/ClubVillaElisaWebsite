@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% set current_template =
-self._TemplateReference__context.name %} 
+{% extends "base.html" %} 
+{% set current_template =  self._TemplateReference__context.name %} 
   {% block css %}
   {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
@@ -138,10 +138,7 @@ self._TemplateReference__context.name %}
       </ul>
     </nav>
   </section>
-  <script src="static/js/jquery.min.js"></script>
-  <script src="static/bootstrap/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-  <script src="static/js/bold-and-bright.js"></script>
   {% endblock content%}
 </body>
