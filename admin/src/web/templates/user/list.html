@@ -70,6 +70,7 @@
           <th>Email</th>
           <th>Usuario</th>
           <th>Contraseña</th>
+          <th>Activo</th>
           <th>Modificar</th>
           <th>Eliminar</th>
         </tr>
@@ -82,6 +83,11 @@
             <td> {{ user.email }} </td>
             <td> {{ user.username }} </td>
             <td> {{ user.password }}
+            {% if user.active %}
+              <td> Si </td>
+            {% else %}
+              <td> No </td>
+            {% endif %}
             </td>
             <td>
               <a href="{{ url_for('user.get_update' ,id=user.id ) }}">
