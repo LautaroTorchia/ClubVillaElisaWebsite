@@ -57,6 +57,7 @@
           </div>
         </form>
       </section>
+      {% include "flashes.html" %}
       <section style="margin: 43px">
         <table
           id="example"
@@ -85,17 +86,24 @@
                 </td>
                 <td>
                   <button
-                    class="btn btn-outline-info w-100 p-1"
-                    style="border-radius: 5px">
-                    Modificar
-                  </button>
-                </td>
+                  class="btn btn-outline-info w-100 p-1"
+                  style="border-radius: 5px"
+                  name = "Update"
+                  value="{{ discipline.id }}">
+                  Modificar
+                </button>
+              </td>
+              <form action="{{ url_for('discipline.post_index') }}" method="post" onSubmit="confirm('Seguro que desea eliminar {{ discipline.name }} {{ discipline.category }} ?');">         
                 <td>
-                  <button
-                    class="btn btn-outline-danger w-100 p-1"
-                    style="border-radius: 5px">
-                    Eliminar
-                  </button>
+                    <button
+                        type="submit"
+                        class="btn btn-outline-danger w-100 p-1"
+                        style="border-radius: 5px"
+                        name = "Delete"
+                        value="{{ discipline.id }}">
+                        Eliminar
+                    </button>
+                </form>
                 </td>
               </tr>
             {% endfor %}

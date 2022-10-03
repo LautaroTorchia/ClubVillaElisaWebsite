@@ -41,12 +41,19 @@ def create_associate(form):
     db.session.commit()
     return associate
 
-def list_disciplines():
+def list_inactive_disciplines():
     """ List all disciplines
     Returns:
         - List of Discipline objects
     """
-    return Discipline.query.all()
+    return Discipline.query.filter_by(active=False).all()
+
+def list_active_disciplines():
+    """ List all disciplines
+    Returns:
+        - List of Discipline objects
+    """
+    return Discipline.query.filter_by(active=True).all()
 
 def get_discipline(id):
     """ Get discipline
@@ -60,7 +67,7 @@ def delete_discipline(id):
     Returns:
         - Get discipline by id
     """
-    db.session.query(Discipline).filter(Discipline.id == id).delete()
+    db.session.query(Discipline).filter(Discipline.id == id).update({"active":False})
     db.session.commit()
 
 def update_discipline(id,discipline_data):
