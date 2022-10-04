@@ -84,19 +84,20 @@
                 <td> {{ discipline.monthly_cost }} </td>
                 <td> {{ "Si" if discipline.available else "No" }} </td>
                 </td>
-                <form action="{{ url_for('discipline.post_index') }}" method="post"> 
+                
                 <td>
-                  <button
-                    class="btn btn-outline-info w-100 p-1"
-                    style="border-radius: 5px"
-                    name = "Update"
-                    value="{{ discipline.id }}">
-                    Modificar
-                  </button>
-              </td>
-            </form>
+                  <a href="{{ url_for('discipline.update', id=discipline.id) }}">
+                    <button
+                      class = "btn btn-outline-info w-100 p-1"
+                      style = "border-radius: 5px"
+                      name = "Update"
+                      value ="{{ discipline.id }}">
+                      Modificar
+                    </button>
+                  </a>
+                </td>
               <td>
-                <form action="{{ url_for('discipline.post_index') }}" method="post" >
+                <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post" >
                       <button
                           type="submit"
                           class="btn btn-outline-danger w-100 p-1"

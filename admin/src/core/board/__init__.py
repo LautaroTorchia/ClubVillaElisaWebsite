@@ -55,7 +55,7 @@ def get_discipline(id):
     Returns:
         - Get discipline by id
     """
-    return disciplines.query.get(id)
+    return disciplines.query.filter(Discipline.id == id).one()
 
 def delete_discipline(id):
     """ Get discipline
@@ -70,7 +70,7 @@ def update_discipline(id,discipline_data):
     Returns:
         - Get discipline by id
     """
-    disciplines.query(Discipline).filter(Discipline.id == id).update(discipline_data)
+    disciplines.query.filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
 
 
@@ -80,7 +80,6 @@ def add_discipline(discipline_data):
         - Add discipline
     """
     disciplines.add(discipline_data)
-    db.session.commit()
 
 # begin config repo
 def get_cfg():

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
+from src.web.helpers.utils import bool_checker
 from src.core.db import db
-
 
 class Discipline(db.Model):
     """Modelo de las disciplinas del club
@@ -41,10 +41,3 @@ class Discipline(db.Model):
         my_dict = self.__dict__
         del my_dict['_sa_instance_state']
         return my_dict
-
-def bool_checker(attribute):
-    if type(attribute) == bool:
-        return attribute
-    if type(attribute) == str:
-        return True if attribute == "True" else False
-    raise ValueError("This should be a bool or the str values 'True' o 'False'")

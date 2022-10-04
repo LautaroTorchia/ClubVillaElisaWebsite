@@ -10,3 +10,7 @@ class ResourceManager():
      @property
      def query(self):
          return self.dbs.query(self.model_class).filter(self.model_class.deleted==False)
+
+     def add(self, obj):
+         self.dbs.add(obj)
+         self.dbs.commit()
