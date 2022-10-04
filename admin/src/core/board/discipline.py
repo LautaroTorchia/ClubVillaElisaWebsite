@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
-from src.web.helpers.utils import bool_checker
+from web.helpers.form_utils import bool_checker
 from src.core.db import db
 
 class Discipline(db.Model):
