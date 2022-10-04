@@ -1,4 +1,4 @@
-{% set current_template = self._TemplateReference__context.name.rsplit("/")[0] %} 
+{% set current_template = self._TemplateReference__context %} 
 {% extends "base.html" %} 
       {% block css %}
       {{ super() }}
