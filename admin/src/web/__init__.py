@@ -6,6 +6,7 @@ from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
 from src.web.controllers.api.configuration import configuration_api_blueprint
 from src.web.controllers.user import user_blueprint
+from src.web.controllers.auth import auth_blueprint
 from src.web.helpers import handlers
 
 
@@ -24,6 +25,7 @@ def create_app(
     app.register_blueprint(associate_blueprint)
     app.register_blueprint(configuration_blueprint)
     app.register_blueprint(user_blueprint)
+    app.register_blueprint(auth_blueprint)
     # Api
     app.register_blueprint(configuration_api_blueprint)
 
@@ -38,10 +40,6 @@ def create_app(
     @app.get("/home")
     def home():
         return render_template("home.html")
-
-    @app.get("/login")
-    def login():
-        return render_template("login.html")
 
     @app.get("/listado_socios")
     def associates_list():
