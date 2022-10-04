@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
-from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
-from src.core.board.discipline import Discipline
 from src.web.forms.discipline import DisciplineForm
-from web.helpers.form_utils import bool_checker, csrf_remover
+from src.core.board.discipline import Discipline as DisciplineModel
+from src.web.helpers.form_utils import bool_checker, csrf_remover
+from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
 
 discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
 
@@ -22,7 +22,7 @@ def get_add():
 def post_add():
     form = csrf_remover(request.form)
     form["available"] = bool_checker(form["available"])
-    add_discipline(Discipline(form))
+    add_discipline(DisciplineModel(form))
     return redirect(url_for("discipline.index"))
 
 @discipline_blueprint.get("/update/<id>")

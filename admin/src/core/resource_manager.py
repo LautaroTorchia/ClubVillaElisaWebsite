@@ -1,5 +1,3 @@
-from src.core.board.discipline import Discipline
-
 class ResourceManager():
      model_class = None
 
