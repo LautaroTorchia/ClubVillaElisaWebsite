@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          {% if current_template == "index.html" %}
+          {% if current_template == "home.html" %}
           <a class="nav-link active" href="#">Home</a>
           {% else %}
           <a class="nav-link" href="{{ url_for('home') }}">Home</a>
@@ -38,7 +38,7 @@
           {% if current_template == "users.html" %}
           <a class="nav-link active" href="#">Usuarios</a>
           {% else %}
-          <a class="nav-link" href="users.html">Usuarios</a>
+          <a class="nav-link" href="{{ url_for('user.index') }}">Usuarios</a>
           {% endif %}
         </li>
         <li class="nav-item">
@@ -68,7 +68,7 @@
           {% if current_template == "configuration.html" %}
           <a class="nav-link active" href="#">Configuración</a>
           {% else %}
-          <a class="nav-link" href="{{ url_for('configuration') }}"
+          <a class="nav-link" href="{{ url_for('configuration.index') }}"
             >Configuración</a
           >
           {% endif %}
@@ -78,7 +78,7 @@
       <a
         class="btn btn-primary shadow"
         role="button"
-        href="{{ url_for('home') }}"
+        href="{{ url_for('login') }}"
         style="border-radius: 5px"
         >Cerrar sesión</a
       >

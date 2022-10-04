@@ -6,12 +6,10 @@ from src.web.forms.associate import AssociateForm
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
 
-
 #Listing associates
 @associate_blueprint.route("/")
 def index():
     return render_template("associate/list.html", associates=list_associates())
-
 
 #adding associates
 @associate_blueprint.get("/add")
@@ -24,7 +22,6 @@ def post_add():
     if form.validate():
         create_associate(form)
     return redirect(url_for("associate.index"))
-
 
 #deleting associates
 @associate_blueprint.delete("/delete/<id>")

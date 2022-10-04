@@ -38,3 +38,6 @@ class Configuration(db.Model):
 
     def __repr__(self):
         return f"""{self.record_number} elementos en orden {self.ord_criteria}, Moneda: {self.currency}"""
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
