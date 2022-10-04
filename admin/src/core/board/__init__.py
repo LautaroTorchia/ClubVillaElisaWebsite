@@ -4,6 +4,9 @@ from src.core.board.configuration import Configuration
 from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
+from src.core.resource_manager import ResourceManager
+
+disciplines=ResourceManager(db.session,Discipline)
 
 def get_associate_by_id(associate_number):
     """ Get associate by id
@@ -40,33 +43,26 @@ def create_associate(form):
     db.session.commit()
     return associate
 
-def list_inactive_disciplines():
+def list_disciplines():
     """ List all disciplines
     Returns:
         - List of Discipline objects
     """
-    return Discipline.query.filter_by(active=False).all()
-
-def list_active_disciplines():
-    """ List all disciplines
-    Returns:
-        - List of Discipline objects
-    """
-    return Discipline.query.filter_by(active=True).all()
+    return disciplines.query.all()
 
 def get_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    return Discipline.query.get(id)
+    return disciplines.query.get(id)
 
 def delete_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    db.session.query(Discipline).filter(Discipline.id == id).update({"active":False})
+    disciplines.query.filter(Discipline.id == id).update({"deleted":True})
     db.session.commit()
 
 def update_discipline(id,discipline_data):
@@ -74,7 +70,7 @@ def update_discipline(id,discipline_data):
     Returns:
         - Get discipline by id
     """
-    db.session.query(Discipline).filter(Discipline.id == id).update(discipline_data)
+    disciplines.query(Discipline).filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
 
 
@@ -83,7 +79,7 @@ def add_discipline(discipline_data):
     Returns:
         - Add discipline
     """
-    db.session.add(discipline_data)
+    disciplines.add(discipline_data)
     db.session.commit()
 
 # begin config repo

@@ -20,7 +20,7 @@ class Discipline(db.Model):
     dates = Column(String(255))
     monthly_cost = Column(Numeric())
     available = Column(Boolean())
-    active = Column(Boolean(), default=True)
+    deleted = Column(Boolean(), default=False)
 
     associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
 

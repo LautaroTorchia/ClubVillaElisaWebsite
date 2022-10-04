@@ -25,7 +25,6 @@
       <span class="visually-hidden">Toggle navigation</span
       ><span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
@@ -43,7 +42,7 @@
           {% endif %}
         </li>
         <li class="nav-item">
-          {% if current_template == "disciplines.html" %}
+          {% if current_template == "discipline" %}
           <a class="nav-link active" href="#">Disciplinas</a>
           {% else %}
           <a class="nav-link" href="{{ url_for('discipline.index') }}"
@@ -52,7 +51,7 @@
           {% endif %}
         </li>
         <li class="nav-item">
-          {% if current_template == "associate/list.html" %}
+          {% if current_template == "associate" %}
           <a class="nav-link active" href="#">Socies</a>
           {% else %}
           <a class="nav-link" href="{{ url_for('associate.index') }}">Socies</a>
