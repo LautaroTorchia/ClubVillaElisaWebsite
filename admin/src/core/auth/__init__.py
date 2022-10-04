@@ -1,5 +1,9 @@
 from src.core.auth.user import User
 from src.core.db import db
+from passlib.hash import sha256_crypt
+from src.core.resource_manager import ResourceManager
+
+users=ResourceManager(db.session,User)
 
 def get_user_by_id(user_id):
     """ Get user by id
@@ -8,28 +12,28 @@ def get_user_by_id(user_id):
     Returns:
         - User object
     """
-    return User.query.get(user_id)
+    return users.query.get(user_id)
 
 def list_active_users():
     """ List all active users
     Returns:
         - List of User objects
     """
-    return User.query.filter(User.active == True).all()
+    return users.query.filter(User.active == True).all()
 
 def list_inactive_users():
     """ List all inactive users
     Returns:
         - List of User objects
     """
-    return User.query.filter(User.active == False).all()
+    return users.query.filter(User.active == False).all()
 
 def create_user(form):
     """ Create user
     Returns:
         - Create user
     """
-    user = User(**form.data)
+    user = User(**form)
     db.session.add(user)
     db.session.commit()
     return user
@@ -39,7 +43,7 @@ def delete_user(user_id):
     Returns:
         - Delete user
     """
-    db.session.query(User).filter(User.id == user_id).update({"active":False})
+    users.query.filter(User.id == user_id).update({"active":False})
     db.session.commit()
 
 def update_user(user_id, form):
@@ -47,5 +51,17 @@ def update_user(user_id, form):
     Returns:
         - Update user
     """
-    db.session.query(User).filter(User.id == user_id).update(form)
+    users.query.filter(User.id == user_id).update(form)
     db.session.commit()
+
+def get_by_usr_and_pwd(usr,pwd):
+    """Gets user by username and password
+    Returns:
+        - User if username and pwd are correct
+        - Else returns None
+    """
+    usr = users.query.filter(User.deleted==False,User.username==usr).first()
+    if(usr!=None and sha256_crypt.verify(pwd,usr.password)):
+        return usr
+    return None
+
