@@ -4,51 +4,57 @@ import src.core.db as database
 from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
+from src.web.controllers.api.configuration import configuration_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.helpers import handlers
 
-def create_app(env="development", static_url_path="/static", template_folder="templates"):
+
+def create_app(
+    env="development", static_url_path="/static", template_folder="templates"
+):
     config = get_config()
-    app = Flask(__name__, static_url_path=static_url_path, template_folder=template_folder)
-    
+    app = Flask(
+        __name__, static_url_path=static_url_path, template_folder=template_folder
+    )
+
     app.config.from_object(config[env])
-    
-    #Blueprints
+
+    # Controllers
     app.register_blueprint(discipline_blueprint)
     app.register_blueprint(associate_blueprint)
     app.register_blueprint(configuration_blueprint)
     app.register_blueprint(user_blueprint)
-
+    # Api
+    app.register_blueprint(configuration_api_blueprint)
 
     with app.app_context():
         database.init_app(app)
 
-    #Routes
+    # Routes
     @app.get("/")
     def bar():
-        return render_template('home.html')
+        return render_template("home.html")
+
     @app.get("/home")
     def home():
-        return render_template('home.html')
+        return render_template("home.html")
 
     @app.get("/login")
     def login():
-        return render_template('login.html')
-    
+        return render_template("login.html")
+
     @app.get("/listado_socios")
     def associates_list():
-        return render_template('associate_list.html')
-    @app.get("/configuracion")
-    def configuration():
-        return render_template('configuration.html')
+        return render_template("associate_list.html")
+
     @app.get("/public_index")
     def public_home():
-        return render_template('public_index.html')
+        return render_template("public_index.html")
 
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         database.db.session.remove()
-    
+
     @app.cli.command("resetdb")
     def resetdb():
         database.reset_db()
