@@ -32,12 +32,15 @@
     <div class="row d-flex justify-content-center" style="margin: 30px;width: auto;display: flex;">
         <div class="col-md-8 col-lg-7 col-xl-4" style="width: auto;">
             <div class="card" style="width: 600px;">
-                <div class="card-body text-center d-flex flex-column align-items-center" style="background: rgba(136,136,136,0.19);height: 525.125px;width: auto;box-shadow: 0px 4px 10px 1px;"><img src="static/img/logo_club.png" style="width: 100px;margin-bottom: 30px;">
-                    <div class="mb-3"><input class="form-control" type="email" name="User" placeholder="Usuario"></div>
+              <form action="{{ url_for('auth.authenticate') }}" method="post">
+                <div class="card-body text-center d-flex flex-column align-items-center" style="background: rgba(136,136,136,0.19);height: 525.125px;width: auto;box-shadow: 0px 4px 10px 1px;"><img src="{{ url_for('static', filename='img/logo_club.png') }}" style="width: 100px;margin-bottom: 30px;">
+                    {% include "flashes.html" %}
+                    <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="Usuario"></div>
                     <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Contraseña"></div>
-                    <div class="mb-3"><a class="btn btn-primary shadow d-block w-100" role="button" href="{{ url_for('home') }}">Iniciar sesión</a></div>
+                    <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" role="button" type="submit">Iniciar sesión</button></div>
                     <p class="text-muted">¿Olvidaste tu contraseña?</p>
                 </div>
+              </form>
             </div>
         </div>
     </div>

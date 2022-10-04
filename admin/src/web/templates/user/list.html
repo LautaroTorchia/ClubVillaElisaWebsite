@@ -49,6 +49,7 @@
       </div>
     </form>
   </section>
+  {% include "flashes.html" %}
   <section style="margin: 43px">
     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
@@ -57,7 +58,6 @@
           <th>Apellido</th>
           <th>Email</th>
           <th>Usuario</th>
-          <th>Contraseña</th>
           <th>Activo</th>
           <th>Modificar</th>
           <th>Eliminar</th>
@@ -70,7 +70,6 @@
           <td> {{ user.last_name }} </td>
           <td> {{ user.email }} </td>
           <td> {{ user.username }} </td>
-          <td> {{ user.password }}
             {% if user.active %}
           <td> Si </td>
           {% else %}
@@ -85,7 +84,7 @@
             </a>
           </td>
           <td>
-            <form action="{{ url_for('user.post_index') }}" method="post">
+            <form action="{{ url_for('user.delete',id=user.id) }}" method="post">
               <button type="submit" class="btn btn-outline-danger w-100 p-1" style="border-radius: 5px" name="Delete"
                 value="{{ user.id }}"
                 onclick="return confirm('Seguro que desea eliminar {{ user.first_name }} {{ user.last_name }} ?');">
