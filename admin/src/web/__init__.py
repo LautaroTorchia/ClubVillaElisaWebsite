@@ -12,6 +12,10 @@ from src.web.helpers import handlers
 def create_app(
     env="development", static_folder="/static", template_folder="templates"
 ):
+
+    if env == "production":
+        database.reset_db()#TODO remove this
+
     config = get_config()
     app = Flask(
         __name__, static_folder=static_folder, template_folder=template_folder
