@@ -10,11 +10,11 @@ from src.web.helpers import handlers
 
 
 def create_app(
-    env="development", static_url_path="/static", template_folder="templates"
+    env="development", static_folder="/static", template_folder="templates"
 ):
     config = get_config()
     app = Flask(
-        __name__, static_url_path=static_url_path, template_folder=template_folder
+        __name__, static_folder=static_folder, template_folder=template_folder
     )
 
     app.config.from_object(config[env])

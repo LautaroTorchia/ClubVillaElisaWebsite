@@ -30,7 +30,7 @@
           Agregar Disciplinas
         </button>
        </a>
-        <form class="search-form" style="box-shadow: 0px 0px">
+        <form action="{{ url_for('discipline.index') }}" class="search-form" style="box-shadow: 0px 0px" method="GET">
           <div class="input-group">
             <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"
               ><i class="fa fa-search"></i></span
