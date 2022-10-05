@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% set current_template = self._TemplateReference__context.name %}
+{% block css %}
+{{ super() }}
+{% endblock css %}
+{% block title %} Configuración {% endblock title %}
+
+<body>
+    {% block content %}
+    <section class="py-5">
+        <section class="py-5">
+            <div class="container">
+                <div class="row mb-5 row d-flex justify-content-center"
+                    style="margin-left: 0px;margin-right: 0px;margin-bottom: 0px;width: auto;height: 50px;">
+                    <div class="col-md-8 col-xl-6 text-center mx-auto" style="width: 450px;">
+                        <h2 class="fw-bold d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center"
+                            style="background: rgba(136,136,136,0.19);text-align: center;border-radius: 5px;border-width: 0px;border-color: var(--bs-black);margin: 0px;padding: 0;height: 60px;box-shadow: 0px 0px 10px;">
+                            Mi configuración</h2>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center" style="margin-top: 0px;">
+                    <div class="col-md-8 col-xl-6 mx-auto">
+                        <div style="width:450px; background:rgba(136,136,136,0.19); margin:auto; border-radius: 5px">
+                            <form class="p-3 p-xl-4" method="post">
+                                <div class="mb-3">
+                                    <label><b>Cantidad de elementos</b></label>
+                                    <input class="form-control" type="text" name="elementsSize" pattern="^\d*[1-9]\d*$"
+                                        value="5" style="border-radius: 5px;">
+                                </div>
+                                <div>
+                                    <label><b>Criterio de ordenación</b></label>
+                                    <select class="form-select" style="border-radius: 5px;" name="ordCriteria"
+                                        aria-label="Default select example">
+                                        <option selected>Usuario (A-Z)</option>
+                                        <option value="1">Apellido (A-Z)</option>
+                                        <option value="2">Nombre (A-Z)</option>
+                                        <option value="3">Email (A-Z)</option>
+                                    </select>
+                                </div>
+                                <div style="padding-top:14px">
+                                    <label><b>Moneda</b></label>
+                                    <select class="form-select" style="border-radius: 5px;" name="currency"
+                                        aria-label="Default select example">
+                                        <option selected>Peso argentino</option>
+                                        <option value="1">Dolar</option>
+                                        <option value="2">Guarani</option>
+                                        <option value="3">Bolivar</option>
+                                        <option value="4">Peso chileno</option>
+                                    </select>
+                                </div>
+                                <div style="padding-top:14px" class="mb-3">
+                                    <label><b>Cuota mensual base</b></label>
+                                    <input class="form-control" type="text" name="baseFee" pattern="^\d*[1-9]\d*$"
+                                        value="600" style="border-radius: 5px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label><b>Recargo por cuota adeudada (%)</b></label>
+                                    <input class="form-control" type="text" name="dueFee" pattern="^\d*[1-9]\d*$"
+                                        value="10" style="border-radius: 5px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label><b>Encabezado de recibo de pago</b></label>
+                                    <input class="form-control" type="text" name="receiptHeader" pattern="^\[a-zA-Z ]*$"
+                                        value="Club Deportivo Villa Elisa" style="border-radius: 5px;">
+                                </div>
+                                <div class="mb-3">
+                                    <label><b>Tabla de pago pública</b></label>
+                                    <select class="form-select" style="border-radius: 5px;" name="paymentTable"
+                                        aria-label="Default select example">
+                                        <option selected>Activada</option>
+                                        <option value="1">Desactivada</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary shadow d-block w-100" type="submit"
+                                        style="border-radius: 5px;font-size: 20px; margin-top:20px;">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    {% endblock content %}
+    {% block js %}
+    {{ super() }}
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    {% endblock js %}
+</body>
