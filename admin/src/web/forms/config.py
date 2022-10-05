@@ -1,13 +1,11 @@
-from tabnanny import check
-from tokenize import Number, String
-from wtform.form import Form
-from wtform import StringField, validators, SelectField, DecimalField
+from flask_wtf import FlaskForm
+from wtforms import StringField, validators, SelectField, DecimalField, IntegerField
 
-class ConfigForm(Form):
-    record_number = StringField('Numero de registro', validators=[validators.input_required()])
-    currency = SelectField('Moneda', choices=[('USD', 'Dolar'), ('EUR', 'Euro'), ('GBP', 'Libra'), ('ARS', 'Peso Argentino')], validators=[validators.input_required()])
-    base_fee = DecimalField('Tarifa base', validators=[validators.input_required()])
-    due_fee = DecimalField('Tarifa de vencimiento', validators=[validators.input_required()])
+class ConfigForm(FlaskForm):
+    record_number = IntegerField('Cantidad de filas por página', default=5, validators=[validators.input_required()])
+    currency = SelectField('Moneda', choices=[('ARS', 'Peso Argentino'), ('USD', 'Dolar')], validators=[validators.input_required()])
+    base_fee = DecimalField('Cuota mensual base', default=500, validators=[validators.input_required()])
+    due_fee = IntegerField('Recargo por cuota adeudada (%)', default=10, validators=[validators.input_required()])
     payment_available = SelectField('Tabla de pago pública', choices=[(True, 'Disponible'), (False, 'No disponible')], validators=[validators.input_required()])
-    contact = StringField('Información de contacto', validators=[validators.input_required()])
-    payment_header = StringField('Encabezado de recibos de pago', validators=[validators.input_required()])
+    contact = StringField('Información de contacto', default="Ejemplo@gmail.com", validators=[validators.input_required()])
+    payment_header = StringField('Encabezado de recibos de pago', default="Club Deportivo Villa Elisa", validators=[validators.input_required()])
