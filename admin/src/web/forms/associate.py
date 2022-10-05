@@ -1,11 +1,11 @@
 from core.board import get_associate_by_DNI
-from wtforms.form import Form
-from wtforms import StringField, SubmitField, SelectField, IntegerField,validators
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, SelectField, IntegerField, validators
 from wtforms.validators import ValidationError
 
 
 
-class CreateAssociateForm(Form):
+class CreateAssociateForm(FlaskForm):
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
@@ -25,7 +25,7 @@ class CreateAssociateForm(Form):
         return True
 
 
-class UpdateAssociateForm(Form):
+class UpdateAssociateForm(FlaskForm):
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])

@@ -167,7 +167,11 @@
       margin: 37px;
     "> Exportar a Excel 
 </button>
+  {% include "paginator.html"%}
+  {% endblock content%}
+  {% block js%}
+  {{ super() }}
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-  {% endblock content%}
+  {% endblock js%}
 </body>

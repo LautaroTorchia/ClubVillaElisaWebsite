@@ -43,6 +43,7 @@ class Associate(db.Model):
     address = Column(String(255))
     phone_number= Column(String,nullable=True)
     entry_date=Column(db.DateTime)
+    deleted = Column(Boolean(), default=False)
     payments = db.relationship("Payment", back_populates="associate", lazy=True)
     disciplines = db.relationship("Discipline", secondary="associate_disciplines", back_populates="associates")
 

@@ -3,15 +3,14 @@ from src.core.board import create_associate, delete_discipline, get_associate_by
 from src.core.board.associate import Associate
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 
-associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
+associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
 
 #Listing associates
 @associate_blueprint.route("/")
 def index():
     return render_template("associate/list.html", associates=list_associates())
-
 
 #adding associates
 @associate_blueprint.get("/add")
@@ -26,9 +25,8 @@ def post_add():
         return redirect(url_for("associate.index"))
     return render_template("associate/add.html", form=form)
 
-
 #deleting associates
-@associate_blueprint.delete("/delete/<id>")
+@associate_blueprint.post("/delete/<id>")
 def delete(id):
     delete_discipline(id)
     return redirect(url_for("associate/add.html"))

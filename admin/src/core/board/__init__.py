@@ -1,9 +1,12 @@
 #here is where CRUD are made
 #QUESTION TO ASK TO GROUP, shall we do it in a CLASS or in different functions?
-from dis import dis
+from src.core.board.configuration import Configuration
 from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
+from src.core.resource_manager import ResourceManager
+
+disciplines=ResourceManager(db.session,Discipline)
 
 def get_associate_by_id(associate_number):
     """ Get associate by id
@@ -28,7 +31,7 @@ def list_associates():
     Returns:
         - List of Associate objects
     """
-    return Associate.query.all()
+    return Associate.query.filter(Associate.deleted==False).all()
 
 def create_associate(form):
     """ Create associate
@@ -54,34 +57,93 @@ def list_disciplines():
     Returns:
         - List of Discipline objects
     """
-    return Discipline.query.all()
+    return disciplines.query.all()
 
 def get_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    return Discipline.query.get(id)
+    return disciplines.query.filter(Discipline.id == id).one()
 
 def delete_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    db.session.query(Discipline).filter(Discipline.id == id).delete()
+    disciplines.query.filter(Discipline.id == id).update({"deleted":True})
     db.session.commit()
 
-def update_discipline(discipline_data):
+def update_discipline(id,discipline_data):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    return get_discipline(discipline_data.id).update(discipline_data)
+    disciplines.query.filter(Discipline.id == id).update(discipline_data)
+    db.session.commit()
+
 
 def add_discipline(discipline_data):
     """ Add discipline
     Returns:
         - Add discipline
     """
-    db.session.add(discipline_data )
+    disciplines.add(discipline_data)
+
+# begin config repo
+def get_cfg():
+    """Get configuration
+    Returns:
+        - Gets configuration or creates it
+    """
+    try:
+        return db.session.query(Configuration).one()
+    except:
+        return add_cfg(
+            Configuration(
+                {
+                    "record_number": 6,
+                    "ord_criteria": "ALPH",
+                    "currency": "ARS",
+                    "base_fee": 100,
+                    "due_fee": 50,
+                    "payment_available": True,
+                    "contact": "villa elisa",
+                    "payment_header": "pagos",
+                }
+            )
+        )
+    # TODO discuss default values
+
+
+def add_cfg(cfg_data):
+    """Add configuration
+    Returns:
+        - Added configuration
+    """
+    db.session.add(cfg_data)
     db.session.commit()
+    return cfg_data
+
+
+def update_cfg(cfg_data):
+    """Update configuration
+    Returns:
+        - Updated configuration
+    """
+    cfg = get_cfg()
+    cfg.record_number = cfg_data.record_number
+    cfg.ord_criteria = cfg_data.ord_criteria
+    cfg.currency = cfg_data.currency
+    cfg.base_fee = cfg_data.base_fee
+    cfg.due_fee = cfg_data.due_fee
+    cfg.payment_available = cfg_data.payment_available
+    cfg.contact = cfg_data.contact
+    cfg.payment_header = cfg_data.payment_header
+
+    # TODO change this
+    db.session.commit()
+    return cfg_data
+
+
+# end config repo

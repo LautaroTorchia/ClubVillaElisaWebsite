@@ -7,6 +7,7 @@ from src.core.board.discipline import Discipline
 from src.core.board.associate import Associate
 from src.core.auth.role import Role
 from src.core.board.payment import Payment
+from src.core.board.configuration import Configuration
 from src.core.auth.permission import Permission
 
 def init_app(app):

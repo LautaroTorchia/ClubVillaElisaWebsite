@@ -6,11 +6,12 @@
 
 {% block content %}
     <form method="POST" class="d-flex flex-column"> 
-        {% for field in form %}
-            <tr>
-                <th>{{ field.label }}</th>
-                <td>{{ field }}</td>
-            </tr>
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <tr>
+            <th>{{ field.label }}</th>
+            <td>{{ field }}</td>
+        </tr>
         {% endfor %}
         {% for field, errors in form.errors.items() %}
             <small class="form-text text-muted ">
