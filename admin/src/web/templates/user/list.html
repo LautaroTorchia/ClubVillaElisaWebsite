@@ -83,7 +83,7 @@
             </a>
           </td>
           <td>
-            <form action="{{ url_for('user.post_index') }}" method="post">
+            <form action="{{ url_for('user.delete', id=user.id) }}" method="post">
               <button type="submit" class="btn btn-outline-danger w-100 p-1" style="border-radius: 5px" name="Delete"
                 value="{{ user.id }}"
                 onclick="return confirm('Seguro que desea eliminar {{ user.first_name }} {{ user.last_name }} ?');">
