@@ -31,7 +31,7 @@ def post_add():
 def delete(id):
     flash(f"Se elimino al asociado satisfactoriamente", category="alert alert-warning")
     delete_associate(id)
-    return redirect(url_for("discipline.index"))
+    return redirect(url_for("associate.index"))
 
 #updating associates
 @associate_blueprint.get("/update/<id>")
