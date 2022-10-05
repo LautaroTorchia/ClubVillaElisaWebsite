@@ -24,7 +24,7 @@ def get_associate_by_DNI(DNI_number):
     Returns:
         - Associate object
     """
-    return Associate.query.filter_by(DNI_number=DNI_number).first()
+    return Associate.query.filter(Associate.DNI_number == DNI_number, Associate.deleted == False).first()
 
 def list_associates():
     """ List all associates
@@ -48,7 +48,6 @@ def update_associate(form,id):
     Returns:
         - Update associate
     """
-    print(form.data)
     db.session.query(Associate).filter(Associate.associate_number==id).update(form.data)
     db.session.commit()
 

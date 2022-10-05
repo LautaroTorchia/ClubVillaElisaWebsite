@@ -37,7 +37,7 @@ class Associate(db.Model):
     surname= Column(String(50), nullable=False)
     active=Column(Boolean, default=True)
     email=Column(String(50), nullable=False)
-    DNI_number = Column(Integer,unique=True)
+    DNI_number = Column(Integer, nullable=False)
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
     gender = Column(Enum(GenderOptions,validate_string=True))
     address = Column(String(255))

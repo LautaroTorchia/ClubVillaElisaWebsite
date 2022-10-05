@@ -18,8 +18,6 @@ class CreateAssociateForm(FlaskForm):
     
     
     def validate_DNI_number(form, field):
-        print("validating DNI")
-        print(get_associate_by_DNI(field.data))
         if get_associate_by_DNI(field.data):
             raise ValidationError('DNI ya registrado')
         return True
