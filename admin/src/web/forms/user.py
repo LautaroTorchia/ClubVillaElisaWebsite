@@ -1,7 +1,5 @@
-from core.auth import get_user_by_id
 from wtforms.form import Form
-from wtforms import StringField, SubmitField, SelectField, IntegerField, validators,PasswordField
-from wtforms.validators import ValidationError
+from wtforms import StringField, validators,PasswordField
 
 class UserForm(Form):
     first_name = StringField('Nombre', validators=[validators.input_required()])
