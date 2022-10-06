@@ -4,6 +4,7 @@
 {{ super() }}
 {% endblock css %} {% block title %} Agregar disciplina {% endblock title %}
 
+<body>
 {% block content %}
     <form action="#" method="POST" class="d-flex flex-column"> 
         {{ form.hidden_tag() }}
@@ -16,3 +17,4 @@
         <button type="submit">Modificar Disciplina</button>
     </form>
 {% endblock content %}
+</body>

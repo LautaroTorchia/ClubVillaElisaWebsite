@@ -10,14 +10,6 @@ user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 def index():
     return render_template("user/list.html", users=list_active_users())
 
-@user_blueprint.post("/")
-def post_index():
-    user_id = request.form["Delete"]
-    if list(request.form.keys())[0] == "Delete":
-        flash(f"Se elimino {get_user_by_id(user_id)}", category="alert alert-warning")
-        delete_user(user_id)
-        return redirect(request.url)
-
 @user_blueprint.get("/add")
 def get_add():
     return render_template("user/add.html")

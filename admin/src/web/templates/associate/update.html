@@ -3,7 +3,7 @@
 {% block css %}
 {{ super() }}
 {% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
-
+<body>
 {% block content %}
     <form method="POST" class="d-flex flex-column"> 
         {{ form.hidden_tag() }}
@@ -22,3 +22,4 @@
     </form>
 
 {% endblock content %}
+</body>
