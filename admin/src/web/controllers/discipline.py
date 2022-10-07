@@ -20,9 +20,17 @@ def get_add():
 
 @discipline_blueprint.post("/add")
 def post_add():
-    print(request.form)
-    add_discipline(Discipline(request.form))
-    return redirect(url_for("discipline.index"))
+    form = csrf_remover(request.form)
+    form["available"] = bool_checker(form["available"])
+    form = DisciplineForm(request.form)
+    if form.is_submitted():
+        if form.validate():
+            add_discipline(form)
+            return redirect(url_for("discipline.index"))
+        else:
+            return render_template("discipline/add.html", form=form)
+    else:
+        return redirect(request.url)
 
 @discipline_blueprint.get("/update/<id>")
 def get_update(id):
