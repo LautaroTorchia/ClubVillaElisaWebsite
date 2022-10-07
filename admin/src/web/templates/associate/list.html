@@ -140,7 +140,7 @@
   {% include "paginator.html"%}
   <div class="d-flex align-center">
 
-  <form method="POST" action="not_implemented/">
+  <form method="GET" action="not_implemented/">
     <input type="submit" value="Exportar a PDF" class="btn btn-primary" style="
     width: auto;
     border-radius: 5px;
@@ -149,7 +149,7 @@
     margin: 37px;
   ">
   </form>
-  <form method="POST" action="not_implemented/">
+  <form method="GET" action="{{ url_for('associate.write_csv') }}">
     <input type="submit" value="Exportar a Excel" class="btn btn-primary" style="
     width: auto;
     border-radius: 5px;

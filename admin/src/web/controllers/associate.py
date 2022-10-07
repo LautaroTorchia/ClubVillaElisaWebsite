@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for,flash
+from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.core.board import create_associate, delete_associate, delete_discipline, disable_associate, enable_associate, get_associate_by_id, list_associates, update_associate
 from src.core.board.associate import Associate
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.form_utils import csrf_remover
-
+from src.web.helpers.csv_writer import write_csv_file
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -62,4 +62,12 @@ def disable(id):
 def enable(id):
     flash(f"Se habilito al asociado satisfactoriamente", category="alert alert-warning")
     enable_associate(id)
+    return redirect(url_for("associate.index"))
+
+#disabling associates
+@associate_blueprint.get("/csv_writer")
+def write_csv():
+    filename = "public/csv/Associate_list_report.csv"
+    write_csv_file(filename,list_associates())
+    send_file(filename,as_attachment=True)
     return redirect(url_for("associate.index"))
