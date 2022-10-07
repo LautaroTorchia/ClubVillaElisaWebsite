@@ -75,6 +75,6 @@ def write_csv():
 #pdf_writing associates
 @associate_blueprint.get("/pdf_writer")
 def write_pdf():
-    CSV_PATH=os.path.join(os.getcwd(),"public","pdf","Associate_list_report.pdf")
-    write_pdf_file(CSV_PATH,list_associates())
-    return send_file(CSV_PATH,as_attachment=True)
+    PDF_PATH=os.path.join(os.getcwd(),"public","pdf","Associate_list_report.pdf")
+    write_pdf_file(PDF_PATH,list_associates())
+    return send_file(PDF_PATH,as_attachment=True)
