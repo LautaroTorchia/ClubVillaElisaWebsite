@@ -2,11 +2,10 @@
 {% set current_template = self._TemplateReference__context.name %} 
 {% block css %}
 {{ super() }}
-{% endblock css %} {% block title %} Agregar disciplina {% endblock title %}
-
+{% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
 <body>
 {% block content %}
-    <form action="#" method="POST" class="d-flex flex-column"> 
+    <form method="POST" class="d-flex flex-column"> 
         {{ form.hidden_tag() }}
         {% for field in form if field.widget.input_type != 'hidden' %}
         <tr>
@@ -14,7 +13,13 @@
             <td>{{ field }}</td>
         </tr>
         {% endfor %}
-        <button type="submit">Modificar Disciplina</button>
+        {% for field, errors in form.errors.items() %}
+            <small class="form-text text-muted ">
+                {{ ', '.join(errors) }}
+            </small>
+        {% endfor %}
+        <input type="submit" value="Modificar asociado" class="btn btn-primary">
     </form>
+
 {% endblock content %}
 </body>

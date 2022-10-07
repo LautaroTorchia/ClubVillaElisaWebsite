@@ -9,14 +9,14 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.getenv("SECRET_KEY")
+    SECRET_KEY = "EE7B8DA8E71E36A651E765B88F2A6"
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://localhost:5432/grupo12"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
     DEBUG = False
     DB_USER = env.get("DB_USER")
-    DB_PASSWORD = env.get("DB_PASSWORD")
+    DB_PASSWORD = env.get("DB_PASS")
     DB_HOST = env.get("DB_HOST")
     DB_NAME = env.get("DB_NAME")
     DB_PORT = 5432

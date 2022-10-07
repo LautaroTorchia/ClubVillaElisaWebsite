@@ -1,5 +1,4 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
-from src.web.helpers.utils import bool_checker
 from src.core.db import db
 
 class Discipline(db.Model):
@@ -30,7 +29,7 @@ class Discipline(db.Model):
         self.instructors=discipline_data["instructors"]
         self.dates=discipline_data["dates"]
         self.monthly_cost=discipline_data["monthly_cost"]
-        self.available=bool_checker(discipline_data["available"] or None)
+        self.available=discipline_data["available"]
 
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 

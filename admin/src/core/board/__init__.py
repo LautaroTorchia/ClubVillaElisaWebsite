@@ -24,14 +24,14 @@ def get_associate_by_DNI(DNI_number):
     Returns:
         - Associate object
     """
-    return Associate.query.filter_by(DNI_number=DNI_number).first()
+    return Associate.query.filter(Associate.DNI_number == DNI_number, Associate.deleted == False).first()
 
 def list_associates():
     """ List all associates
     Returns:
         - List of Associate objects
     """
-    return Associate.query.all()
+    return Associate.query.filter(Associate.deleted==False).all()
 
 def create_associate(form):
     """ Create associate
@@ -42,6 +42,22 @@ def create_associate(form):
     db.session.add(associate)
     db.session.commit()
     return associate
+
+def update_associate(form_data,id):
+    """ Update associate
+    Returns:
+        - Update associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update(form_data)
+    db.session.commit()
+
+def delete_associate(id):
+    """Delete associate
+    Returns:
+        - Delete associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"deleted":True})
+    db.session.commit()
 
 def list_disciplines():
     """ List all disciplines

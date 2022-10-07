@@ -10,25 +10,42 @@ def get_user_by_id(user_id):
     """
     return User.query.get(user_id)
 
-def list_users():
-    """ List all users
+def list_active_users():
+    """ List all active users
     Returns:
         - List of User objects
     """
-    return User.query.all()
+    return User.query.filter(User.active == True).all()
 
-def add_user(user_data):
-    """ Add user
+def list_inactive_users():
+    """ List all inactive users
     Returns:
-        - Add user
+        - List of User objects
     """
-    db.session.add(user_data)
+    return User.query.filter(User.active == False).all()
+
+def create_user(form):
+    """ Create user
+    Returns:
+        - Create user
+    """
+    user = User(**form.data)
+    db.session.add(user)
     db.session.commit()
+    return user
 
 def delete_user(user_id):
     """ Delete user
     Returns:
         - Delete user
     """
-    db.session.query(User).filter(User.id == user_id).delete()
+    db.session.query(User).filter(User.id == user_id).update({"active":False})
+    db.session.commit()
+
+def update_user(user_id, form):
+    """ Update user
+    Returns:
+        - Update user
+    """
+    db.session.query(User).filter(User.id == user_id).update(form)
     db.session.commit()

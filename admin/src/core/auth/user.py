@@ -32,15 +32,13 @@ class User(db.Model):
     last_name = Column(String(255))
 
     roles = db.relationship("Role", secondary="user_roles", back_populates="users")
-    
-    
 
-    def __init__(self, username, password, email, first_name, last_name, active=True):
-        self.username = username
-        self.password = password
-        self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
+    def __init__(self, active=True, **data):
+        self.username = data["username"]
+        self.password = data["password"]
+        self.email = data["email"]
+        self.first_name = data["first_name"]
+        self.last_name = data["last_name"]
         self.active = active
 
     def __repr__(self):

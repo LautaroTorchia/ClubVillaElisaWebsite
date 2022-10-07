@@ -1,15 +1,9 @@
-{% set current_template = self._TemplateReference__context.name.rsplit("/")[0] %} 
+{% set current_template = self._TemplateReference__context.name %} 
 {% extends "base.html" %} 
       {% block css %}
       {{ super() }}
         <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/best-carousel-slide.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table-styles.css') }}" />
-        <link rel="stylesheet" href= "{{ url_for('static', filename='css/Data-Table.css') }}" />
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}"  />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/x-dropdown.css') }}" />
       {% endblock css %} 
     {% block title %} Disciplinas {% endblock title %}
     <body
@@ -21,7 +15,8 @@
       {% block content %}
       <section
         class="d-flex d-xxl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center justify-content-xxl-center"
-        style="display: flex; margin: 43px; color: rgba(45, 45, 45, 0.82)">
+        style="display: flex; margin: 43px;">
+        <a href="{{ url_for('discipline.get_add') }}">
         <button
           class="btn btn-primary"
           type="button"
@@ -32,17 +27,17 @@
             padding: -28.4px 32px;
             margin: 37px;
           ">
-    
-         <a href="{{ url_for('discipline.get_add') }}"> Agregar Disciplinas </a>
+          Agregar Disciplinas
         </button>
-        <form class="search-form" style="box-shadow: 0px 0px">
+       </a>
+        <form action="{{ url_for('discipline.index') }}" class="search-form" style="box-shadow: 0px 0px" method="GET">
           <div class="input-group">
             <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"
               ><i class="fa fa-search"></i></span
             ><input
               class="form-control"
               type="text"
-              placeholder="Buscar socio" /><button
+              placeholder="Buscar disciplina" /><button
               class="btn btn-light"
               type="button"
               style="
@@ -114,44 +109,13 @@
           </tbody>
         </table>
       </section>
-      <section
-        class="d-xxl-flex justify-content-xxl-center"
-        style="text-align: center">
-        <nav class="text-secondary">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a
-                class="page-link"
-                aria-label="Previous"
-                href="#"
-                style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
-                ><span aria-hidden="true">«</span></a
-              >
-            </li>
-            <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">2</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">3</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">4</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#">5</a></li>
-            <li class="page-item disabled">
-              <a
-                class="page-link"
-                aria-label="Next"
-                href="#"
-                style="
-                  border-top-right-radius: 5px;
-                  border-bottom-right-radius: 5px;
-                "
-                ><span aria-hidden="true">»</span></a
-              >
-            </li>
-          </ul>
-        </nav>
-      </section>
-      <script src="static/js/jquery.min.js"></script>
-      <script src="static/bootstrap/js/bootstrap.min.js"></script>
-      <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-      <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-      <script src="static/js/bold-and-bright.js"></script>
+        {% include "paginator.html"%}
+
+
       {% endblock content%}
+      {% block js %}
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+      {{ super() }}
+      {% endblock js %}
     </body>
