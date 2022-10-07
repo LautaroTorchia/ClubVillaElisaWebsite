@@ -5,6 +5,7 @@ from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
 from src.core.resource_manager import ResourceManager
+from src.web.helpers.form_utils import bool_checker
 
 disciplines=ResourceManager(db.session,Discipline)
 
@@ -95,7 +96,8 @@ def add_discipline(discipline_data):
     Returns:
         - Add discipline
     """
-    disciplines.add(discipline_data)
+    discipline_data["available"] = bool_checker(discipline_data["available"])
+    disciplines.add(Discipline(discipline_data))
 
 # begin config repo
 def get_cfg():

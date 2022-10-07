@@ -1,5 +1,5 @@
 from wtforms import StringField, DecimalField,validators, SelectField
-from wtforms.validators import Length, InputRequired
+from wtforms.validators import Length, InputRequired, NumberRange
 from flask_wtf import FlaskForm
 
 alphabetic_validator = validators.Regexp(regex='^[a-zA-Z ]+$', message='El nombre solo puede contener letras')
@@ -10,5 +10,5 @@ class DisciplineForm(FlaskForm):
     category = StringField('Categoría',validators=[Length(max=255),InputRequired()])
     instructors= StringField('Instructores',validators=[Length(max=255),InputRequired(),instructor_validator],description="Separe los nombres de los instructores con una coma")
     dates = StringField('Días y horarios',validators=[Length(max=255),InputRequired()])
-    monthly_cost = DecimalField('Costo mensual',validators=[InputRequired()])
+    monthly_cost = DecimalField('Costo mensual',validators=[InputRequired(),NumberRange(0,message="El costo mensual debe ser mayor a 0")])
     available = SelectField('Disponible',choices=[(True,'Disponible'),('False','No disponible')],validators=[InputRequired()])

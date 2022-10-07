@@ -1,5 +1,5 @@
-{% for field, errors in form.errors.items() %}
-    <small class="form-text text-muted ">
-        {{ ', '.join(errors) }}
-    </small>
-{% endfor %}
+<ul class=flashes>
+    {% for field, errors in form.errors.items() %}
+      <li class="alert alert-warning">{{ errors }}</li>
+    {% endfor %}
+</ul>

@@ -3,8 +3,7 @@ from src.web.forms.discipline import DisciplineForm
 from src.core.board.discipline import Discipline as DisciplineModel
 from src.web.helpers.form_utils import bool_checker, csrf_remover
 from src.web.forms.discipline import DisciplineForm
-from src.core.board.discipline import Discipline as DisciplineModel
-from src.web.helpers.form_utils import bool_checker, csrf_remover
+from src.core.board.discipline import Discipline
 from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
 
 discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
@@ -24,16 +23,12 @@ def get_add():
 @discipline_blueprint.post("/add")
 def post_add():
     form = csrf_remover(request.form)
-    form["available"] = bool_checker(form["available"])
     form = DisciplineForm(request.form)
-    if form.is_submitted():
-        if form.validate():
-            add_discipline(form)
-            return redirect(url_for("discipline.index"))
-        else:
-            return render_template("discipline/add.html", form=form)
+    if form.validate():
+        add_discipline(form.data)
+        return redirect(url_for("discipline.index"))
     else:
-        return redirect(request.url)
+        return render_template("discipline/add.html", form=form)
 
 @discipline_blueprint.get("/update/<id>")
 def get_update(id):

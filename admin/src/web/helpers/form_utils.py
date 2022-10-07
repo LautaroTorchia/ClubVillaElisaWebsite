@@ -1,4 +1,6 @@
 def bool_checker(attribute):
+    print(attribute)
+    print("-"*20)
     if type(attribute) == bool:
         return attribute
     if type(attribute) == str:
