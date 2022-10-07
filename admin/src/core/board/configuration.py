@@ -6,7 +6,6 @@ class Configuration(db.Model):
     """Modelo de configuracion
     Args:
         record_number (int): How many records to show
-        ord_criteria (str): How the data will be sorted
         currency (str): Currency type
         base_fee (float): Base fee used to calculate club fee
         due_fee (float): Fee due to payment delayed
@@ -18,7 +17,6 @@ class Configuration(db.Model):
     __tablename__ = "configuration"
     id = Column(Integer, primary_key=True)
     record_number = Column(Integer)
-    ord_criteria = Column(String(255))
     currency = Column(String(255))
     base_fee = Column(Numeric())
     due_fee = Column(Numeric())
@@ -28,7 +26,6 @@ class Configuration(db.Model):
 
     def __init__(self, configuration_data):
         self.record_number = configuration_data["record_number"]
-        self.ord_criteria = configuration_data["ord_criteria"]
         self.currency = configuration_data["currency"]
         self.base_fee=configuration_data["base_fee"]
         self.due_fee=configuration_data["due_fee"]
