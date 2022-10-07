@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.core.board import create_associate, delete_associate, delete_discipline, disable_associate, enable_associate, get_associate_by_id, list_associates, update_associate
 from src.core.board.associate import Associate
@@ -64,10 +65,9 @@ def enable(id):
     enable_associate(id)
     return redirect(url_for("associate.index"))
 
-#disabling associates
+#csv_writing associates
 @associate_blueprint.get("/csv_writer")
 def write_csv():
-    filename = "public/csv/Associate_list_report.csv"
-    write_csv_file(filename,list_associates())
-    send_file(filename,as_attachment=True)
-    return redirect(url_for("associate.index"))
+    CSV_PATH=os.path.join(os.getcwd(),"public","csv","Associate_list_report.csv")
+    write_csv_file(CSV_PATH,list_associates())
+    return send_file(CSV_PATH,as_attachment=True)
