@@ -10,14 +10,6 @@ user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 def index():
     return render_template("user/list.html", users=list_users())
 
-@user_blueprint.post("/")
-def post_index():
-    user_id = request.form["Delete"]
-    if list(request.form.keys())[0] == "Delete":
-        flash(f"Se elimino {get_user_by_id(user_id)}", category="alert alert-warning")
-        delete_user(user_id)
-        return redirect(request.url)
-
 @user_blueprint.get("/add")
 def get_add():
     return render_template("user/add.html", form=UserForm())
@@ -27,12 +19,6 @@ def post_add():
     form = UserForm(request.form)
     if form.validate():
         create_user(form)
-    return redirect(url_for("user.index"))
-
-@user_blueprint.post("/delete/<id>")
-def delete(id):
-    flash(f"Se elimino al asociado satisfactoriamente", category="alert alert-warning")
-    delete_user(id)
     return redirect(url_for("user.index"))
 
 @user_blueprint.get("/update/<id>")
@@ -48,3 +34,9 @@ def post_update(id):
         update_user(id, dict(request.form))
         return redirect(url_for("user.index"))
     return render_template("user/update.html", form=form)
+
+@user_blueprint.post("/delete/<id>")
+def delete(id):
+    flash(f"Se elimino al usuario satisfactoriamente", category="alert alert-warning")
+    delete_user(id)
+    return redirect(url_for("user.index"))

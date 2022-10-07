@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import Length, InputRequired
-from wtforms import StringField, validators,PasswordField
+from wtforms import StringField, PasswordField
 
 class UserForm(FlaskForm):
     first_name = StringField('Nombre', validators=[Length(max=255),InputRequired()])
