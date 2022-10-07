@@ -4,7 +4,7 @@ from src.core.board import create_associate, delete_associate, delete_discipline
 from src.core.board.associate import Associate
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.form_utils import csrf_remover
-from src.web.helpers.csv_writer import write_csv_file
+from src.web.helpers.writers import write_csv_file,write_pdf_file
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -70,4 +70,11 @@ def enable(id):
 def write_csv():
     CSV_PATH=os.path.join(os.getcwd(),"public","csv","Associate_list_report.csv")
     write_csv_file(CSV_PATH,list_associates())
+    return send_file(CSV_PATH,as_attachment=True)
+
+#pdf_writing associates
+@associate_blueprint.get("/pdf_writer")
+def write_pdf():
+    CSV_PATH=os.path.join(os.getcwd(),"public","pdf","Associate_list_report.pdf")
+    write_pdf_file(CSV_PATH,list_associates())
     return send_file(CSV_PATH,as_attachment=True)

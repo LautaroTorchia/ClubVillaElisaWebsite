@@ -140,7 +140,7 @@
   {% include "paginator.html"%}
   <div class="d-flex align-center">
 
-  <form method="GET" action="not_implemented/">
+  <form method="GET" action="{{ url_for('associate.write_pdf') }}">
     <input type="submit" value="Exportar a PDF" class="btn btn-primary" style="
     width: auto;
     border-radius: 5px;
