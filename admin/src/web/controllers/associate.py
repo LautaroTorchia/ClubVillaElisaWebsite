@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for,flash
-from src.core.board import create_associate, delete_associate, delete_discipline, get_associate_by_id, list_associates, update_associate
+import os
+from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
+from src.core.board import create_associate, delete_associate, delete_discipline, disable_associate, enable_associate, get_associate_by_id, list_associates, update_associate
 from src.core.board.associate import Associate
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.form_utils import csrf_remover
-
+from src.web.helpers.writers import write_csv_file,write_pdf_file
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -49,4 +50,31 @@ def post_update(id):
         update_associate(form,id)
         return redirect(url_for("associate.index"))
     return render_template("associate/add.html", form=form)
-        
+
+#disabling associates
+@associate_blueprint.post("/disable/<id>")
+def disable(id):
+    flash(f"Se deshabilito al asociado satisfactoriamente", category="alert alert-warning")
+    disable_associate(id)
+    return redirect(url_for("associate.index"))
+
+#disabling associates
+@associate_blueprint.post("/enable/<id>")
+def enable(id):
+    flash(f"Se habilito al asociado satisfactoriamente", category="alert alert-warning")
+    enable_associate(id)
+    return redirect(url_for("associate.index"))
+
+#csv_writing associates
+@associate_blueprint.get("/csv_writer")
+def write_csv():
+    CSV_PATH=os.path.join(os.getcwd(),"public","csv","Associate_list_report.csv")
+    write_csv_file(CSV_PATH,list_associates())
+    return send_file(CSV_PATH,as_attachment=True)
+
+#pdf_writing associates
+@associate_blueprint.get("/pdf_writer")
+def write_pdf():
+    PDF_PATH=os.path.join(os.getcwd(),"public","pdf","Associate_list_report.pdf")
+    write_pdf_file(PDF_PATH,list_associates())
+    return send_file(PDF_PATH,as_attachment=True)
