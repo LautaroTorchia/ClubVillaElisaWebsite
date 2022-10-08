@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config(object):
+    BABEL_DEFAULT_LOCALE="es"
+    WTF_I18N_ENABLED=False
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
