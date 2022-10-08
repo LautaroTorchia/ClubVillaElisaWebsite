@@ -26,28 +26,39 @@
       ><span class="navbar-toggler-icon"></span>
     </button>
     {% set current_template = current_template.rsplit("/")[0].rsplit(".")[0] %}
-    {% set nav_list = [("home","Home"),("user.index","Usuarios"),("discipline.index","Disciplinas"),("associate.index","Socios"),("home","Pagos"),("configuration.index","Configuración")] %}
+    {% set nav_list = [("home","Home",True),("user.index","Usuarios",False),("discipline.index","Disciplinas",False),("associate.index","Socios",False),("home","Pagos",True),("configuration.index","Configuración",False)] %}
 
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
-        {% for nav,name in nav_list %}
-         <li class="nav-item">
-          {% if current_template == nav.rsplit(".")[0] %}
-          <a class="nav-link active" href="#">{{name}}</a>
-          {% else %}
-          <a class="nav-link" href= {{ url_for(nav) }}>{{name}}</a>
+        {% for nav,name,auth in nav_list %}
+          {%if auth or is_authenticated(session) %}
+           <li class="nav-item">
+            {% if current_template == nav.rsplit(".")[0] %}
+            <a class="nav-link active" href="#">{{name}}</a>
+            {% else %}
+            <a class="nav-link" href= {{ url_for(nav) }}>{{name}}</a>
           {% endif %}
-         </li>
+           </li>
+        {% endif %}
         {% endfor %}
       </ul>
-
+      {% if is_authenticated(session) %}
+      <a
+        class="btn btn-primary shadow"
+        role="button"
+        href="{{ url_for('auth.logout') }}"
+        style="border-radius: 5px"
+        >Cerrar sesión</a
+      >
+      {% else %}
       <a
         class="btn btn-primary shadow"
         role="button"
         href="{{ url_for('auth.login') }}"
         style="border-radius: 5px"
-        >Cerrar sesión</a
+        >Iniciar sesión</a
       >
+      {% endif %}
     </div>
   </div>
 </nav>

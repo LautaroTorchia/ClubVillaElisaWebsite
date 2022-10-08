@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect,render_template,request,url_for,flash,session
 from src.core.auth import get_by_usr_and_pwd
+from src.web.helpers.auth import login_required
 
 auth_blueprint=Blueprint("auth",__name__,url_prefix="/autenticar")
 
@@ -20,6 +21,7 @@ def authenticate():
     return redirect(url_for('home'))
 
 @auth_blueprint.get("/logout")
+@login_required
 def logout():
     del session["user"]
     session.clear()
