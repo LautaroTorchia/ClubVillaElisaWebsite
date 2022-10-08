@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        {% block form %}
+        {% endblock form %}
+    </div>
+    <div class="container mt-3">
+        {% include "flashes.html" %}
+        {% include "form_errors.html" %}
+    </div>
+{% endblock content %}

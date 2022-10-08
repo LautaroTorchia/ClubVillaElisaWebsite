@@ -4,6 +4,10 @@ from src.core.board.configuration import Configuration
 from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
+from src.core.resource_manager import ResourceManager
+from src.web.helpers.form_utils import bool_checker, csrf_remover
+
+disciplines=ResourceManager(db.session,Discipline)
 
 def get_associate_by_id(associate_number):
     """ Get associate by id
@@ -21,14 +25,14 @@ def get_associate_by_DNI(DNI_number):
     Returns:
         - Associate object
     """
-    return Associate.query.filter_by(DNI_number=DNI_number).first()
+    return Associate.query.filter(Associate.DNI_number == DNI_number, Associate.deleted == False).first()
 
 def list_associates():
     """ List all associates
     Returns:
         - List of Associate objects
     """
-    return Associate.query.all()
+    return Associate.query.filter(Associate.deleted==False).all()
 
 def create_associate(form):
     """ Create associate
@@ -40,42 +44,80 @@ def create_associate(form):
     db.session.commit()
     return associate
 
+def update_associate(form_data,id):
+    """ Update associate
+    Returns:
+        - Update associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update(form_data)
+    db.session.commit()
+
+def delete_associate(id):
+    """Delete associate
+    Returns:
+        - Delete associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"deleted":True})
+    db.session.commit()
+    
+
+def disable_associate(id):
+    """Disable associate
+    Returns:
+        - Disabled associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"active":False})
+    db.session.commit()
+    
+def enable_associate(id):
+    """Enable associate
+    Returns:
+        - Enabled associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"active":True})
+    db.session.commit()
+    
 def list_disciplines():
     """ List all disciplines
     Returns:
         - List of Discipline objects
     """
-    return Discipline.query.all()
+    return disciplines.query.all()
 
 def get_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    return Discipline.query.get(id)
+    return disciplines.query.filter(Discipline.id == id).one()
 
 def delete_discipline(id):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    db.session.query(Discipline).filter(Discipline.id == id).delete()
+    disciplines.query.filter(Discipline.id == id).update({"deleted":True})
     db.session.commit()
 
-def update_discipline(discipline_data):
+def update_discipline(id,discipline_data):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
-    return get_discipline(discipline_data.id).update(discipline_data)
+    discipline_data = csrf_remover(discipline_data)
+    discipline_data["available"] = bool_checker(discipline_data["available"])
+    disciplines.query.filter(Discipline.id == id).update(discipline_data)
+    db.session.commit()
+
 
 def add_discipline(discipline_data):
     """ Add discipline
     Returns:
         - Add discipline
     """
-    db.session.add(discipline_data )
-    db.session.commit()
+    discipline_data = csrf_remover(discipline_data)
+    discipline_data["available"] = bool_checker(discipline_data["available"])
+    disciplines.add(Discipline(discipline_data))
 
 # begin config repo
 def get_cfg():

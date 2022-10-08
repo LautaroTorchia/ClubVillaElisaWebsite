@@ -5,7 +5,7 @@
 {% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
 
 {% block content %}
-    <form action="{{ url_for('associate.post_add') }}" method="POST" class="d-flex flex-column"> 
+    <form method="POST" class="d-flex flex-column"> 
         {{ form.hidden_tag() }}
         {% for field in form if field.widget.input_type != 'hidden' %}
         <tr>
@@ -18,8 +18,7 @@
                 {{ ', '.join(errors) }}
             </small>
         {% endfor %}
-        <input type="submit" value="Agregar asociado" class="btn btn-primary">
+        <input type="submit" value="Modificar asociado" class="btn btn-primary">
     </form>
-
 
 {% endblock content %}

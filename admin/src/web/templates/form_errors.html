@@ -1,0 +1,8 @@
+
+{% for field, errors in form.errors.items() %}
+<ul class=flashes>
+    {% for error in errors %}
+      <li class="alert alert-warning">{{ error }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}

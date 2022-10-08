@@ -9,6 +9,7 @@ user_roles = db.Table(
     Column("role_id", Integer, ForeignKey("roles.id"), primary_key=True),
 )
 
+
 class User(db.Model):
     """Modelo de los usuarios del club
     Args:
@@ -31,7 +32,7 @@ class User(db.Model):
     created_at = Column(db.DateTime, default=datetime.utcnow)
     first_name = Column(String(255))
     last_name = Column(String(255))
-    deleted=Column(Boolean(),default=False)
+    deleted = Column(Boolean(), default=False)
 
     roles = db.relationship("Role", secondary="user_roles", back_populates="users")
 

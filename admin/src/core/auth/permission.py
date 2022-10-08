@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Column
+from sqlalchemy import String, Integer, Column, Boolean
 from src.core.db import db
 
 
@@ -11,6 +11,7 @@ class Permission(db.Model):
     __tablename__ = "permissions"
     id = Column(Integer, primary_key=True)
     name=Column(String)
+    deleted = Column(Boolean(), default=False)
     
 
     def __init__(self, name):

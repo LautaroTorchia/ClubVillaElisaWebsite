@@ -25,55 +25,20 @@
       <span class="visually-hidden">Toggle navigation</span
       ><span class="navbar-toggler-icon"></span>
     </button>
+    {% set current_template = current_template.rsplit("/")[0].rsplit(".")[0] %}
+    {% set nav_list = [("home","Home"),("user.index","Usuarios"),("discipline.index","Disciplinas"),("associate.index","Socios"),("home","Pagos"),("configuration.index","Configuración")] %}
 
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          {% if current_template == "home.html" %}
-          <a class="nav-link active" href="#">Home</a>
+        {% for nav,name in nav_list %}
+         <li class="nav-item">
+          {% if current_template == nav.rsplit(".")[0] %}
+          <a class="nav-link active" href="#">{{name}}</a>
           {% else %}
-          <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          <a class="nav-link" href= {{ url_for(nav) }}>{{name}}</a>
           {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if current_template == "users.html" %}
-          <a class="nav-link active" href="#">Usuarios</a>
-          {% else %}
-          <a class="nav-link" href="{{ url_for('user.index') }}">Usuarios</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if current_template == "disciplines.html" %}
-          <a class="nav-link active" href="#">Disciplinas</a>
-          {% else %}
-          <a class="nav-link" href="{{ url_for('discipline.index') }}"
-            >Disciplinas</a
-          >
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if current_template == "associate/list.html" %}
-          <a class="nav-link active" href="#">Socies</a>
-          {% else %}
-          <a class="nav-link" href="{{ url_for('associate.index') }}">Socies</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if current_template == "payments.html" %}
-          <a class="nav-link active" href="#">Pagos</a>
-          {% else %}
-          <a class="nav-link" href="payments.html">Pagos</a>
-          {% endif %}
-        </li>
-        <li class="nav-item">
-          {% if current_template == "configuration.html" %}
-          <a class="nav-link active" href="#">Configuración</a>
-          {% else %}
-          <a class="nav-link" href="{{ url_for('configuration.index') }}"
-            >Configuración</a
-          >
-          {% endif %}
-        </li>
+         </li>
+        {% endfor %}
       </ul>
 
       <a

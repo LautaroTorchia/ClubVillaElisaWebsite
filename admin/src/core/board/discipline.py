@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
 from src.core.db import db
 
-
 class Discipline(db.Model):
     """Modelo de las disciplinas del club
     Args:
@@ -20,6 +19,7 @@ class Discipline(db.Model):
     dates = Column(String(255))
     monthly_cost = Column(Numeric())
     available = Column(Boolean())
+    deleted = Column(Boolean(), default=False)
 
     associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
 
@@ -29,9 +29,14 @@ class Discipline(db.Model):
         self.instructors=discipline_data["instructors"]
         self.dates=discipline_data["dates"]
         self.monthly_cost=discipline_data["monthly_cost"]
-        self.available=bool(discipline_data["available"])
+        self.available=discipline_data["available"]
 
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 
         con los instructores {self.instructors} 
         con un costo de {self.monthly_cost} y está disponible en los días y horaios{self.dates}"""
+
+    def to_dict(self):
+        my_dict = self.__dict__
+        del my_dict['_sa_instance_state']
+        return my_dict

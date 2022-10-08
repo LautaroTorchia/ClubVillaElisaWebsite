@@ -4,10 +4,6 @@
 {{ super() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/best-carousel-slide.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table-styles.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/x-dropdown.css') }}" />
 {% endblock css %}
@@ -84,7 +80,7 @@
             </a>
           </td>
           <td>
-            <form action="{{ url_for('user.delete',id=user.id) }}" method="post">
+            <form action="{{ url_for('user.delete', id=user.id ) }}" method="post">
               <button type="submit" class="btn btn-outline-danger w-100 p-1" style="border-radius: 5px" name="Delete"
                 value="{{ user.id }}"
                 onclick="return confirm('Seguro que desea eliminar {{ user.first_name }} {{ user.last_name }} ?');">
@@ -97,28 +93,11 @@
       </tbody>
     </table>
   </section>
-  <section class="d-xxl-flex justify-content-xxl-center" style="text-align: center">
-    <nav class="text-secondary">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link" aria-label="Previous" href="#"
-            style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"><span aria-hidden="true">«</span></a>
-        </li>
-        <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">2</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">3</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">4</a></li>
-        <li class="page-item disabled"><a class="page-link" href="#">5</a></li>
-        <li class="page-item disabled">
-          <a class="page-link" aria-label="Next" href="#" style="
-              border-top-right-radius: 5px;
-              border-bottom-right-radius: 5px;
-            "><span aria-hidden="true">»</span></a>
-        </li>
-      </ul>
-    </nav>
-  </section>
+  {% include "paginator.html"%}
+  {% endblock content%}
+  {% block js %}
+  {{ super() }}
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-  {% endblock content%}
+  {% endblock js%}
 </body>
