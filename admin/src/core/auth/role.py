@@ -1,4 +1,4 @@
-from sqlalchemy import String, Integer, Column
+from sqlalchemy import String, Integer, Column, Boolean
 from src.core.db import db
 
 roles_permissions = db.Table(
@@ -16,6 +16,7 @@ class Role(db.Model):
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    deleted = Column(Boolean(), default=False)
 
     users = db.relationship("User", secondary="user_roles", back_populates="roles")
     permissions = db.relationship("Permission", secondary="roles_permissions")

@@ -59,6 +59,7 @@
     </form>
   </section>
   <section style="margin: 43px">
+    {% include "flashes.html" %}
     <table
       id="example"
       class="table table-striped table-bordered"
@@ -100,6 +101,27 @@
               </a>
             </td>
             <td>
+              {% if associate.active %}
+                <form action="{{ url_for('associate.disable', id=associate.associate_number) }}" method="post" >
+                  <button
+                    class="btn btn-outline-danger w-100 p-1"
+                    style="border-radius: 5px"
+                    onclick="return confirm('Seguro que desea inhabilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                    Inhabilitar
+                  </button>
+                </form>
+              {% else %}
+                <form action="{{ url_for('associate.enable', id=associate.associate_number) }}" method="post" >
+                  <button
+                    class="btn btn-outline-info w-100 p-1"
+                    style="border-radius: 5px"
+                    onclick="return confirm('Seguro que desea habilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                    Habilitar
+                  </button>
+                </form>
+              {% endif %}
+            </td>
+            <td>
               <form action="{{ url_for('associate.delete', id=associate.associate_number) }}" method="post" >
                 <button
                   class="btn btn-outline-danger w-100 p-1"
@@ -109,6 +131,7 @@
                 </button>
               </form>
             </td>
+           
           </tr>
         {% endfor %}
       </tbody>
@@ -117,7 +140,7 @@
   {% include "paginator.html"%}
   <div class="d-flex align-center">
 
-  <form method="POST" action="not_implemented/">
+  <form method="GET" action="{{ url_for('associate.write_pdf') }}">
     <input type="submit" value="Exportar a PDF" class="btn btn-primary" style="
     width: auto;
     border-radius: 5px;
@@ -126,7 +149,7 @@
     margin: 37px;
   ">
   </form>
-  <form method="POST" action="not_implemented/">
+  <form method="GET" action="{{ url_for('associate.write_csv') }}">
     <input type="submit" value="Exportar a Excel" class="btn btn-primary" style="
     width: auto;
     border-radius: 5px;

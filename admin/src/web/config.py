@@ -13,7 +13,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = "EE7B8DA8E71E36A651E765B88F2A6"
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://localhost:5432/grupo12"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False  
 
 class ProductionConfig(Config):
     DEBUG = False

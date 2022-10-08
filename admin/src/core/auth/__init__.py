@@ -10,19 +10,12 @@ def get_user_by_id(user_id):
     """
     return User.query.get(user_id)
 
-def list_active_users():
+def list_users():
     """ List all active users
     Returns:
         - List of User objects
     """
-    return User.query.filter(User.active == True).all()
-
-def list_inactive_users():
-    """ List all inactive users
-    Returns:
-        - List of User objects
-    """
-    return User.query.filter(User.active == False).all()
+    return User.query.filter(User.deleted == False).all()
 
 def create_user(form):
     """ Create user
@@ -39,7 +32,7 @@ def delete_user(user_id):
     Returns:
         - Delete user
     """
-    db.session.query(User).filter(User.id == user_id).update({"active":False})
+    db.session.query(User).filter(User.id == user_id).update({"deleted":True})
     db.session.commit()
 
 def update_user(user_id, form):

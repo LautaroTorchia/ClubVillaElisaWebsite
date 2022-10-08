@@ -1,4 +1,4 @@
-from sqlalchemy import Float, DateTime, Integer, Column
+from sqlalchemy import Float, DateTime, Integer, Column, Boolean
 from src.core.db import db
 
 
@@ -15,6 +15,7 @@ class Payment(db.Model):
     date = Column(DateTime)
     amount = Column(Float)
     installment_number = Column(Integer)
+    deleted = Column(Boolean(), default=False)
     
 
     associate_associate_number = Column(Integer, db.ForeignKey("associates.associate_number"), nullable=False)

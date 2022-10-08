@@ -59,7 +59,24 @@ def delete_associate(id):
     """
     db.session.query(Associate).filter(Associate.associate_number==id).update({"deleted":True})
     db.session.commit()
+    
 
+def disable_associate(id):
+    """Disable associate
+    Returns:
+        - Disabled associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"active":False})
+    db.session.commit()
+    
+def enable_associate(id):
+    """Enable associate
+    Returns:
+        - Enabled associate
+    """
+    db.session.query(Associate).filter(Associate.associate_number==id).update({"active":True})
+    db.session.commit()
+    
 def list_disciplines():
     """ List all disciplines
     Returns:
