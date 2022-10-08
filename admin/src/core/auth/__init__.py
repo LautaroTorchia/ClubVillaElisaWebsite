@@ -21,7 +21,7 @@ def list_users():
     Returns:
         - List of User objects
     """
-    return users.query.filter(User.deleted == False).all()
+    return users.query.all()
 
 
 def create_user(form):
