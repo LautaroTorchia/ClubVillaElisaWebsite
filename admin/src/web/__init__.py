@@ -5,6 +5,7 @@ from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
 from src.web.controllers.api.configuration import configuration_api_blueprint
+from src.web.controllers.api.discipline import discipline_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.helpers import handlers
 
@@ -29,7 +30,9 @@ def create_app(
     app.register_blueprint(configuration_blueprint)
     app.register_blueprint(user_blueprint)
     # Api
+    discipline_api_blueprint
     app.register_blueprint(configuration_api_blueprint)
+    app.register_blueprint(discipline_api_blueprint)
 
     with app.app_context():
         database.init_app(app)
