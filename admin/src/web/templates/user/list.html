@@ -4,10 +4,6 @@
 {{ super() }}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/best-carousel-slide.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table-styles.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/x-dropdown.css') }}" />
 {% endblock css %}
@@ -49,6 +45,7 @@
       </div>
     </form>
   </section>
+  {% include "flashes.html" %}
   <section style="margin: 43px">
     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>

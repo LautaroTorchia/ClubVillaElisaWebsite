@@ -9,6 +9,7 @@ user_roles = db.Table(
     Column("role_id", Integer, ForeignKey("roles.id"), primary_key=True),
 )
 
+
 class User(db.Model):
     """Modelo de los usuarios del club
     Args:
@@ -18,6 +19,7 @@ class User(db.Model):
         first_name (str): User first name
         last_name (str): User last name
         active (bool): User active status (default True)
+        deleted (bool): User is deleted
     """
 
     __tablename__ = "users"
