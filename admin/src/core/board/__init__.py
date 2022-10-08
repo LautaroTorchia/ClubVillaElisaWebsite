@@ -5,7 +5,7 @@ from src.core.board.associate import Associate
 from src.core.board.discipline import Discipline
 from src.core.db import db
 from src.core.resource_manager import ResourceManager
-from src.web.helpers.form_utils import bool_checker
+from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 disciplines=ResourceManager(db.session,Discipline)
 
@@ -104,6 +104,7 @@ def update_discipline(id,discipline_data):
     Returns:
         - Get discipline by id
     """
+    discipline_data = csrf_remover(discipline_data)
     discipline_data["available"] = bool_checker(discipline_data["available"])
     disciplines.query.filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
@@ -114,6 +115,7 @@ def add_discipline(discipline_data):
     Returns:
         - Add discipline
     """
+    discipline_data = csrf_remover(discipline_data)
     discipline_data["available"] = bool_checker(discipline_data["available"])
     disciplines.add(Discipline(discipline_data))
 
