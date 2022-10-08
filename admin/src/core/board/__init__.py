@@ -87,6 +87,7 @@ def update_discipline(id,discipline_data):
     Returns:
         - Get discipline by id
     """
+    discipline_data["available"] = bool_checker(discipline_data["available"])
     disciplines.query.filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
 

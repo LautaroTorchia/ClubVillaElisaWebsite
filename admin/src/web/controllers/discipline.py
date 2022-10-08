@@ -37,9 +37,12 @@ def get_update(id):
 @discipline_blueprint.post("/update/<id>")
 def update(id):
     form = csrf_remover(request.form)
-    form["available"] = bool_checker(form["available"])
-    update_discipline(id,form)
-    return redirect(url_for("discipline.index"))
+    form = DisciplineForm(request.form)
+    if form.validate():
+        update_discipline(id,form)
+        return redirect(url_for("discipline.index"))
+    else:
+        return render_template("discipline/update.html", form=form)
 
 @discipline_blueprint.post("/delete/<id>")
 def delete(id):

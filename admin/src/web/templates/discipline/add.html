@@ -6,15 +6,15 @@
 
 <body>
     {% block form %}
-    <form action="{{ url_for('discipline.post_add') }}" method="POST" class="d-flex flex-column"> 
+    <form action="{{ url_for('discipline.post_add') }}" method="POST" class="d-flex flex-column "> 
         {{ form.hidden_tag() }}
         {% for field in form if field.widget.input_type != 'hidden' %}
-            <tr>
-                <th>{{ field.label }}</th>
-                <td>{{ field }}</td>
-            </tr>
+        <div class="form-group">
+            {{ field.label(class="form-label") }}
+            {{ field(class="form-control") }}
+        </div>
             {% endfor %}
-            <button type="submit">Agregar Disciplina</button>
+            <button type="submit" class="btn btn-primary mt-3">Agregar Disciplina</button>
     </form>
     {% endblock form %}
 

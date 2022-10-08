@@ -1,12 +1,11 @@
-from wtforms import StringField, DecimalField,validators, SelectField
-from wtforms.validators import Length, InputRequired, NumberRange
-from flask_wtf import FlaskForm
+from wtforms import StringField, DecimalField, SelectField
+from wtforms.validators import Length, InputRequired, NumberRange, Regexp
+from src.web.forms.base_form import BaseForm
 
-alphabetic_validator = validators.Regexp(regex='^[a-zA-Z ]+$', message='El nombre solo puede contener letras')
-instructor_validator = validators.Regexp(regex='^[a-zA-Z0-9, ]+$', message='El nombre de un instructor solo puede contener letras y numeros, por favor separe los nombres de varios instructores con una coma')
+instructor_validator = Regexp(regex='^[a-zA-Z, ]+$', message='El nombre de un instructor solo puede contener letras y numeros, por favor separe los nombres de varios instructores con una coma')
 
-class DisciplineForm(FlaskForm):    
-    name = StringField('Nombre', validators=[alphabetic_validator,Length(max=255),InputRequired()])
+class DisciplineForm(BaseForm):
+    name = StringField('Nombre', validators=[BaseForm.alphabetic_validator,Length(max=255),InputRequired()])
     category = StringField('Categoría',validators=[Length(max=255),InputRequired()])
     instructors= StringField('Instructores',validators=[Length(max=255),InputRequired(),instructor_validator],description="Separe los nombres de los instructores con una coma")
     dates = StringField('Días y horarios',validators=[Length(max=255),InputRequired()])
