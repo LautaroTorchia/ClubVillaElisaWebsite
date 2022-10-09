@@ -84,6 +84,13 @@ def list_disciplines():
     """
     return disciplines.query.all()
 
+def get_last_discipline():
+    """ List last discipline
+    Returns:
+        - List of Discipline objects
+    """
+    return disciplines.query.order_by(Discipline.id.desc()).first()
+
 def get_discipline(id):
     """ Get discipline
     Returns:
@@ -99,13 +106,13 @@ def delete_discipline(id):
     disciplines.query.filter(Discipline.id == id).update({"deleted":True})
     db.session.commit()
 
-def update_discipline(id,discipline_data,currency):
+def update_discipline(id,discipline_data):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
     discipline_data = csrf_remover(discipline_data)
-    discipline_data.update(currency=currency,available=bool_checker(discipline_data["available"]))
+    discipline_data.update(available=bool_checker(discipline_data["available"]))
     disciplines.query.filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
 

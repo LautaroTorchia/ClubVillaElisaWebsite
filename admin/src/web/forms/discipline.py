@@ -2,7 +2,7 @@ from wtforms import StringField, DecimalField, SelectField, Label
 from wtforms.validators import Length, InputRequired, NumberRange, Regexp
 from src.web.forms.base_form import BaseForm
 
-instructor_validator = Regexp(regex='^[a-zA-Z, ]+$', message='El nombre de un instructor solo puede contener letras y numeros, por favor separe los nombres de varios instructores con una coma')
+instructor_validator = Regexp(regex='^[a-zA-Z,ñÑ ]+$', message='El nombre de un instructor solo puede contener letras y numeros, por favor separe los nombres de varios instructores con una coma')
 
 class DisciplineForm(BaseForm):
 

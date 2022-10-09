@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
+from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline,get_last_discipline
 from src.web.forms.discipline import DisciplineForm
 from src.web.helpers.auth import login_required
 from src.core.board import get_cfg
@@ -23,6 +23,7 @@ def post_add():
     form = DisciplineForm(request.form)
     if form.validate():
         add_discipline(form.data,get_cfg().currency)
+        flash(f"Se agregó {get_last_discipline()}", category="alert alert-info")
         return redirect(url_for("discipline.index"))
     else:
         return render_template("discipline/add.html", form=form)
@@ -37,7 +38,8 @@ def get_update(id):
 def update(id):
     form = DisciplineForm(request.form)
     if form.validate():
-        update_discipline(id,form.data,get_cfg().currency)
+        flash(f"Se actualizó {get_discipline(id)}", category="alert alert-info")
+        update_discipline(id,form.data)
         return redirect(url_for("discipline.index"))
     else:
         return render_template("discipline/update.html", form=form)
