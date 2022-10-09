@@ -28,7 +28,7 @@
                         {% for field in form if field.widget.input_type != 'hidden' %}
                             <div class="mb-3">{{ field(class="form-control") }}</div>
                             {% endfor %}
-                        <div class="mb-3"><button class="btn btn-primary shadow d-block w-100" role="button" type="submit">Iniciar sesión</button></div>
+                        <div class="mb-3"><button class="btn own_golden_bg shadow d-block w-100" role="button" type="submit">Iniciar sesión</button></div>
                         <p class="text-muted">¿Olvidaste tu contraseña?</p>
                         <div class="container mt-3">
                             {% include "flashes.html" %}
