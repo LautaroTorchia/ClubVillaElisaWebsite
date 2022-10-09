@@ -5,7 +5,7 @@ from src.core.db import db
 
 associate_disciplines = db.Table(
     "associate_disciplines",
-    Column("associate_id", Integer, db.ForeignKey("associates.associate_number"), primary_key=True),
+    Column("associate_id", Integer, db.ForeignKey("associates.id"), primary_key=True),
     Column("discipline_id", Integer, db.ForeignKey("disciplines.id"), primary_key=True),
 )
 
@@ -32,7 +32,7 @@ class Associate(db.Model):
         
     """    
     __tablename__ = "associates"
-    associate_number = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     name= Column(String(50), nullable=False)
     surname= Column(String(50), nullable=False)
     active=Column(Boolean, default=True)

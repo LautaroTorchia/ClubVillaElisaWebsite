@@ -18,7 +18,7 @@ class Payment(db.Model):
     deleted = Column(Boolean(), default=False)
     
 
-    associate_associate_number = Column(Integer, db.ForeignKey("associates.associate_number"), nullable=False)
+    associate_id = Column(Integer, db.ForeignKey("associates.id"), nullable=False)
     associate = db.relationship("Associate")
     discipline_id = Column(Integer, db.ForeignKey("disciplines.id"), nullable=False)
     discipline = db.relationship("Discipline")

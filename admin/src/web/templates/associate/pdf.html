@@ -28,7 +28,7 @@
                 {% endif %}
             </td>
             <td>
-              <a href={{ url_for('associate.get_update' ,id=associate.associate_number) }} >
+              <a href={{ url_for('associate.get_update' ,id=associate.id) }} >
               <button
                 class="btn btn-outline-info w-100 p-1"
                 style="border-radius: 5px">
@@ -38,7 +38,7 @@
             </td>
             <td>
               {% if associate.active %}
-                <form action="{{ url_for('associate.disable', id=associate.associate_number) }}" method="post" >
+                <form action="{{ url_for('associate.disable', id=associate.id) }}" method="post" >
                   <button
                     class="btn btn-outline-danger w-100 p-1"
                     style="border-radius: 5px"
@@ -47,7 +47,7 @@
                   </button>
                 </form>
               {% else %}
-                <form action="{{ url_for('associate.enable', id=associate.associate_number) }}" method="post" >
+                <form action="{{ url_for('associate.enable', id=associate.id) }}" method="post" >
                   <button
                     class="btn btn-outline-info w-100 p-1"
                     style="border-radius: 5px"
@@ -58,7 +58,7 @@
               {% endif %}
             </td>
             <td>
-              <form action="{{ url_for('associate.delete', id=associate.associate_number) }}" method="post" >
+              <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post" >
                 <button
                   class="btn btn-outline-danger w-100 p-1"
                   style="border-radius: 5px"

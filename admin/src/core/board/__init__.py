@@ -8,6 +8,7 @@ from src.core.resource_manager import ResourceManager
 from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 disciplines=ResourceManager(db.session,Discipline)
+associates = ResourceManager(db.session, Associate)
 
 def get_associate_by_id(associate_number):
     """ Get associate by id
