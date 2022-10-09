@@ -34,7 +34,7 @@
 }
 
 .own_main_body {
-    margin: 0px;
+    margin: 45px;
 }
 
 .own_table_header {
@@ -56,4 +56,16 @@
     padding-top: 45px;
     padding-right: 20px;
     font-size: 20px;
+}
+
+.own_large-col {
+    width:20rem;
+}
+
+.own_medium-col {
+    width:15rem;
+}
+
+.own_small-col {
+    width:5rem;
 }
