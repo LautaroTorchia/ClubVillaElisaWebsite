@@ -88,3 +88,10 @@
 .own_golden_bg {
     background: #b5a166;
 }
+
+.own_confirmation_button {
+    border-radius: 5px;
+    font-size: 20px; 
+    margin-top:20px; 
+    margin-bottom:20px
+}

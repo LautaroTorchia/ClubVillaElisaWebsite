@@ -23,29 +23,29 @@
                         <div style="width:450px; background:rgba(136,136,136,0.19); margin:auto; border-radius: 5px">
 
                             {% block form %}
-                                <form class="d-flex flex-column"> 
-                                    {{ form.hidden_tag() }}
-                                    {% for field in form if field.widget.input_type != 'hidden' %}
-                                    <tr>
-                                        <div style="padding-top:14px; margin-left: 30px">
-                                            <div>
-                                                <th><b>{{ field.label }}</b></th>
-                                            </div>
-                                            <div>
-                                                <td>{{ field }}</td>
-                                            </div>
+                            <form class="d-flex flex-column">
+                                {{ form.hidden_tag() }}
+                                {% for field in form if field.widget.input_type != 'hidden' %}
+                                <tr>
+                                    <div style="padding-top:14px; margin-left: 30px">
+                                        <div>
+                                            <th><b>{{ field.label }}</b></th>
                                         </div>
-                                    </tr>
-                                    {% endfor %}
-
-                                    <div>
-                                        <a href="{{ url_for('home') }}">
-                                        <button class="btn btn-primary shadow d-block w-100" type="button"
-                                            style="border-radius: 5px;font-size: 20px; margin-top:20px; margin-bottom:20px">Guardar</button>
-                                        </a>
+                                        <div>
+                                            <td>{{ field }}</td>
+                                        </div>
                                     </div>
+                                </tr>
+                                {% endfor %}
 
-                                </form>
+                                <div>
+                                    <a href="{{ url_for('home') }}">
+                                        <button class="btn own_golden_bg shadow d-block w-100 own_confirmation_button"
+                                            type="button">Guardar</button>
+                                    </a>
+                                </div>
+
+                            </form>
                             {% endblock form %}
 
                         </div>
