@@ -74,3 +74,13 @@
     align-content: center;
     align-items: center;
 }
+
+.own_nav_bar {
+    margin: 0px;
+    padding: 0px;
+    background: #494949;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
