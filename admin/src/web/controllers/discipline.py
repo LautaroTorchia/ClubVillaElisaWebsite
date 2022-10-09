@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
 from src.web.forms.discipline import DisciplineForm
 from src.web.helpers.auth import login_required
+from src.core.board import get_cfg
 
 discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
 
@@ -14,14 +15,14 @@ def index():
 @discipline_blueprint.get("/add")
 @login_required
 def get_add():
-    return render_template("discipline/add.html",form=DisciplineForm())
+    return render_template("discipline/add.html",form=DisciplineForm(currency=get_cfg().currency))
 
 @discipline_blueprint.post("/add")
 @login_required
 def post_add():
     form = DisciplineForm(request.form)
     if form.validate():
-        add_discipline(form.data)
+        add_discipline(form.data,get_cfg().currency)
         return redirect(url_for("discipline.index"))
     else:
         return render_template("discipline/add.html", form=form)
@@ -29,14 +30,14 @@ def post_add():
 @discipline_blueprint.get("/update/<id>")
 @login_required
 def get_update(id):
-    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id)))
+    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id),currency=get_cfg().currency))
 
 @discipline_blueprint.post("/update/<id>")
 @login_required
 def update(id):
     form = DisciplineForm(request.form)
     if form.validate():
-        update_discipline(id,form.data)
+        update_discipline(id,form.data,get_cfg().currency)
         return redirect(url_for("discipline.index"))
     else:
         return render_template("discipline/update.html", form=form)

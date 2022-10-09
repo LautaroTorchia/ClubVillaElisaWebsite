@@ -99,24 +99,24 @@ def delete_discipline(id):
     disciplines.query.filter(Discipline.id == id).update({"deleted":True})
     db.session.commit()
 
-def update_discipline(id,discipline_data):
+def update_discipline(id,discipline_data,currency):
     """ Get discipline
     Returns:
         - Get discipline by id
     """
     discipline_data = csrf_remover(discipline_data)
-    discipline_data["available"] = bool_checker(discipline_data["available"])
+    discipline_data.update(currency=currency,available=bool_checker(discipline_data["available"]))
     disciplines.query.filter(Discipline.id == id).update(discipline_data)
     db.session.commit()
 
 
-def add_discipline(discipline_data):
+def add_discipline(discipline_data,currency):
     """ Add discipline
     Returns:
         - Add discipline
     """
     discipline_data = csrf_remover(discipline_data)
-    discipline_data["available"] = bool_checker(discipline_data["available"])
+    discipline_data.update(currency=currency,available=bool_checker(discipline_data["available"]))
     disciplines.add(Discipline(discipline_data))
 
 # begin config repo
