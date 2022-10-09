@@ -43,13 +43,13 @@
       </thead>
       <tbody>
         {% for discipline in disciplines %}
-        <tr>
+        <tr class="own_centered">
           <td> {{ discipline.name }} </td>
           <td> {{ discipline.category }} </td>
           <td> {{ discipline.instructors }} </td>
           <td> {{ discipline.dates }} </td>
-          <td class="own_centered"> {{ discipline.monthly_cost }} </td>
-          <td class="own_centered"> {{ "Si" if discipline.available else "No" }} </td>
+          <td> {{ discipline.monthly_cost }} </td>
+          <td> {{ "Si" if discipline.available else "No" }} </td>
           </td>
 
           <td class="own_options_section">
