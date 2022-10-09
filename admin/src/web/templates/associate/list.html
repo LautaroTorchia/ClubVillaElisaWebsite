@@ -1,5 +1,5 @@
-{% extends "base.html" %}
 {% set current_template = self._TemplateReference__context.name %}
+{% extends "base.html" %}
 {% block css %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />

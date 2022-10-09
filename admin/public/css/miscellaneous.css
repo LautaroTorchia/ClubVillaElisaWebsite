@@ -29,7 +29,6 @@
 }
 
 .own_options_section {
-    width: 8rem !important;
     text-align: center;
 }
 
@@ -68,4 +67,10 @@
 
 .own_small-col {
     width:5rem;
+}
+
+.own_centered {
+    text-align: center;
+    align-content: center;
+    align-items: center;
 }
