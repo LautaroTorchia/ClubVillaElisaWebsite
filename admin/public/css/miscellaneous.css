@@ -1,0 +1,59 @@
+.own_add_button {
+    width: auto;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: -28.4px 32px;
+    margin: 37px;
+}
+
+.own_search_button {
+    border-style: solid;
+    border-top-color: rgb(182, 195, 205);
+    border-right-color: rgb(182, 195, 205);
+    border-bottom-color: rgb(182, 195, 205);
+    border-left-color: rgb(182, 195, 205);
+}
+
+.own_input {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.own_main_table {
+    margin: 40px;
+    max-width: 95%;
+}
+
+.own_options_button {
+    border-radius: 5px;
+    width: 6rem !important;
+}
+
+.own_options_section {
+    width: 8rem !important;
+    text-align: center;
+}
+
+.own_main_body {
+    margin: 0px;
+}
+
+.own_table_header {
+    text-align: center;
+}
+
+.center {
+    top:50%;
+    left:50%;
+    align-items: center;
+}
+
+.own_export_icons {
+    padding-top: 50px;
+    margin-right: 100px;
+}
+
+.own_export_text {
+    padding-top: 45px;
+    padding-right: 20px;
+    font-size: 20px;
+}
