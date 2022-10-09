@@ -39,8 +39,7 @@ def delete_user(user_id):
     Returns:
         - Delete user
     """
-    users.query.filter(User.id == user_id).update({"deleted": True})
-    db.session.commit()
+    users.delete(user_id)
 
 
 def update_user(user_id, form):
@@ -48,8 +47,7 @@ def update_user(user_id, form):
     Returns:
         - Update user
     """
-    users.query.filter(User.id == user_id).update(form)
-    db.session.commit()
+    users.update(user_id,form)
 
 
 def get_by_usr_and_pwd(usr, pwd):
