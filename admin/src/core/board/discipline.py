@@ -21,6 +21,8 @@ class Discipline(db.Model):
     currency= Column(String(3))
     available = Column(Boolean())
     deleted = Column(Boolean(), default=False)
+    created_at = Column(db.DateTime, default=db.func.now())
+    updated_at = Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
     associates = db.relationship("Associate", secondary="associate_disciplines", back_populates="disciplines")
 
@@ -36,7 +38,7 @@ class Discipline(db.Model):
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 
         con los instructores {self.instructors} 
-        con un costo de {self.monthly_cost} y está disponible en los días y horaios{self.dates}"""
+        con un costo de {self.monthly_cost} {self.currency} disponible en los días y horarios {self.dates}"""
 
     def to_dict(self):
         my_dict = self.__dict__

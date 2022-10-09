@@ -1,15 +1,13 @@
-class ResourceManager:
+class ResourceManager():
     model_class = None
 
-    def __init__(self, dbsession, model_class):
-        self.dbs = dbsession
-        self.model_class = model_class
+    def __init__(self, dbsession,model_class):
+         self.dbs = dbsession 
+         self.model_class = model_class
 
     @property
     def query(self):
-        return self.dbs.query(self.model_class).filter(
-            self.model_class.deleted == False
-        )
+         return self.dbs.query(self.model_class).filter(self.model_class.deleted==False)
 
     def add(self, obj):
         self.dbs.add(obj)
@@ -27,3 +25,6 @@ class ResourceManager:
     def delete(self, id):
         self.dbs.query(self.model_class).filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
+
+    def get(self, id):
+        return self.query.filter(self.model_class.id == id).first()
