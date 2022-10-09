@@ -2,10 +2,9 @@
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/x-dropdown.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/miscellaneous.css') }}" />
 {% endblock css %}
 {% block title %} Usuarios {% endblock title %}
 
@@ -19,27 +18,15 @@
     class="d-flex d-xxl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center justify-content-xxl-center"
     style="display: flex; margin: 43px; color: rgba(45, 45, 45, 0.82)">
     <a href="{{ url_for('user.get_add') }}">
-      <button class="btn btn-primary" type="button" style="
-        width: auto;
-        border-radius: 5px;
-        font-size: 20px;
-        padding: -28.4px 32px;
-        margin: 37px;
-      ">
+      <button class="btn btn-primary own_add_button" type="button">
         Registrar usuario
       </button>
     </a>
-    <form class="search-form" style="box-shadow: 0px 0px">
+    <form class="search-form" style="box-shadow: 0px 0px" method="GET">
       <div class="input-group">
-        <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"><i class="fa fa-search"></i></span><input
-          class="form-control" type="text" placeholder="Buscar socio" /><button class="btn btn-light" type="button"
-          style="
-            border-style: solid;
-            border-top-color: rgb(182, 195, 205);
-            border-right-color: rgb(182, 195, 205);
-            border-bottom-color: rgb(182, 195, 205);
-            border-left-color: rgb(182, 195, 205);
-          ">
+        <span class="input-group-text own_input"><i class="fa fa-search"></i></span><input class="form-control"
+          type="text" placeholder="Buscar usuario" />
+        <button class="btn btn-light own_search_button" type="button">
           Buscar
         </button>
       </div>
