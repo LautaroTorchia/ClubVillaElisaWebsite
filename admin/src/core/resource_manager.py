@@ -19,12 +19,15 @@ class ResourceManager():
         ).all()
 
     def update(self, id, data):
-        self.dbs.query(self.model_class).filter(self.model_class.id == id).update(data)
+        self.query.filter(self.model_class.id == id).update(data)
         self.dbs.commit()
 
     def delete(self, id):
-        self.dbs.query(self.model_class).filter(self.model_class.id == id).update({"deleted": True})
+        self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
     def get(self, id):
         return self.query.filter(self.model_class.id == id).first()
+
+    def list(self):
+        return self.query.all()

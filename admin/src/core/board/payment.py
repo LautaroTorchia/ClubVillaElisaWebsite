@@ -12,19 +12,16 @@ class Payment(db.Model):
 
     __tablename__ = "payments"
     id = Column(Integer, primary_key=True)
-    date = Column(DateTime)
+    date = Column(db.DateTime, default=db.func.now())
     amount = Column(Float)
     installment_number = Column(Integer)
     deleted = Column(Boolean(), default=False)
     
-
+    
     associate_id = Column(Integer, db.ForeignKey("associates.id"), nullable=False)
     associate = db.relationship("Associate")
-    discipline_id = Column(Integer, db.ForeignKey("disciplines.id"), nullable=False)
-    discipline = db.relationship("Discipline")
 
-    def __init__(self, date, amount, installment_number):
-        self.date = date
+    def __init__(self, amount, installment_number):
         self.amount = amount
         self.installment_number = installment_number
 
