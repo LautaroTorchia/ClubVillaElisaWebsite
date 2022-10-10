@@ -15,15 +15,7 @@
         Agregar Disciplinas
       </button>
     </a>
-    <form action="{{ url_for('discipline.index') }}" class="search-form" style="box-shadow: 0px 0px" method="GET">
-      <div class="input-group">
-        <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"><i class="fa fa-search"></i></span><input
-          class="form-control" type="text" placeholder="Buscar disciplina" />
-          <button class="btn btn-light own_search_button" type="button">
-          Buscar
-        </button>
-      </div>
-    </form>
+    {% include "search.html" %}
   </section lass="own_main_body">
   {% include "flashes.html" %}
   <section style="margin: 43px">
