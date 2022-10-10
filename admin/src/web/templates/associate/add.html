@@ -3,6 +3,23 @@
 {% block css %}
 {{ super() }}
 {% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
+<body>
+    {% block content %}
+        <form action="{{ url_for('associate.post_add') }}" method="POST" class="d-flex flex-column"> 
+            {{ form.hidden_tag() }}
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <tr>
+                <th>{{ field.label }}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+            {% for field, errors in form.errors.items() %}
+                <small class="form-text text-muted ">
+                    {{ ', '.join(errors) }}
+                </small>
+            {% endfor %}
+            <input type="submit" value="Agregar asociado" class="btn btn-primary">
+        </form>
 
 {% block content %}
     <form action="{{ url_for('associate.post_add') }}" method="POST" class="d-flex flex-column"> 
@@ -21,5 +38,6 @@
         <input type="submit" value="Agregar asociado" class="btn own_golden_bg">
     </form>
 
+    {% endblock content %}
+</body>
 
-{% endblock content %}
