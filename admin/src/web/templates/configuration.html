@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
@@ -8,6 +8,7 @@
 <body>
     {% block content %}
     <section class="py-5">
+        {% include "flashes.html" %}
         <section class="py-5">
             <div class="container">
                 <div class="row mb-5 row d-flex justify-content-center"
@@ -21,9 +22,9 @@
                 <div class="row d-flex justify-content-center" style="margin-top: 0px;">
                     <div class="col-md-8 col-xl-6 mx-auto">
                         <div style="width:450px; background:rgba(136,136,136,0.19); margin:auto; border-radius: 5px">
-
+                            {% include "form_errors.html" %}
                             {% block form %}
-                            <form class="d-flex flex-column">
+                            <form action={{url_for('configuration.update')}} method="post" class="d-flex flex-column">
                                 {{ form.hidden_tag() }}
                                 {% for field in form if field.widget.input_type != 'hidden' %}
                                 <tr>
@@ -39,20 +40,18 @@
                                 {% endfor %}
 
                                 <div>
-                                    <a href="{{ url_for('home') }}">
-                                        <button class="btn own_golden_bg shadow d-block w-100 own_confirmation_button"
-                                            type="button">Guardar</button>
-                                    </a>
+                                      <button class="btn own_golden_bg shadow d-block w-100 own_confirmation_button"
+                                          type="submit">Guardar</button>
                                 </div>
 
                             </form>
                             {% endblock form %}
-
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
     </section>
     {% endblock content %}
     {% block js %}
