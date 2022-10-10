@@ -1,0 +1,143 @@
+.own_add_button {
+    width: auto;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: -28.4px 32px;
+    margin: 37px;
+}
+
+.own_search_button {
+    border-style: solid;
+    border-top-color: rgb(182, 195, 205);
+    border-right-color: rgb(182, 195, 205);
+    border-bottom-color: rgb(182, 195, 205);
+    border-left-color: rgb(182, 195, 205);
+}
+
+.own_input {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.own_main_table {
+    margin: 40px;
+    max-width: 95%;
+}
+
+.own_options_button {
+    border-radius: 5px;
+    width: 6rem !important;
+}
+
+.own_options_section {
+    text-align: center;
+}
+
+.own_main_body {
+    margin: 45px;
+}
+
+.own_table_header {
+    text-align: center;
+}
+
+.center {
+    top:50%;
+    left:50%;
+    align-items: center;
+}
+
+.own_export_icons {
+    padding-top: 50px;
+    margin-right: 100px;
+}
+
+.own_export_text {
+    padding-top: 45px;
+    padding-right: 20px;
+    font-size: 20px;
+}
+
+.own_large-col {
+    width:20rem;
+}
+
+.own_medium-col {
+    width:15rem;
+}
+
+.own_small-col {
+    width:5rem;
+}
+
+.own_centered {
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+
+.own_nav_bar {
+    margin: 0px;
+    padding: 0px;
+    background: #494949;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.own_golden_bg {
+    background: #b5a166;
+}
+
+.own_confirmation_button {
+    border-radius: 5px;
+    font-size: 20px; 
+    margin-top:20px; 
+    margin-bottom:20px
+}
+
+.own_form_container {
+    width: 900px;
+    background: rgba(136,136,136,0.19);
+    padding-bottom: 30px;
+    padding-top: 0px;
+    box-shadow: 0px 3px 10px 1px;
+}
+
+.own_form_header {
+    padding-top: 0px;
+    background: rgba(181,161,102,0);
+    text-align: center;
+}
+
+.own_form_title {
+    font-size: 36px;
+    text-align: center;
+    width: 500px;
+    height: 60px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    background: rgba(181,161,102,0.5);
+    box-shadow: 0px 0px 5px 0px;
+}
+
+.own_input_label {
+    margin-top: 20px;
+}
+
+.own_submit_button {
+    border-radius: 10px;
+    font-size: 20px;
+    width: 250px;
+}
+
+.own_input_lenght {
+    width: 700px;
+}
+
+.own_paddings {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}

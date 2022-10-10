@@ -3,7 +3,7 @@ def bool_checker(attribute):
         return attribute
     if type(attribute) == str:
         return True if attribute == "True" else False
-    raise ValueError("This should be a bool or the str values 'True' o 'False'")
+    raise ValueError(f"This should be a bool or the str values 'True' o 'False' it was {attribute}")
 
 def csrf_remover(form):
     """Removes the csrf token field from a form
@@ -14,6 +14,9 @@ def csrf_remover(form):
     Returns:
         dict: Returns a dict without the csrf token, be careful, this is not a immutable dict
     """
-    form = dict(form)
-    form.pop("csrf_token")
+    try:
+        form = dict(form)
+        form.pop("csrf_token")
+    except:
+        pass
     return form

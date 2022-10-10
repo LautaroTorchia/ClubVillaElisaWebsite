@@ -1,0 +1,74 @@
+<table
+      id="example"
+      class="table table-striped table-bordered"
+      cellspacing="0"
+      width="100%">
+      <thead>
+        <tr>
+          <th>Nombre y apellido</th>
+          <th>DNI</th>
+          <th>Domicilio</th>
+          <th>Estado</th>
+          <th>Disciplinas</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for associate in associates %}
+          <tr>
+            <td> {{ associate.name }} {{ associate.surname }}</td>
+            <td> {{ associate.DNI_number }} </td>
+            <td> {{ associate.address }} </td>
+            <td> {% if  associate.active  %} Activo {% else %} Inactivo {% endif %} </td>
+            <td> {% if associate.disciplines %} 
+                  {% for disciplina in associate.disciplines %} 
+                    {{ disciplina }} , 
+                  {% endfor %}
+                {% else %}
+                  No esta anotado a disciplinas
+                {% endif %}
+            </td>
+            <td>
+              <a href={{ url_for('associate.get_update' ,id=associate.id) }} >
+              <button
+                class="btn btn-outline-info w-100 p-1"
+                style="border-radius: 5px">
+                Modificar
+              </button>
+              </a>
+            </td>
+            <td>
+              {% if associate.active %}
+                <form action="{{ url_for('associate.disable', id=associate.id) }}" method="post" >
+                  <button
+                    class="btn btn-outline-danger w-100 p-1"
+                    style="border-radius: 5px"
+                    onclick="return confirm('Seguro que desea inhabilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                    Inhabilitar
+                  </button>
+                </form>
+              {% else %}
+                <form action="{{ url_for('associate.enable', id=associate.id) }}" method="post" >
+                  <button
+                    class="btn btn-outline-info w-100 p-1"
+                    style="border-radius: 5px"
+                    onclick="return confirm('Seguro que desea habilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                    Habilitar
+                  </button>
+                </form>
+              {% endif %}
+            </td>
+            <td>
+              <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post" >
+                <button
+                  class="btn btn-outline-danger w-100 p-1"
+                  style="border-radius: 5px"
+                  onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                  Eliminar
+                </button>
+              </form>
+            </td>
+           
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>

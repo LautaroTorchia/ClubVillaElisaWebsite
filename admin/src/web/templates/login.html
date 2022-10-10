@@ -13,7 +13,7 @@
                 <div class="col-md-8 col-lg-7 col-xl-6 text-center text-md-start mx-auto" style="width: 600px;background: rgba(136,136,136,0.19);box-shadow: 0px -4px 10px 2px;margin-bottom: 20px;">
                     <div class="text-center" style="width: auto;">
                         <h1 class="fw-bold" style="font-size: 36px;text-shadow: 0px -5px 5px rgba(181,161,102,0.5);margin-top: 10px;font-family: Amaranth, sans-serif;text-align: center;width: auto;">Club Deportivo Villa Elisa</h1>
-                        <p class="fw-bold text-success mb-2" style="border-color: rgb(255,255,255);border-left-color: var(--bs-gray-100);color: rgb(255,255,255);font-style: italic;font-family: Amaranth, sans-serif;text-align: center;letter-spacing: 1px;">Primer club histórico de la ciudad</p>
+                        <p class="fw-bold mb-2" style="border-color: rgb(255,255,255);border-left-color: var(--bs-gray-100);color: #b5a166;font-style: italic;font-family: Amaranth, sans-serif;text-align: center;letter-spacing: 1px;">Primer club histórico de la ciudad</p>
                     </div>
                 </div>
             </div>
@@ -22,12 +22,20 @@
     <div class="row d-flex justify-content-center" style="margin: 30px;width: auto;display: flex;">
         <div class="col-md-8 col-lg-7 col-xl-4" style="width: auto;">
             <div class="card" style="width: 600px;">
-                <div class="card-body text-center d-flex flex-column align-items-center" style="background: rgba(136,136,136,0.19);height: 525.125px;width: auto;box-shadow: 0px 4px 10px 1px;"><img src="static/img/logo_club.png" style="width: 100px;margin-bottom: 30px;">
-                    <div class="mb-3"><input class="form-control" type="email" name="User" placeholder="Usuario"></div>
-                    <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Contraseña"></div>
-                    <div class="mb-3"><a class="btn btn-primary shadow d-block w-100" role="button" href="{{ url_for('home') }}">Iniciar sesión</a></div>
-                    <p class="text-muted">¿Olvidaste tu contraseña?</p>
-                </div>
+                <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column "> 
+                    <div class="card-body text-center d-flex flex-column align-items-center" style="background: rgba(136,136,136,0.19);height: 525.125px;width: auto;box-shadow: 0px 4px 10px 1px;"><img src="{{ url_for('static', filename='img/logo_club.png') }}" style="width: 100px;margin-bottom: 30px;">
+                        {{ form.hidden_tag() }}
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                            <div class="mb-3">{{ field(class="form-control") }}</div>
+                            {% endfor %}
+                        <div class="mb-3"><button class="btn own_golden_bg shadow d-block w-100" role="button" type="submit">Iniciar sesión</button></div>
+                        <p class="text-muted">¿Olvidaste tu contraseña?</p>
+                        <div class="container mt-3">
+                            {% include "flashes.html" %}
+                            {% include "form_errors.html" %}
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

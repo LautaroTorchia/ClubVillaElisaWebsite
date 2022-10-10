@@ -1,42 +1,51 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline,get_last_discipline
 from src.web.forms.discipline import DisciplineForm
-from src.core.board.discipline import Discipline as DisciplineModel
-from src.web.helpers.form_utils import bool_checker, csrf_remover
-from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline
+from src.web.helpers.auth import login_required
+from src.core.board import get_cfg
 
 discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
 
-@discipline_blueprint.route("/api")
-def index_api():
-    return jsonify(list(map(lambda x: x.to_dict(), list_disciplines())))
 
 @discipline_blueprint.get("/")
+@login_required
 def index():
     return render_template("discipline/list.html",disciplines=list_disciplines())
 
 @discipline_blueprint.get("/add")
+@login_required
 def get_add():
-    return render_template("discipline/add.html",form=DisciplineForm())
+    return render_template("discipline/add.html",form=DisciplineForm(currency=get_cfg().currency))
 
 @discipline_blueprint.post("/add")
+@login_required
 def post_add():
-    form = csrf_remover(request.form)
-    form["available"] = bool_checker(form["available"])
-    add_discipline(DisciplineModel(form))
-    return redirect(url_for("discipline.index"))
+    form = DisciplineForm(request.form)
+    if form.validate():
+        add_discipline(form.data,get_cfg().currency)
+        flash(f"Se agregó {get_last_discipline()}", category="alert alert-info")
+        return redirect(url_for("discipline.index"))
+    else:
+        return render_template("discipline/add.html", form=form)
 
 @discipline_blueprint.get("/update/<id>")
+@login_required
 def get_update(id):
-    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id)))
+    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id),currency=get_cfg().currency))
 
 @discipline_blueprint.post("/update/<id>")
+@login_required
 def update(id):
-    form = csrf_remover(request.form)
-    form["available"] = bool_checker(form["available"])
-    update_discipline(id,form)
-    return redirect(url_for("discipline.index"))
+    form = DisciplineForm(request.form)
+    if form.validate():
+        flash(f"Se actualizó {get_discipline(id)}", category="alert alert-info")
+        update_discipline(id,form.data)
+        return redirect(url_for("discipline.index"))
+    else:
+        return render_template("discipline/update.html", form=form)
 
 @discipline_blueprint.post("/delete/<id>")
+@login_required
 def delete(id):
     flash(f"Se elimino {get_discipline(request.form['Delete'])}", category="alert alert-warning")
     delete_discipline(id)

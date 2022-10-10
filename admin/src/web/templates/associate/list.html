@@ -1,115 +1,102 @@
-{% extends "base.html" %} 
-{% set current_template =  self._TemplateReference__context.name %} 
-  {% block css %}
-  {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Articles-Cards-images.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/best-carousel-slide.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Data-Table-styles.css') }}" />
-    <link rel="stylesheet" href= "{{ url_for('static', filename='css/Data-Table.css') }}" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}"  />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/x-dropdown.css') }}" />
-  {% endblock css %} 
+{% set current_template = self._TemplateReference__context.name %}
+{% extends "base.html" %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
+{% endblock css %}
 {% block title %} Socios {% endblock title %}
-<body
-  style="
-    /*background: url(&quot;design.jpg&quot;);*/
-    background-position: 0 -60px;
-    margin: 0px;
-  ">
+
+<body>
   {% block content %}
-  <section
-    class="d-flex d-xxl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center justify-content-xxl-center"
-    style="display: flex; margin: 43px; color: rgba(45, 45, 45, 0.82)">
+  <section class="d-flex justify-content-xxl-center">
+    <table style="margin-right:100px; margin-top:6px">
+      <tr>
+        <p class="own_export_text"><b>Exportar:</b></p>
+      </tr>
+      <tr>
+        <td>
+          <form method="GET" action="{{ url_for('associate.write_csv') }}">
+            <input type="image" src="/public/img/Excel_icon.png" style="width: 80%; margin-right:10px;">
+          </form>
+        </td>
+        <td>
+          <form method="GET" action="{{ url_for('associate.write_pdf') }}">
+            <input type="image" src="/public/img/PDF_icon.png" style="width: 100%;">
+          </form>
+        </td>
+      </tr>
+    </table>
     <a href="{{ url_for('associate.get_add') }}">
-      <button
-        class="btn btn-primary"
-        type="button"
-        style="
-          width: auto;
-          border-radius: 5px;
-          font-size: 20px;
-          padding: -28.4px 32px;
-          margin: 37px;
-        ">
-        Agregar Asociado 
+      <button class="btn own_golden_bg own_add_button" type="button">
+        Agregar Asociado
       </button>
-  </a>
-    <form class="search-form" style="box-shadow: 0px 0px" method="GET">
-      <div class="input-group">
-        <span class="input-group-text" style="border-radius: 5px 0px 0px 5px"
-          ><i class="fa fa-search"></i></span
-        ><input
-          class="form-control"
-          type="text"
-          placeholder="Buscar socio" /><button
-          class="btn btn-light"
-          type="button"
-          style="
-            border-style: solid;
-            border-top-color: rgb(182, 195, 205);
-            border-right-color: rgb(182, 195, 205);
-            border-bottom-color: rgb(182, 195, 205);
-            border-left-color: rgb(182, 195, 205);
-          ">
-          Buscar
-        </button>
-      </div>
-    </form>
+    </a>
+    {% include "search.html" %}
   </section>
-  <section style="margin: 43px">
-    <table
-      id="example"
-      class="table table-striped table-bordered"
-      cellspacing="0"
-      width="100%">
+  <section class="own_main_body">
+    {% include "flashes.html" %}
+    <table class="table table-striped table-bordered own_main_table">
       <thead>
-        <tr>
-          <th>Nombre y apellido</th>
-          <th>DNI</th>
-          <th>Domicilio</th>
-          <th>Estado</th>
-          <th>Disciplinas</th>
-          <th>Modificar</th>
-          <th>Eliminar</th>
+        <tr class="own_table_header">
+          <th class="own_medium-col">Nombre y apellido</th>
+          <th class="own_small-col">DNI</th>
+          <th class="own_medium-col">Domicilio</th>
+          <th class="own_small-col">Estado</th>
+          <th class="own_large-col">Disciplinas</th>
+          <th class="own_small-col">Modificar</th>
+          <th class="own_small-col">Inhabilitar</th>
+          <th class="own_small-col">Eliminar</th>
         </tr>
       </thead>
       <tbody>
         {% for associate in associates %}
-          <tr>
-            <td> {{ associate.name }} {{ associate.surname }}</td>
-            <td> {{ associate.DNI_number }} </td>
-            <td> {{ associate.address }} </td>
-            <td> {% if  associate.active  %} Activo {% else %} Inactivo {% endif %} </td>
-            <td> {% if associate.disciplines %} 
-                  {% for disciplina in associate.disciplines %} 
-                    {{ disciplina }} , 
-                  {% endfor %}
-                {% else %}
-                  No esta anotado a disciplinas
-                {% endif %}
-            </td>
-            <td>
-              <a href={{ url_for('associate.get_update' ,id=associate.associate_number) }} >
-              <button
-                class="btn btn-outline-info w-100 p-1"
-                style="border-radius: 5px">
-                Modificar
+        <tr class="own_centered">
+          <td> {{ associate.name }} {{ associate.surname }}</td>
+          <td> {{ associate.DNI_number }} </td>
+          <td> {{ associate.address }} </td>
+          <td> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
+          <td> {% if associate.disciplines %}
+            {% for disciplina in associate.disciplines %}
+            {{ disciplina }} ,
+            {% endfor %}
+            {% else %}
+            No esta anotado a disciplinas
+            {% endif %}
+          </td>
+          <td class="own_options_section">
+            <a href="{{ url_for('associate.get_update' ,id=associate.id) }}">
+              <button class="btn btn-outline-info w-100 p-1 own_options_button">
+                Mod.
               </button>
-              </a>
-            </td>
-            <td>
-              <form action="{{ url_for('associate.delete', id=associate.associate_number) }}" method="post" >
-                <button
-                  class="btn btn-outline-danger w-100 p-1"
-                  style="border-radius: 5px"
-                  onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-                  Eliminar
-                </button>
-              </form>
-            </td>
-          </tr>
+            </a>
+          </td>
+          <td class="own_options_section">
+            {% if associate.active %}
+            <form action="{{ url_for('associate.disable', id=associate.id) }}" method="post">
+              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea inhabilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                Inhab.
+              </button>
+            </form>
+            {% else %}
+            <form action="{{ url_for('associate.enable', id=associate.id) }}" method="post">
+              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea habilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                Habil.
+              </button>
+            </form>
+            {% endif %}
+          </td>
+          <td class="own_options_section">
+            <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
+              <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                X
+              </button>
+            </form>
+          </td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
@@ -117,29 +104,10 @@
   {% include "paginator.html"%}
   <div class="d-flex align-center">
 
-  <form method="POST" action="not_implemented/">
-    <input type="submit" value="Exportar a PDF" class="btn btn-primary" style="
-    width: auto;
-    border-radius: 5px;
-    font-size: 20px;
-    padding: -28.4px 32px;
-    margin: 37px;
-  ">
-  </form>
-  <form method="POST" action="not_implemented/">
-    <input type="submit" value="Exportar a Excel" class="btn btn-primary" style="
-    width: auto;
-    border-radius: 5px;
-    font-size: 20px;
-    padding: -28.4px 32px;
-    margin: 37px;
-  ">
-  </form>
-  
-  {% endblock content%}
-  {% block js%}
+    {% endblock content%}
+    {% block js%}
     {{ super() }}
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-  {% endblock js%}
+    {% endblock js%}
 </body>

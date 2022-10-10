@@ -1,9 +1,9 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class=flashes>
+      <div class="d-flex justify-content-center">
       {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
+        <p class="{{ category }} flashes">{{ message }}</p>
       {% endfor %}
-      </ul>
+      </div>
     {% endif %}
   {% endwith %}
