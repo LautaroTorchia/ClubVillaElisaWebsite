@@ -26,10 +26,10 @@ def populate():
     telephones=[22123456, 22123457, 22123458, 22123459, 22123460, 22123461, 22123462, 22123463]
     genders=["male", "male", "female", "other", "male", "male", "other", "male"]
 
-    #try:
-    for i in range(0,7):
-        create_user({'first_name': names[i], 'last_name': last_names[i], 'email': emails[i], 'username': usernames[i], 'password': sha256_crypt.encrypt(passwords[i])})
-        add_discipline({'name': dicipline_name[i], 'category': dicipline_category[i], 'instructors': instructors[i], 'dates': days_and_hours[i], 'monthly_cost': monthly_cost[i], 'currency': "Pesos", 'available': True})
-        create_associate({'DNI_number': dni[i], 'DNI_type': "DNI",'name': names[i], 'surname': last_names[i], 'email': more_emails[i], 'gender': genders[i], 'address': address[i], 'phone_number': telephones[i]})
-    #except:
-    #    pass
+    try:
+        for i in range(0,7):
+            create_user({'first_name': names[i], 'last_name': last_names[i], 'email': emails[i], 'username': usernames[i], 'password': sha256_crypt.encrypt(passwords[i])})
+            add_discipline({'name': dicipline_name[i], 'category': dicipline_category[i], 'instructors': instructors[i], 'dates': days_and_hours[i], 'monthly_cost': monthly_cost[i], 'currency': "Pesos", 'available': True})
+            create_associate({'DNI_number': dni[i], 'DNI_type': "DNI",'name': names[i], 'surname': last_names[i], 'email': more_emails[i], 'gender': genders[i], 'address': address[i], 'phone_number': telephones[i]})
+    except:
+        pass
