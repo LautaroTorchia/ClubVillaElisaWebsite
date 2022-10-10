@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from src.web.config import get_config
 import src.core.db as database
-from src.core import seeds
 from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
@@ -24,9 +23,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # init db
     with app.app_context():
         database.init_app(app)
-        # Create Admin
-        seeds.run()
+        
     
+
 
     # Session
     Session(app)
