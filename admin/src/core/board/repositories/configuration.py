@@ -1,6 +1,7 @@
 from src.core.board.configuration import Configuration
 
 from src.core.db import db
+
 # begin config repo
 def get_cfg():
     """Get configuration
@@ -42,17 +43,9 @@ def update_cfg(cfg_data):
     Returns:
         - Updated configuration
     """
-    cfg = get_cfg()
-    cfg.record_number = cfg_data.record_number
-    cfg.ord_criteria = cfg_data.ord_criteria
-    cfg.currency = cfg_data.currency
-    cfg.base_fee = cfg_data.base_fee
-    cfg.due_fee = cfg_data.due_fee
-    cfg.payment_available = cfg_data.payment_available
-    cfg.contact = cfg_data.contact
-    cfg.payment_header = cfg_data.payment_header
-
-    # TODO change this
+    db.session.query(Configuration).filter(Configuration.id == get_cfg().id).update(
+        cfg_data
+    )
     db.session.commit()
     return cfg_data
 
