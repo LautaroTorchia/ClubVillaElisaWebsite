@@ -78,7 +78,7 @@ def enable(id):
 @associate_blueprint.get("/csv_writer")
 @login_required
 def write_csv():
-    CSV_PATH=os.path.join(os.getcwd(),"public","csv","Associate_list_report.csv")
+    CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
     write_csv_file(CSV_PATH,list_associates())
     return send_file(CSV_PATH,as_attachment=True)
 
@@ -86,6 +86,6 @@ def write_csv():
 @associate_blueprint.get("/pdf_writer")
 @login_required
 def write_pdf():
-    PDF_PATH=os.path.join(os.getcwd(),"public","pdf","Associate_list_report.pdf")
+    PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     write_pdf_file(PDF_PATH,list_associates())
     return send_file(PDF_PATH,as_attachment=True)
