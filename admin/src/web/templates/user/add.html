@@ -8,38 +8,29 @@
 <body>
     {% block content %}
     <section class="py-5">
-        <div class="container py-5">
-            <section class="clean-block clean-form dark h-100" style="background: rgba(246,246,246,0);">
-                <div class="container"
-                    style="width: 900px;background: rgba(136,136,136,0.19);padding-bottom: 30px;padding-top: 0px;box-shadow: 0px 3px 10px 1px;">
-                    <div class="d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center block-heading"
-                        style="padding-top: 0px;background: rgba(181,161,102,0);text-align: center;">
-                        <p class="d-lg-flex d-xl-flex justify-content-lg-center justify-content-xl-center align-items-xl-center"
-                            style="font-size: 36px;text-align: center;width: 500px;height: 60px;margin-bottom: 0px;margin-top: 10px;background: rgba(181,161,102,0.5);box-shadow: 0px 0px 5px 0px;">
-                            Registro de usuario</p>
+        <div class="container own_form_container own_input_lenght own_paddings">
+            <div class="d-xl-flex align-items-lg-center justify-content-xl-center own_form_header">
+                <p class="own_form_title">
+                    Registro de usuario</p>
+            </div>
+            {% block form %}
+            <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column">
+                {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <div class="own_input_label">
+                        <th>{{ field.label }}</th>
                     </div>
-
-                    {% block form %}
-                        <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column"> 
-                            {{ form.hidden_tag() }}
-                            {% for field in form if field.widget.input_type != 'hidden' %}
-                            <tr>
-                                <div class="form-group mb-3">
-                                    <th>{{ field.label }}</th>
-                                </div>
-                                <td>{{ field }}</td>
-                            </tr>
-                            {% endfor %}
-                            <hr style="margin-top: 30px;margin-bottom: 10px;">
-                            <div class="form-group mb-3">
-                                <button class="btn own_golden_bg d-block w-100"
-                                    type="submit">Registrarse</button>
-                            </div>
-                        </form>
-                    {% endblock form %}
-                    
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+                <hr>
+                <div class="form-group mb-3 own_centered">
+                    <button class="btn own_golden_bg own_submit_button" type="submit">Registrarse</button>
                 </div>
-            </section>
+            </form>
+            {% endblock form %}
+
         </div>
     </section>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>

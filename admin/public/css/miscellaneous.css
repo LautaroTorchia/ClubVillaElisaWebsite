@@ -95,3 +95,49 @@
     margin-top:20px; 
     margin-bottom:20px
 }
+
+.own_form_container {
+    width: 900px;
+    background: rgba(136,136,136,0.19);
+    padding-bottom: 30px;
+    padding-top: 0px;
+    box-shadow: 0px 3px 10px 1px;
+}
+
+.own_form_header {
+    padding-top: 0px;
+    background: rgba(181,161,102,0);
+    text-align: center;
+}
+
+.own_form_title {
+    font-size: 36px;
+    text-align: center;
+    width: 500px;
+    height: 60px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    background: rgba(181,161,102,0.5);
+    box-shadow: 0px 0px 5px 0px;
+}
+
+.own_input_label {
+    margin-top: 20px;
+}
+
+.own_submit_button {
+    border-radius: 10px;
+    font-size: 20px;
+    width: 250px;
+}
+
+.own_input_lenght {
+    width: 700px;
+}
+
+.own_paddings {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
