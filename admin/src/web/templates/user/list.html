@@ -16,15 +16,7 @@
         Registrar usuario
       </button>
     </a>
-    <form class="search-form" style="box-shadow: 0px 0px" method="GET">
-      <div class="input-group">
-        <span class="input-group-text own_input"><i class="fa fa-search"></i></span><input class="form-control"
-          type="text" placeholder="Buscar usuario" />
-        <button class="btn btn-light own_search_button" type="button">
-          Buscar
-        </button>
-      </div>
-    </form>
+    {% include "search.html" %}
   </section>
   <section class="own_main_body">
     {% include "flashes.html" %}

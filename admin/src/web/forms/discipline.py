@@ -19,3 +19,4 @@ class DisciplineForm(BaseForm):
             self['monthly_cost'].label = Label(self['monthly_cost'].id, f"Costo mensual ({kwargs['currency']})")
         except:
             pass
+        
