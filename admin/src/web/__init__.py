@@ -24,9 +24,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # init db
     with app.app_context():
         database.init_app(app)
+        # Create Admin
+        seeds.run()
     
-    # Create Admin
-    seeds.run()
 
     # Session
     Session(app)
