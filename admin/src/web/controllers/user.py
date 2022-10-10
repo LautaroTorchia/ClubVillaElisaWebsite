@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, url_for, request, render_template, flash
-from src.core.auth import create_user, list_users, update_user, delete_user, get_user_by_id
+from src.core.auth import create_user, list_users, update_user, delete_user, get_user_by_id, disable_user, enable_user
 from src.core.auth.user import User
 from src.web.forms.user import UserForm, UpdateUserForm
 from passlib.hash import sha256_crypt
@@ -51,4 +51,19 @@ def post_update(id):
 def delete(id):
     flash(f"Se elimino al usuario satisfactoriamente", category="alert alert-warning")
     delete_user(id)
+    return redirect(url_for("user.index"))
+
+@user_blueprint.post("/disable/<id>")
+@login_required
+def disable(id):
+    flash(f"Se deshabilito al usuario satisfactoriamente", category="alert alert-warning")
+    disable_user(id)
+    return redirect(url_for("user.index"))
+
+#disabling associates
+@user_blueprint.post("/enable/<id>")
+@login_required
+def enable(id):
+    flash(f"Se habilito al usuario satisfactoriamente", category="alert alert-warning")
+    enable_user(id)
     return redirect(url_for("user.index"))

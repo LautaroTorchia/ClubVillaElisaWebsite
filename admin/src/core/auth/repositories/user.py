@@ -57,3 +57,19 @@ def get_by_usr_and_pwd(usr, pwd):
     if usr != None and sha256_crypt.verify(pwd, usr.password):
         return usr
     return None
+
+
+def disable_user(id):
+    """Disable user
+    Returns:
+        - Disabled user
+    """
+    users.update(id,{"active":False})
+    
+
+def enable_user(id):
+    """Enable user
+    Returns:
+        - Enabled user
+    """
+    users.update(id,{"active":True})
