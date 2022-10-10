@@ -28,12 +28,12 @@ def list_associates():
     """
     return associates.list()
 
-def create_associate(form):
+def create_associate(form_data):
     """ Create associate
     Returns:
         - Create associate
     """
-    associate = Associate(**form.data)
+    associate = Associate(**form_data)
     associates.add(associate)
     return associate
 

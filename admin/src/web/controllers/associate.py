@@ -27,7 +27,7 @@ def get_add():
 def post_add():
     form = CreateAssociateForm(request.form)
     if form.validate():
-        create_associate(form)
+        create_associate(form.data)
         return redirect(url_for("associate.index"))
     return render_template("associate/add.html", form=form)
 

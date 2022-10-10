@@ -56,6 +56,11 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     @app.cli.command("seeds")
     def seedsdb():
         seeds.run()
+
+    @app.cli.command("populate")
+    def populatedb():
+        seeds.populate()
+        
     # error handlers
     app.register_error_handler(400, handlers.bad_request_error)
     app.register_error_handler(401, handlers.unauthorized_error)

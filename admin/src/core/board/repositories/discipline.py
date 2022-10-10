@@ -41,7 +41,7 @@ def update_discipline(id,discipline_data):
 
 
 
-def add_discipline(discipline_data,currency):
+def add_discipline(discipline_data,currency="ARS"):
     """ Add discipline
     Returns:
         - Add discipline

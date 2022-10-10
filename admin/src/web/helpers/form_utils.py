@@ -14,6 +14,9 @@ def csrf_remover(form):
     Returns:
         dict: Returns a dict without the csrf token, be careful, this is not a immutable dict
     """
-    form = dict(form)
-    form.pop("csrf_token")
+    try:
+        form = dict(form)
+        form.pop("csrf_token")
+    except:
+        pass
     return form
