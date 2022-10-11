@@ -10,7 +10,13 @@ discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline
 @discipline_blueprint.get("/")
 @login_required
 def index():
-    return render_template("discipline/list.html",disciplines=list_disciplines())
+    if request.args.get("search"):
+        disciplines=list_disciplines(request.args["column"],request.args["search"])
+    else:
+        disciplines=list_disciplines()
+    return render_template("discipline/list.html",disciplines=disciplines,
+    pairs=[("name","Nombre"),("category","Categoría"),("instructors","Instructores"),
+    ("dates","Días y horarios")])
 
 @discipline_blueprint.get("/add")
 @login_required

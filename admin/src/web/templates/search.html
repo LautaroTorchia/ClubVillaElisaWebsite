@@ -1,9 +1,17 @@
 <form class="search-form" style="box-shadow: 0px 0px" method="GET">
     <div class="input-group">
-      <span class="input-group-text own_input"><i class="fa fa-search"></i></span><input class="form-control"
-        type="text" placeholder="Buscar socio" />
-      <button class="btn btn-light own_search_button" type="button">
+      <span class="input-group-text own_input">
+        <i class="fa fa-search"></i>
+      </span>
+      <select class="form-control" id="column" name="column" required="">
+        {% for option,name in pairs %}
+          <option value={{ option }}>{{ name }}</option>
+        {% endfor %}
+      </select>
+      <input class="form-control" type="text" placeholder="Buscar socio" name= "search"/>
+      <button class="btn btn-light own_search_button" type="submit">
         Buscar
       </button>
     </div>
   </form>
+

@@ -2,11 +2,13 @@ from src.web.helpers.form_utils import bool_checker, csrf_remover
 from src.core.board.discipline import Discipline
 from src.core.board import disciplines
 
-def list_disciplines():
+def list_disciplines(column=None,filter=True):
     """ List all disciplines
     Returns:
         - List of Discipline objects
     """
+    if column:
+        return disciplines.filter(column,filter)
     return disciplines.list()
 
 def get_last_discipline():
