@@ -1,3 +1,6 @@
+from sqlalchemy.sql.expression import cast
+from sqlalchemy import String
+
 class ResourceManager():
     model_class = None
 
@@ -15,7 +18,7 @@ class ResourceManager():
 
     def filter(self, col_name, text):
         return self.query.filter(
-            getattr(self.model_class, col_name).like(f"%{text}%")
+            cast(getattr(self.model_class, col_name), String).like(f"%{text}%")
         ).all()
 
     def update(self, id, data):
