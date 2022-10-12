@@ -58,15 +58,15 @@
 }
 
 .own_large-col {
-    width:20rem;
+    width:20rem !important;
 }
 
 .own_medium-col {
-    width:15rem;
+    width:15rem !important;
 }
 
 .own_small-col {
-    width:5rem;
+    width:5rem !important;
 }
 
 .own_centered {
@@ -141,3 +141,4 @@
     padding-left: 40px;
     padding-right: 40px;
 }
+
