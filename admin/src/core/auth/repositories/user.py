@@ -13,12 +13,14 @@ def get_user_by_id(user_id):
     return users.query.filter(User.id == user_id).first()
 
 
-def list_users():
+def list_users(column=None,filter=True):
     """List all users
     Returns:
         - List of User objects
     """
-    return users.query.all()
+    if column:
+        return users.paginated_filter(column,filter)
+    return users.paginated_list()
 
 
 def create_user(form):

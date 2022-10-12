@@ -34,7 +34,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for user in users %}
+        {% for user in users.items %}
         <tr class="own_centered">
           <td> {{ user.first_name }} </td>
           <td> {{ user.last_name }} </td>
@@ -84,8 +84,8 @@
       </tbody>
     </table>
   </section>
-  <!-- TODO:Cuando esté hecho lo necesario para el paginador descomentar-->
-  <!-- {% include "paginator.html"%} -->
+  {% include "paginator.html"%}
+
   {% endblock content%}
   {% block js %}
   {{ super() }}

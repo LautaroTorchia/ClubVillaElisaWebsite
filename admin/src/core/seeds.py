@@ -10,10 +10,10 @@ def run():
 def populate():
     names=["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names=["Perez", "Gonzalez", "Garcia", "Rodriguez", "Lopez", "Martinez", "Hernandez", "Gomez"]
-    emails=["juan@gmail.com", "pablo@gmail.com", "maria@gmail.com", "diana@gmail.com", "horacio@gmail.com", "kevin@gmail.com", "cesar@gmail.com"]
+    emails=["juan@gmail.com", "pablo@gmail.com", "maria@gmail.com", "diana@gmail.com", "horacio@gmail.com", "pedro@gmail.com", "kevin@gmail.com", "cesar@gmail.com"]
     more_emails=[f"{last_name.lower()}@gmail.com" for last_name in last_names]
-    usernames=["juan", "pablo", "maria", "diana", "horacio", "kevin", "cesar"]
-    passwords=["1234", "1234", "1234", "1234", "1234", "1234", "1234"]
+    usernames=["juan", "pablo", "maria", "diana", "pedro", "horacio", "kevin", "cesar"]
+    passwords=["1234", "1234", "1234", "1234", "1234", "1234", "1234", "1234"]
 
     dicipline_name=["Futbol", "Basquetbol", "Voleibol", "Natacion", "Atletismo", "Tenis", "Beisbol", "Softbol"]
     dicipline_category=["12 a 14 años", "16 a 20 años", "16 a 20 años", "10 a 12 años", "20 a 26 años", "20 a 26 años", "14 a 18 años", "12 a 14 años"]

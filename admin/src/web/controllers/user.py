@@ -5,6 +5,7 @@ from src.web.forms.user import UserForm, UpdateUserForm
 from passlib.hash import sha256_crypt
 from src.web.helpers.form_utils import  csrf_remover
 from src.web.helpers.auth import login_required
+from src.web.helpers.pagination import pagination_generator
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 
@@ -12,7 +13,22 @@ user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 @user_blueprint.get("/")
 @login_required
 def index():
-    return render_template("user/list.html", users=list_users())
+    #return render_template("user/list.html", users=list_users())
+
+
+    pairs=[("first_name","Nombre"),("last_name","Apellido"),("email","Email"),("username","Usuario")]
+
+    if request.args.get("search"):
+        paginated_query_data = pagination_generator(list_users(request.args.get("column"),request.args.get("search")), request,"users")
+    else:
+        paginated_query_data = pagination_generator(list_users(), request,"users")
+
+    return render_template("user/list.html",pairs=pairs,**paginated_query_data)
+
+
+
+
+
 
 @user_blueprint.get("/add")
 @login_required
