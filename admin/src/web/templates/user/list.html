@@ -27,9 +27,8 @@
           <th class="own_small-col">Apellido</th>
           <th class="own_small-col">Email</th>
           <th class="own_small-col">Usuario</th>
-          <th class="own_small-col">Activo</th>
           <th class="own_small-col">Modificar</th>
-          <th class="own_small-col">Desactivar</th>
+          <th class="own_small-col">Activo</th>
           <th class="own_small-col">Eliminar</th>
         </tr>
       </thead>
@@ -40,12 +39,6 @@
           <td> {{ user.last_name }} </td>
           <td> {{ user.email }} </td>
           <td> {{ user.username }} </td>
-          {% if user.active %}
-          <td> Si </td>
-          {% else %}
-          <td> No </td>
-          {% endif %}
-          </td>
           <td class="own_options_section">
             <a href="{{ url_for('user.get_update' ,id=user.id ) }}">
               <button class="btn btn-outline-info w-100 p-1 own_options_button">
@@ -56,16 +49,16 @@
           <td class="own_options_section">
             {% if user.active %}
             <form action="{{ url_for('user.disable', id=user.id) }}" method="post">
-              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
+              <button class="btn btn-outline-success w-100 p-1 own_options_button"
                 onclick="return confirm('Seguro que desea inhabilitar a {{ user.first_name }} {{ user.last_name }} ?');">
-                Inhab.
+                Sí
               </button>
             </form>
             {% else %}
             <form action="{{ url_for('user.enable', id=user.id) }}" method="post">
               <button class="btn btn-outline-warning w-100 p-1 own_options_button"
                 onclick="return confirm('Seguro que desea habilitar a {{ user.first_name }} {{ user.last_name }} ?');">
-                Habil.
+                No
               </button>
             </form>
             {% endif %}
