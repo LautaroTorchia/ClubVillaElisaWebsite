@@ -3,13 +3,20 @@ from src.core.board.discipline import Discipline
 from src.core.board import disciplines
 
 def list_disciplines(column=None,filter=True):
-    """ List all disciplines
+    """ List all disciplines paginated with an option for a filter
     Returns:
         - List of Discipline objects
     """
     if column:
         return disciplines.paginated_filter(column,filter)
     return disciplines.paginated_list()
+
+def list_all_discipolines():
+    """ List all disciplines
+    Returns:
+        - List of Discipline objects
+    """
+    return disciplines.list()
 
 def get_last_discipline():
     """ List last discipline
