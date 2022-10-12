@@ -2,20 +2,10 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from src.core.board import list_disciplines, add_discipline, get_discipline, delete_discipline, update_discipline,get_last_discipline
 from src.web.forms.discipline import DisciplineForm
 from src.web.helpers.auth import login_required
+from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_cfg
 
 discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
-
-def pagination_setter(paginator, request, paginator_name="paginator"):
-        args = dict(request.args)
-        try:
-            args.pop("page")
-        except KeyError:
-            pass
-        pages_urls = [(url_for(request.endpoint, page=page_num, **args),page_num) for page_num in paginator.iter_pages(100,100,100,100) ]
-        next_url = url_for(request.endpoint, page=paginator.next_num, **args) if paginator.has_next else None
-        prev_url = url_for(request.endpoint, page=paginator.prev_num, **args)  if paginator.has_prev else None
-        return {"next_url":next_url, "pages_urls":pages_urls, "prev_url":prev_url, f"{paginator_name}":paginator}
 
 @discipline_blueprint.get("/")
 @login_required
@@ -24,12 +14,12 @@ def index():
     ("dates","Días y horarios"),("true","Disponible"),("false","No Disponible"),("monthly_cost","Costo mensual")]
 
     if request.args.get("column") in ["true","false"]:
-        paginated_query_data = pagination_setter(list_disciplines("available",request.args.get("column")), request,"disciplines")
+        paginated_query_data = pagination_generator(list_disciplines("available",request.args.get("column")), request,"disciplines")
     elif request.args.get("search"):
-        paginated_query_data = pagination_setter(list_disciplines(request.args.get("column"),request.args.get("search")), request,"disciplines")
+        paginated_query_data = pagination_generator(list_disciplines(request.args.get("column"),request.args.get("search")), request,"disciplines")
     else:
-        paginated_query_data = pagination_setter(list_disciplines(), request,"disciplines")
-        
+        paginated_query_data = pagination_generator(list_disciplines(), request,"disciplines")
+
     return render_template("discipline/list.html",pairs=pairs,**paginated_query_data)
 
 @discipline_blueprint.get("/add")
