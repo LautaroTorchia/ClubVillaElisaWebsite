@@ -52,6 +52,11 @@
         {% endfor %}
       </tbody>
     </table>
+    <a href="{{ url_for('associate.index')}}" >
+      <button class="btn btn-primary" type="button" style="margin: 10px" data-toggle="modal" data-target="#modalAddDiscipline">
+        Volver al listado
+      </button>
+    </a>
   </section>
   {% include "paginator.html"%}
 

@@ -57,11 +57,11 @@
           <td> {{ associate.address }} </td>
           <td> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
           <td> {% if associate.disciplines %}
-            {% for disciplina in associate.disciplines %}
-            {{ disciplina }} ,
-            {% endfor %}
-            {% else %}
-            No esta anotado a disciplinas
+                {% for disciplina in associate.disciplines %}
+                  {{ disciplina.name }} {{ disciplina.category}},
+                {% endfor %}
+              {% else %}
+              No esta anotado a disciplinas
             {% endif %}
           </td>
           <td class="own_options_section">

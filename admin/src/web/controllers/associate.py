@@ -106,5 +106,5 @@ def delete_discipline(id,discipline_id):
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
     remove_discipline_to_associate(associate,discipline)
-    flash(f"Se eliminó la disciplina {discipline} del asociado {associate}", category="alert alert-info")
+    flash(f"Se eliminó la disciplina {discipline} del asociado {associate.name} {associate.surname}", category="alert alert-info")
     return redirect(url_for("associate.add_discipline",id=id))
