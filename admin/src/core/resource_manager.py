@@ -41,11 +41,11 @@ class ResourceManager():
 
     def paginated_list(self):
         from src.core.board.repositories.configuration import get_cfg
-        return self.query.paginate(per_page=get_cfg().record_number)
+        return self.query.paginate(per_page=get_cfg().record_number, error_out=False)
 
     def paginated_filter(self, col_name, text):
         from src.core.board.repositories.configuration import get_cfg
-        return self.base_filter(col_name, text).paginate(per_page=get_cfg().record_number)
+        return self.base_filter(col_name, text).paginate(per_page=get_cfg().record_number, error_out=False)
     
 
     

@@ -3,32 +3,35 @@
   style="text-align: center">
   <nav class="text-secondary">
     <ul class="pagination">
-      <li class="page-item disabled">
+      {% if prev_url %}
         <a
           class="page-link"
           aria-label="Previous"
-          href="#"
+          href={{ prev_url }}
           style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
           ><span aria-hidden="true">«</span></a
         >
-      </li>
-      <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-      <li class="page-item disabled"><a class="page-link" href="#">2</a></li>
-      <li class="page-item disabled"><a class="page-link" href="#">3</a></li>
-      <li class="page-item disabled"><a class="page-link" href="#">4</a></li>
-      <li class="page-item disabled"><a class="page-link" href="#">5</a></li>
-      <li class="page-item disabled">
+      {% endif %}
+      {% for url,number in pages_urls %}
+          <a
+          class="page-link"
+          aria-label={{ number }}
+          href={{ url }}
+          ><span aria-hidden="true">{{ number }}</span></a
+        >
+      {% endfor %}
+      {% if next_url %}
         <a
           class="page-link"
           aria-label="Next"
-          href="#"
+          href={{ next_url }}
           style="
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
           "
           ><span aria-hidden="true">»</span></a
         >
-      </li>
+        {% endif %}
     </ul>
   </nav>
 </section>
