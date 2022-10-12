@@ -8,8 +8,8 @@ def list_disciplines(column=None,filter=True):
         - List of Discipline objects
     """
     if column:
-        return disciplines.filter(column,filter)
-    return disciplines.list()
+        return disciplines.paginated_filter(column,filter)
+    return disciplines.paginated_list()
 
 def get_last_discipline():
     """ List last discipline

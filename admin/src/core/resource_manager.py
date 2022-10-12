@@ -1,12 +1,13 @@
 from sqlalchemy.sql.expression import cast
 from sqlalchemy import String
 
+
 class ResourceManager():
     model_class = None
 
     def __init__(self, dbsession,model_class):
-         self.dbs = dbsession 
-         self.model_class = model_class
+        self.dbs = dbsession 
+        self.model_class = model_class
 
     @property
     def query(self):
@@ -16,10 +17,13 @@ class ResourceManager():
         self.dbs.add(obj)
         self.dbs.commit()
 
-    def filter(self, col_name, text):
+    def base_filter(self, col_name, text):
         return self.query.filter(
-            cast(getattr(self.model_class, col_name), String).like(f"%{text}%")
-        ).all()
+            cast(getattr(self.model_class, col_name), String).ilike(f"%{text}%")
+        )
+
+    def filter(self, col_name, text):
+        return self.base_filter(col_name, text).all()
 
     def update(self, id, data):
         self.query.filter(self.model_class.id == id).update(data)
@@ -34,3 +38,15 @@ class ResourceManager():
 
     def list(self):
         return self.query.all()
+
+    def paginated_list(self):
+        from src.core.board.repositories.configuration import get_cfg
+        return self.query.paginate(per_page=get_cfg().record_number)
+
+    def paginated_filter(self, col_name, text):
+        from src.core.board.repositories.configuration import get_cfg
+        return self.base_filter(col_name, text).paginate(per_page=get_cfg().record_number)
+    
+
+    
+    
