@@ -1,7 +1,6 @@
 import os
-from core.board.repositories.associate import list_all_associates
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
-from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,list_disciplines,remove_discipline_to_associate,get_discipline
+from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,remove_discipline_to_associate,get_discipline,list_all_associates,list_all_disciplines
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file,write_pdf_file
 from src.web.helpers.auth import login_required
@@ -85,8 +84,14 @@ def write_pdf():
 @associate_blueprint.get("/add_discipline/<id>")
 @login_required
 def add_discipline(id):
+    pairs=[("name","Nombre")]
     associate=get_associate_by_id(id)
-    return render_template("associate/add_discipline.html",associate=associate,disciplines=list_disciplines())
+    
+    if request.args.get("search"):
+        disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
+    else:
+        disciplines = list_all_disciplines()
+    return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
 
 #add a discipline to the associate
 @associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
