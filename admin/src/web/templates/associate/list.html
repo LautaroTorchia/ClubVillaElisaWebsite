@@ -45,6 +45,7 @@
           <th class="own_small-col">Estado</th>
           <th class="own_large-col">Disciplinas</th>
           <th class="own_small-col">Modificar</th>
+          <th class="own_small-col">Agregar disciplinas</th>
           <th class="own_small-col">Eliminar</th>
         </tr>
       </thead>
@@ -69,6 +70,13 @@
                 Mod.
               </button>
             </a>
+          </td>
+          <td class="own_options_section">
+            <form action="{{ url_for('associate.add_discipline', id=associate.id) }}" method="get">
+              <button class="btn btn-outline-danger w-100 p-1 own_options_button">
+                Mod. Disciplinas
+              </button>
+            </form>
           </td>
           <td class="own_options_section">
             <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">

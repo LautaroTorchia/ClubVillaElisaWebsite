@@ -56,18 +56,21 @@ def delete_associate(id):
     """
     associates.delete(id)
     
+#agregar_disciplina_a_asociado
+def add_discipline_to_associate(associate,discipline):
+    """Add discipline to associate
+    Returns:
+        - Add discipline to associate
+    """
+    associate.disciplines.append(discipline)
+    associates.add(associate)
 
-def disable_associate(id):
-    """Disable associate
+#remove_discipline_to_associate
+def remove_discipline_to_associate(associate,discipline):
+    """Remove discipline to associate
     Returns:
-        - Disabled associate
+        - Remove discipline to associate
     """
-    associates.update(id,{"active":False})
-    
-def enable_associate(id):
-    """Enable associate
-    Returns:
-        - Enabled associate
-    """
-    associates.update(id,{"active":True})
+    associate.disciplines.remove(discipline)
+    associates.add(associate)
     

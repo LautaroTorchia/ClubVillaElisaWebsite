@@ -1,9 +1,7 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
-from src.core.board import create_associate, delete_associate, delete_discipline, disable_associate, enable_associate, get_associate_by_id, list_associates, update_associate
-from src.core.board.associate import Associate
+from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,list_disciplines,remove_discipline_to_associate,get_discipline
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
-from src.web.helpers.form_utils import csrf_remover
 from src.web.helpers.writers import write_csv_file,write_pdf_file
 from src.web.helpers.auth import login_required
 from src.web.helpers.pagination import pagination_generator
@@ -20,7 +18,6 @@ def index():
         paginated_query_data = pagination_generator(list_associates(request.args.get("column"),request.args.get("search")), request,"associates")
     else:
         paginated_query_data = pagination_generator(list_associates(), request,"associates")
-    print(paginated_query_data)
     return render_template("associate/list.html", pairs=pairs,**paginated_query_data)
 
 #adding associates
@@ -81,3 +78,33 @@ def write_pdf():
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     write_pdf_file(PDF_PATH,list_associates())
     return send_file(PDF_PATH,as_attachment=True)
+
+
+#add a new discipline to the associate
+@associate_blueprint.get("/add_discipline/<id>")
+@login_required
+def add_discipline(id):
+    associate=get_associate_by_id(id)
+    return render_template("associate/add_discipline.html",associate=associate,disciplines=list_disciplines())
+
+#add a discipline to the associate
+@associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
+@login_required
+def register_discipline(id,discipline_id):
+    associate=get_associate_by_id(id)
+    discipline=get_discipline(discipline_id)
+    add_discipline_to_associate(associate,discipline)
+    flash(f"Se agregó la disciplina {discipline} al asociado {associate}", category="alert alert-info")
+    print("ya hice todo")
+    return redirect(url_for("associate.add_discipline",id=id))
+
+
+#delete a discipline from the associate
+@associate_blueprint.post("/delete_discipline/<id>/<discipline_id>")
+@login_required
+def delete_discipline(id,discipline_id):
+    associate=get_associate_by_id(id)
+    discipline=get_discipline(discipline_id)
+    remove_discipline_to_associate(associate,discipline)
+    flash(f"Se eliminó la disciplina {discipline} del asociado {associate}", category="alert alert-info")
+    return redirect(url_for("associate.add_discipline",id=id))
