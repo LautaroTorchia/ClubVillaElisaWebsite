@@ -35,7 +35,7 @@ class Associate(db.Model):
     id = Column(Integer, primary_key=True)
     name= Column(String(50), nullable=False)
     surname= Column(String(50), nullable=False)
-    active=Column(Boolean, default=True)
+    active=Column(Boolean(), default=True)
     email=Column(String(50), nullable=False)
     DNI_number = Column(Integer, nullable=False)
     DNI_type = Column(Enum(DNIOptions,validate_string=True))
@@ -62,5 +62,5 @@ class Associate(db.Model):
 
     def __repr__(self):
         #TODO add user relation  
-        return f"""con el dni {self.DNI_number} con el correo {self.email}, del genero {self.gender}"""
+        return f"""la persona {self.name} {self.surname} con el dni {self.DNI_number} con el correo {self.email}"""
         

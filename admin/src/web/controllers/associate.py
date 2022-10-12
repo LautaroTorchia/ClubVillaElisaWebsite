@@ -34,7 +34,8 @@ def get_add():
 def post_add():
     form = CreateAssociateForm(request.form)
     if form.validate():
-        create_associate(form.data)
+        associate=create_associate(form.data)
+        flash(f"Se agregó {associate}", category="alert alert-info")
         return redirect(url_for("associate.index"))
     return render_template("associate/add.html", form=form)
 
@@ -60,26 +61,10 @@ def get_update(id):
 def post_update(id):
     form = UpdateAssociateForm(request.form)
     if form.validate():
-        form=csrf_remover(request.form)
-        update_associate(form,id)
+        flash(f"Se actualizó {get_associate_by_id(id)}", category="alert alert-info")
+        update_associate(form.data,id)
         return redirect(url_for("associate.index"))
     return render_template("associate/add.html", form=form)
-
-#disabling associates
-@associate_blueprint.post("/disable/<id>")
-@login_required
-def disable(id):
-    flash(f"Se deshabilito al asociado satisfactoriamente", category="alert alert-warning")
-    disable_associate(id)
-    return redirect(url_for("associate.index"))
-
-#disabling associates
-@associate_blueprint.post("/enable/<id>")
-@login_required
-def enable(id):
-    flash(f"Se habilito al asociado satisfactoriamente", category="alert alert-warning")
-    enable_associate(id)
-    return redirect(url_for("associate.index"))
 
 #csv_writing associates
 @associate_blueprint.get("/csv_writer")

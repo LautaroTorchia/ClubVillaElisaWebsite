@@ -45,7 +45,6 @@
           <th class="own_small-col">Estado</th>
           <th class="own_large-col">Disciplinas</th>
           <th class="own_small-col">Modificar</th>
-          <th class="own_small-col">Inhabilitar</th>
           <th class="own_small-col">Eliminar</th>
         </tr>
       </thead>
@@ -70,23 +69,6 @@
                 Mod.
               </button>
             </a>
-          </td>
-          <td class="own_options_section">
-            {% if associate.active %}
-            <form action="{{ url_for('associate.disable', id=associate.id) }}" method="post">
-              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea inhabilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-                Inhab.
-              </button>
-            </form>
-            {% else %}
-            <form action="{{ url_for('associate.enable', id=associate.id) }}" method="post">
-              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea habilitar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-                Habil.
-              </button>
-            </form>
-            {% endif %}
           </td>
           <td class="own_options_section">
             <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
