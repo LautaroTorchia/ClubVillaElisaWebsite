@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for associate in associates %}
+        {% for associate in associates.items %}
         <tr class="own_centered">
           <td> {{ associate.name }} {{ associate.surname }}</td>
           <td> {{ associate.DNI_number }} </td>
@@ -101,10 +101,8 @@
       </tbody>
     </table>
   </section>
-  <!-- TODO:Cuando esté hecho lo necesario para el paginador descomentar-->
-  <!-- {% include "paginator.html"%} -->
+  {% include "paginator.html"%}
   <div class="d-flex align-center">
-
     {% endblock content%}
     {% block js%}
     {{ super() }}

@@ -21,12 +21,14 @@ def get_associate_by_DNI(DNI_number):
     """
     return associates.query.filter(Associate.DNI_number == DNI_number).first()
 
-def list_associates():
+def list_associates(column=None,filter=True):
     """ List all associates
     Returns:
         - List of Associate objects
     """
-    return associates.list()
+    if column:
+        return associates.paginated_filter(column,filter)
+    return associates.paginated_list()
 
 def create_associate(form_data):
     """ Create associate
