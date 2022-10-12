@@ -31,6 +31,14 @@ def list_associates(column=None,filter=True):
         return associates.paginated_filter(column,filter)
     return associates.paginated_list()
 
+
+def list_all_associates():
+    """List all associates
+    Returns:
+        - List all associates
+    """
+    return associates.list()
+
 def create_associate(form_data):
     """ Create associate
     Returns:

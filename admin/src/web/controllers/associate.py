@@ -1,4 +1,5 @@
 import os
+from core.board.repositories.associate import list_all_associates
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,list_disciplines,remove_discipline_to_associate,get_discipline
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
@@ -68,7 +69,7 @@ def post_update(id):
 @login_required
 def write_csv():
     CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
-    write_csv_file(CSV_PATH,list_associates())
+    write_csv_file(CSV_PATH,list_all_associates())
     return send_file(CSV_PATH,as_attachment=True)
 
 #pdf_writing associates
@@ -76,7 +77,7 @@ def write_csv():
 @login_required
 def write_pdf():
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
-    write_pdf_file(PDF_PATH,list_associates())
+    write_pdf_file(PDF_PATH,list_all_associates())
     return send_file(PDF_PATH,as_attachment=True)
 
 
