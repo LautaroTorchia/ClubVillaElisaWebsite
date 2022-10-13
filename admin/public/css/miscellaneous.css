@@ -19,8 +19,9 @@
 }
 
 .own_main_table {
-    margin: 40px;
     max-width: 100%;
+    margin:auto;
+    width: auto;
 }
 
 .own_options_button {
