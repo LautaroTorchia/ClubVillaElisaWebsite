@@ -184,6 +184,9 @@
     .own_flex_column {
         flex-direction: column !important;
     }
+    .own_export_text {
+        align-self: center;
+    }
 }
 
 
@@ -226,7 +229,6 @@
     .own_full_width {
         width: 100% !important;
     }
- 
 
 
 
