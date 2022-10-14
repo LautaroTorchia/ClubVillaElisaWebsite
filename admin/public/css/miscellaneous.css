@@ -181,6 +181,9 @@
     .own_list_header {
         display: flexbox;
     }
+    .own_flex_column {
+        flex-direction: column !important;
+    }
 }
 
 
@@ -223,11 +226,7 @@
     .own_full_width {
         width: 100% !important;
     }
-    .own_flex_column {
-        flex-direction: column !important;
-    }
-
-
+ 
 
 
 
