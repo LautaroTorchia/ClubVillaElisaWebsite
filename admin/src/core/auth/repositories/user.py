@@ -13,13 +13,13 @@ def get_user_by_id(user_id):
     return users.query.filter(User.id == user_id).first()
 
 
-def list_users(column=None,filter=True):
+def list_users(column=None, filter=True):
     """List all users
     Returns:
         - List of User objects
     """
     if column:
-        return users.paginated_filter(column,filter)
+        return users.paginated_filter(column, filter)
     return users.paginated_list()
 
 
@@ -46,7 +46,7 @@ def update_user(user_id, form):
     Returns:
         - Update user
     """
-    users.update(user_id,form)
+    users.update(user_id, form)
 
 
 def get_by_usr_and_pwd(usr, pwd):
@@ -66,12 +66,27 @@ def disable_user(id):
     Returns:
         - Disabled user
     """
-    users.update(id,{"active":False})
-    
+    users.update(id, {"active": False})
+
 
 def enable_user(id):
     """Enable user
     Returns:
         - Enabled user
     """
-    users.update(id,{"active":True})
+    users.update(id, {"active": True})
+
+
+def add_role_to_user(user, role):
+    """Adds role to user"""
+    user.roles.append(role)
+    users.add(user)
+
+
+def remove_role_to_user(user, role):
+    """Adds role to user"""
+    try:
+        user.roles.remove(role)
+        users.add(user)
+    except:
+        pass
