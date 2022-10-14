@@ -234,10 +234,10 @@
     .searchHeader {
         flex-direction: column !important;
     }
-    .magGlass {
+    #magGlass {
         display:none !important;
     }
-    .searchButton {
+    #searchButton {
         padding-left: 5px !important;
         padding-right: 5px !important;
     }
