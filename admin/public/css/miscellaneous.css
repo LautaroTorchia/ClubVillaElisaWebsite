@@ -169,6 +169,21 @@
     box-shadow: 0px 4px 10px 1px;
 }
 
+
+@media (width < 768px) {
+    .own_main_table {
+        width: 100% !important;
+        margin-bottom: 30px
+    }
+    .card {
+        width: 100% !important;
+    }
+    .own_list_header {
+        display: flexbox;
+    }
+}
+
+
 @media (width < 360px) {
     .own_main_table {
         width: 100% !important;
@@ -180,30 +195,40 @@
     .h1 {
         font-size: 16px !important;
     }
-
-
     .own_logo_home {
         margin-bottom: 10px
     }
+    .own_list_header {
+        display: block;
+    }
+    
+    .search_form {
+        display: block;
+    }
+    .own_add_button {
+        width: auto;
+        border-radius: 5px;
+    }
+    .searchHeader {
+        flex-direction: column !important;
+    }
+    .magGlass {
+        display:none !important;
+    }
+    .searchButton {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .own_full_width {
+        width: 100% !important;
+    }
+    .own_flex_column {
+        flex-direction: column !important;
+    }
+
 
 
 
 
 }
-
-@media (width >= 360px) and (width < 768px) {
-    .own_main_table {
-        width: 100% !important;
-        margin-bottom: 30px
-
-    }
-    .card {
-        width: 100% !important;
-    }
-
-
-
-
-
-}
-

@@ -1,22 +1,21 @@
 <form class="search-form" style="box-shadow: 0px 0px" method="GET">
-    <h1>{% set selected_column= args["column"]%}</h1>
-    <div class="input-group">
-      <span class="input-group-text own_input">
-        <i class="fa fa-search"></i>
-      </span>
-      <select class="form-control" id="column" name="column">
-        {% for option,name in pairs %}
-          {%if option == selected_column%}
-            <option value="{{option}}" selected>{{name}}</option>
-          {%else%}
-            <option value="{{option}}">{{name}}</option>
-          {%endif%}
-        {% endfor %}
-      </select>
-      <input class="form-control" type="text" placeholder="Buscar socio" name= "search"/>
-      <button class="btn btn-light own_search_button" type="submit" >
-        Buscar
-      </button>
-    </div>
-  </form>
-
+  <h1>{% set selected_column= args["column"]%}</h1>
+  <div class="input-group">
+    <span class="input-group-text own_input" id="magGlass">
+      <i class="fa fa-search"></i>
+    </span>
+    <select class="form-control" id="column" name="column">
+      {% for option,name in pairs %}
+      {%if option == selected_column%}
+      <option value="{{option}}" selected>{{name}}</option>
+      {%else%}
+      <option value="{{option}}">{{name}}</option>
+      {%endif%}
+      {% endfor %}
+    </select>
+    <input class="form-control" type="text" placeholder="Buscar socio" name="search" />
+    <button class="btn btn-light own_search_button" type="submit" id="searchButton">
+      Buscar
+    </button>
+  </div>
+</form>
