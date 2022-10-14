@@ -15,7 +15,6 @@ def pagination_generator(paginator:Pagination, request:Request, paginator_name:s
         dict: A dictionary containing the next page url, the previous page url, a list with all the pages with their numbers and the paginator object. 
     """    
     args = dict(request.args)
-    print(args["column"])
     try:
         args.pop("page")
     except KeyError:
