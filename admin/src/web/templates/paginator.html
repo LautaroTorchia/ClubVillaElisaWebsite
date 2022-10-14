@@ -8,15 +8,27 @@
           class="page-link"
           aria-label="Previous"
           href={{ prev_url }}
-          style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+          style="border-top-left-radius: 5px; 
+          border-bottom-left-radius: 5px;
+          text-decoration: none;
+          color: #000000;"
           ><span aria-hidden="true">«</span></a
         >
       {% endif %}
       {% for url,number in pages_urls %}
+          
+          {% if number == higlighted_page %}
+            {%set highlight_class= "page-link own_golden_bg"%}
+          {%else%}
+            {%set highlight_class= "page-link"%}   
+          {%endif%}
           <a
-          class="page-link"
+          class="{{highlight_class}}"
           aria-label={{ number }}
           href={{ url }}
+          style="
+          text-decoration: none;
+          color: #000000;"
           ><span aria-hidden="true">{{ number }}</span></a
         >
       {% endfor %}
@@ -26,6 +38,8 @@
           aria-label="Next"
           href={{ next_url }}
           style="
+            text-decoration: none;
+            color: #000000;
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
           "
