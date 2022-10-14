@@ -169,6 +169,13 @@
     box-shadow: 0px 4px 10px 1px;
 }
 
+.own_config_table{
+    width:450px;
+    background:rgba(136,136,136,0.19);
+    margin:auto;
+    border-radius: 5px;
+}
+
 
 @media (width < 768px) {
     .own_main_table {
@@ -186,6 +193,15 @@
     }
     .own_export_text {
         align-self: center;
+    }
+    .own_confirmation_button {
+        width: 60% !important;
+    }
+    .own_config_table{
+        width:400px;
+        background:rgba(136,136,136,0.19);
+        margin:auto;
+        border-radius: 5px;
     }
 }
 
@@ -229,7 +245,12 @@
     .own_full_width {
         width: 100% !important;
     }
-
+    .own_config_table{
+        width:320px;
+        background:rgba(136,136,136,0.19);
+        margin:auto;
+        border-radius: 5px;
+    }
 
 
 }

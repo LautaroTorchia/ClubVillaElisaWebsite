@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center" style="margin-top: 0px;">
-                    <div class="col-md-8 col-xl-6 mx-auto">
-                        <div style="width:450px; background:rgba(136,136,136,0.19); margin:auto; border-radius: 5px">
+                    <div class="col-md-8 col-xl-6 mx-auto d-flex">
+                        <div class="own_config_table justify-content-center">
                             {% include "form_errors.html" %}
                             {% block form %}
                             <form action={{url_for('configuration.update')}} method="post" class="d-flex flex-column">
@@ -39,11 +39,10 @@
                                 </tr>
                                 {% endfor %}
 
-                                <div>
-                                      <button class="btn own_golden_bg shadow d-block w-100 own_confirmation_button"
+                                <div class="d-flex justify-content-center">
+                                      <button class="btn own_golden_bg shadow own_confirmation_button"
                                           type="submit">Guardar</button>
                                 </div>
-
                             </form>
                             {% endblock form %}
                         </div>
