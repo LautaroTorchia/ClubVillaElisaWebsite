@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_form.html" %}
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
@@ -33,6 +33,7 @@
                                   <button type="submit" class="btn own_golden_bg own_confirmation_button mt-3">Modificar</button>
                           </form>
                         {% endblock form %}
+                        {% include "flashes.html" %}
                 </div>
             </section>
         </div>
