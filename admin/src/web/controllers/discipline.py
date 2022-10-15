@@ -10,6 +10,9 @@ discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline
 @discipline_blueprint.get("/")
 @has_permission("discipline_index")
 def index():
+    """Returns:
+        HTML: List of disciplines.
+    """    
     pairs=[("name","Nombre"),("category","Categoría"),("instructors","Instructores"),
     ("dates","Días y horarios"),("true","Disponible"),("false","No Disponible"),("monthly_cost","Costo mensual")]
 
@@ -25,11 +28,17 @@ def index():
 @discipline_blueprint.get("/add")
 @has_permission("discipline_create")
 def get_add():
+    """Returns:
+        HTML: Form to create a discipline.
+    """    
     return render_template("discipline/add.html",form=DisciplineForm(currency=get_cfg().currency))
 
 @discipline_blueprint.post("/add")
 @has_permission("discipline_create")
 def post_add():
+    """Returns:
+        HTML: Redirect to discipline list.
+    """    
     form = DisciplineForm(request.form)
     if form.validate():
         add_discipline(form.data,get_cfg().currency)
@@ -41,11 +50,21 @@ def post_add():
 @discipline_blueprint.get("/update/<id>")
 @has_permission("discipline_update")
 def get_update(id):
+    """Args:
+        id (int): id of the discipline
+    Returns:
+        HTML: Form to update a discipline.
+    """    
     return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id),currency=get_cfg().currency))
 
 @discipline_blueprint.post("/update/<id>")
 @has_permission("discipline_update")
 def update(id):
+    """Args:
+        id (int): id of the discipline
+    Returns:
+        HTML: Redirect to discipline list.
+    """    
     form = DisciplineForm(request.form)
     if form.validate():
         flash(f"Se actualizó {get_discipline(id)}", category="alert alert-info")
@@ -57,6 +76,11 @@ def update(id):
 @discipline_blueprint.post("/delete/<id>")
 @has_permission("discipline_destroy")
 def delete(id):
+    """Args:
+        id (int): id of the discipline
+    Returns:
+        HTML: Redirect to discipline list.
+    """    
     flash(f"Se elimino {get_discipline(request.form['Delete'])}", category="alert alert-warning")
     delete_discipline(id)
     return redirect(url_for("discipline.index"))
