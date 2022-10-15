@@ -11,6 +11,7 @@ from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.controllers.auth import auth_blueprint
+from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
 
@@ -39,6 +40,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     app.register_blueprint(configuration_blueprint)
     app.register_blueprint(user_blueprint)
     app.register_blueprint(auth_blueprint)
+    app.register_blueprint(payments_blueprint)
 
     # Api
     discipline_api_blueprint
