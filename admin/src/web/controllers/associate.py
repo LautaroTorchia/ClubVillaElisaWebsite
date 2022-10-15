@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for,flash,s
 from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,remove_discipline_to_associate,get_discipline,list_all_associates,list_all_disciplines
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file,write_pdf_file
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
@@ -11,7 +11,7 @@ associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
 #Listing associates
 @associate_blueprint.route("/")
-@login_required
+@has_permission("associate_index")
 def index():
     pairs=[("surname","Apellido")]
     if request.args.get("search"):
@@ -22,12 +22,12 @@ def index():
 
 #adding associates
 @associate_blueprint.get("/add")
-@login_required
+@has_permission("associate_create")
 def get_add():
     return render_template("associate/add.html",form=CreateAssociateForm())
 
 @associate_blueprint.post("/add")
-@login_required
+@has_permission("associate_create")
 def post_add():
     form = CreateAssociateForm(request.form)
     if form.validate():
@@ -38,7 +38,7 @@ def post_add():
 
 #deleting associates
 @associate_blueprint.post("/delete/<id>")
-@login_required
+@has_permission("associate_destroy")
 def delete(id):
     flash(f"Se elimino al asociado satisfactoriamente", category="alert alert-warning")
     delete_associate(id)
@@ -46,7 +46,7 @@ def delete(id):
 
 #updating associates
 @associate_blueprint.get("/update/<id>")
-@login_required
+@has_permission("associate_update")
 def get_update(id):
     associate=get_associate_by_id(id)
     form=UpdateAssociateForm(obj=associate)
@@ -54,7 +54,7 @@ def get_update(id):
 
 #updating associates
 @associate_blueprint.post("/update/<id>")
-@login_required
+@has_permission("associate_update")
 def post_update(id):
     form = UpdateAssociateForm(request.form)
     if form.validate():
@@ -65,7 +65,7 @@ def post_update(id):
 
 #csv_writing associates
 @associate_blueprint.get("/csv_writer")
-@login_required
+@has_permission("associate_index")
 def write_csv():
     CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
     write_csv_file(CSV_PATH,list_all_associates())
@@ -73,7 +73,7 @@ def write_csv():
 
 #pdf_writing associates
 @associate_blueprint.get("/pdf_writer")
-@login_required
+@has_permission("associate_index")
 def write_pdf():
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     write_pdf_file(PDF_PATH,list_all_associates())
@@ -82,7 +82,7 @@ def write_pdf():
 
 #add a new discipline to the associate
 @associate_blueprint.get("/add_discipline/<id>")
-@login_required
+@has_permission("associate_create")
 def add_discipline(id):
     pairs=[("name","Nombre")]
     associate=get_associate_by_id(id)
@@ -95,19 +95,18 @@ def add_discipline(id):
 
 #add a discipline to the associate
 @associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
-@login_required
+@has_permission("associate_add_discip")
 def register_discipline(id,discipline_id):
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
     add_discipline_to_associate(associate,discipline)
     flash(f"Se agregó la disciplina {discipline} al asociado {associate}", category="alert alert-info")
-    print("ya hice todo")
     return redirect(url_for("associate.add_discipline",id=id))
 
 
 #delete a discipline from the associate
 @associate_blueprint.post("/delete_discipline/<id>/<discipline_id>")
-@login_required
+@has_permission("associate_remove_discip") # TODO preguntar
 def delete_discipline(id,discipline_id):
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
