@@ -23,6 +23,7 @@
               <th style="width: 10%">Numero de socio</th>
               <th style="width: 20%">Fecha</th>
               <th style="width: 10%">Monto</th>
+              <th style="width: 10%">Pago tarde</th>
               <th style="width: 5%">Eliminar</th>
               <th style="width: 5%">Recibo</th>
             </tr>
@@ -34,6 +35,7 @@
               <td> {{ payment.associate.id }} </td>
               <td> {{ payment.date.strftime('%Y-%m-%d') }} </td>
               <td> {{ payment.amount }} </td>
+              <td> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
               <td class="own_options_section">
                 <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
                   <button class="btn btn-outline-danger w-100 p-1 own_options_button"
