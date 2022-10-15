@@ -14,6 +14,9 @@ associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 @associate_blueprint.route("/")
 @has_permission("associate_index")
 def index():
+    """Returns:
+        HTML: List of associates.
+    """    
     pairs=[("surname","Apellido")]
     if request.args.get("search"):
         paginated_query_data = pagination_generator(list_associates(request.args.get("column"),request.args.get("search")), request,"associates")
@@ -25,11 +28,17 @@ def index():
 @associate_blueprint.get("/add")
 @has_permission("associate_create")
 def get_add():
+    """Returns:
+        HTML: Form to create an associate.
+    """    
     return render_template("associate/add.html",form=CreateAssociateForm())
 
 @associate_blueprint.post("/add")
 @has_permission("associate_create")
 def post_add():
+    """Returns:
+        HTML: Redirect to associate list.
+    """    
     form = CreateAssociateForm(request.form)
     if form.validate():
         associate=create_associate(form.data)
@@ -41,6 +50,11 @@ def post_add():
 @associate_blueprint.post("/delete/<id>")
 @has_permission("associate_destroy")
 def delete(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """    
     flash(f"Se elimino al asociado satisfactoriamente", category="alert alert-warning")
     delete_associate(id)
     return redirect(url_for("associate.index"))
@@ -49,6 +63,11 @@ def delete(id):
 @associate_blueprint.get("/update/<id>")
 @has_permission("associate_update")
 def get_update(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        _type_: _description_
+    """    
     associate=get_associate_by_id(id)
     form=UpdateAssociateForm(obj=associate)
     return render_template("associate/update.html",form=form)
@@ -57,6 +76,11 @@ def get_update(id):
 @associate_blueprint.post("/update/<id>")
 @has_permission("associate_update")
 def post_update(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """    
     form = UpdateAssociateForm(request.form)
     if form.validate():
         flash(f"Se actualizó {get_associate_by_id(id)}", category="alert alert-info")
@@ -68,6 +92,9 @@ def post_update(id):
 @associate_blueprint.get("/csv_writer")
 @has_permission("associate_index")
 def write_csv():
+    """Returns:
+        CSV: List of associates.
+    """    
     CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
     write_csv_file(CSV_PATH,list_all_associates())
     return send_file(CSV_PATH,as_attachment=True)
@@ -76,6 +103,9 @@ def write_csv():
 @associate_blueprint.get("/pdf_writer")
 @has_permission("associate_index")
 def write_pdf():
+    """Returns:
+        PDF: List of associates.
+    """    
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     write_pdf_file(PDF_PATH,list_all_associates())
     return send_file(PDF_PATH,as_attachment=True)
@@ -85,6 +115,11 @@ def write_pdf():
 @associate_blueprint.get("/add_discipline/<id>")
 @has_permission("associate_create")
 def add_discipline(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """    
     associate=get_associate_by_id(id)
     if no_es_moroso(associate):
         pairs=[("name","Nombre")]
@@ -102,6 +137,12 @@ def add_discipline(id):
 @associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
 @has_permission("associate_add_discip")
 def register_discipline(id,discipline_id):
+    """Args:
+        id (int): id of the associate
+        discipline_id (int): id of the discipline to add to the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """    
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
     
@@ -118,6 +159,12 @@ def register_discipline(id,discipline_id):
 @associate_blueprint.post("/delete_discipline/<id>/<discipline_id>")
 @has_permission("associate_remove_discip") # TODO preguntar
 def delete_discipline(id,discipline_id):
+    """Args:
+        id (int): id of the associate
+        discipline_id (int): id of the discipline to delete from the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """    
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
     remove_discipline_to_associate(associate,discipline)

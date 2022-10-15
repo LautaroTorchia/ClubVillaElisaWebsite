@@ -14,14 +14,14 @@ configuration_api_blueprint = Blueprint(
 @configuration_api_blueprint.get("/")
 def get():
     """Returns:
-        JSON: System configuration.
+        JSON: System configuration
     """    
     return response(200,get_cfg().as_dict())
 
 @configuration_api_blueprint.put("/update")
 def update():
     """Returns:
-        JSON: System updated configuration.
+        JSON: System updated configuration
     """    
     configuration = Configuration(request.json)
     try:
