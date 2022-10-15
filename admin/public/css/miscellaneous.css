@@ -189,6 +189,17 @@
     border-radius: 5px;
 }
 
+.btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    color: #b5a166 !important;
+    border-color: #b5a166 !important;
+}
+
+.btn-outline-secondary:hover {
+    color: #ffffff !important;
+    background-color: #b5a166 !important;
+    border-color: #b5a166 !important;
+}
+
 
 @media (width < 768px) {
     .own_main_table {

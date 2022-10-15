@@ -29,17 +29,18 @@
     <table class="table table-striped table-bordered own_main_table">
       <thead>
         <tr class="own_table_header">
-          <th style="width: 15vw;">Nombre y apellido</th>
-          <th style="width: 10vw;">DNI</th>
-          <th style="width: 10vw;">Domicilio</th>
-          <th style="width: 5vw;">Estado</th>
-          <th style="width: 15vw;">Disciplinas</th>
+          <th style="width: 10vw">Nombre y apellido</th>
+          <th> DNI</th>
+          <th style="width: 10vw">Domicilio</th>
+          <th> Estado</th>
+          <th style="width: 15vw">Disciplinas</th>
           {% if has_permission(session["user"],"associate_update") %}
           <th>Modificar</th>
           {%endif%}
           {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
           <th>Disciplinas</th>
           {%endif%}
+          <th>Pagar</th>
           {% if has_permission(session["user"],"associate_destroy") %}
           <th>Eliminar</th>
           {%endif%}
@@ -72,7 +73,7 @@
           {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
           <td class="own_options_section">
             <form action="{{ url_for('associate.add_discipline', id=associate.id) }}" method="get">
-              <button class="btn btn-outline-danger w-100 p-1 own_options_button">
+              <button class="btn btn-outline-secondary w-100 p-1 own_options_button">
                 Asignar
               </button>
             </form>
@@ -80,9 +81,17 @@
           {%endif%}
           {% if has_permission(session["user"],"associate_destroy") %}
           <td class="own_options_section">
+            <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
+              <button class="btn btn-outline-success w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                Pagar
+              </button>
+            </form>
+          </td>
+          <td class="own_options_section">
             <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
               <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
                 X
               </button>
             </form>

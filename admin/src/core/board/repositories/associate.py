@@ -32,11 +32,13 @@ def list_associates(column=None,filter=True):
     return associates.paginated_list()
 
 
-def list_all_associates():
+def list_all_associates(column=None,filter=True):
     """List all associates
     Returns:
         - List all associates
     """
+    if column:
+        return associates.filter(column,filter)
     return associates.list()
 
 def create_associate(form_data):
