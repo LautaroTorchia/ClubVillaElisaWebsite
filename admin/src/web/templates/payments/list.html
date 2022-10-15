@@ -32,7 +32,7 @@
             <tr class="own_centered">
               <td> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
               <td> {{ payment.associate.id }} </td>
-              <td> {{ payment.date }} </td>
+              <td> {{ payment.date.strftime('%Y-%m-%d') }} </td>
               <td> {{ payment.amount }} </td>
               <td class="own_options_section">
                 <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
@@ -44,8 +44,7 @@
               </td>
               <td class="own_options_section">
                 <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="post">
-                  <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-                    onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
+                  <button class="btn btn-outline-danger w-100 p-1 own_options_button">
                     Descargar
                   </button>
                 </form>

@@ -1,11 +1,11 @@
 from datetime import datetime
-from core.board.repositories.associate import get_associate_by_id
-from core.board.repositories.configuration import get_cfg
+import os
+from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.web.helpers.auth import login_required
 from src.web.helpers.pagination import pagination_generator
-from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_associate,delete_payment
-from src.web.helpers.payment_helpers import disciplines_fee_amount
+from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id
+from src.web.helpers.payment_helpers import disciplines_fee_amount,make_receipt
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 
@@ -38,6 +38,8 @@ def create(id):
         elif last_fee.date.month<datetime.now().month-1: #if the last fee was paid more than one month ago
             flash(f"El asociado ha pagado una cuota de un mes anterior", category="alert alert-warning")
             ammount+=config.due_fee
+        else:
+            flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
             
     create_payment(associate,ammount,last_fee.installment_number)
     return redirect(url_for("associate.index"))
@@ -52,7 +54,10 @@ def delete(id):
 
 
 #download a payment receipt
-@payments_blueprint.get("/download/<id>")
+@payments_blueprint.post("/download/<id>")
 @login_required
 def download_receipt(id):
-    return send_file("src/web/static/receipts/receipt.pdf",as_attachment=True)
+    RCPT_PATH=os.path.join(os.getcwd(),"public","receipt.png")
+    payment=get_payment_by_id(id)
+    make_receipt(payment,RCPT_PATH)
+    return send_file(RCPT_PATH,as_attachment=True)
