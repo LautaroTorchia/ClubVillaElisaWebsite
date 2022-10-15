@@ -10,12 +10,16 @@
 <body>
   {% block content %}
   <section class="d-flex justify-content-xxl-center">
+    {% if has_permission(session["user"],"user_create") %}
     <a href="{{ url_for('user.get_add') }}">
       <button class="btn own_golden_bg own_add_button" type="button">
         Agregar
       </button>
     </a>
+    {%endif%}
+    {% if has_permission(session["user"],"user_index") %}
     {% include "search.html" %}
+    {%endif%}
   </section>
   {% include "flashes.html" %}
   <section class="container">
@@ -27,9 +31,15 @@
             <th style="width: 15%">Apellido</th>
             <th style="width: 20%">Email</th>
             <th style="width: 20%">Usuario</th>
+            {% if has_permission(session["user"],"user_update") %}
             <th style="width: 10%">Modificar</th>
+            {%endif%}
+            {% if has_permission(session["user"],"user_update") %}
             <th style="width: 10%">Activo</th>
+            {%endif%}
+            {% if has_permission(session["user"],"user_destroy") %}
             <th style="width: 10%">Eliminar</th>
+            {%endif%}
           </tr>
         </thead>
         <tbody>
@@ -39,6 +49,7 @@
             <td> {{ user.last_name }} </td>
             <td> {{ user.email }} </td>
             <td> {{ user.username }} </td>
+            {% if has_permission(session["user"],"user_update") %}
             <td class="own_options_section">
               <a href="{{ url_for('user.get_update' ,id=user.id ) }}">
                 <button class="btn btn-outline-info w-100 p-1 own_options_button">
@@ -46,6 +57,8 @@
                 </button>
               </a>
             </td>
+            {% endif %}
+            {% if has_permission(session["user"],"user_update") %}
             <td class="own_options_section">
               {% if user.active %}
               <form action="{{ url_for('user.disable', id=user.id) }}" method="post">
@@ -63,6 +76,8 @@
               </form>
               {% endif %}
             </td>
+            {% endif %}
+            {% if has_permission(session["user"],"user_destroy") %}
             <td class="own_options_section">
               <form action="{{ url_for('user.delete', id=user.id ) }}" method="post">
                 <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button" name="Delete"
@@ -72,6 +87,7 @@
                 </button>
               </form>
             </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
@@ -79,7 +95,9 @@
     </div>
 
   </section>
+  {% if has_permission(session["user"],"user_index") %}
   {% include "paginator.html"%}
+  {%endif%}
 
   {% endblock content%}
   {% block js %}

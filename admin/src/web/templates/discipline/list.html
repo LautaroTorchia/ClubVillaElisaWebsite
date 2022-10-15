@@ -10,12 +10,16 @@
 <body>
   {% block content %}
   <section class="d-flex justify-content-xxl-center">
+    {% if has_permission(session["user"],"discipline_create") %}
     <a href="{{ url_for('discipline.get_add') }}">
       <button class="btn own_golden_bg own_add_button" type="button">
         Agregar
       </button>
     </a>
+    {% endif %}
+    {% if has_permission(session["user"],"discipline_index") %}
     {% include "search.html" %}
+    {% endif %}
   </section>
   {% include "flashes.html" %}
   <section class="d-flex justify-content-xxl-center">
@@ -29,8 +33,12 @@
             <th style="width: 25%">Días y horarios</th>
             <th style="width: 10%">Costo mensual</th>
             <th style="width: 10%">Cupo</th>
+            {% if has_permission(session["user"],"discipline_update") %}
             <th style="width: 5%">Modificar</th>
+            {%endif%}
+            {% if has_permission(session["user"],"discipline_destroy") %}
             <th style="width: 5%">Eliminar</th>
+            {%endif%}
           </tr>
         </thead>
         <tbody>
@@ -43,7 +51,7 @@
             <td> {{ discipline.monthly_cost }} {{ discipline.currency }} </td>
             <td> {{ "Si" if discipline.available else "No" }} </td>
             </td>
-
+            {% if has_permission(session["user"],"discipline_update") %}
             <td class="own_options_section">
               <a href="{{ url_for('discipline.update', id=discipline.id) }}">
                 <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px"
@@ -52,6 +60,8 @@
                 </button>
               </a>
             </td>
+            {%endif%}
+            {% if has_permission(session["user"],"discipline_destroy") %}
             <td class="own_options_section">
               <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post">
                 <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button"
@@ -61,6 +71,7 @@
                 </button>
               </form>
             </td>
+            {%endif%}
           </tr>
           {% endfor %}
         </tbody>

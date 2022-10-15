@@ -40,8 +40,10 @@
                                 {% endfor %}
 
                                 <div>
+                                    {% if has_permission(session["user"],"configuration_update") %}
                                       <button class="btn own_golden_bg shadow d-block w-100 own_confirmation_button"
                                           type="submit">Guardar</button>
+                                    {%endif%}
                                 </div>
 
                             </form>

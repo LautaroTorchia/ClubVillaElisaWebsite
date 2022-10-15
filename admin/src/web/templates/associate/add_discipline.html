@@ -34,14 +34,14 @@
             <td> {{ discipline.dates }} </td>
             <td> {{ discipline.monthly_cost }} {{ discipline.currency }} </td>
             <td class="own_options_section">
-              {% if discipline in associate.disciplines %}
+              {% if discipline in associate.disciplines and has_permission(session["user"],"associate_remove_discip") %}
                   <form action="{{ url_for('associate.delete_discipline', id=associate.id,discipline_id=discipline.id) }}" method="post">
                       <button class="btn btn-outline-danger w-100 p-1 own_options_button" style="border-radius: 5px" name="Update"
                           value="{{ discipline.id }}">
                           Dejar disciplina
                       </button>
                   </form>
-              {% else %}
+              {% elif has_permission(session["user"],"associate_add_discip") %}
                   <form action="{{ url_for('associate.register_discipline', id=associate.id,discipline_id=discipline.id) }}" method="post">
                       <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px" name="Update"
                           value="{{ discipline.id }}">
@@ -54,11 +54,13 @@
           {% endfor %}
         </tbody>
       </table>
+      {% if has_permission(session["user"],"associate_index") %}
       <a href="{{ url_for('associate.index')}}" >
         <button class="btn btn-primary" type="button" style="margin: 10px" data-toggle="modal" data-target="#modalAddDiscipline">
           Volver al listado
         </button>
       </a>
+      {%endif%}
     </section>
 
 

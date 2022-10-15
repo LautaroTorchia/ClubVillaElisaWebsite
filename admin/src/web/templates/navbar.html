@@ -9,13 +9,14 @@
     </button>
     {% set current_template = current_template.rsplit("/")[0].rsplit(".")[0] %}
     {% set nav_list =
-    [("home","Home",True),("user.index","Usuarios",False),("discipline.index","Disciplinas",False),("associate.index","Socios",False),("home","Pagos",True),("configuration.index","Configuración",False)]
+    [("home","Home",True,"home"),("user.index","Usuarios",False,"user"),("discipline.index","Disciplinas",False,"discipline"),("associate.index","Socios",False,"associate"),("home","Pagos",False,"payment"),("configuration.index","Configuración",False,"configuration")]
     %}
 
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
-        {% for nav,name,auth in nav_list %}
-        {%if auth or is_authenticated(session) %}
+        {% for nav,name,auth,perm in nav_list %}
+        {% set permission=perm+'_index'%}
+        {%if auth or (is_authenticated(session) and has_permission(session["user"],permission) )%}
         <li class="nav-item">
           {% if current_template == nav.rsplit(".")[0] %}
           <a class="nav-link active" href="#">{{name}}</a>
