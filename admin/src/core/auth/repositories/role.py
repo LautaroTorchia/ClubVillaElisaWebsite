@@ -21,6 +21,7 @@ def remove_permission_to_role(role, permission):
 def create_role(role_name):
     role = Role(role_name)
     roles.add(role)
+    return role
 
 
 def get_roles():

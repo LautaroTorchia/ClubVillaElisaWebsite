@@ -28,7 +28,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         database.init_app(app)
         # Create Admin
         seeds.run()
-    
 
     # Session
     Session(app)
@@ -67,7 +66,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     @app.cli.command("populate")
     def populatedb():
         seeds.populate()
-        
+
     # error handlers
     app.register_error_handler(400, handlers.bad_request_error)
     app.register_error_handler(401, handlers.unauthorized_error)
@@ -77,5 +76,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
 
     # Jinja
     app.jinja_env.globals.update(is_authenticated=auth.is_authenticated)
+    app.jinja_env.globals.update(has_permission=auth.check_permission)
 
     return app

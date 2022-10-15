@@ -19,7 +19,7 @@ def authenticate():
         if not user:
             flash("Usuario o clave incorrecta.", category="alert alert-danger w-50")
             return redirect(url_for('auth.login'))
-        session["user"]=user.username
+        session["user"]=user.id
         flash("La sesion se inicio correctamente", category="alert alert-success w-50")
     return redirect(url_for('home'))
 

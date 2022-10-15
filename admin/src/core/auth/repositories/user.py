@@ -90,3 +90,11 @@ def remove_role_to_user(user, role):
         users.add(user)
     except:
         pass
+
+def user_has_permission(user_id,permission):
+    user = get_user_by_id(user_id)
+    for role in user.roles:
+        for perm in role.permissions:
+            if perm.name == permission:
+                return True
+    return False
