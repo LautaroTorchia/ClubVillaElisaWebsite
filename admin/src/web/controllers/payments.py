@@ -14,6 +14,9 @@ payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 @payments_blueprint.get("/")
 @login_required
 def index():
+    """Returns:
+        HTML: List of payments.
+    """    
     pairs=[("associate.surname","Apellido"),("associate_id","Numero de socio")]
     if request.args.get("search"):
         paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
@@ -26,6 +29,11 @@ def index():
 @payments_blueprint.post("/create/<id>")
 @login_required
 def create(id):
+    """Args:
+        id (int): id of the associate to create a payment for
+    Returns:
+        HTML: Redirect to payments list.
+    """    
     associate=get_associate_by_id(id)
     last_fee=get_last_fee_paid(associate)
     config=get_cfg()
@@ -59,6 +67,11 @@ def create(id):
 @payments_blueprint.post("/delete/<id>")
 @login_required
 def delete(id):
+    """Args:
+        id (int): id of the payment to delete
+    Returns:
+        HTML: Redirect to payments list.
+    """    
     delete_payment(id)
     return redirect(url_for("payments.index"))
 
@@ -67,6 +80,11 @@ def delete(id):
 @payments_blueprint.post("/download/<id>")
 @login_required
 def download_receipt(id):
+    """Args:
+        id (int): id of the payment to download the receipt for
+    Returns:
+        PNG: Download the receipt.
+    """    
     RCPT_PATH=os.path.join(os.getcwd(),"public","receipt.png")
     payment=get_payment_by_id(id)
     make_receipt(payment,RCPT_PATH)
