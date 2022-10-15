@@ -1,24 +1,46 @@
-from core.auth.repositories.permission import get_permission
 from src.core.auth import (
     create_user,
     get_by_usr_and_pwd,
     create_role,
     get_role,
     add_role_to_user,
+    add_permission_to_role,
+    get_permission,
+    create_permission,
 )
 from src.core.board.repositories.discipline import add_discipline
 from src.core.board.repositories.associate import create_associate
 from passlib.hash import sha256_crypt
+from src.web.helpers.auth import get_permissions
 
 
 def run():
-    if get_role("Admin") is None:
-        create_role("Admin")
-    if get_role("Operario") is None:
-        create_role("Operario")
-    if get_role("Usuario") is None:
-        create_role("Usuario")
+    # create roles
+    adm_role = get_role("Admin")
+    if adm_role is None:
+        adm_role = create_role("Admin")
+    op_role = get_role("Operario")
+    if op_role is None:
+        op_role = create_role("Operario")
+    us_role = get_role("Usuario")
+    if us_role is None:
+        us_role = create_role("Usuario")
 
+    # associate roles w/ permissions
+    op_perm, adm_perm = get_permissions()
+    for perm in adm_perm:
+        perm_obj = get_permission(perm)
+        if perm_obj is None:
+            perm_obj = create_permission(perm)
+        add_permission_to_role(adm_role, perm_obj)
+
+    for perm in op_perm:
+        perm_obj = get_permission(perm)
+        if perm_obj is None:
+            perm_obj = create_permission(perm)
+        add_permission_to_role(op_role, perm_obj)
+
+    # creates user with role admin
     if get_by_usr_and_pwd("admin", "1234") is None:
         create_user(
             {
