@@ -2,7 +2,6 @@ from datetime import datetime
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from src.core.db import db
 
-
 user_roles = db.Table(
     "user_roles",
     Column("user_id", Integer, ForeignKey("users.id"), primary_key=True),
