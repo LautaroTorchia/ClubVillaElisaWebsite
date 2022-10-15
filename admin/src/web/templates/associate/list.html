@@ -52,6 +52,7 @@
               {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
               <th style="width: 5%">Disciplinas</th>
               {%endif%}
+              <th style="width: 5%">Pagar</th>
               {% if has_permission(session["user"],"associate_destroy") %}
               <th style="width: 5%">Eliminar</th>
               {%endif%}
