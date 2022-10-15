@@ -8,11 +8,12 @@ from src.core.auth import (
     get_permission,
     create_permission,
 )
+
+from core.board.repositories.payments import create_payment
 from src.core.board.repositories.discipline import add_discipline
-from src.core.board.repositories.associate import create_associate
+from src.core.board.repositories.associate import create_associate, get_associate_by_id
 from passlib.hash import sha256_crypt
 from src.web.helpers.auth import get_permissions
-
 
 def run():
     # create roles
@@ -199,3 +200,6 @@ def populate():
             )
     except:
         pass
+    
+    associate=get_associate_by_id(1)
+    create_payment(last_installment=1, amount= 800, date= "2022-03-03", associate=associate)
