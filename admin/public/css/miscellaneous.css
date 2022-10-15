@@ -144,3 +144,113 @@
     padding-right: 40px;
 }
 
+.own_logo_home {
+    width: 200px;
+    margin-bottom: 30px
+}
+
+.own_big_title {
+    text-shadow: 0px -5px 5px rgba(181,161,102,0.5);
+    margin-top: 10px;
+    font-family: Amaranth, sans-serif;
+    text-align: center;
+    width: auto; 
+    padding-top:30px
+}
+
+.own_home_container {
+    width: 600px;
+}
+
+.own_card_content {
+    background: rgba(136,136,136,0.19);
+    height: 525.125px;
+    width: auto;
+    box-shadow: 0px 4px 10px 1px;
+}
+
+.own_config_table{
+    width:450px;
+    background:rgba(136,136,136,0.19);
+    margin:auto;
+    border-radius: 5px;
+}
+
+
+@media (width < 768px) {
+    .own_main_table {
+        width: 100% !important;
+        margin-bottom: 30px
+    }
+    .card {
+        width: 100% !important;
+    }
+    .own_list_header {
+        display: flexbox;
+    }
+    .own_flex_column {
+        flex-direction: column !important;
+    }
+    .own_export_text {
+        align-self: center;
+    }
+    .own_confirmation_button {
+        width: 60% !important;
+    }
+    .own_config_table{
+        width:400px;
+        background:rgba(136,136,136,0.19);
+        margin:auto;
+        border-radius: 5px;
+    }
+}
+
+
+@media (width < 360px) {
+    .own_main_table {
+        width: 100% !important;
+        margin-bottom: 30px
+    }
+    .card {
+        width: 100% !important;
+    }
+    .h1 {
+        font-size: 16px !important;
+    }
+    .own_logo_home {
+        margin-bottom: 10px
+    }
+    .own_list_header {
+        display: block;
+    }
+    
+    .search_form {
+        display: block;
+    }
+    .own_add_button {
+        width: auto;
+        border-radius: 5px;
+    }
+    .searchHeader {
+        flex-direction: column !important;
+    }
+    #magGlass {
+        display:none !important;
+    }
+    #searchButton {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .own_full_width {
+        width: 100% !important;
+    }
+    .own_config_table{
+        width:320px;
+        background:rgba(136,136,136,0.19);
+        margin:auto;
+        border-radius: 5px;
+    }
+
+
+}
