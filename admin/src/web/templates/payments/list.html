@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for payment in payments.items |sort(attribute='id', reverse = True ) %}
+            {% for payment in payments.items |sort(attribute='date', reverse = True ) %}
             <tr class="own_centered">
               <td> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
               <td> {{ payment.associate.id }} </td>

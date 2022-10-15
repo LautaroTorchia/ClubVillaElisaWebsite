@@ -14,7 +14,7 @@ payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 @payments_blueprint.get("/")
 @login_required
 def index():
-    pairs=[("surname","Apellido"),("associate_id","Numero de socio")]
+    pairs=[("associate.surname","Apellido"),("associate_id","Numero de socio")]
     if request.args.get("search"):
         paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
     else:

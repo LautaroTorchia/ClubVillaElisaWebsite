@@ -11,8 +11,8 @@ def list_payments(column=None,filter=True):
         - List of Payment objects
     """
     if column:
-        return payments.paginated_filter(column,filter)
-    return payments.paginated_list()
+        return payments.paginated_ordered_filter(column,filter,Payment.date.desc())
+    return payments.paginated_ordered_list(Payment.date.desc())
 
 
 #get last fee paid

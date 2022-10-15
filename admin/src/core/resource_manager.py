@@ -46,6 +46,15 @@ class ResourceManager():
     def paginated_filter(self, col_name, text):
         from src.core.board.repositories.configuration import get_cfg
         return self.base_filter(col_name, text).paginate(per_page=get_cfg().record_number, error_out=False)
+
+
+    def paginated_ordered_filter(self, col_name, text,order_criteria):
+        from src.core.board.repositories.configuration import get_cfg
+        return self.base_filter(col_name, text).order_by(order_criteria).paginate(per_page=get_cfg().record_number, error_out=False)
+
+    def paginated_ordered_list(self,order_criteria):
+        from src.core.board.repositories.configuration import get_cfg
+        return self.query.order_by(order_criteria).paginate(per_page=get_cfg().record_number, error_out=False)
     
 
     
