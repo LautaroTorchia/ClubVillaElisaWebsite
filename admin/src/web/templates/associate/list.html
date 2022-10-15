@@ -85,7 +85,7 @@
               {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
               <td class="own_options_section">
                 <form action="{{ url_for('associate.add_discipline', id=associate.id) }}" method="get">
-                  <button class="btn btn-outline-danger w-100 p-1 own_options_button">
+                  <button class="btn btn-outline-secondary w-100 p-1 own_options_button">
                     Asignar
                   </button>
                 </form>
@@ -94,7 +94,7 @@
               {% if has_permission(session["user"],"associate_destroy") %}
               <td class="own_options_section">
                 <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
-                  <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                  <button class="btn btn-outline-success w-100 p-1 own_options_button"
                     onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
                     Pagar
                   </button>
