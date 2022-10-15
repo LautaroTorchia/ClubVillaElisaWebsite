@@ -9,4 +9,7 @@ discipline_api_blueprint = Blueprint(
 
 @discipline_api_blueprint.get("/")
 def index_api():
+    """Returns:
+        JSON: List of disciplines.
+    """    
     return response(200,list(map(lambda x: x.to_dict(), list_all_disciplines())))
