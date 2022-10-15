@@ -4,12 +4,10 @@
     margin: 0 auto;
 }
 
-
 @media (width < 768px) {
     .own_form {
         width:90% !important;
     }
-    
 }
 
 @media (width < 360px) {
