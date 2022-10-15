@@ -40,6 +40,8 @@ def create(id):
             ammount+=config.due_fee
         else:
             flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
+    else:
+        flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
             
     create_payment(associate,ammount,last_fee.installment_number)
     return redirect(url_for("associate.index"))
