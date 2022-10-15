@@ -14,14 +14,13 @@ def get_cfg():
         return add_cfg(
             Configuration(
                 {
-                    "record_number": 6,
-                    "ord_criteria": "ALPH",
+                    "record_number": 10,
                     "currency": "ARS",
-                    "base_fee": 100,
-                    "due_fee": 50,
-                    "payment_available": True,
-                    "contact": "villa elisa",
-                    "payment_header": "pagos",
+                    "base_fee": 1000,
+                    "due_fee": 15,
+                    "payment_available": False,
+                    "contact": "(0221) 487-0193",
+                    "payment_header": "Recibo de Pago Villa Elisa",
                 }
             )
         )
