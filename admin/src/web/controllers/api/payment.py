@@ -32,4 +32,3 @@ def add_payment(id):
     create(id)
     return response(200, "Pago agregado")
 
-
