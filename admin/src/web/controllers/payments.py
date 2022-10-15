@@ -29,7 +29,7 @@ def create(id):
     associate=get_associate_by_id(id)
     last_fee=get_last_fee_paid(associate)
     config=get_cfg()
-    ammount=disciplines_fee_amount(associate)+config.base_fee
+    amount=disciplines_fee_amount(associate)+config.base_fee
     paid_late=False
     fee_date=datetime.now()
     
@@ -41,7 +41,7 @@ def create(id):
         
         elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
             flash(f"El asociado ha pagado una cuota de un mes anterior", category="alert alert-warning")
-            ammount+=config.due_fee
+            amount+=amount*(config.due_fee/100)
             fee_date=last_fee.date.replace(month=last_fee.date.month+1)
             paid_late=True
             
@@ -51,7 +51,7 @@ def create(id):
     else:
         flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
             
-    create_payment(associate,ammount,last_fee.installment_number,paid_late,fee_date)
+    create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
     return redirect(url_for("associate.index"))
 
 
