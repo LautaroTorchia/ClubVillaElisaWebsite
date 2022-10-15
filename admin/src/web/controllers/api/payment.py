@@ -16,7 +16,6 @@ def associate_payments(id):
         JSON: List of payments for an associate
     """    
     associate = get_associate_by_id(id)
-    print(associate.payments)
     payments = associate.payments
     if payments:
         return response(200, list(map(lambda x: x.to_dict(), payments)))

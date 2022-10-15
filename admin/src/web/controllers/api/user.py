@@ -8,5 +8,9 @@ user_api_blueprint = Blueprint(
 )
 
 @user_api_blueprint.get("/")
-def index_api():
+def api_all_users():
     return response(200,list(map(lambda x: {x}, list_users())))
+
+@user_api_blueprint.get("/<user_id>")
+def api_user(user_id):
+    return response(200, {user_id})
