@@ -1,6 +1,7 @@
 .own_form {
-    width:60% !important;
+    width:80% !important;
     min-width: 500px;
+    margin: 0 auto;
 }
 
 

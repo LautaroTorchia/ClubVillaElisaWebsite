@@ -7,7 +7,7 @@
 {% block title %} Registrarse {% endblock title %}
 
 <body>
-    <div class="d-flex flex-column align-items-center">
+    <div class="d-flex flex-column">
         {% block form %}
         <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column own_form"> 
             {{ form.hidden_tag() }}
