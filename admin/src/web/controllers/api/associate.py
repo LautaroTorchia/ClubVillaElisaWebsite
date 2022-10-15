@@ -9,6 +9,11 @@ associate_api_blueprint = Blueprint(
 
 @associate_api_blueprint.get("/<id>")
 def index_api(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        JSON: list of disciplines
+    """    
     associate=get_associate_by_id(id)
     if associate.disciplines:
         #transform associates IntrumentedLIst into dict
