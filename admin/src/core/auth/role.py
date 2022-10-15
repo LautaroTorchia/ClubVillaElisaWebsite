@@ -8,6 +8,10 @@ roles_permissions = db.Table(
 )
 
 class Role(db.Model):
+    """Model for the roles table.
+    Args:
+        name (str): The name of the role.
+    """    
 
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
