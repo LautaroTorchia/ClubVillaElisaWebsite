@@ -10,9 +10,9 @@
 <body>
   {% block content %}
   <div class="d-flex flex-column">
-    <section class="d-flex align-self-center justify-content-center own_flex_column" id="searchHeader">
+    <section class="d-flex align-self-center justify-content-center own_flex_column align-items-center" id="searchHeader">
       {% if has_permission(session["user"],"discipline_create") %}
-      <a href="{{ url_for('discipline.get_add') }}">
+      <a class="d-flex" href="{{ url_for('discipline.get_add') }}">
         <button class="btn own_golden_bg own_add_button" type="button">
           Agregar
         </button>

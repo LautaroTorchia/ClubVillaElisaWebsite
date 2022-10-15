@@ -1,19 +1,18 @@
 <form class="search-form d-flex" style="box-shadow: 0px 0px" method="GET">
-  <h1>{% set selected_column= args["column"]%}</h1>
   <div class="input-group">
     <span class="input-group-text own_input" id="magGlass">
       <i class="fa fa-search"></i>
     </span>
-    <select class="form-control" id="column" name="column">
+    <select class="form-control" id="searchFilter" name="column">
       {% for option,name in pairs %}
-      {%if option == selected_column%}
+      {%if args and option == args["column"] %}
       <option value="{{option}}" selected>{{name}}</option>
       {%else%}
       <option value="{{option}}">{{name}}</option>
       {%endif%}
       {% endfor %}
     </select>
-    <input class="form-control" type="text" placeholder="Buscar socio" name="search" />
+    <input class="form-control" type="text" placeholder="Buscar socio" name="search" id="searchText" />
     <button class="btn btn-light own_search_button" type="submit" id="searchButton">
       Buscar
     </button>

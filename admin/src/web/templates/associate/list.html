@@ -9,28 +9,11 @@
 
 <body>
   {% block content %}
-  <div class="d-flex flex-column">
-    <section class="d-flex align-self-center own_flex_column" id="searchHeader">
-      {% if has_permission(session["user"],"associate_index") %}
-      <table style="margin-right:100px; margin-top:6px">
-        <tr>
-          <p class="own_export_text"><b>Exportar:</b></p>
-        </tr>
-        <tr>
-          <td>
-            <form method="GET" action="{{ url_for('associate.write_csv') }}">
-              <input type="image" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
-            </form>
-          </td>
-          <td>
-            <form method="GET" action="{{ url_for('associate.write_pdf') }}">
-              <input type="image" src="/public/img/PDF_icon.png" style="height: 50px;">
-            </form>
-          </td>
-        </tr>
-      </table>
-      {%endif%}
-      {% if has_permission(session["user"],"associate_create") %}
+  <div class="d-flex flex-column justify-content-center align-items-center">
+
+
+    <section class="d-flex align-items-center align-self-center own_flex_column" id="searchHeader">
+            {% if has_permission(session["user"],"associate_create") %}
       <a href="{{ url_for('associate.get_add') }}">
         <button class="btn own_golden_bg own_add_button" type="button">
           Agregar
@@ -41,6 +24,17 @@
       {% include "search.html" %}
       {%endif%}
     </section>
+     {% if has_permission(session["user"],"associate_index") %}
+      <div class="mt-2 d-flex align-items-center gap-2">
+          <span class="own_export_text"><b>Exportar:</b></span>
+            <form method="GET" action="{{ url_for('associate.write_csv') }}">
+              <input type="image" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
+            </form>
+            <form method="GET" action="{{ url_for('associate.write_pdf') }}">
+              <input type="image" src="/public/img/PDF_icon.png" style="height: 50px;">
+            </form>
+      </div>
+      {%endif%}
     {% include "flashes.html" %}
     <section class="container">
       <div class="own_main_body own_centered">
