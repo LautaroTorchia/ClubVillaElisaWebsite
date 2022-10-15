@@ -21,9 +21,11 @@ class Payment(db.Model):
     associate_id = Column(Integer, db.ForeignKey("associates.id"), nullable=False)
     associate = db.relationship("Associate")
 
-    def __init__(self, amount, installment_number):
+    def __init__(self, amount, installment_number, associate_id, date=None):
         self.amount = amount
         self.installment_number = installment_number
+        self.associate_id=associate_id
+        self.date=date
 
     def __repr__(self):
         return f"""{self.date} fecha de pago de 

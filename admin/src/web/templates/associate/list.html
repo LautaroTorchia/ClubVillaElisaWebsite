@@ -48,6 +48,7 @@
               <th style="width: 25%">Disciplinas</th>
               <th style="width: 5%">Modificar</th>
               <th style="width: 5%">Disciplinas</th>
+              <th style="width: 5%">Pagar cuota</th>
               <th style="width: 5%">Eliminar</th>
             </tr>
           </thead>
@@ -81,9 +82,17 @@
                 </form>
               </td>
               <td class="own_options_section">
-                <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
+                <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
                   <button class="btn btn-outline-danger w-100 p-1 own_options_button"
                     onclick="return confirm('Seguro que desea eliminar a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                    Pagar
+                  </button>
+                </form>
+              </td>
+              <td class="own_options_section">
+                <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
+                  <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                    onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
                     X
                   </button>
                 </form>
