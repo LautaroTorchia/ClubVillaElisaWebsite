@@ -32,3 +32,8 @@ class Payment(db.Model):
     def __repr__(self):
         return f"""{self.date} fecha de pago de 
             la cuota {self.installment_number} con costo {self.amount}"""
+
+    def to_dict(self):
+        my_dict = self.__dict__
+        del my_dict['_sa_instance_state']
+        return my_dict

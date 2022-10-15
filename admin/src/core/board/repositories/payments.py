@@ -35,12 +35,11 @@ def create_payment(associate,amount,last_installment,paid_late=False,date=dateti
     return payments.add(Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late))
 
 def get_payment_by_id(id):
-    """ Get a payment by id
+    """ Get a payment by global id
     Returns:
         - Payment object
     """
     return payments.get(id)
-
 
 #delete payment
 def delete_payment(id):

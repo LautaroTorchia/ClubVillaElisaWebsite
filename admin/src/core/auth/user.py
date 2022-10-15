@@ -48,3 +48,8 @@ class User(db.Model):
         return f"""{self.username} con el correo {self.email}
                 con el nombre {self.first_name} {self.last_name}
                 y con el estado {self.active}"""
+    
+    def to_dict(self):
+        my_dict = self.__dict__
+        del my_dict['_sa_instance_state']
+        return my_dict

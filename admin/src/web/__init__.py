@@ -9,6 +9,7 @@ from src.web.controllers.api.configuration import configuration_api_blueprint
 from src.web.controllers.api.discipline import discipline_api_blueprint
 from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
+from src.web.controllers.api.payment import payment_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
@@ -47,6 +48,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     app.register_blueprint(discipline_api_blueprint)
     app.register_blueprint(associate_api_blueprint)
     app.register_blueprint(user_api_blueprint)
+    app.register_blueprint(payment_api_blueprint)
 
     # Routes
     @app.get("/")
