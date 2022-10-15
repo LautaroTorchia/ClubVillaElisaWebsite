@@ -5,6 +5,7 @@ from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file,write_pdf_file
 from src.web.helpers.auth import login_required
 from src.web.helpers.pagination import pagination_generator
+from src.web.helpers.associate import no_es_moroso
 
 associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
 
@@ -84,14 +85,18 @@ def write_pdf():
 @associate_blueprint.get("/add_discipline/<id>")
 @login_required
 def add_discipline(id):
-    pairs=[("name","Nombre")]
     associate=get_associate_by_id(id)
-    
-    if request.args.get("search"):
-        disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
+    if no_es_moroso(associate):
+        pairs=[("name","Nombre")]
+        if request.args.get("search"):
+            disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
+        else:
+            disciplines = list_all_disciplines()
+        return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
     else:
-        disciplines = list_all_disciplines()
-    return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
+        flash(f"El asociado {associate} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
+        return redirect(url_for("associate.index"))
+
 
 #add a discipline to the associate
 @associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
@@ -99,9 +104,13 @@ def add_discipline(id):
 def register_discipline(id,discipline_id):
     associate=get_associate_by_id(id)
     discipline=get_discipline(discipline_id)
-    add_discipline_to_associate(associate,discipline)
-    flash(f"Se agregó la disciplina {discipline} al asociado {associate}", category="alert alert-info")
-    print("ya hice todo")
+    
+    if discipline.available:
+        add_discipline_to_associate(associate,discipline)
+        flash(f"Se agregó la disciplina {discipline.name} al asociado {associate}", category="alert alert-info")
+        return redirect(url_for("associate.add_discipline",id=id))
+    
+    flash(f"La disciplina {discipline.name} no está disponible", category="alert alert-danger")
     return redirect(url_for("associate.add_discipline",id=id))
 
 

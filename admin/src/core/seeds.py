@@ -1,6 +1,7 @@
+from core.board.repositories.payments import create_payment
 from src.core.auth import create_user,get_by_usr_and_pwd
 from src.core.board.repositories.discipline import add_discipline
-from src.core.board.repositories.associate import create_associate
+from src.core.board.repositories.associate import create_associate, get_associate_by_id
 from passlib.hash import sha256_crypt
 
 def run():
@@ -33,3 +34,6 @@ def populate():
             create_associate({'DNI_number': dni[i], 'DNI_type': "DNI",'name': names[i], 'surname': last_names[i], 'email': more_emails[i], 'gender': genders[i], 'address': address[i], 'phone_number': telephones[i]})
     except:
         pass
+    
+    associate=get_associate_by_id(1)
+    create_payment(last_installment=1, amount= 800, date= "2022-03-03", associate=associate)

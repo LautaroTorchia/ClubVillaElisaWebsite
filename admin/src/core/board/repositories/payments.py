@@ -27,12 +27,12 @@ def get_last_fee_paid(associate):
     return Payment(installment_number=0,date=datetime.now(),amount=0,associate_id=associate.id)
 
 #creating a payment
-def create_payment(associate,amount,last_installment):
+def create_payment(associate,amount,last_installment,paid_late=False,date=datetime.now()):
     """ Create a payment
     Returns:
         - Payment object
     """
-    return payments.add(Payment(associate_id=associate.id,amount=amount,date=datetime.now(),installment_number=last_installment+1))
+    return payments.add(Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late))
 
 def get_payment_by_id(id):
     """ Get a payment by id

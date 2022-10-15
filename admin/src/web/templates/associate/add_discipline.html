@@ -42,12 +42,12 @@
                       </button>
                   </form>
               {% else %}
-                  <form action="{{ url_for('associate.register_discipline', id=associate.id,discipline_id=discipline.id) }}" method="post">
-                      <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px" name="Update"
-                          value="{{ discipline.id }}">
-                          Inscribirse a Disciplina
-                      </button>
-                  </form>
+                    <form action="{{ url_for('associate.register_discipline', id=associate.id,discipline_id=discipline.id) }}" method="post">
+                        <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px" name="Update"
+                            value="{{ discipline.id }}">
+                            Inscribirse a Disciplina
+                        </button>
+                    </form>
               {% endif %}
             </td>
           </tr>
