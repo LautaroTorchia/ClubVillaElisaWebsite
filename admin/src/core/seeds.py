@@ -16,6 +16,8 @@ from passlib.hash import sha256_crypt
 from src.web.helpers.auth import get_permissions
 
 def run():
+    """Creates an admin user, the roles and permissions"""
+
     # create roles
     adm_role = get_role("Admin")
     if adm_role is None:
@@ -27,7 +29,7 @@ def run():
     if us_role is None:
         us_role = create_role("Usuario")
 
-    # associate roles w/ permissions
+    # link roles w/ permissions
     op_perm, adm_perm = get_permissions()
     for perm in adm_perm:
         perm_obj = get_permission(perm)
@@ -56,6 +58,8 @@ def run():
 
 
 def populate():
+    """Populates the database with some data
+    """
     names = ["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names = [
         "Perez",

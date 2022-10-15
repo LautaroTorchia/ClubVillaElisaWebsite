@@ -20,7 +20,7 @@ def associate_payments(id):
     if payments:
         return response(200, list(map(lambda x: x.to_dict(), payments)))
     else:
-        []
+        return response(200,[])
 
 @payment_api_blueprint.post("/<id>")
 def add_payment(id):
