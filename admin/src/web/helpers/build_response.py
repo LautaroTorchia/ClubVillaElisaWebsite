@@ -18,6 +18,12 @@ class DecimalEncoder(json.JSONEncoder):
             return fake_float(o)
 
 def response(status, data):
+    """Args:
+        status (int): HTTP status code
+        data (dict): Data to be returned
+    Returns:
+        JSON: Response data
+    """    
     dict={
         "timestamp":f"{datetime.now()}",
         "status":status,
