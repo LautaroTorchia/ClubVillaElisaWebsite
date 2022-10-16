@@ -29,9 +29,9 @@ def get_permissions():
     operator_permissions = [
         "associate_add_discip",
         "associate_remove_discip",
-        "payment_index",
-        "payment_show",
-        "payment_import",
+        "payments_index",
+        "payments_show",
+        "payments_import",
     ]
     admin_permissions = [*operator_permissions, "payment_destroy"]
 
