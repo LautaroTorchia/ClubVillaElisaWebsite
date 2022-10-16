@@ -4,6 +4,8 @@ from src.core.board.repositories.payments import get_last_fee_paid
 
 
 def no_es_moroso(associate):
+    """Returns true if the associate is not in debt
+    """    
     payment=get_last_fee_paid(associate)
     if payment.installment_number==0:
         if (datetime.now()-associate.entry_date).days<60:
