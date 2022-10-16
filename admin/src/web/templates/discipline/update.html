@@ -5,17 +5,19 @@
 {% endblock css %} {% block title %} Modificar disciplina {% endblock title %}
 
 <body>
-    {% block form %}
-    <form action="#" method="POST" class="d-flex flex-column "> 
-        {{ form.hidden_tag() }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
-        <div class="form-group">
-            {{ field.label(class="form-label") }}
-            {{ field(class="form-control") }}
-        </div>
-            {% endfor %}
-            <button type="submit" class="btn own_golden_bg own_confirmation_button mt-3">Modificar Disciplina</button>
-    </form>
-    {% endblock form %}
-
+  {% block header %}
+  Modificar disciplina  
+  {% endblock header %}
+  {% block form %}
+  <form action="#" method="POST" class="d-flex flex-column "> 
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn own_golden_bg mt-3">Modificar Disciplina</button>
+  </form>
+  {% endblock form %}
 </body>

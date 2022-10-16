@@ -1,5 +1,5 @@
 {% set current_template = self._TemplateReference__context.name %}
-{% extends "base.html" %}
+{% extends "base_list.html" %}
 {% block css %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
@@ -8,11 +8,10 @@
 {% block title %} Disciplinas {% endblock title %}
 
 <body>
-  {% block content %}
-  <div class="d-flex flex-column">
-    <section class="d-flex align-self-center justify-content-center own_flex_column align-items-center" id="searchHeader">
+  {% block upperbar %}
+  <div class="d-flex justify-content-center align-items-center" id="searchHeader">
       {% if has_permission(session["user"],"discipline_create") %}
-      <a class="d-flex" href="{{ url_for('discipline.get_add') }}">
+      <a href="{{ url_for('discipline.get_add') }}">
         <button class="btn own_golden_bg own_add_button" type="button">
           Agregar
         </button>
@@ -21,67 +20,61 @@
       {% if has_permission(session["user"],"discipline_index") %}
       {% include "search.html" %}
       {% endif %}
-    </section>
-    {% include "flashes.html" %}
-    <section class="d-flex justify-content-xxl-center container">
-      <div class="own_main_body own_centered">
-        <table id="example" class="table table-striped table-bordered" style="width:90rem">
-          <thead>
-            <tr class="own_table_header">
-              <th style="width: 15%">Nombre</th>
-              <th style="width: 15%">Categoría</th>
-              <th style="width: 15%">Instructores</th>
-              <th style="width: 25%">Días y horarios</th>
-              <th style="width: 10%">Costo mensual</th>
-              <th style="width: 10%">Cupo</th>
-              {% if has_permission(session["user"],"discipline_update") %}
-              <th style="width: 5%">Modificar</th>
-              {%endif%}
-              {% if has_permission(session["user"],"discipline_destroy") %}
-              <th style="width: 5%">Eliminar</th>
-              {%endif%}
-            </tr>
-          </thead>
-          <tbody>
-            {% for discipline in disciplines.items %}
-            <tr class="own_centered">
-              <td> {{ discipline.name }} </td>
-              <td> {{ discipline.category }} </td>
-              <td> {{ discipline.instructors }} </td>
-              <td> {{ discipline.dates }} </td>
-              <td> {{ discipline.monthly_cost }} {{ discipline.currency }} </td>
-              <td> {{ "Si" if discipline.available else "No" }} </td>
-              </td>
-              {% if has_permission(session["user"],"discipline_update") %}
-              <td class="own_options_section">
-                <a href="{{ url_for('discipline.update', id=discipline.id) }}">
-                  <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px"
-                    name="Update" value="{{ discipline.id }}">
-                    Mod.
-                  </button>
-                </a>
-              </td>
-              {%endif%}
-              {% if has_permission(session["user"],"discipline_destroy") %}
-              <td class="own_options_section">
-                <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post">
-                  <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button"
-                    style="border-radius: 5px" name="Delete" value="{{ discipline.id }}"
-                    onclick="return confirm('Seguro que desea eliminar {{ discipline.name }} {{ discipline.category }} ?');">
-                    X
-                  </button>
-                </form>
-              </td>
-              {%endif%}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </section>
-    {% include "paginator.html"%}
   </div>
-  {% endblock content%}
+  {% endblock upperbar %}
+  {% block table %}
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Instructores</th>
+        <th>Días y horarios</th>
+        <th>Costo mensual</th>
+        <th>Cupo</th>
+        {% if has_permission(session["user"],"discipline_update") %}
+        <th>Modificar</th>
+        {%endif%}
+        {% if has_permission(session["user"],"discipline_destroy") %}
+        <th>Eliminar</th>
+        {%endif%}
+      </tr>
+    </thead>
+    <tbody>
+      {% for discipline in disciplines.items %}
+      <tr>
+        <td style="--title1:'Nombre';"> {{ discipline.name }} </td>
+        <td style="--title2:'Categoría';"> {{ discipline.category }} </td>
+        <td style="--title3:'Instructores';"> {{ discipline.instructors }} </td>
+        <td style="--title4:'Fechas';"> {{ discipline.dates }} </td>
+        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} {{ discipline.currency }} </td>
+        <td style="--title6:'Cupo';"> {{ "Si" if discipline.available else "No" }} </td>
+        {% if has_permission(session["user"],"discipline_update") %}
+        <td style="--title7:'Modificar';">
+          <a href="{{ url_for('discipline.update', id=discipline.id) }}">
+            <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px"
+              name="Update" value="{{ discipline.id }}">
+              Mod.
+            </button>
+          </a>
+        </td>
+        {%endif%}
+        {% if has_permission(session["user"],"discipline_destroy") %}
+        <td style="--title8:'Eliminar';">
+          <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post">
+            <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button"
+              style="border-radius: 5px" name="Delete" value="{{ discipline.id }}"
+              onclick="return confirm('Seguro que desea eliminar {{ discipline.name }} {{ discipline.category }} ?');">
+              X
+            </button>
+          </form>
+        </td>
+        {%endif%}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock table %}
   {% block js %}
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>

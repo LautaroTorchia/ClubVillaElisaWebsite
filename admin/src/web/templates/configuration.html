@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base_form.html" %} 
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
@@ -6,57 +6,26 @@
 {% block title %} Configuración {% endblock title %}
 
 <body>
-    {% block content %}
-    <section class="py-5">
-        {% include "flashes.html" %}
-        <section class="py-5">
-            <div class="container">
-                <div class="row mb-5 row d-flex justify-content-center"
-                    style="margin-left: 0px;margin-right: 0px;margin-bottom: 0px;width: auto;height: 50px;">
-                    <div class="col-md-8 col-xl-6 text-center mx-auto" style="width: 450px;">
-                        <h2 class="fw-bold d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center"
-                            style="background: rgba(136,136,136,0.19);text-align: center;border-radius: 5px;border-width: 0px;border-color: var(--bs-black);margin: 0px;padding: 0;height: 60px;box-shadow: 0px 0px 10px;">
-                            Mi configuración</h2>
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-center" style="margin-top: 0px;">
-                    <div class="col-md-8 col-xl-6 mx-auto d-flex">
-                        <div class="own_config_table justify-content-center">
-                            {% include "form_errors.html" %}
-                            {% block form %}
-                            <form action={{url_for('configuration.update')}} method="post" class="d-flex flex-column">
-                                {{ form.hidden_tag() }}
-                                {% for field in form if field.widget.input_type != 'hidden' %}
-                                <tr>
-                                    <div style="padding-top:14px; margin-left: 30px">
-                                        <div>
-                                            <th><b>{{ field.label }}</b></th>
-                                        </div>
-                                        <div>
-                                            <td>{{ field }}</td>
-                                        </div>
-                                    </div>
-                                </tr>
-                                {% endfor %}
-                                <div class="d-flex justify-content-center">
-                                    {% if has_permission(session["user"],"configuration_update") %}
-                                      <button class="btn own_golden_bg shadow own_confirmation_button"
-                                          type="submit">Guardar</button>
-                                    {%endif%}
-                                </div>
-                            </form>
-                            {% endblock form %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </section>
-    {% endblock content %}
-    {% block js %}
-    {{ super() }}
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    {% endblock js %}
+  {% block header %}
+  Mi configuración
+  {% endblock header %}
+  {% block form %}
+  <form action={{url_for('configuration.update')}} method="post" class="d-flex flex-column">
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+    {% if has_permission(session["user"],"configuration_update") %}
+    <button class="btn own_golden_bg mt-3" type="submit">Guardar</button>
+    {% endif %}
+  </form>
+  {% endblock form %}
+  {% block js %}
+  {{ super() }}
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+  {% endblock js %}
 </body>

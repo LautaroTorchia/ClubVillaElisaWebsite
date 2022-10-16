@@ -1,22 +1,23 @@
 {% extends "base_form.html" %} 
 {% set current_template = self._TemplateReference__context.name %} 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}" />
 {{ super() }}
 {% endblock css %} {% block title %} Agregar disciplina {% endblock title %}
 
 <body>
-    {% block form %}
-    <form action="{{ url_for('discipline.post_add') }}" method="POST" class="d-flex flex-column"> 
-        {{ form.hidden_tag() }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
-        <div class="form-group">
-            {{ field.label(class="form-label") }}
-            {{ field(class="form-control") }}
-        </div>
-            {% endfor %}
-            <button type="submit" class="btn own_golden_bg mt-3">Agregar Disciplina</button>
-    </form>
-    {% endblock form %}
-
+  {% block header %}
+  Agregar disciplina
+  {% endblock header %}
+  {% block form %}
+  <form action="{{ url_for('discipline.post_add') }}" method="POST" class="d-flex flex-column"> 
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn own_golden_bg mt-3">Agregar Disciplina</button>
+  </form>
+  {% endblock form %}
 </body>

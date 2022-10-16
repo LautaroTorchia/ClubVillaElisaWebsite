@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+        <div class="d-flex mt-5 justify-content-center own_form_title w-100">
+        {% block header %}
+        {% endblock header %}
+        </div>
         {% block preform %}
         {% endblock preform %}
-    <div class="container mt-5 own_form align-items-center">
+    <div class="container mt-3 own_form align-items-center">
         {% block form %}
         {% endblock form %}
     </div>

@@ -8,13 +8,13 @@
     </button>
     {% set current_template = current_template.rsplit("/")[0].rsplit(".")[0] %}
     {% set nav_list =
-    [("home","Home",True),("user.index","Usuarios",False),("discipline.index","Disciplinas",False),
-    ("associate.index","Socios",False),("payments.index","Pagos",False),("configuration.index","Configuración",False)]
+    [("user.index","Usuarios"),("discipline.index","Disciplinas"),
+    ("associate.index","Socios"),("payments.index","Pagos"),("configuration.index","Configuración")]
     %}
 
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
-        {% for nav,name,auth in nav_list %}
+        {% for nav,name in nav_list %}
         {%if auth or (is_authenticated(session) and has_permission(session["user"],nav.rsplit(".")|join("_")) )%}
         <li class="nav-item">
           {% if current_template == nav.rsplit(".")[0] %}
@@ -27,11 +27,11 @@
         {% endfor %}
       </ul>
       {% if is_authenticated(session) %}
-      <a class="btn shadow own_golden_bg" role="button" href="{{ url_for('auth.logout') }}"
-        style="border-radius: 5px">Cerrar sesión</a>
+      <a class="btn shadow own_golden_bg px-3" role="button" href="{{ url_for('auth.logout') }}"
+        style="border-radius: 5px ">Cerrar sesión</a>
       {% else %}
-      <a class="btn shadow own_golden_bg" role="button" href="{{ url_for('auth.login') }}"
-        style="border-radius: 5px">Iniciar sesión</a>
+      <a class="btn shadow own_golden_bg px-3" role="button" href="{{ url_for('auth.login') }}"
+        style="border-radius: 5px ">Iniciar sesión</a>
       {% endif %}
     </div>
   </div>
