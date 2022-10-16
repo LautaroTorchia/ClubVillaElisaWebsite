@@ -5,12 +5,10 @@ from flask_sqlalchemy import Pagination
 
 def pagination_generator(paginator:Pagination, request:Request, paginator_name:str="paginator") -> Dict:
     """Generates pagination data for a given paginator, the output of this function is meant to go directly to the render_template function.
-
     Args:
         paginator (flask_sqlalchemy.pagination.Pagination): A Pagination object, contains the paginated data.
         request (flask.Request): A Request object, used to pass the args to the next page and to get current route.
         paginator_name (str, optional): The name of the pagination object to be passed to the template. Defaults to "paginator".
-
     Returns:
         dict: A dictionary containing the next page url, the previous page url, a list with all the pages with their numbers and the paginator object. 
     """    

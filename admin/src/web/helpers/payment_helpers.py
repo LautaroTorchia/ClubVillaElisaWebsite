@@ -5,16 +5,19 @@ from PIL import Image,ImageDraw,ImageFont
 
 #get disciplines_fee_amount
 def disciplines_fee_amount(associate):
-    """
-        Sum the ammount of all disciplines of an associate   
-    """
+    """Args:
+        associate (Associate): Associate object
+    Returns:
+        float: Total amount of disciplines fees
+    """    
     return functools.reduce(lambda x,y: x+y.monthly_cost,associate.disciplines,0)
 
 
 def make_receipt(payment,RCPT_PATH):
-    """
-        Creates a receipt for a payment
-    """
+    """Args:
+        payment (Payment): Payment object
+        RCPT_PATH (str): Path to save the receipt
+    """    
     #draw a receipt for a payment
     dict_meses={1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Septiembre",10:"Octubre",11:"Noviembre",12:"Diciembre"}
     FONT_PATH=os.path.join(os.getcwd(),"public","font","Roboto-Bold.ttf")
