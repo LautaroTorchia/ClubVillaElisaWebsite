@@ -8,13 +8,13 @@
 
 <body>
     {% block content %}
-        <div class="d-flex flex-column align-items-center">
-            <section id="searchHeader">
+        <div class="d-flex flex-column">
+            <section class="d-flex flex-column justify-content-center align-items-center">
             {% block upperbar%}
 
             {% endblock upperbar%}
             </section>
-            <section class="own_main_body">
+            <section class="d-flex flex-column px-5" id="sectionTable">
             {% include "flashes.html" %}
 
                 {% block table %}
@@ -22,7 +22,7 @@
                 {% endblock table %}
             </section>
 
-            {% include "paginator.html"%}
+          {% include "paginator.html"%}
         </div>
     {% endblock content%}
     {% block js%}
