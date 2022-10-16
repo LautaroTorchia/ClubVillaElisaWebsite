@@ -4,7 +4,7 @@ from src.core.auth import list_users, get_user_by_id
 from datetime import datetime
 
 user_api_blueprint = Blueprint(
-    "user_api", __name__, url_prefix="/api/club/users"
+    "user_api", __name__, url_prefix="/club/users"
 )
 
 @user_api_blueprint.get("/")

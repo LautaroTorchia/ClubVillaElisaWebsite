@@ -8,7 +8,7 @@ from src.core.board import (
 from src.web.helpers.build_response import response
 from src.core.board.configuration import Configuration
 configuration_api_blueprint = Blueprint(
-    "configuration_api", __name__, url_prefix="/api/configuracion"
+    "configuration_api", __name__, url_prefix="/configuracion"
 )
 
 @configuration_api_blueprint.get("/")

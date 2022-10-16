@@ -4,7 +4,7 @@ from src.core.board import get_associate_by_id
 from src.web.controllers.payments import create
 
 payment_api_blueprint = Blueprint(
-    "payment_api", __name__, url_prefix="/api/me/payments"
+    "payment_api", __name__, url_prefix="/me/payments"
 )
 
 #request.form.id

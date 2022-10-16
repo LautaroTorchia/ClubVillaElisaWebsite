@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, Blueprint, render_template
 from src.web.config import get_config
 import src.core.db as database
 from src.core import seeds
@@ -49,12 +49,13 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     app.register_blueprint(payments_blueprint)
 
     # Api
-    discipline_api_blueprint
-    app.register_blueprint(configuration_api_blueprint)
-    app.register_blueprint(discipline_api_blueprint)
-    app.register_blueprint(associate_api_blueprint)
-    app.register_blueprint(user_api_blueprint)
-    app.register_blueprint(payment_api_blueprint)
+    api_blueprint = Blueprint("api", __name__, url_prefix="/api")
+    api_blueprint.register_blueprint(discipline_api_blueprint)
+    api_blueprint.register_blueprint(configuration_api_blueprint)
+    api_blueprint.register_blueprint(associate_api_blueprint)
+    api_blueprint.register_blueprint(user_api_blueprint)
+    api_blueprint.register_blueprint(payment_api_blueprint)
+    app.register_blueprint(api_blueprint)
 
     # Routes
     @app.get("/")

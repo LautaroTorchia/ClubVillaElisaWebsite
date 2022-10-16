@@ -4,7 +4,7 @@ from src.core.board import list_disciplines,get_associate_by_id
 from datetime import datetime
 
 associate_api_blueprint = Blueprint(
-    "associate_api", __name__, url_prefix="/api/me/disciplines"
+    "associate_api", __name__, url_prefix="/me/disciplines"
 )
 
 @associate_api_blueprint.get("/<id>")
