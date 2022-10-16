@@ -4,7 +4,7 @@ from src.core.board import list_all_disciplines
 from datetime import datetime
 
 discipline_api_blueprint = Blueprint(
-    "discipline_api", __name__, url_prefix="/club/disciplinas"
+    "discipline_api", __name__, url_prefix="/disciplinas"
 )
 
 @discipline_api_blueprint.get("/")

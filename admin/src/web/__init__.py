@@ -50,11 +50,20 @@ def create_app(env="development", static_folder="/static", template_folder="temp
 
     # Api
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
-    api_blueprint.register_blueprint(discipline_api_blueprint)
     api_blueprint.register_blueprint(configuration_api_blueprint)
-    api_blueprint.register_blueprint(associate_api_blueprint)
-    api_blueprint.register_blueprint(user_api_blueprint)
-    api_blueprint.register_blueprint(payment_api_blueprint)
+
+    #Api me
+    api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")
+    api_me_blueprint.register_blueprint(associate_api_blueprint)
+    api_me_blueprint.register_blueprint(payment_api_blueprint)
+    api_blueprint.register_blueprint(api_me_blueprint)
+    
+    #Api club
+    api_club_blueprint = Blueprint("api_club", __name__, url_prefix="/club")
+    api_club_blueprint.register_blueprint(discipline_api_blueprint)
+    api_club_blueprint.register_blueprint(user_api_blueprint)
+    api_blueprint.register_blueprint(api_club_blueprint)
+
     app.register_blueprint(api_blueprint)
 
     # Routes
