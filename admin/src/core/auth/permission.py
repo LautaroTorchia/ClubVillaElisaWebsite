@@ -3,10 +3,10 @@ from src.core.db import db
 
 
 class Permission(db.Model):
-    """Permission Model
+    """Model for the permissions table.
     Args:
-        name (str): Name of permission
-    """
+        name (str): The name of the permission.
+    """    
 
     __tablename__ = "permissions"
     id = Column(Integer, primary_key=True)
@@ -15,7 +15,13 @@ class Permission(db.Model):
     
 
     def __init__(self, name):
+        """Args:
+            name (str): The name of the permission.
+        """        
         self.name = name 
     
     def __repr__(self):
+        """Returns:
+            str: The string representation of the permission.
+        """        
         return f"{self.name}"

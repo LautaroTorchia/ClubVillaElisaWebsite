@@ -49,6 +49,9 @@ class TestingConfig(Config):
     TESTING = True
 
 def get_config():
+    """Returns:
+        dict: System configuration as a dictionary
+    """    
     return {
     'development': DevelopmentConfig,
     'testing': TestingConfig,

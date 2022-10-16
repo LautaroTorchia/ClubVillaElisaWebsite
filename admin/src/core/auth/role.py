@@ -8,10 +8,10 @@ roles_permissions = db.Table(
 )
 
 class Role(db.Model):
-    """Role Model
+    """Model for the roles table.
     Args:
-        name (str): Name of role
-    """
+        name (str): The name of the role.
+    """    
 
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
@@ -22,7 +22,13 @@ class Role(db.Model):
     permissions = db.relationship("Permission", secondary="roles_permissions")
 
     def __init__(self, name):
+        """Args:
+            name (str): The name of the role.
+        """        
         self.name = name
 
     def __repr__(self):
+        """Returns:
+            str: The string representation of the role.
+        """        
         return f"{self.name}"

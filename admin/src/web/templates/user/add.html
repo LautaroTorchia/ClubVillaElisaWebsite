@@ -1,40 +1,24 @@
-{% extends "base.html" %}
+{% extends "base_form.html" %}
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %}
-{% block title %} Registrarse {% endblock title %}
+{% block title %} Agregar usuario {% endblock title %}
 
 <body>
-    {% block content %}
-    <section class="py-5">
-        <div class="container own_form_container own_input_lenght own_paddings">
-            <div class="d-xl-flex align-items-lg-center justify-content-xl-center own_form_header">
-                <p class="own_form_title">
-                    Registro de usuario</p>
-            </div>
-            {% block form %}
-            <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column">
-                {{ form.hidden_tag() }}
-                {% for field in form if field.widget.input_type != 'hidden' %}
-                <tr>
-                    <div class="own_input_label">
-                        <th>{{ field.label }}</th>
-                    </div>
-                    <td>{{ field }}</td>
-                </tr>
-                {% endfor %}
-                <hr>
-                <div class="form-group mb-3 own_centered">
-                    <button class="btn own_golden_bg own_submit_button" type="submit">Registrarse</button>
-                </div>
-            </form>
-            {% endblock form %}
-
-        </div>
-    </section>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://geodata.solutions/includes/countrystate.js"></script>
-    {% endblock content %}
+  {% block header %}
+  Agregar usuario
+  {% endblock header %}
+  {% block form %}
+  <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column"> 
+      {{ form.hidden_tag() }}
+      {% for field in form if field.widget.input_type != 'hidden' %}
+      <div class="form-group">
+          {{ field.label(class="form-label") }}
+          {{ field(class="form-control") }}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn own_golden_bg mt-3">Agregar Usuario</button>
+  </form>
+  {% endblock form %}
 </body>

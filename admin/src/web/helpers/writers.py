@@ -3,26 +3,22 @@ from fpdf import FPDF
 from flask import render_template
  
 
-
 def write_csv_file(filename,data):
-    """
-    Write a csv file with the data provided
-    """
+    """Args:
+        filename (str): Name of the file to be written
+        data (list): Data to be written
+    """    
     with open(filename, 'w') as csv_file:
-        writer = csv.writer(csv_file)
+        writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(["Nombre","Apellido","DNI","Email","Direccion","Estado","Telefono"])
         for associate in data:
             writer.writerow([associate.name,associate.surname,associate.DNI_number,associate.email,associate.address,associate.active,associate.phone_number])
 
-# Python program to create
-# a pdf file
- 
- 
-
 def write_pdf_file(filename,data):
-    """
-    Write a pdf file with the data provided
-    """
+    """Args:
+        filename (str): Name of the file to be written
+        data (list): Data to be written
+    """    
     pdf = FPDF()
     
     # Add a page
@@ -48,4 +44,5 @@ def write_pdf_file(filename,data):
         pdf.ln(5)
 
     pdf.output(filename)  
+
             

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-
-
 {% block content %}
-    <div class="container mt-5">
+    <div class="d-flex mt-5 justify-content-center own_form_title w-100">
+        {% block header %}
+        {% endblock header %}
+    </div>
+    <div class="container mt-3 own_form align-items-center" style="max-width: 800px">
         {% block form %}
         {% endblock form %}
     </div>

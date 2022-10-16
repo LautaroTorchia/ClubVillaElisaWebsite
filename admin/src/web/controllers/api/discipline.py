@@ -1,13 +1,14 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from src.web.helpers.build_response import response
-from src.core.board import list_disciplines
-
+from src.core.board import list_all_disciplines
 
 discipline_api_blueprint = Blueprint(
-    "discipline_api", __name__, url_prefix="/api/club/disciplines"
+    "discipline_api", __name__, url_prefix="/disciplinas"
 )
 
 @discipline_api_blueprint.get("/")
 def index_api():
-    return jsonify(list(map(lambda x: x.to_dict(), list_disciplines())))
-    
+    """Returns:
+        JSON: List of disciplines.
+    """    
+    return response(200,list(map(lambda x: x.dict_repr(), list_all_disciplines())))

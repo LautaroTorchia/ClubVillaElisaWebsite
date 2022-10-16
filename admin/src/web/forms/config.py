@@ -4,6 +4,16 @@ from wtforms.validators import NumberRange
 
 
 class ConfigForm(BaseForm):
+    """Form to create a new config
+    record_number: Amount of records to show in a page
+    currency: Currency to use in the system
+    base_fee: Base price of the club's fee
+    due_fee: Percentage of the base fee to pay for expired payments
+    payment_available: Visibility of the payments table on the public page
+    contact: Contact info of the club
+    payment_header: Header text of the payment receipts
+    """    
+
     record_number = IntegerField(
         "Cantidad de filas por página",
         default=5,

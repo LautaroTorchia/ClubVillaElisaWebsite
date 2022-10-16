@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
+{% endblock css %}
+{% block title %} Listado {% endblock title %}
+
+<body>
+    {% block content %}
+        <div class="d-flex flex-column">
+            <section class="d-flex flex-column justify-content-center align-items-center">
+            {% block upperbar%}
+
+            {% endblock upperbar%}
+            </section>
+            <section class="d-flex flex-column px-5" id="sectionTable">
+            {% include "flashes.html" %}
+
+                {% block table %}
+
+                {% endblock table %}
+            </section>
+
+          {% include "paginator.html"%}
+        </div>
+    {% endblock content%}
+    {% block js%}
+    {{ super() }}
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    {% endblock js%}
+</body>

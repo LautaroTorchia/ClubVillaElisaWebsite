@@ -44,3 +44,10 @@ class Discipline(db.Model):
         my_dict = self.__dict__
         del my_dict['_sa_instance_state']
         return my_dict
+
+    def dict_repr(self):
+        return {
+            "name": self.name,
+            "teacher": self.instructors,
+            "days and time": self.dates
+        }

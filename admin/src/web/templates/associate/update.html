@@ -1,25 +1,22 @@
-{% extends "base.html" %} 
+{% extends "base_form.html" %} 
 {% set current_template = self._TemplateReference__context.name %} 
 {% block css %}
 {{ super() }}
-{% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
+{% endblock css %} {% block title %} Modificar asosociado {% endblock title %}
 <body>
-{% block content %}
-    <form method="POST" class="d-flex flex-column"> 
-        {{ form.hidden_tag() }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
-        <tr>
-            <th>{{ field.label }}</th>
-            <td>{{ field }}</td>
-        </tr>
-        {% endfor %}
-        {% for field, errors in form.errors.items() %}
-            <small class="form-text text-muted ">
-                {{ ', '.join(errors) }}
-            </small>
-        {% endfor %}
-        <input type="submit" value="Modificar asociado" class="btn own_golden_bg">
-    </form>
-
-{% endblock content %}
+  {% block header %}
+  Modificar asociado
+  {% endblock header %}
+  {% block form %}
+  <form action="" method="POST" class="d-flex flex-column "> 
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+     <button type="submit" class="btn own_golden_bg mt-3">Modificar Asociado</button>
+  </form>
+  {% endblock form %}
 </body>

@@ -7,10 +7,16 @@ auth_blueprint=Blueprint("auth",__name__,url_prefix="/autenticar")
 
 @auth_blueprint.get("/")
 def login():
+    """Returns:
+        HTML: Login form.
+    """    
     return render_template("login.html",form=LoginForm())
 
 @auth_blueprint.post("/authenticate")
 def authenticate():
+    """Returns:
+        HTML: Redirect to index.
+    """    
     form=LoginForm(request.form)
     if form.validate():
         usr=request.form["username"]
@@ -19,13 +25,16 @@ def authenticate():
         if not user:
             flash("Usuario o clave incorrecta.", category="alert alert-danger w-50")
             return redirect(url_for('auth.login'))
-        session["user"]=user.username
+        session["user"]=user.id
         flash("La sesion se inicio correctamente", category="alert alert-success w-50")
     return redirect(url_for('home'))
 
 @auth_blueprint.get("/logout")
 @login_required
 def logout():
+    """Returns:
+        HTML: Redirect to login.
+    """    
     del session["user"]
     session.clear()
     return redirect(url_for('auth.login'))

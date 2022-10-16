@@ -5,12 +5,23 @@ from datetime import datetime
 
 class fake_float(float):
     def __init__(self, value):
+        """Args:
+            value (float): Value to be converted
+        """        
         self._value = value
     def __repr__(self):
+        """Returns:
+            str: String representation of the value
+        """        
         return str(self._value)
 
 class DecimalEncoder(json.JSONEncoder):
     def default(self, o):
+        """Args:
+            o (object): Object to encode
+        Returns:
+            object: Encoded object
+        """        
         if isinstance(o, decimal.Decimal):
             # wanted a simple yield str(o) in the next line,
             # but that would mean a yield on the line with super(...),
@@ -18,6 +29,12 @@ class DecimalEncoder(json.JSONEncoder):
             return fake_float(o)
 
 def response(status, data):
+    """Args:
+        status (int): HTTP status code
+        data (dict): Data to be returned
+    Returns:
+        JSON: Response data
+    """    
     dict={
         "timestamp":f"{datetime.now()}",
         "status":status,

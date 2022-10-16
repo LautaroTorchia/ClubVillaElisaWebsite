@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_form.html" %}
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
@@ -6,39 +6,19 @@
 {% block title %} Modificar usuario {% endblock title %}
 
 <body>
-    {% block content %}
-    <section class="py-5">
-        <div class="container py-5">
-            <section class="clean-block clean-form dark h-100" style="background: rgba(246,246,246,0);">
-                <div class="container"
-                    style="width: 900px;background: rgba(136,136,136,0.19);padding-bottom: 30px;padding-top: 0px;box-shadow: 0px 3px 10px 1px;">
-                    <div class="d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center block-heading"
-                        style="padding-top: 0px;background: rgba(181,161,102,0);text-align: center;">
-                        <p class="d-lg-flex d-xl-flex justify-content-lg-center justify-content-xl-center align-items-xl-center"
-                            style="font-size: 36px;text-align: center;width: 500px;height: 60px;margin-bottom: 0px;margin-top: 10px;background: rgba(181,161,102,0.5);box-shadow: 0px 0px 5px 0px;">
-                            Modificar usuario</p>
-                    </div>
-                    <p class="d-xl-flex justify-content-xl-center align-items-xl-center"
-                        style="text-align: center;font-style: italic;">Los que tengan el * son datos que se tienen
-                        <br>que rellenar obligatoriamente</p>
-                        {% block form %}
-                          <form action="#" method="POST" class="d-flex flex-column "> 
-                              {{ form.hidden_tag() }}
-                              {% for field in form if field.widget.input_type != 'hidden' %}
-                              <div class="form-group">
-                                  {{ field.label(class="form-label") }}
-                                  {{ field(class="form-control") }}
-                              </div>
-                                  {% endfor %}
-                                  <button type="submit" class="btn own_golden_bg own_confirmation_button mt-3">Modificar</button>
-                          </form>
-                        {% endblock form %}
-                </div>
-            </section>
-        </div>
-    </section>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://geodata.solutions/includes/countrystate.js"></script>
-    {% endblock content %}
+  {% block header %}
+  Modificar usuario
+  {% endblock header %}
+  {% block form %}
+  <form action="#" method="POST" class="d-flex flex-column "> 
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn own_golden_bg mt-3">Modificar</button>
+  </form>
+  {% endblock form %}
 </body>
