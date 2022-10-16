@@ -18,7 +18,13 @@ from flask_session import Session
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
-
+    """Args:
+        env (str, optional): Environment to be used. Defaults to "development".
+        static_folder (str, optional): Static folder to be used. Defaults to "/static".
+        template_folder (str, optional): Template folder to be used. Defaults to "templates".
+    Returns:
+        Flask: Flask app
+    """    
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
 
     # load config
@@ -53,22 +59,34 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # Routes
     @app.get("/")
     def home():
+        """Returns:
+            HTML: Redirects to the home page
+        """        
         return render_template("home.html")
 
     @app.teardown_appcontext
     def shutdown_session(exception=None):
+        """Args:
+            exception (Exception, optional): Exception to be handled. Defaults to None.
+        """        
         database.db.session.remove()
 
     @app.cli.command("resetdb")
     def resetdb():
+        """Resets the database
+        """        
         database.reset_db()
 
     @app.cli.command("seeds")
     def seedsdb():
+        """Seeds the database
+        """        
         seeds.run()
 
     @app.cli.command("populate")
     def populatedb():
+        """Populates the database
+        """        
         seeds.populate()
 
     # error handlers
