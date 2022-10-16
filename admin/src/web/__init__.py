@@ -10,6 +10,7 @@ from src.web.controllers.api.discipline import discipline_api_blueprint
 from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
 from src.web.controllers.api.payment import payment_api_blueprint
+from src.web.controllers.api.info import info_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
@@ -57,9 +58,10 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_me_blueprint.register_blueprint(associate_api_blueprint)
     api_me_blueprint.register_blueprint(payment_api_blueprint)
     api_blueprint.register_blueprint(api_me_blueprint)
-    
+    info_api_blueprint
     #Api club
     api_club_blueprint = Blueprint("api_club", __name__, url_prefix="/club")
+    api_club_blueprint.register_blueprint(info_api_blueprint)
     api_club_blueprint.register_blueprint(discipline_api_blueprint)
     api_club_blueprint.register_blueprint(user_api_blueprint)
     api_blueprint.register_blueprint(api_club_blueprint)
