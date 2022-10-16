@@ -12,4 +12,4 @@ def index_api():
     """Returns:
         JSON: List of disciplines.
     """    
-    return response(200,list(map(lambda x: x.to_dict(), list_all_disciplines())))
+    return response(200,list(map(lambda x: x.dict_repr(), list_all_disciplines())))
