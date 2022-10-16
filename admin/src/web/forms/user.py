@@ -13,6 +13,14 @@ class MultiCheckboxField(SelectMultipleField):
 
 
 class UserForm(BaseForm):
+    """Form to create a new user
+    first_name: First name of the user
+    last_name: Last name of the user
+    email: Email of the user
+    username: Username of the user
+    password: Password of the user
+    roles: Roles of the user
+    """    
     first_name = StringField("Nombre", validators=[Length(max=255), InputRequired()])
     last_name = StringField("Apellido", validators=[Length(max=255), InputRequired()])
     email = EmailField("Email", validators=[Length(max=255), InputRequired()])
@@ -33,6 +41,13 @@ class UserForm(BaseForm):
 
 
 class UpdateUserForm(BaseForm):
+    """Form to update a user
+    first_name: First name of the user
+    last_name: Last name of the user
+    email: Email of the user
+    username: Username of the user
+    roles: Roles of the user
+    """   
     first_name = StringField("Nombre", validators=[Length(max=255), InputRequired()])
     last_name = StringField("Apellido", validators=[Length(max=255), InputRequired()])
     email = EmailField("Email", validators=[Length(max=255), InputRequired()])
@@ -42,6 +57,9 @@ class UpdateUserForm(BaseForm):
     roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
     def __init__(self, formdata=..., **kwargs):
+        """Args:
+            formdata (dict): Form data
+        """        
         super().__init__(**kwargs)
         try:
             self["roles"].choices = kwargs["roles"]
