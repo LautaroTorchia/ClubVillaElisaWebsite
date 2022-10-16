@@ -18,6 +18,9 @@ def login_required(f):
 
 
 def get_permissions():
+    """Returns:
+        List: List of all permissions
+    """      
     modules_operator = ["associate", "discipline"]
     modules_admin = [*modules_operator, "user", "configuration"]
     actions_operator = ["index", "show", "update", "create"]
@@ -44,13 +47,30 @@ def get_permissions():
 
 
 def check_permission(user_id, permission):
+    """Args:
+        user_id (int): Id of the user
+        permission (str): Permission to check
+    Returns:
+        bool: True if the user has the permission, False otherwise
+    """       
     return user_has_permission(user_id, permission)
 
 
 def has_permission(permission):
+    """Args:
+        permission (str): Permission to check
+    """    
     def decorator(f):
+        """Args:
+            f (function): Function to decorate
+        Returns:
+            function: Decorated function
+        """        
         @wraps(f)
         def wrapper(*args, **kwargs):
+            """Returns:
+                function: Decorated function
+            """            
             if session.get("user") is None:
                 return abort(401)
             if not check_permission(session.get("user"), permission):
