@@ -3,7 +3,7 @@
     <span class="input-group-text own_input" id="magGlass">
       <i class="fa fa-search"></i>
     </span>
-    <select class="form-control" id="searchFilter" name="column">
+    <select class="form-control own_select" id="searchFilter" name="column">
       {% for option,name in pairs %}
       {%if args and option == args["column"] %}
       <option value="{{option}}" selected>{{name}}</option>
