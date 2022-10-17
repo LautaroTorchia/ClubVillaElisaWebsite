@@ -32,7 +32,9 @@ def create_payment(associate,amount,last_installment,paid_late=False,date=dateti
     Returns:
         - Payment object
     """
-    return payments.add(Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late))
+    payment=Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late)
+    payments.add(payment)
+    return payment
 
 def get_payment_by_id(id):
     """ Get a payment by global id
@@ -48,3 +50,15 @@ def delete_payment(id):
         - Payment object
     """
     return payments.delete(id)
+
+
+#update payment with updated amount
+def update_payment(payment,amount):
+    """ Update a payment
+    Returns:
+        - Payment object
+    """
+    data={
+        "amount":amount
+    }
+    return payments.update(payment.id,data)

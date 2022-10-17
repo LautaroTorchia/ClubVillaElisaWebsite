@@ -4,7 +4,7 @@ from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.web.helpers.auth import login_required
 from src.web.helpers.pagination import pagination_generator
-from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id
+from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id,update_payment
 from src.web.helpers.payment_helpers import disciplines_fee_amount,make_receipt
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
@@ -48,7 +48,7 @@ def create(id):
             return redirect(url_for("associate.index"))
         
         elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
-            flash(f"El asociado ha pagado una cuota de un mes anterior", category="alert alert-warning")
+            flash(f"El asociado ha pagado la cuota del {last_fee.date.replace(month=last_fee.date.month+1).date()}", category="alert alert-warning")
             amount+=amount*(config.due_fee/100)
             fee_date=last_fee.date.replace(month=last_fee.date.month+1)
             paid_late=True
@@ -59,8 +59,8 @@ def create(id):
     else:
         flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
             
-    create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
-    return redirect(url_for("associate.index"))
+    payment=create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
+    return redirect(url_for("payments.detail_view",id=payment.id))
 
 
 #deleting a payment
@@ -89,3 +89,29 @@ def download_receipt(id):
     payment=get_payment_by_id(id)
     make_receipt(payment,RCPT_PATH)
     return send_file(RCPT_PATH,as_attachment=True)
+
+
+#detail_view of a payment
+@payments_blueprint.get("/detail/<id>")
+@login_required
+def detail_view(id):
+    """Args:
+        id (int): id of the payment to show the detail view for
+    Returns:
+        HTML: Detail view of a payment.
+    """    
+    payment=get_payment_by_id(id)
+    return render_template("payments/detail_view.html",payment=payment)
+
+#detail_view of a payment
+@payments_blueprint.post("/detail/<id>")
+@login_required
+def update_amount(id):
+    """Args:
+        id (int): id of the payment to show the detail view for
+    Returns:
+        HTML: Detail view of a payment.
+    """    
+    payment=get_payment_by_id(id)
+    update_payment(payment,request.form.get("amount"))
+    return redirect(url_for("payments.detail_view",id=payment.id))
