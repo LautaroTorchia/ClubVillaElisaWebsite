@@ -32,6 +32,7 @@ def get_permissions():
         "payments_index",
         "payments_show",
         "payments_import",
+        "payments_update"
     ]
     admin_permissions = [*operator_permissions, "payment_destroy"]
 
