@@ -7,5 +7,5 @@ class LoginForm(BaseForm):
     username: Username of the user
     password: Password of the user
     """    
-    username = StringField('', validators=[Length(max=255), InputRequired()], render_kw={"placeholder": "Usuario"})
-    password = PasswordField('', validators=[Length(max=255), InputRequired()], render_kw={"placeholder": "Contraseña"})
+    username = StringField('Usuario', validators=[Length(max=255), InputRequired()], render_kw={"placeholder": "Usuario"})
+    password = PasswordField('Contraseña', validators=[Length(max=255), InputRequired()], render_kw={"placeholder": "Contraseña"})

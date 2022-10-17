@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="d-flex mt-5 justify-content-center own_form_title w-100">
+    <div class="d-flex align-items-center flex-column mt-3 justify-content-center  w-100">
+      <div class="d-flex align-items-center flex-column justify-content-center w-100 own_form_title">
         {% block header %}
         {% endblock header %}
+        {% block image %}
+        {% endblock image %}
+      </div>
     </div>
     <div class="container mt-3 own_form align-items-center" style="max-width: 800px">
-        {% block form %}
-        {% endblock form %}
+      {% block form %}
+      {% endblock form %}
     </div>
     <div class="container mt-3">
-        {% include "flashes.html" %}
-        {% include "form_errors.html" %}
+      {% include "flashes.html" %}
+      {% include "form_errors.html" %}
     </div>
 {% endblock content %}
