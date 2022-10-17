@@ -223,6 +223,15 @@
   text-align: center;
 }
 
+#searchFilter {
+    width: 140px !important;
+}
+
+.own_option {
+    padding-left: 0px !important;
+}
+
+
 /* 
 Generic Styling, for Desktops/Laptops 
 */
