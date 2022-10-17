@@ -20,7 +20,8 @@ def build_payment(last_fee,associate):
     Args:
         last_fee (Fee): Last fee paid by the associate
     Returns:
-        flash_number (int): indicator of wich flash message to show
+        flash_number (int): indicator of wich flash message to show, 1 for already paid, 
+        2 for successfull previous month payment, 3 for succesfull payment
         paid_latest (bool): indicator of if the associate has paid the latest fee
         fee_date (datetime): date of the new fee
         amount  (float): amount of the new fee
@@ -32,7 +33,7 @@ def build_payment(last_fee,associate):
     
     if last_fee.installment_number!=0: #if the associate has paid at least one fee
         if last_fee.date.month==datetime.now().month and last_fee.date.year==datetime.now().year: #if the last fee was paid this month
-            flash_number=1
+            flash_number=1 
         
         elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
             
