@@ -25,7 +25,7 @@ def index():
 
     return render_template("discipline/list.html",pairs=pairs,**paginated_query_data)
 
-@discipline_blueprint.get("/add")
+@discipline_blueprint.get("/agregar")
 @has_permission("discipline_create")
 def get_add():
     """Returns:
@@ -33,7 +33,7 @@ def get_add():
     """    
     return render_template("discipline/add.html",form=DisciplineForm(currency=get_cfg().currency))
 
-@discipline_blueprint.post("/add")
+@discipline_blueprint.post("/agregar")
 @has_permission("discipline_create")
 def post_add():
     """Returns:
@@ -47,7 +47,7 @@ def post_add():
     else:
         return render_template("discipline/add.html", form=form)
 
-@discipline_blueprint.get("/update/<id>")
+@discipline_blueprint.get("/actualizar/<id>")
 @has_permission("discipline_update")
 def get_update(id):
     """Args:
@@ -57,7 +57,7 @@ def get_update(id):
     """    
     return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id),currency=get_cfg().currency))
 
-@discipline_blueprint.post("/update/<id>")
+@discipline_blueprint.post("/actualizar/<id>")
 @has_permission("discipline_update")
 def update(id):
     """Args:
@@ -73,7 +73,7 @@ def update(id):
     else:
         return render_template("discipline/update.html", form=form)
 
-@discipline_blueprint.post("/delete/<id>")
+@discipline_blueprint.post("/borrar/<id>")
 @has_permission("discipline_destroy")
 def delete(id):
     """Args:
