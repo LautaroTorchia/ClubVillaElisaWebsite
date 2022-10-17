@@ -38,7 +38,9 @@
           {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
           <th>Disciplinas</th>
           {%endif%}
+          {% if has_permission(session["user"],"payments_create") %}
           <th>Pagar</th>
+          {%endif%}
           {% if has_permission(session["user"],"associate_destroy") %}
           <th>Eliminar</th>
           {%endif%}
@@ -77,7 +79,7 @@
             </form>
           </td>
           {%endif%}
-          {% if has_permission(session["user"],"associate_destroy") %}
+          {% if has_permission(session["user"],"payments_create") %}
           <td style="--title8:'Pagar cuota';">
             <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
               <button class="btn btn-outline-success w-100 p-1 own_options_button"
@@ -86,6 +88,8 @@
               </button>
             </form>
           </td>
+          {% endif %}
+          {% if has_permission(session["user"],"associate_destroy") %}
           <td style="--title9:'Eliminar';">
             <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
               <button class="btn btn-outline-danger w-100 p-1 own_options_button"

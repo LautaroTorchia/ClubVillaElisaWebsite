@@ -32,7 +32,7 @@ def get_permissions():
         "payments_import",
     ]
     
-    admin_permissions = [*operator_permissions, "payment_destroy"]
+    admin_permissions = [*operator_permissions, "payments_destroy"]
 
     for mod in modules_operator:
         for act in actions_operator:

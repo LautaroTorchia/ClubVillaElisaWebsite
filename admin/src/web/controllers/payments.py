@@ -26,7 +26,7 @@ def index():
 
 
 #creating a payment
-@payments_blueprint.post("/create/<id>")
+@payments_blueprint.post("/agregar/<id>")
 @has_permission("payments_create")
 def create(id):
     """Args:
@@ -51,7 +51,7 @@ def create(id):
 
 
 #deleting a payment
-@payments_blueprint.post("/delete/<id>")
+@payments_blueprint.post("/borrar/<id>")
 @has_permission("payments_destroy")
 def delete(id):
     """Args:
@@ -64,7 +64,7 @@ def delete(id):
 
 
 #download a payment receipt
-@payments_blueprint.post("/download/<id>")
+@payments_blueprint.post("/descargar/<id>")
 @has_permission("payments_import")
 def download_receipt(id):
     """Args:
@@ -72,14 +72,14 @@ def download_receipt(id):
     Returns:
         PNG: Download the receipt.
     """    
-    RCPT_PATH=os.path.join(os.getcwd(),"public","receipt.png")
+    RCPT_PATH=os.path.join(os.getcwd(),"public","recibo.png")
     payment=get_payment_by_id(id)
     make_receipt(payment,RCPT_PATH)
     return send_file(RCPT_PATH,as_attachment=True)
 
 
 #detail_view of a payment
-@payments_blueprint.get("/detail/<id>")
+@payments_blueprint.get("/detalle/<id>")
 @has_permission("payments_show")
 def detail_view(id):
     """Args:
@@ -91,7 +91,7 @@ def detail_view(id):
     return render_template("payments/detail_view.html",payment=payment)
 
 #detail_view of a payment
-@payments_blueprint.post("/detail/<id>")
+@payments_blueprint.post("/detalle/<id>")
 @has_permission("payments_update")
 def update_amount(id):
     """Args:
