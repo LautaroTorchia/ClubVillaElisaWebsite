@@ -1,57 +1,45 @@
 {% set current_template = self._TemplateReference__context.name %}
-{% extends "base_list.html" %}
-{% block css %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
-{% endblock css %}
+{% extends "base.html" %}
 {% block title %} Pago {{ payment.id }} {% endblock title %}
 <body>
-    {% block upperbar %}
+    {% block content %}
     <div class="d-flex flex-column align-items-center mt-3" id="searchHeader">
       {% if has_permission(session["user"],"associate_index") %}
-        <a href="{{ url_for('associate.index')}}" >
+        <a href="{{ url_for('payments.index')}}" >
           <button class="btn own_golden_bg own_add_button" type="button" style="border-radius:5px" data-toggle="modal" data-target="#modalAddDiscipline">
             Volver al listado
           </button>
         </a>
       {%endif%}
     </div>
-    {% endblock upperbar %}
-      {% block table %}
-      <div class="container">
-        <p>Fecha de pago: {{ payment.date.date() }}</p>
-        <p>Asociado: {{ payment.associate.name }} {{ payment.associate.surname }}</p>
-        {% if payment.paid_late %}
-          <p>Pago tarde: Si</p>
-        {% else %}
-          <p>Pago tarde: No</p>
-        {% endif %}
-        <p>Numero de cuota: {{ payment.installment_number }}</p>
-        {% if payment.associate.disciplines %}
-          <p>Disciplinas pagadas: {{ payment.associate.disciplines }}</p>
-        {% else %}
-          <p>Solo pago la cuota social</p>
-        {% endif %}
-        <form action="{{ url_for('payments.update_amount', id=payment.id) }}" method="post">
-          <div class="form-group">
-            <label for="amount">Monto pagado</label>
-            <input type="number" class="form-control" id="amount" name="amount" value="{{ payment.amount }}">
-          </div>
-          <button type="submit" class="btn own_golden_bg">Actualizar monto a pagar</button>
-          </form>
-        <td style="--title6:'Recibo';">
-          <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="post">
-            <button class="btn btn-outline-info w-100 p-1 own_options_button">
-              Descargar recibo
-            </button>
-          </form>
-        </td>
-      </div>
-      {% endblock table %}
-    {% block js%}
-    {{ super() }}
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    {% endblock js%}
+    <div class="container">
+      <p>Fecha de pago: {{ payment.date.date() }}</p>
+      <p>Asociado: {{ payment.associate.name }} {{ payment.associate.surname }}</p>
+      {% if payment.paid_late %}
+        <p>Pago tarde: Si</p>
+      {% else %}
+        <p>Pago tarde: No</p>
+      {% endif %}
+      <p>Numero de cuota: {{ payment.installment_number }}</p>
+      {% if payment.associate.disciplines %}
+        <p>Disciplinas pagadas: {{ payment.associate.disciplines }}</p>
+      {% else %}
+        <p>Solo pago la cuota social</p>
+      {% endif %}
+      <form action="{{ url_for('payments.update_amount', id=payment.id) }}" method="post">
+        <div class="form-group">
+          <label for="amount">Monto pagado</label>
+          <input type="number" class="form-control" id="amount" name="amount" value="{{ payment.amount }}">
+        </div>
+        <button type="submit" class="btn own_golden_bg">Actualizar monto a pagar</button>
+        </form>
+      <td style="--title6:'Recibo';">
+        <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="post">
+          <button class="btn btn-outline-info w-100 p-1 own_options_button">
+            Descargar recibo
+          </button>
+        </form>
+      </td>
+    </div>
+    {% endblock content %}
 </body>

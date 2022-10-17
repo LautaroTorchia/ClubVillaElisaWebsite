@@ -17,11 +17,15 @@ def index():
     """Returns:
         HTML: List of associates.
     """    
-    pairs=[("surname","Apellido")]
-    if request.args.get("search"):
+    pairs=[("surname","Apellido"),("true","Activo"),("false","Inactivo")]
+    
+    if request.args.get("column") in ["true","false"]:
+        paginated_query_data = pagination_generator(list_associates("active",request.args.get("column")), request,"associates")
+    elif request.args.get("search"):
         paginated_query_data = pagination_generator(list_associates(request.args.get("column"),request.args.get("search")), request,"associates")
     else:
         paginated_query_data = pagination_generator(list_associates(), request,"associates")
+        
     return render_template("associate/list.html", pairs=pairs,**paginated_query_data)
 
 #adding associates
