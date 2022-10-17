@@ -15,6 +15,7 @@ from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
+from src.core import seeds
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
     """Args:
