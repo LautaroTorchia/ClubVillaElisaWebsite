@@ -127,10 +127,14 @@
 .own_form_title {
     font-size: 2rem;
     text-align: center;
-    width: 500px;
-    height: 60px;
     margin-bottom: 0px;
     margin-top: 10px;
+}
+
+.resize{
+  max-width:200px;
+  width:100%;
+  heigh:auto;
 }
 
 .own_input_label {
@@ -281,9 +285,6 @@ only screen and (max-width: 767px),
     .own_add_button{
       margin:0;
 
-    }
-    .card {
-        width: 100% !important;
     }
     .own_list_header {
         display: flexbox;
