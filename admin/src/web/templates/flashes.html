@@ -1,9 +1,10 @@
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/miscellaneous.css') }}"/>
 {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="d-flex justify-content-center">
-      {% for category, message in messages %}
-        <p class="{{ category }} flashes">{{ message }}</p>
-      {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
+{% if messages %}
+<div class="d-flex justify-content-center">
+  {% for category, message in messages %}
+  <span class="{{ category }} flashes own_flash">{{ message }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}

@@ -205,6 +205,13 @@
 .btn-outline-secondary:focus {
     box-shadow: 0 0 0 4px rgba(211, 173, 117, 0.877) !important;
 }
+
+.own_flash {
+    max-width:800px !important;
+    text-align: center;
+}
+
+
 /* 
 Generic Styling, for Desktops/Laptops 
 */
