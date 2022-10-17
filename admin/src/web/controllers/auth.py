@@ -12,7 +12,7 @@ def login():
     """    
     return render_template("login.html",form=LoginForm())
 
-@auth_blueprint.post("/authenticate")
+@auth_blueprint.post("/iniciarSesion")
 def authenticate():
     """Returns:
         HTML: Redirect to index.
@@ -29,7 +29,7 @@ def authenticate():
         flash("La sesion se inicio correctamente", category="alert alert-success w-50")
     return redirect(url_for('home'))
 
-@auth_blueprint.get("/logout")
+@auth_blueprint.get("/cerrarSesion")
 @login_required
 def logout():
     """Returns:
