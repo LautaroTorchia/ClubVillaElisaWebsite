@@ -191,10 +191,13 @@
     border-color: #b5a166 !important;
 }
 
-.btn-outline-secondary:hover {
+.btn-outline-secondary:hover, .btn-outline-secondary:focus {
     color: #ffffff !important;
     background-color: #b5a166 !important;
     border-color: #b5a166 !important;
+}
+.btn-outline-secondary:focus {
+    box-shadow: 0 0 0 4px rgba(211, 173, 117, 0.877) !important;
 }
 /* 
 Generic Styling, for Desktops/Laptops 
