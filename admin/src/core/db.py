@@ -9,6 +9,8 @@ from src.core.auth.role import Role
 from src.core.board.payment import Payment
 from src.core.board.configuration import Configuration
 from src.core.auth.permission import Permission
+from src.core import seeds
+
 
 def init_app(app):
     """Args:
@@ -16,7 +18,7 @@ def init_app(app):
     """
     db.init_app(app)
     config_db(app)
-
+    
 def config_db(app):
     """Args:
         app (Flask): The Flask app.
@@ -26,6 +28,8 @@ def config_db(app):
         """Create tables in the database.
         """        
         db.create_all()
+        # Create Admin
+        seeds.run()
     
     @app.teardown_appcontext
     def close_session(exception=None):

@@ -1,7 +1,6 @@
 from flask import Flask, Blueprint, render_template
 from src.web.config import get_config
 import src.core.db as database
-from src.core import seeds
 from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
@@ -16,7 +15,7 @@ from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
-
+from src.core import seeds
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
     """Args:
@@ -37,6 +36,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         database.init_app(app)
         # Create Admin
         seeds.run()
+
 
     # Session
     Session(app)
