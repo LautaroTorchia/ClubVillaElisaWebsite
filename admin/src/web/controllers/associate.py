@@ -147,8 +147,7 @@ def add_discipline(id):
         return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
     
     else:
-        
-        flash(f"El asociado {associate} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
+        flash(f"El asociado {associate.name} {associate.surname} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
         return redirect(url_for("associate.index"))
 
 
