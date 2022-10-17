@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+    {% if "/" in current_template %}
+        {% set template_index = current_template.rsplit("/")[0]+".index" %}
+        <div class="d-flex justify-content-center mt-3">
+            <a href={{url_for(template_index)}}>
+                <button class="btn own_golden_bg own_add_button" type="button" style="border-radius:5px" data-toggle="modal" data-target="#modalAddDiscipline">
+                    Volver al listado
+                </button>
+            </a>
+        </div>
+    {% endif %}
     <div class="d-flex mt-5 justify-content-center own_form_title w-100">
         {% block header %}
         {% endblock header %}
     </div>
     <div class="container mt-3 own_form align-items-center" style="max-width: 800px">
+
         {% block form %}
         {% endblock form %}
     </div>
