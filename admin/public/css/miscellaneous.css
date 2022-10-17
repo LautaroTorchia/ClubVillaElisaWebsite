@@ -5,6 +5,12 @@
     margin-right:37px;
 }
 
+.own_button {
+    width: auto;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
 .own_search_button {
     border-style: solid;
     border-top-color: rgb(182, 195, 205);
