@@ -6,6 +6,8 @@ from src.web.helpers.auth import has_permission, login_required
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id,update_payment
 from src.web.helpers.payment_helpers import make_receipt,build_payment
+from src.web.forms.payments import PaymentUpdateForm
+from src.web.helpers.form_utils import bool_checker
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 
@@ -24,30 +26,6 @@ def index():
         paginated_query_data = pagination_generator(list_payments(), request,"payments")
     return render_template("payments/list.html", pairs=pairs,**paginated_query_data)
 
-
-#creating a payment
-@payments_blueprint.post("/agregar/<id>")
-@has_permission("payments_create")
-def create(id):
-    """Args:
-        id (int): id of the associate to create a payment for
-    Returns:
-        HTML: Redirect to payment detail view.
-    """    
-    associate=get_associate_by_id(id)
-    last_fee=get_last_fee_paid(associate)  
-    flash_number,paid_late,fee_date,amount =build_payment(last_fee,associate)
-    
-    if flash_number==1:
-        flash(f"El asociado ya pago la cuota de este mes", category="alert alert-warning")
-        return redirect(url_for("associate.index"))
-    elif flash_number==2:
-        flash(f"El asociado ha pagado la cuota del {last_fee.date.replace(month=last_fee.date.month+1).date()}", category="alert alert-warning")
-    else:
-        flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")     
-        
-    payment=create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
-    return redirect(url_for("payments.detail_view",id=payment.id))
 
 
 #deleting a payment
@@ -78,6 +56,50 @@ def download_receipt(id):
     return send_file(RCPT_PATH,as_attachment=True)
 
 
+
+#confirm a payment
+@payments_blueprint.get("/confirmar/<id>")
+@has_permission("payments_create")
+def confirm_payment_get(id):
+    """Args:
+        id (int): id of the associate to confirm
+    Returns:
+        HTML: render to payment detail view.
+    """
+    associate=get_associate_by_id(id)
+    last_fee=get_last_fee_paid(associate)
+    flash_number,paid_late,fee_date,amount=build_payment(last_fee,associate)
+    
+    if flash_number==1:
+        flash(f"El asociado ya pago la cuota de este mes", category="alert alert-warning")
+        return redirect(url_for("associate.index"))
+      
+    form= PaymentUpdateForm(name=associate.name,surname=associate.surname,date=fee_date,
+                            amount=amount,paid_late=paid_late,installment_number=last_fee.installment_number,tipo_de_moneda=get_cfg().currency)
+    
+    return render_template("payments/confirm.html",form=form,associate=associate)
+
+
+#confirm a payment
+@payments_blueprint.post("/confirmar/<id>")
+@has_permission("payments_create")
+def confirm_payment_post(id):
+    """Args:
+        id (int): id of the associate to confirm
+    Returns:
+        HTML: Redirect to payment detail view.
+    """
+    print(request.form)
+    form=PaymentUpdateForm(request.form)
+    associate=get_associate_by_id(id)
+    if form.validate():
+        create_payment(associate,form.data.get("amount"),(form.data.get("installment_number")),bool_checker(form.data.get("paid_late")),form.data.get("date"))
+        flash(f"El pago se ha registrado correctamente", category="alert alert-success")
+        return redirect(url_for("payments.index"))
+        
+    return render_template("payments/confirm.html",form=form,associate=associate)
+
+
 #detail_view of a payment
 @payments_blueprint.get("/detalle/<id>")
 @has_permission("payments_show")
@@ -88,17 +110,6 @@ def detail_view(id):
         HTML: Detail view of a payment.
     """    
     payment=get_payment_by_id(id)
-    return render_template("payments/detail_view.html",payment=payment)
-
-#detail_view of a payment
-@payments_blueprint.post("/detalle/<id>")
-@has_permission("payments_update")
-def update_amount(id):
-    """Args:
-        id (int): id of the payment to show the detail view for
-    Returns:
-        HTML: Detail view of a payment.
-    """    
-    payment=get_payment_by_id(id)
-    update_payment(payment,request.form.get("amount"))
-    return redirect(url_for("payments.detail_view",id=payment.id))
+    form=PaymentUpdateForm(name=payment.associate.name,surname=payment.associate.surname,date=payment.date.strftime("%d-%m-%y"),
+                            amount=payment.amount,paid_late=payment.paid_late,installment_number=payment.installment_number,tipo_de_moneda=get_cfg().currency)
+    return render_template("payments/detail_view.html",payment=payment,form=form)
