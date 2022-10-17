@@ -48,7 +48,7 @@ def index():
 
     return render_template("user/list.html", pairs=pairs, **paginated_query_data)
 
-@user_blueprint.get("/add")
+@user_blueprint.get("/agregar")
 @login_required
 def get_add():
     """Returns:
@@ -58,7 +58,7 @@ def get_add():
         "user/add.html", form=UserForm(roles=list(map(lambda r: (r, r), get_roles())))
     )
 
-@user_blueprint.post("/add")
+@user_blueprint.post("/agregar")
 @login_required
 def post_add():
     """Returns:
@@ -81,7 +81,7 @@ def post_add():
             )
     return redirect(url_for("user.index"))
 
-@user_blueprint.get("/update/<id>")
+@user_blueprint.get("/actualizar/<id>")
 @login_required
 def get_update(id):
     """Args:
@@ -93,7 +93,7 @@ def get_update(id):
     form = UpdateUserForm(obj=user, roles=get_roles())
     return render_template("user/update.html", form=form)
 
-@user_blueprint.post("/update/<id>")
+@user_blueprint.post("/actualizar/<id>")
 @login_required
 def post_update(id):
     """Args:
@@ -124,7 +124,7 @@ def post_update(id):
     return render_template("user/update.html", form=form)
 
 
-@user_blueprint.post("/delete/<id>")
+@user_blueprint.post("/borrar/<id>")
 @login_required
 def delete(id):
     """Args:
@@ -137,7 +137,7 @@ def delete(id):
     return redirect(url_for("user.index"))
 
 
-@user_blueprint.post("/disable/<id>")
+@user_blueprint.post("/desactivar/<id>")
 @login_required
 def disable(id):
     """Args:
@@ -153,7 +153,7 @@ def disable(id):
 
 
 # disabling associates
-@user_blueprint.post("/enable/<id>")
+@user_blueprint.post("/activar/<id>")
 @login_required
 def enable(id):
     """Args:
