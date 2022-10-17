@@ -35,3 +35,4 @@ def make_receipt(payment,RCPT_PATH):
     draw.text((215,175),f"El importe en pesos de ${payment.amount}",fill="black",font=nameFont)
     draw.text((215,225),f"Por concepto de cuota societaria Para el mes de {dict_meses[payment.date.month]} {payment.date.year}",fill="black",font=nameFont)
     receipt.save(RCPT_PATH)
+

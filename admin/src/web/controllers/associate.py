@@ -98,9 +98,14 @@ def post_update(id):
 def write_csv():
     """Returns:
         CSV: List of associates.
-    """    
+    """
+    args = dict(request.args)
     CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
-    write_csv_file(CSV_PATH,list_all_associates())
+    if request.args.get("search"):
+        write_csv_file(CSV_PATH,list_all_associates(args["column"],args["search"]))
+    else:
+        write_csv_file(CSV_PATH,list_all_associates())
+        
     return send_file(CSV_PATH,as_attachment=True)
 
 #pdf_writing associates
@@ -109,9 +114,14 @@ def write_csv():
 def write_pdf():
     """Returns:
         PDF: List of associates.
-    """    
+    """
+    args = dict(request.args)  
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
-    write_pdf_file(PDF_PATH,list_all_associates())
+    if request.args.get("search"):
+        write_csv_file(PDF_PATH,list_all_associates(args["column"],args["search"]))
+    else:
+        write_pdf_file(PDF_PATH,list_all_associates())
+        
     return send_file(PDF_PATH,as_attachment=True)
 
 
@@ -127,12 +137,15 @@ def add_discipline(id):
     associate=get_associate_by_id(id)
     if no_es_moroso(associate):
         pairs=[("name","Nombre")]
+        
         if request.args.get("search"):
             disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
         else:
             disciplines = list_all_disciplines()
         return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
+    
     else:
+        
         flash(f"El asociado {associate} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
         return redirect(url_for("associate.index"))
 

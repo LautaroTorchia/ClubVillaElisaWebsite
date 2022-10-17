@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import has_permission, login_required
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id,update_payment
 from src.web.helpers.payment_helpers import disciplines_fee_amount,make_receipt
