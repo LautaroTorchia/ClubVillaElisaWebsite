@@ -19,7 +19,7 @@ def index():
     return render_template("configuration.html", form=ConfigForm(obj=get_cfg()))
 
 
-@configuration_blueprint.post("/update")
+@configuration_blueprint.post("/actualizar")
 @has_permission("configuration_update")
 def update():
     """Returns:
