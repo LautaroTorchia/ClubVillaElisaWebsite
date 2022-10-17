@@ -86,7 +86,7 @@
         {%endif%}
         {% if has_permission(session["user"],"payments_create") %}
         <td style="--title8:'Pagar cuota';">
-          <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
+          <form action="{{ url_for('payments.confirm_payment_get', id=associate.id) }}" method="get">
             <button class="btn btn-outline-success w-100 p-1 own_options_button"
               onclick="return confirm('Seguro que desea pagar una cuota de {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
               Pagar
