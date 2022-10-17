@@ -5,7 +5,7 @@ from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_cfg
 
-discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/discipline")
+discipline_blueprint = Blueprint("discipline", __name__, url_prefix="/disciplinas")
 
 @discipline_blueprint.get("/")
 @has_permission("discipline_index")

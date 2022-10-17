@@ -9,7 +9,7 @@ from src.web.helpers.associate import no_es_moroso
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_associate_by_id
 
-associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
+associate_blueprint = Blueprint("associate", __name__, url_prefix="/asociados")
 
 
 #Listing associates

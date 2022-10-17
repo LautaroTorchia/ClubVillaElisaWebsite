@@ -19,7 +19,7 @@ from src.web.helpers.form_utils import csrf_remover
 from src.web.helpers.auth import login_required
 from src.web.helpers.pagination import pagination_generator
 
-user_blueprint = Blueprint("user", __name__, url_prefix="/user")
+user_blueprint = Blueprint("user", __name__, url_prefix="/usuarios")
 
 
 @user_blueprint.get("/")
