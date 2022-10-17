@@ -117,7 +117,7 @@ def write_pdf():
     """Returns:
         PDF: List of associates.
     """
-    args = dict(request.args)  
+    args = dict(request.args)
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     if request.args.get("search"):
         write_csv_file(PDF_PATH,list_all_associates(args["column"],args["search"]))

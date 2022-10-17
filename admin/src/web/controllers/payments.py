@@ -12,7 +12,6 @@ payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 
 #listing payments
 @payments_blueprint.get("/")
-@login_required
 @has_permission("payments_index")
 def index():
     """Returns:
@@ -28,7 +27,6 @@ def index():
 
 #creating a payment
 @payments_blueprint.post("/create/<id>")
-@login_required
 @has_permission("payments_create")
 def create(id):
     """Args:
@@ -54,7 +52,6 @@ def create(id):
 
 #deleting a payment
 @payments_blueprint.post("/delete/<id>")
-@login_required
 @has_permission("payments_destroy")
 def delete(id):
     """Args:
@@ -68,7 +65,6 @@ def delete(id):
 
 #download a payment receipt
 @payments_blueprint.post("/download/<id>")
-@login_required
 @has_permission("payments_import")
 def download_receipt(id):
     """Args:
@@ -84,7 +80,6 @@ def download_receipt(id):
 
 #detail_view of a payment
 @payments_blueprint.get("/detail/<id>")
-@login_required
 @has_permission("payments_show")
 def detail_view(id):
     """Args:
@@ -97,7 +92,6 @@ def detail_view(id):
 
 #detail_view of a payment
 @payments_blueprint.post("/detail/<id>")
-@login_required
 @has_permission("payments_update")
 def update_amount(id):
     """Args:
