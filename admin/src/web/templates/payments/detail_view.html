@@ -1,45 +1,25 @@
-{% set current_template = self._TemplateReference__context.name %}
-{% extends "base.html" %}
-{% block title %} Pago {{ payment.id }} {% endblock title %}
+{% extends "base_form.html" %} 
+{% set current_template = self._TemplateReference__context.name %} 
+{% block css %}
+{{ super() }}
+{% endblock css %} {% block title %} Vista detallada {% endblock title %}
 <body>
-    {% block content %}
-    <div class="d-flex flex-column align-items-center mt-3" id="searchHeader">
-      {% if has_permission(session["user"],"associate_index") %}
-        <a href="{{ url_for('payments.index')}}" >
-          <button class="btn own_golden_bg own_add_button" type="button" style="border-radius:5px" data-toggle="modal" data-target="#modalAddDiscipline">
-            Volver al listado
-          </button>
-        </a>
-      {%endif%}
+  {% block header %}
+  Vista detallada
+  {% endblock header %}
+  {% block form %}
+  <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="POST" class="d-flex flex-column "> 
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div class="form-group">
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control",disabled = True) }}
     </div>
-    <div class="container">
-      <p>Fecha de pago: {{ payment.date.date() }}</p>
-      <p>Asociado: {{ payment.associate.name }} {{ payment.associate.surname }}</p>
-      {% if payment.paid_late %}
-        <p>Pago tarde: Si</p>
-      {% else %}
-        <p>Pago tarde: No</p>
-      {% endif %}
-      <p>Numero de cuota: {{ payment.installment_number }}</p>
-      {% if payment.associate.disciplines %}
-        <p>Disciplinas pagadas: {{ payment.associate.disciplines }}</p>
-      {% else %}
-        <p>Solo pago la cuota social</p>
-      {% endif %}
-      <form action="{{ url_for('payments.update_amount', id=payment.id) }}" method="post">
-        <div class="form-group">
-          <label for="amount">Monto pagado</label>
-          <input type="number" class="form-control" id="amount" name="amount" value="{{ payment.amount }}">
-        </div>
-        <button type="submit" class="btn own_golden_bg">Actualizar monto a pagar</button>
-        </form>
-      <td style="--title6:'Recibo';">
-        <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="post">
-          <button class="btn btn-outline-info w-100 p-1 own_options_button">
-            Descargar recibo
-          </button>
-        </form>
-      </td>
-    </div>
-    {% endblock content %}
+    {% endfor %}
+    <button class="btn own_golden_bg mt-3">Descargar recibo</button>
+  </form>
+  {% endblock form %}
 </body>
+
+
+
