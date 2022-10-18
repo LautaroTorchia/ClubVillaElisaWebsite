@@ -20,8 +20,8 @@ def list_users(column=None, filter=True):
         List: A paginated list of users.
     """    
     if column:
-        return users.paginated_filter(column, filter)
-    return users.paginated_list()
+        return users.filter(column, filter)
+    return users.list()
 
 
 def create_user(form):
