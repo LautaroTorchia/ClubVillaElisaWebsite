@@ -2,12 +2,19 @@ from datetime import datetime
 import os
 from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
-from src.web.helpers.auth import has_permission, login_required
+from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id,update_payment
 from src.web.helpers.payment_helpers import make_receipt,build_payment
 from src.web.forms.payments import PaymentUpdateForm
 from src.web.helpers.form_utils import bool_checker
+from sqlalchemy.sql.expression import cast
+from sqlalchemy import String
+from src.core.board.repositories.configuration import get_cfg
+
+from src.core.db import db
+from src.core.board.payment import Payment
+from src.core.board.associate import Associate
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 
@@ -19,13 +26,18 @@ def index():
     """Returns:
         HTML: List of payments.
     """    
-    pairs=[("associate.surname","Apellido"),("associate_id","Numero de socio")]
+    pairs=[("surname","Apellido"),("associate_id","Numero de socio")]
+
     if request.args.get("search"):
-        paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
+        if request.args.get("column") == "associate_id":
+            paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
+        if request.args.get("column") == "surname":#TODO cambiarlo en el refactoreo de resource_manager
+            paginated_query_data = pagination_generator(db.session.query(Payment).join(Associate).filter(Associate.deleted==False).filter(Payment.deleted==False)
+            .filter(cast(getattr(Associate, request.args.get("column")), String).ilike(f"%{request.args.get('search')}%")).paginate(per_page=get_cfg().record_number, error_out=False), request,"payments")
     else:
         paginated_query_data = pagination_generator(list_payments(), request,"payments")
-    return render_template("payments/list.html", pairs=pairs,**paginated_query_data)
 
+    return render_template("payments/list.html", pairs=pairs,**paginated_query_data)
 
 
 #deleting a payment
