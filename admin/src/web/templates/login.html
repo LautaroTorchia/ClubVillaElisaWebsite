@@ -13,7 +13,7 @@
       Club Deportivo Villa Elisa
       {% endblock header %}
       {% block image %}
-      <img src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize mt-3 p-3">
+      <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize mt-3 p-3">
       {% endblock image %}
       {% block form %}
       <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column "> 

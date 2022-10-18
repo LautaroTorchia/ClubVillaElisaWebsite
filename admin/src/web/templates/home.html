@@ -1,40 +1,26 @@
 {% extends "base.html" %} {% set current_template =
 self._TemplateReference__context.name %} {% block css %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Amaranth&amp;display=swap"
-/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth&amp;display=swap" />
 {% endblock css %} {% block title %} Club Deportivo Villa Elisa {% endblock
 title %}
 
 <body>
   {% block content %}
-  <div
-    class="d-flex flex-column justify-content-center mt-5 align-items-center"
-  >
+  <div class="d-flex flex-column justify-content-center mt-5 align-items-center">
     {% include "flashes.html" %}
     <div class="card">
-      <div
-        class="card-body text-center d-flex flex-column align-items-center border bg-light"
-        style="padding: 5rem"
-      >
+      <div class="card-body text-center d-flex flex-column align-items-center border bg-light" style="padding: 5rem">
         <h1 class="fw-bold">¡Bienvenidos!</h1>
-        <img
-          src="{{ url_for('static', filename='img/logo_club.png') }}"
-          class="resize my-3"
-        />
+        <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize my-3" />
         <div class="text-center">
           <h2 class="fw-bold">Club Deportivo Villa Elisa</h2>
-          <p
-            class="fw-bold"
-            style="
+          <p class="fw-bold" style="
               color: #b5a166;
               font-style: italic;
               font-family: Amaranth, sans-serif;
               text-align: center;
               letter-spacing: 1px;
-            "
-          >
+            ">
             Primer club histórico de la ciudad
           </p>
         </div>
