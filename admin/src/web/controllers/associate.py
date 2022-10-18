@@ -120,7 +120,7 @@ def write_pdf():
     args = dict(request.args)
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
     if request.args.get("search"):
-        write_csv_file(PDF_PATH,list_all_associates(args["column"],args["search"]))
+        write_pdf_file(PDF_PATH,list_all_associates(args["column"],args["search"]))
     else:
         write_pdf_file(PDF_PATH,list_all_associates())
         
