@@ -44,6 +44,6 @@ def add_payment(id):
     else:
         message = "Pago registrado"
         status = 200
-        
-    create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
+        create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
+
     return response(status, message)

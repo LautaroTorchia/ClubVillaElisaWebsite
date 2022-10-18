@@ -30,7 +30,6 @@ class Payment(db.Model):
         self.paid_late=paid_late
 
     def __repr__(self):
-        return f"{self.associate_id}"
         return f"""{self.date} fecha de pago de 
             la cuota {self.installment_number} con costo {self.amount}"""
 
