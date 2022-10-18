@@ -1,14 +1,15 @@
-{% extends "base_form.html" %} 
-{% set current_template = self._TemplateReference__context.name %} 
+{% extends "base_form.html" %}
+{% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %} {% block title %} Agregar asosociado {% endblock title %}
+
 <body>
   {% block header %}
   Agregar asociado
   {% endblock header %}
   {% block form %}
-  <form action="{{ url_for('associate.post_add') }}" method="POST" class="d-flex flex-column "> 
+  <form action="{{ url_for('associate.post_add') }}" method="POST" class="d-flex flex-column ">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
@@ -20,4 +21,3 @@
   </form>
   {% endblock form %}
 </body>
-
