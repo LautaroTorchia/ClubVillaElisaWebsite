@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from core.board import get_associate_by_DNI
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, validators,EmailField
@@ -54,7 +55,7 @@ class UpdateAssociateForm(FlaskForm):
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
     email= EmailField('Email')
-    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
+    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')], validators=[validators.input_required()])
     address = StringField('Direccion', validators=[validators.input_required()])
     phone_number = StringField('Telefono')
     active = SelectField('Disponible',choices=[("True",'Activo'),("False",'Inactivo')],validators=[validators.input_required()])

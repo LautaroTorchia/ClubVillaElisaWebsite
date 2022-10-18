@@ -6,10 +6,8 @@
   {% block upperbar %}
   {% if has_permission(session["user"],"discipline_create") %}
   <div class="d-flex align-self-center own_flex_column align-items-center" id="searchHeader">
-    <a href="{{ url_for('discipline.get_add') }}">
-      <button class="btn own_golden_bg own_add_button" type="button">
-        Agregar
-      </button>
+    <a class="btn own_golden_bg own_add_button" href="{{ url_for('discipline.get_add') }}">
+      Agregar
     </a>
     {% if has_permission(session["user"],"discipline_index") %}
     {% include "search.html" %}
@@ -47,11 +45,9 @@
         <td style="--title6:'Cupo';"> {{ "Si" if discipline.available else "No" }} </td>
         {% if has_permission(session["user"],"discipline_update") %}
         <td style="--title7:'Modificar';">
-          <a href="{{ url_for('discipline.update', id=discipline.id) }}">
-            <button class="btn btn-outline-info w-100 p-1 own_options_button" style="border-radius: 5px" name="Update"
-              value="{{ discipline.id }}">
-              Mod.
-            </button>
+          <a class="btn btn-outline-info w-100 p-1 own_options_button"
+            href="{{ url_for('discipline.update', id=discipline.id) }}" name="Update" value="{{ discipline.id }}">
+            Mod.
           </a>
         </td>
         {%endif%}

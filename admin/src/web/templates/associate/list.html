@@ -6,10 +6,8 @@
   {% block upperbar %}
   {% if has_permission(session["user"],"associate_create") %}
   <div class="d-flex align-self-center own_flex_column align-items-center" id="searchHeader">
-    <a href="{{ url_for('associate.get_add') }}">
-      <button class="btn own_golden_bg own_add_button" type="button">
-        Agregar
-      </button>
+    <a class="btn own_golden_bg own_add_button" href="{{ url_for('associate.get_add') }}">
+      Agregar
     </a>
     {% include "search.html" %}
   </div>
@@ -17,10 +15,10 @@
 
   <div class="d-flex align-items-center justify-content-center align-self-center gap-2">
     <span class="own_export_text"><b>Exportar:</b></span>
-    <a href="{{ url_for('associate.write_csv',column=args["column"], search=args["search"] ) }}">
+    <a href="{{ url_for('associate.write_csv',column=args[" column"], search=args["search"] ) }}">
       <input type="image" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
     </a>
-    <a href="{{ url_for('associate.write_pdf', column=args["column"], search=args["search"] ) }}">
+    <a href="{{ url_for('associate.write_pdf', column=args[" column"], search=args["search"] ) }}">
       <input type="image" src="/public/img/PDF_icon.png" style="height: 50px;">
     </a>
   </div>
@@ -67,21 +65,19 @@
         </td>
         {% if has_permission(session["user"],"associate_update") %}
         <td style="--title6:'Modificar';">
-          <a href="{{ url_for('associate.get_update' ,id=associate.id) }}">
-            <button class="btn btn-outline-info w-100 p-1 own_options_button">
-              Mod.
-            </button>
+          <a class="btn btn-outline-info w-100 p-1 own_options_button"
+            href="{{ url_for('associate.get_update' ,id=associate.id) }}">
+            Mod.
           </a>
         </td>
         {%endif%}
         {% if has_permission(session["user"],"associate_add_discip") or
         has_permission(session["user"],"associate_remove_discip") %}
         <td style="--title7:'Asig. Disciplinas';">
-          <form action="{{ url_for('associate.add_discipline', id=associate.id) }}" method="get">
-            <button class="btn btn-outline-secondary w-100 p-1 own_options_button">
-              Asignar
-            </button>
-          </form>
+          <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
+            action="{{ url_for('associate.add_discipline', id=associate.id) }}">
+            Asignar
+          </a>
         </td>
         {%endif%}
         {% if has_permission(session["user"],"payments_create") %}

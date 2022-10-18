@@ -5,10 +5,8 @@
     {% if "/" in current_template %}
     {% set template_index = current_template.rsplit("/")[0]+".index" %}
     <div class="d-flex justify-content-center mt-3">
-      <a href={{url_for(template_index)}}>
-        <button class="btn own_golden_bg own_button" type="button" style="border-radius:5px" data-toggle="modal" data-target="#modalAddDiscipline">
+      <a class="btn own_golden_bg own_button"  href={{url_for(template_index)}}>
            Volver al listado
-        </button>
       </a>
     </div>
     {% endif %}

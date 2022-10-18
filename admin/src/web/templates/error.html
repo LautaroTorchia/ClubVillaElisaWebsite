@@ -10,10 +10,8 @@
   <h1 class="own_big_title">{{ error_name }}</h1>
   <p class="zoom-area"><b>Error!</b> {{ error_description }} </p>
     <div class="link-container">
-      <a href="{{ url_for(url_value) }}" style="margin:auto">
-        <button class="btn own_golden_bg own_button" type="button" style="border-radius:5px" data-toggle="modal" data-target="#modalAddDiscipline">
+      <a class="btn own_golden_bg own_button" href="{{ url_for(url_value) }}">
           {{ button_text }}
-        </button>
       </a>
     </div>
   {% endblock content %}

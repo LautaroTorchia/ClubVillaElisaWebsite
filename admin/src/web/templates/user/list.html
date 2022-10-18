@@ -6,10 +6,8 @@
   {% block upperbar %}
   {% if has_permission(session["user"],"user_create") %}
   <div class="d-flex align-self-center own_flex_column align-items-center" id="searchHeader">
-    <a href="{{ url_for('user.get_add') }}" class="d-flex">
-      <button class="btn own_golden_bg own_add_button" type="button">
-        Agregar
-      </button>
+    <a class="btn own_golden_bg own_add_button" href="{{ url_for('user.get_add') }}" class="d-flex">
+      Agregar
     </a>
     {% if has_permission(session["user"],"user_index") %}
     {% include "search.html" %}
@@ -46,10 +44,9 @@
         <td style="--title4:'Usuario';"> {{ user.username }} </td>
         {% if has_permission(session["user"],"user_update") %}
         <td style="--title5:'Modificar'">
-          <a href="{{ url_for('user.get_update' ,id=user.id ) }}">
-            <button class="btn btn-outline-info w-100 p-1 own_options_button">
-              Mod.
-            </button>
+          <a class="btn btn-outline-info w-100 p-1 own_options_button"
+            href="{{ url_for('user.get_update' ,id=user.id ) }}">
+            Mod.
           </a>
         </td>
         {% endif %}
