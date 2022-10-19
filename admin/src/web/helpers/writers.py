@@ -12,7 +12,7 @@ def write_csv_file(filename,data):
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(["Nombre","Apellido","DNI","Email","Direccion","Estado","Telefono"])
         for associate in data:
-            writer.writerow([associate.name,associate.surname,associate.DNI_number,associate.email,associate.address,associate.active,associate.phone_number])
+            writer.writerow([associate.name,associate.surname,associate.DNI_number,associate.email,associate.address,"Activo" if associate.active else "Inactivo",associate.phone_number])
 
 
 class PDF(FPDF):
