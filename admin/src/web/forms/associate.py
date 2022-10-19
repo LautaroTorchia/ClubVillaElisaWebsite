@@ -3,7 +3,7 @@ from core.board import get_associate_by_DNI
 from flask_wtf import FlaskForm
 from src.web.forms.base_form import BaseForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, validators,EmailField
-from wtforms.validators import ValidationError
+from wtforms.validators import ValidationError,Email
 
 
 
@@ -21,7 +21,7 @@ class CreateAssociateForm(BaseForm):
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
-    email= EmailField('Email')
+    email= EmailField('Email',validators=[Email()])
     DNI_number = IntegerField('DNI', validators=[validators.input_required()])
     DNI_type  = SelectField('Tipo de documento', choices=[('DNI', 'DNI'), ('LC', 'LC'), ('LE', 'LE')])
     gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')])
