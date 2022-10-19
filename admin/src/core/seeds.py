@@ -14,10 +14,11 @@ from src.core.board.repositories.discipline import add_discipline
 from src.core.board.repositories.associate import create_associate, get_associate_by_id
 from passlib.hash import sha256_crypt
 from src.web.helpers.auth import get_permissions
+from src.core.board import list_all_associates
+import random
 
 def run():
     """Creates an admin user, the roles and permissions"""
-
     # create roles
     adm_role = get_role("Admin")
     if adm_role is None:
@@ -25,9 +26,9 @@ def run():
     op_role = get_role("Operario")
     if op_role is None:
         op_role = create_role("Operario")
-    us_role = get_role("Usuario")
+    us_role = get_role("Socio")
     if us_role is None:
-        us_role = create_role("Usuario")
+        us_role = create_role("Socio")
 
     # link roles w/ permissions
     op_perm, adm_perm = get_permissions()
@@ -60,6 +61,10 @@ def run():
 def populate():
     """Populates the database with some data
     """
+    adm_role=get_role("Admin")
+    op_role=get_role("Operario")
+    us_role=get_role("Socio")
+    roles=[adm_role,op_role,us_role]
     names = ["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names = [
         "Perez",
@@ -170,7 +175,7 @@ def populate():
 
     try:
         for i in range(0, 7):
-            create_user(
+            u=create_user(
                 {
                     "first_name": names[i],
                     "last_name": last_names[i],
@@ -179,6 +184,7 @@ def populate():
                     "password": sha256_crypt.encrypt(passwords[i]),
                 }
             )
+            add_role_to_user(u, random.choice(roles))
             add_discipline(
                 {
                     "name": dicipline_name[i],
@@ -201,8 +207,8 @@ def populate():
                     "phone_number": telephones[i],
                 }
             )
-    except:
-        pass
+    except Exception as e:
+        print(e)
     
-    associate=get_associate_by_id(1)
+    associate=list_all_associates()[0]
     create_payment(last_installment=1, amount= 800, date= "2022-03-03", associate=associate)

@@ -46,4 +46,6 @@ def reset_db():
     print("   Creating database ...")
     db.create_all()
     print("   All done!")
+    seeds.run()
+    seeds.populate()
 
