@@ -35,6 +35,11 @@ def response(status, data):
     Returns:
         JSON: Response data
     """    
+    #transform every value in data to a string
+    try:
+        data = [{key:str(value) for key,value in object.items()} for object in data]
+    except AttributeError:
+        pass
     dict={
         "timestamp":f"{datetime.now()}",
         "status":status,

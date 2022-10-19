@@ -1,102 +1,106 @@
 {% set current_template = self._TemplateReference__context.name %}
 {% extends "base_list.html" %}
 {% block title %} Socios {% endblock title %}
+
+<body>
   {% block upperbar %}
-    {% if has_permission(session["user"],"associate_create") %}
-    <div class="d-flex justify-content-center align-items-center" id="searchHeader">
-    <a href="{{ url_for('associate.get_add') }}">
-      <button class="btn own_golden_bg own_add_button" type="button">
-        Agregar
-      </button>
-      {%endif%}
+  {% if has_permission(session["user"],"associate_create") %}
+  <div class="d-flex align-self-center own_flex_column align-items-center" id="searchHeader">
+    <a class="btn own_golden_bg own_add_button" href="{{ url_for('associate.get_add') }}">
+      Agregar
     </a>
     {% include "search.html" %}
-    </div>
+  </div>
+  {%endif%}
+
   <div class="d-flex align-items-center justify-content-center align-self-center gap-2">
     <span class="own_export_text"><b>Exportar:</b></span>
-      <form method="GET" action="{{ url_for('associate.write_csv') }}">
-        <input type="image" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
-      </form>
-      <form method="GET" action="{{ url_for('associate.write_pdf') }}">
-        <input type="image" src="/public/img/PDF_icon.png" style="height: 50px;">
-      </form>
+    <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
+      <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
+    </a>
+    <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
+      <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
+    </a>
   </div>
   {% endblock upperbar %}
 
-    {% block table %}
-    <table class="table table-striped table-bordered ">
-      <thead>
-        <tr>
-          <th style="width: 10vw">Nombre y apellido</th>
-          <th> DNI</th>
-          <th style="width: 10vw">Domicilio</th>
-          <th> Estado</th>
-          <th style="width: 15vw">Disciplinas</th>
-          {% if has_permission(session["user"],"associate_update") %}
-          <th>Modificar</th>
-          {%endif%}
-          {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
-          <th>Disciplinas</th>
-          {%endif%}
-          <th>Pagar</th>
-          {% if has_permission(session["user"],"associate_destroy") %}
-          <th>Eliminar</th>
-          {%endif%}
-        </tr>
-      </thead>
-      <tbody>
-        {% for associate in associates.items %}
-        <tr>
-          <td style="--title1:'Nombre';"> {{ associate.name }} {{ associate.surname }}</td>
-          <td style="--title2:'DNI';"> {{ associate.DNI_number }} </td>
-          <td style="--title3:'Domicilio';"> {{ associate.address }} </td>
-          <td style="--title4:'Estado';"> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
-          <td style="--title5:'Disciplinas';"> {% if associate.disciplines %}
-            {% for disciplina in associate.disciplines %}
-            {{ disciplina.name }} {{ disciplina.category}},
-            {% endfor %}
-            {% else %}
-            No posee
-            {% endif %}
-          </td>
-          {% if has_permission(session["user"],"associate_update") %}
-          <td style="--title6:'Modificar';">
-            <a href="{{ url_for('associate.get_update' ,id=associate.id) }}">
-              <button class="btn btn-outline-info w-100 p-1 own_options_button">
-                Mod.
-              </button>
-            </a>
-          </td>
-          {%endif%}
-          {% if has_permission(session["user"],"associate_add_discip") or has_permission(session["user"],"associate_remove_discip") %}
-          <td style="--title7:'Asig. Disciplinas';">
-            <form action="{{ url_for('associate.add_discipline', id=associate.id) }}" method="get">
-              <button class="btn btn-outline-secondary w-100 p-1 own_options_button">
-                Asignar
-              </button>
-            </form>
-          </td>
-          {%endif%}
-          {% if has_permission(session["user"],"associate_destroy") %}
-          <td style="--title8:'Pagar cuota';">
-            <form action="{{ url_for('payments.create', id=associate.id) }}" method="post">
-              <button class="btn btn-outline-success w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea pagar una cuota de {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-                Pagar
-              </button>
-            </form>
-          </td>
-          <td style="--title9:'Eliminar';">
-            <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
-              <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-                X
-              </button>
-            </form>
-          </td>
-          {%endif%}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% endblock table%}
+  {% block table %}
+  <table class="table table-striped table-bordered ">
+    <thead>
+      <tr>
+        <th style="width: 10vw">Nombre y apellido</th>
+        <th> DNI</th>
+        <th style="width: 10vw">Domicilio</th>
+        <th> Estado</th>
+        <th style="width: 15vw">Disciplinas</th>
+        {% if has_permission(session["user"],"associate_update") %}
+        <th>Modificar</th>
+        {%endif%}
+        {% if has_permission(session["user"],"associate_add_discip") or
+        has_permission(session["user"],"associate_remove_discip") %}
+        <th>Disciplinas</th>
+        {%endif%}
+        {% if has_permission(session["user"],"payments_create") %}
+        <th>Pagar</th>
+        {%endif%}
+        {% if has_permission(session["user"],"associate_destroy") %}
+        <th>Eliminar</th>
+        {%endif%}
+      </tr>
+    </thead>
+    <tbody>
+      {% for associate in associates.items %}
+      <tr>
+        <td style="--title1:'Nombre';"> {{ associate.name }} {{ associate.surname }}</td>
+        <td style="--title2:'DNI';"> {{ associate.DNI_number }} </td>
+        <td style="--title3:'Domicilio';"> {{ associate.address }} </td>
+        <td style="--title4:'Estado';"> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
+        <td style="--title5:'Disciplinas';"> {% if associate.disciplines %}
+          {% for disciplina in associate.disciplines %}
+          {{ disciplina.name }} {{ disciplina.category}},
+          {% endfor %}
+          {% else %}
+          No posee
+          {% endif %}
+        </td>
+        {% if has_permission(session["user"],"associate_update") %}
+        <td style="--title6:'Modificar';">
+          <a class="btn btn-outline-info w-100 p-1 own_options_button"
+            href="{{ url_for('associate.get_update' ,id=associate.id) }}">
+            Mod.
+          </a>
+        </td>
+        {%endif%}
+        {% if has_permission(session["user"],"associate_add_discip") or
+        has_permission(session["user"],"associate_remove_discip") %}
+        <td style="--title7:'Asig. Disciplinas';">
+          <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
+            href="{{ url_for('associate.add_discipline', id=associate.id) }}">
+            Asignar
+          </a>
+        </td>
+        {%endif%}
+        {% if has_permission(session["user"],"payments_create") %}
+        <td style="--title8:'Pagar cuota';">
+          <a class="btn btn-outline-success w-100 p-1 own_options_button"
+            href="{{ url_for('payments.confirm_payment_get', id=associate.id) }}">
+            Pagar
+          </a>
+        </td>
+        {% endif %}
+        {% if has_permission(session["user"],"associate_destroy") %}
+        <td style="--title9:'Eliminar';">
+          <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
+            <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+              onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+              X
+            </button>
+          </form>
+        </td>
+        {%endif%}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock table%}
+</body>

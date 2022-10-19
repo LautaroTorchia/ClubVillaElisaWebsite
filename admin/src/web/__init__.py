@@ -15,6 +15,7 @@ from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
+from src.core import seeds
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -24,7 +25,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         template_folder (str, optional): Template folder to be used. Defaults to "templates".
     Returns:
         Flask: Flask app
-    """    
+    """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
 
     # load config
@@ -50,13 +51,13 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api_blueprint.register_blueprint(configuration_api_blueprint)
 
-    #Api me
+    # Api me
     api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")
     api_me_blueprint.register_blueprint(associate_api_blueprint)
     api_me_blueprint.register_blueprint(payment_api_blueprint)
     api_blueprint.register_blueprint(api_me_blueprint)
 
-    #Api club
+    # Api club
     api_club_blueprint = Blueprint("api_club", __name__, url_prefix="/club")
     api_club_blueprint.register_blueprint(info_api_blueprint)
     api_club_blueprint.register_blueprint(discipline_api_blueprint)
@@ -69,33 +70,30 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     @app.get("/")
     def home():
         """Returns:
-            HTML: Redirects to the home page
-        """        
+        HTML: Redirects to the home page
+        """
         return render_template("home.html")
 
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         """Args:
-            exception (Exception, optional): Exception to be handled. Defaults to None.
-        """        
+        exception (Exception, optional): Exception to be handled. Defaults to None.
+        """
         database.db.session.remove()
 
     @app.cli.command("resetdb")
     def resetdb():
-        """Resets the database
-        """        
+        """Resets the database"""
         database.reset_db()
 
     @app.cli.command("seeds")
     def seedsdb():
-        """Seeds the database
-        """        
+        """Seeds the database"""
         seeds.run()
 
     @app.cli.command("populate")
     def populatedb():
-        """Populates the database
-        """        
+        """Populates the database"""
         seeds.populate()
 
     # error handlers

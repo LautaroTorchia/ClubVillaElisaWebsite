@@ -28,8 +28,8 @@ def list_associates(column=None,filter=True):
         - List of Associate objects
     """
     if column:
-        return associates.paginated_filter(column,filter)
-    return associates.paginated_list()
+        return associates.filter(column,filter)
+    return associates.list()
 
 
 def list_all_associates(column=None,filter=True):
@@ -38,8 +38,8 @@ def list_all_associates(column=None,filter=True):
         - List all associates
     """
     if column:
-        return associates.filter(column,filter)
-    return associates.list()
+        return associates.filter(column,filter,paginate=False)
+    return associates.list(paginate=False)
 
 def create_associate(form_data):
     """ Create associate

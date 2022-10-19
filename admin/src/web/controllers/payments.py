@@ -2,70 +2,48 @@ from datetime import datetime
 import os
 from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
-from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id
-from src.web.helpers.payment_helpers import disciplines_fee_amount,make_receipt
+from src.core.board import list_payments,get_last_fee_paid,create_payment,delete_payment,get_payment_by_id,get_associate_by_id,update_payment
+from src.web.helpers.payment_helpers import make_receipt,build_payment
+from src.web.forms.payments import PaymentUpdateForm
+from src.web.helpers.form_utils import bool_checker
+from sqlalchemy.sql.expression import cast
+from sqlalchemy import String
+from src.core.board import get_cfg, payments
+
+from src.core.db import db
+from src.core.board.payment import Payment
+from src.core.board.associate import Associate
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
 
 
 #listing payments
 @payments_blueprint.get("/")
-@login_required
+@has_permission("payments_index")
 def index():
     """Returns:
         HTML: List of payments.
     """    
-    pairs=[("associate.surname","Apellido"),("associate_id","Numero de socio")]
+    pairs=[("surname","Apellido"),("associate_id","Numero de socio")]
+
     if request.args.get("search"):
-        paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
+        if request.args.get("column") == "associate_id":
+            paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
+
+        if request.args.get("column") == "surname":
+             paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search"),Associate), request,"payments")
+             
     else:
         paginated_query_data = pagination_generator(list_payments(), request,"payments")
+
     return render_template("payments/list.html", pairs=pairs,**paginated_query_data)
 
 
-#creating a payment
-@payments_blueprint.post("/create/<id>")
-@login_required
-def create(id):
-    """Args:
-        id (int): id of the associate to create a payment for
-    Returns:
-        HTML: Redirect to payments list.
-    """    
-    associate=get_associate_by_id(id)
-    last_fee=get_last_fee_paid(associate)
-    config=get_cfg()
-    amount=disciplines_fee_amount(associate)+config.base_fee
-    paid_late=False
-    fee_date=datetime.now()
-    
-    if last_fee.installment_number!=0: #if the associate has paid at least one fee
-        
-        if last_fee.date.month==datetime.now().month and last_fee.date.year==datetime.now().year: #if the last fee was paid this month
-            flash(f"El asociado ya pago la cuota de este mes", category="alert alert-warning")
-            return redirect(url_for("associate.index"))
-        
-        elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
-            flash(f"El asociado ha pagado una cuota de un mes anterior", category="alert alert-warning")
-            amount+=amount*(config.due_fee/100)
-            fee_date=last_fee.date.replace(month=last_fee.date.month+1)
-            paid_late=True
-            
-        else:
-            flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
-            
-    else:
-        flash(f"El asociado ha pagado la cuota exitosamente", category="alert alert-warning")
-            
-    create_payment(associate,amount,last_fee.installment_number,paid_late,fee_date)
-    return redirect(url_for("associate.index"))
-
-
 #deleting a payment
-@payments_blueprint.post("/delete/<id>")
-@login_required
+@payments_blueprint.post("/borrar/<id>")
+@has_permission("payments_destroy")
 def delete(id):
     """Args:
         id (int): id of the payment to delete
@@ -77,15 +55,74 @@ def delete(id):
 
 
 #download a payment receipt
-@payments_blueprint.post("/download/<id>")
-@login_required
+@payments_blueprint.post("/descargar/<id>")
+@has_permission("payments_import")
 def download_receipt(id):
     """Args:
         id (int): id of the payment to download the receipt for
     Returns:
         PNG: Download the receipt.
     """    
-    RCPT_PATH=os.path.join(os.getcwd(),"public","receipt.png")
+    RCPT_PATH=os.path.join(os.getcwd(),"public","recibo.png")
     payment=get_payment_by_id(id)
     make_receipt(payment,RCPT_PATH)
     return send_file(RCPT_PATH,as_attachment=True)
+
+
+
+#confirm a payment
+@payments_blueprint.get("/confirmar/<id>")
+@has_permission("payments_create")
+def confirm_payment_get(id):
+    """Args:
+        id (int): id of the associate to confirm
+    Returns:
+        HTML: render to payment detail view.
+    """
+    associate=get_associate_by_id(id)
+    last_fee=get_last_fee_paid(associate)
+    flash_number,paid_late,fee_date,amount=build_payment(last_fee,associate)
+    
+    if flash_number==1:
+        flash(f"El asociado ya pago la cuota de este mes", category="alert alert-warning")
+        return redirect(url_for("associate.index"))
+      
+    form= PaymentUpdateForm(name=associate.name,surname=associate.surname,date=fee_date,
+                            amount=amount,paid_late=paid_late,installment_number=last_fee.installment_number,tipo_de_moneda=get_cfg().currency)
+    
+    return render_template("payments/confirm.html",form=form,associate=associate)
+
+
+#confirm a payment
+@payments_blueprint.post("/confirmar/<id>")
+@has_permission("payments_create")
+def confirm_payment_post(id):
+    """Args:
+        id (int): id of the associate to confirm
+    Returns:
+        HTML: Redirect to payment detail view.
+    """
+    print(request.form)
+    form=PaymentUpdateForm(request.form)
+    associate=get_associate_by_id(id)
+    if form.validate():
+        create_payment(associate,form.data.get("amount"),(form.data.get("installment_number")),bool_checker(form.data.get("paid_late")),form.data.get("date"))
+        flash(f"El pago se ha registrado correctamente", category="alert alert-success")
+        return redirect(url_for("payments.index"))
+        
+    return render_template("payments/confirm.html",form=form,associate=associate)
+
+
+#detail_view of a payment
+@payments_blueprint.get("/detalle/<id>")
+@has_permission("payments_show")
+def detail_view(id):
+    """Args:
+        id (int): id of the payment to show the detail view for
+    Returns:
+        HTML: Detail view of a payment.
+    """    
+    payment=get_payment_by_id(id)
+    form=PaymentUpdateForm(name=payment.associate.name,surname=payment.associate.surname,date=payment.date.strftime("%d-%m-%y"),
+                            amount=payment.amount,paid_late=payment.paid_late,installment_number=payment.installment_number,tipo_de_moneda=get_cfg().currency)
+    return render_template("payments/detail_view.html",payment=payment,form=form)

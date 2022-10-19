@@ -21,7 +21,7 @@ def get_permissions():
     """Returns:
         List: List of all permissions
     """      
-    modules_operator = ["associate", "discipline"]
+    modules_operator = ["associate", "discipline","payments"]
     modules_admin = [*modules_operator, "user", "configuration"]
     actions_operator = ["index", "show", "update", "create"]
     actions_admin = [*actions_operator, "destroy"]
@@ -29,11 +29,10 @@ def get_permissions():
     operator_permissions = [
         "associate_add_discip",
         "associate_remove_discip",
-        "payments_index",
-        "payments_show",
         "payments_import",
     ]
-    admin_permissions = [*operator_permissions, "payment_destroy"]
+    
+    admin_permissions = [*operator_permissions, "payments_destroy"]
 
     for mod in modules_operator:
         for act in actions_operator:

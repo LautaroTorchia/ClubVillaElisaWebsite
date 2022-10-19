@@ -6,8 +6,10 @@ from src.web.helpers.writers import write_csv_file,write_pdf_file
 from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 from src.web.helpers.associate import no_es_moroso
+from src.web.helpers.pagination import pagination_generator
+from src.core.board import get_associate_by_id
 
-associate_blueprint = Blueprint("associate", __name__, url_prefix="/associate")
+associate_blueprint = Blueprint("associate", __name__, url_prefix="/asociados")
 
 
 #Listing associates
@@ -17,15 +19,19 @@ def index():
     """Returns:
         HTML: List of associates.
     """    
-    pairs=[("surname","Apellido")]
-    if request.args.get("search"):
+    pairs=[("surname","Apellido"),("true","Activo"),("false","Inactivo")]
+    
+    if request.args.get("column") in ["true","false"]:
+        paginated_query_data = pagination_generator(list_associates("active",request.args.get("column")), request,"associates")
+    elif request.args.get("search"):
         paginated_query_data = pagination_generator(list_associates(request.args.get("column"),request.args.get("search")), request,"associates")
     else:
         paginated_query_data = pagination_generator(list_associates(), request,"associates")
+        
     return render_template("associate/list.html", pairs=pairs,**paginated_query_data)
 
 #adding associates
-@associate_blueprint.get("/add")
+@associate_blueprint.get("/agregar")
 @has_permission("associate_create")
 def get_add():
     """Returns:
@@ -33,7 +39,7 @@ def get_add():
     """    
     return render_template("associate/add.html",form=CreateAssociateForm())
 
-@associate_blueprint.post("/add")
+@associate_blueprint.post("/agregar")
 @has_permission("associate_create")
 def post_add():
     """Returns:
@@ -47,7 +53,7 @@ def post_add():
     return render_template("associate/add.html", form=form)
 
 #deleting associates
-@associate_blueprint.post("/delete/<id>")
+@associate_blueprint.post("/borrar/<id>")
 @has_permission("associate_destroy")
 def delete(id):
     """Args:
@@ -60,7 +66,7 @@ def delete(id):
     return redirect(url_for("associate.index"))
 
 #updating associates
-@associate_blueprint.get("/update/<id>")
+@associate_blueprint.get("/actualizar/<id>")
 @has_permission("associate_update")
 def get_update(id):
     """Args:
@@ -73,7 +79,7 @@ def get_update(id):
     return render_template("associate/update.html",form=form)
 
 #updating associates
-@associate_blueprint.post("/update/<id>")
+@associate_blueprint.post("/actualizar/<id>")
 @has_permission("associate_update")
 def post_update(id):
     """Args:
@@ -89,30 +95,40 @@ def post_update(id):
     return render_template("associate/add.html", form=form)
 
 #csv_writing associates
-@associate_blueprint.get("/csv_writer")
+@associate_blueprint.get("/creador_csv")
 @has_permission("associate_index")
 def write_csv():
     """Returns:
         CSV: List of associates.
-    """    
+    """
+    args = dict(request.args)
     CSV_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.csv")
-    write_csv_file(CSV_PATH,list_all_associates())
+    if request.args.get("search"):
+        write_csv_file(CSV_PATH,list_all_associates(args["column"],args["search"]))
+    else:
+        write_csv_file(CSV_PATH,list_all_associates())
+        
     return send_file(CSV_PATH,as_attachment=True)
 
 #pdf_writing associates
-@associate_blueprint.get("/pdf_writer")
+@associate_blueprint.get("/creador_pdf")
 @has_permission("associate_index")
 def write_pdf():
     """Returns:
         PDF: List of associates.
-    """    
+    """
+    args = dict(request.args)
     PDF_PATH=os.path.join(os.getcwd(),"public","Associate_list_report.pdf")
-    write_pdf_file(PDF_PATH,list_all_associates())
+    if request.args.get("search"):
+        write_pdf_file(PDF_PATH,list_all_associates(args["column"],args["search"]))
+    else:
+        write_pdf_file(PDF_PATH,list_all_associates())
+        
     return send_file(PDF_PATH,as_attachment=True)
 
 
 #add a new discipline to the associate
-@associate_blueprint.get("/add_discipline/<id>")
+@associate_blueprint.get("/agregar/<id>")
 @has_permission("associate_create")
 def add_discipline(id):
     """Args:
@@ -123,18 +139,20 @@ def add_discipline(id):
     associate=get_associate_by_id(id)
     if no_es_moroso(associate):
         pairs=[("name","Nombre")]
+        
         if request.args.get("search"):
             disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
         else:
             disciplines = list_all_disciplines()
         return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
+    
     else:
-        flash(f"El asociado {associate} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
+        flash(f"El asociado {associate.name} {associate.surname} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
         return redirect(url_for("associate.index"))
 
 
 #add a discipline to the associate
-@associate_blueprint.post("/add_discipline/<id>/<discipline_id>")
+@associate_blueprint.post("/agregar_disciplina/<id>/<discipline_id>")
 @has_permission("associate_add_discip")
 def register_discipline(id,discipline_id):
     """Args:
@@ -156,7 +174,7 @@ def register_discipline(id,discipline_id):
 
 
 #delete a discipline from the associate
-@associate_blueprint.post("/delete_discipline/<id>/<discipline_id>")
+@associate_blueprint.post("/quitar_disciplina/<id>/<discipline_id>")
 @has_permission("associate_remove_discip") # TODO preguntar
 def delete_discipline(id,discipline_id):
     """Args:

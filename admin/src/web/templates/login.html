@@ -1,43 +1,35 @@
-{% extends "base.html" %} 
-{% set current_template = self._TemplateReference__context.name %} 
+{% extends "base_form.html" %}
+{% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %}
-{% block title %} Home - Brand {% endblock title %}
+{% block title %} Login {% endblock title %}
 
-<body style="background: #ffffff;width: auto;">
-    {% block content %}
-    <header style="width: auto;">
-        <div class="container pt-4 pt-xl-5" style="background: rgba(255,255,255,0);width: auto;">
-            <div class="row pt-5" style="margin: 0px;margin-top: 0px;padding: 32px 0px 0px;padding-top: 0px;width: auto;">
-                <div class="col-md-8 col-lg-7 col-xl-6 text-center text-md-start mx-auto" style="width: 600px;background: rgba(136,136,136,0.19);box-shadow: 0px -4px 10px 2px;margin-bottom: 20px;">
-                    <div class="text-center" style="width: auto;">
-                        <h1 class="fw-bold" style="font-size: 36px;text-shadow: 0px -5px 5px rgba(181,161,102,0.5);margin-top: 10px;font-family: Amaranth, sans-serif;text-align: center;width: auto;">Club Deportivo Villa Elisa</h1>
-                        <p class="fw-bold mb-2" style="border-color: rgb(255,255,255);border-left-color: var(--bs-gray-100);color: #b5a166;font-style: italic;font-family: Amaranth, sans-serif;text-align: center;letter-spacing: 1px;">Primer club histórico de la ciudad</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="row d-flex justify-content-center" style="margin: 30px;width: auto;display: flex;">
-        <div class="col-md-8 col-lg-7 col-xl-4" style="width: auto;">
-            <div class="card" style="width: 600px;">
-                <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column "> 
-                    <div class="card-body text-center d-flex flex-column align-items-center" style="background: rgba(136,136,136,0.19);height: 525.125px;width: auto;box-shadow: 0px 4px 10px 1px;"><img src="{{ url_for('static', filename='img/logo_club.png') }}" style="width: 100px;margin-bottom: 30px;">
-                        {{ form.hidden_tag() }}
-                        {% for field in form if field.widget.input_type != 'hidden' %}
-                            <div class="mb-3">{{ field(class="form-control") }}</div>
-                            {% endfor %}
-                        <div class="mb-3"><button class="btn own_golden_bg shadow d-block w-100" role="button" type="submit">Iniciar sesión</button></div>
-                        <p class="text-muted">¿Olvidaste tu contraseña?</p>
-                        <div class="container mt-3">
-                            {% include "flashes.html" %}
-                            {% include "form_errors.html" %}
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+<body>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-body text-center d-flex flex-column align-items-center border">
+        {% block header %}
+        Club Deportivo Villa Elisa
+        {% endblock header %}
+        {% block image %}
+        <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize mt-3 p-3">
+        {% endblock image %}
+        {% block form %}
+        <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column ">
+          {{ form.hidden_tag() }}
+          {% for field in form if field.widget.input_type != 'hidden' %}
+          <div class="form-group">
+            {{ field.label(class="form-label") }}
+            {{ field(class="form-control") }}
+          </div>
+          {% endfor %}
+          <button class="btn own_golden_bg mt-4" type="submit">
+            Iniciar sesión
+          </button>
+        </form>
+        {% endblock form %}
+      </div>
     </div>
-    {% endblock content %}
+  </div>
 </body>

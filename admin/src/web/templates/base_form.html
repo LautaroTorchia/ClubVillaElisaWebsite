@@ -1,15 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="d-flex mt-5 justify-content-center own_form_title w-100">
-        {% block header %}
-        {% endblock header %}
+<div class="d-flex align-items-center flex-column mt-3 pb-5 justify-content-center w-100 h-100">
+  <div class="d-flex align-items-center flex-column justify-content-center w-100 own_form_title">
+    {% if "/" in current_template %}
+    {% set template_index = current_template.rsplit("/")[0]+".index" %}
+    <div class="d-flex justify-content-center mt-3">
+      <a class="btn own_golden_bg own_button" href={{url_for(template_index)}}>
+        Volver al listado
+      </a>
     </div>
-    <div class="container mt-3 own_form align-items-center" style="max-width: 800px">
-        {% block form %}
-        {% endblock form %}
+    {% endif %}
+    <div class="d-flex flex-column mt-5 justify-content-center align-items-center own_form_title w-100">
+      {% block header %}
+      {% endblock header %}
+      {% block image %}
+      {% endblock image %}
     </div>
-    <div class="container mt-3">
-        {% include "flashes.html" %}
-        {% include "form_errors.html" %}
-    </div>
+  </div>
+  <div class="container mt-3 own_form align-items-center" style="max-width: 800px">
+    {% block form %}
+    {% endblock form %}
+  </div>
+  <div class="container mt-3">
+    {% include "flashes.html" %}
+    {% include "form_errors.html" %}
+  </div>
+</div>
+</div>
 {% endblock content %}

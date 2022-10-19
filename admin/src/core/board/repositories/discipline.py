@@ -8,8 +8,8 @@ def list_disciplines(column=None,filter=True):
         - List of Discipline objects
     """
     if column:
-        return disciplines.paginated_filter(column,filter)
-    return disciplines.paginated_list()
+        return disciplines.filter(column,filter)
+    return disciplines.list()
 
 def list_all_disciplines(column=None,filter=True):
     """ List all disciplines
@@ -17,8 +17,8 @@ def list_all_disciplines(column=None,filter=True):
         - List of Discipline objects
     """
     if column:
-        return disciplines.filter(column,filter)
-    return disciplines.list()
+        return disciplines.filter(column,filter,paginate=False)
+    return disciplines.list(paginate=False)
 
 def get_last_discipline():
     """ List last discipline
@@ -58,6 +58,6 @@ def add_discipline(discipline_data,currency="ARS"):
         - Add discipline
     """
     discipline_data = csrf_remover(discipline_data)
-    discipline_data.update(currency=currency,available=bool_checker(discipline_data["available"]))
+    discipline_data.update(available=bool_checker(discipline_data["available"]))
     disciplines.add(Discipline(discipline_data))
 

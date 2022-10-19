@@ -1,33 +1,31 @@
-{% extends "base.html" %}
-{% set current_template = self._TemplateReference__context.name %}
-{% block css %}
-{{ super() }}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth&amp;display=swap">
-{% endblock css %}
-{% block title %} Club Deportivo Villa Elisa {% endblock title %}
+{% extends "base.html" %} {% set current_template =
+self._TemplateReference__context.name %} {% block css %} {{ super() }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth&amp;display=swap" />
+{% endblock css %} {% block title %} Club Deportivo Villa Elisa {% endblock
+title %}
 
-<body style="background: #ffffff;width: auto;">
-    {% block content %}
-    <div class="justify-content-center" style="margin: 30px;width: auto;display: flex;">
-        <div class="own_main_table" style="width: auto;">
-            <div class="card own_home_container">
-                <div class="card-body text-center d-flex flex-column align-items-center own_card_content"
-                    >
-                    <h1 class="own_big_title">
-                        ¡Bienvenidos!</h1>
-                    <img src="{{ url_for('static', filename='img/logo_club.png') }}" class="own_logo_home">
-                    <div class="text-center" style="width: auto;">
-                        <h1 class="fw-bold"
-                            style="font-size: 36px;text-shadow: 0px -5px 5px rgba(181,161,102,0.5);margin-top: 10px;font-family: Amaranth, sans-serif;text-align: center;width: auto; padding-top:30px">
-                            Club Deportivo Villa Elisa</h1>
-                        <p class="fw-bold mb-2"
-                            style="border-color: rgb(255,255,255);border-left-color: var(--bs-gray-100);color: #b5a166;font-style: italic;font-family: Amaranth, sans-serif;text-align: center;letter-spacing: 1px;">
-                            Primer club histórico de la ciudad</p>
-                        {% include "flashes.html" %}
-                    </div>
-                </div>
-            </div>
+<body>
+  {% block content %}
+  <div class="d-flex flex-column justify-content-center mt-5 align-items-center">
+    {% include "flashes.html" %}
+    <div class="card">
+      <div class="card-body text-center d-flex flex-column align-items-center border bg-light" style="padding: 5rem">
+        <h1 class="fw-bold">¡Bienvenidos!</h1>
+        <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize my-3" />
+        <div class="text-center">
+          <h2 class="fw-bold">Club Deportivo Villa Elisa</h2>
+          <p class="fw-bold" style="
+              color: #b5a166;
+              font-style: italic;
+              font-family: Amaranth, sans-serif;
+              text-align: center;
+              letter-spacing: 1px;
+            ">
+            Primer club histórico de la ciudad
+          </p>
         </div>
+      </div>
     </div>
-    {% endblock content %}
+  </div>
+  {% endblock content %}
 </body>

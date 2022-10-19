@@ -3,6 +3,7 @@ from typing import Dict
 from flask import Request
 from flask_sqlalchemy import Pagination
 
+
 def pagination_generator(paginator:Pagination, request:Request, paginator_name:str="paginator") -> Dict:
     """Generates pagination data for a given paginator, the output of this function is meant to go directly to the render_template function.
     Args:
@@ -17,7 +18,6 @@ def pagination_generator(paginator:Pagination, request:Request, paginator_name:s
         args.pop("page")
     except KeyError:
         pass
-    print(paginator.page)
     pages_urls = [(url_for(request.endpoint, page=page_num, **args),page_num) for page_num in paginator.iter_pages(100,100,100,100) ]
     next_url = url_for(request.endpoint, page=paginator.next_num, **args) if paginator.has_next else None
     prev_url = url_for(request.endpoint, page=paginator.prev_num, **args)  if paginator.has_prev else None

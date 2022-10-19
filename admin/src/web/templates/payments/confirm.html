@@ -2,29 +2,28 @@
 {% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
-{% endblock css %}
-{% block title %} Agregar usuario {% endblock title %}
+{% endblock css %} {% block title %} Confirmar pago {% endblock title %}
 
 <body>
   {% block header %}
-  Agregar usuario
+  Confirmar Pago
   {% endblock header %}
   {% block form %}
-  <form action="{{ url_for('user.post_add') }}" method="POST" class="d-flex flex-column">
+  <form action="{{ url_for('payments.confirm_payment_post', id=associate.id) }}" method="POST"
+    class="d-flex flex-column ">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
-      {% if field.label.text=="Roles" %}
-      <p class="form-label">
-        {{ field.label.text }}
-      </p>
+      {% if field.label.text== "Monto" %}
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control") }}
       {% else %}
       {{ field.label(class="form-label") }}
-      {% endif %}
       {{ field(class="form-control") }}
+      {% endif %}
     </div>
     {% endfor %}
-    <button type="submit" class="btn own_golden_bg own_border_radius mt-4">Agregar Usuario</button>
+    <button type="submit" class="btn own_golden_bg mt-4">Confirmar pago</button>
   </form>
   {% endblock form %}
 </body>

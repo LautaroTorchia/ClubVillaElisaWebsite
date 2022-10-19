@@ -19,15 +19,6 @@ class DisciplineForm(BaseForm):
     instructors= StringField('Instructores',validators=[Length(max=255),InputRequired(),instructor_validator],description="Separe los nombres de los instructores con una coma")
     dates = StringField('Días y horarios',validators=[Length(max=255),InputRequired()])
     monthly_cost = DecimalField("Costo mensual",validators=[InputRequired(),NumberRange(0,message="El costo mensual debe ser mayor a 0")])
-    available = SelectField('Disponible',choices=[(True,'Disponible'),('False','No disponible')],validators=[InputRequired()])
+    available = SelectField('Disponible',choices=[(True,'Disponible'),('False','No disponible')])
 
-    def __init__(self, formdata=..., **kwargs):
-        """Args:
-            formdata (dict): Form data
-        """        
-        super().__init__( **kwargs)
-        try:
-            self['monthly_cost'].label = Label(self['monthly_cost'].id, f"Costo mensual ({kwargs['currency']})")
-        except:
-            pass
         

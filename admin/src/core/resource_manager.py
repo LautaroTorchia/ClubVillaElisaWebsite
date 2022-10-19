@@ -1,5 +1,10 @@
+from typing import Union
 from sqlalchemy.sql.expression import cast
 from sqlalchemy import String
+from sqlalchemy.sql.expression import ColumnOperators
+from flask_sqlalchemy import Pagination
+from sqlalchemy import Table
+
 
 
 class ResourceManager():
@@ -14,12 +19,18 @@ class ResourceManager():
         self.dbs = dbsession 
         self.model_class = model_class
 
+    def _base_query(self,model):
+        """Returns:
+            SQLAlchemy Query: The SQLAlchemy query.
+        """        
+        return self.dbs.query(model).filter(model.deleted == False)
+
     @property
     def query(self):
         """Returns:
             SQLAlchemy Query: The SQLAlchemy query.
         """        
-        return self.dbs.query(self.model_class).filter(self.model_class.deleted==False)
+        return self._base_query(self.model_class)
 
     def add(self, obj):
         """Args:
@@ -28,25 +39,16 @@ class ResourceManager():
         self.dbs.add(obj)
         self.dbs.commit()
 
-    def base_filter(self, col_name, text):
+    def _base_filter(self, col_name, text, query_in=None, class_in=None):
         """Args:
             col_name (String): The column name.
             text (String): The text to filter.
         Returns:
             SQLAlchemy Query: The SQLAlchemy query.
         """        
-        return self.query.filter(
-            cast(getattr(self.model_class, col_name), String).ilike(f"%{text}%")
-        )
-
-    def filter(self, col_name, text):
-        """Args:
-            col_name (String): The column name.
-            text (String): The text to filter.
-        Returns:
-            _type_: The SQLAlchemy query.
-        """        
-        return self.base_filter(col_name, text).all()
+        if query_in:
+            return query_in.filter(cast(getattr(class_in, col_name), String).ilike(f"%{text}%"))
+        return self.query.filter(cast(getattr(self.model_class, col_name), String).ilike(f"%{text}%"))
 
     def update(self, id, data):
         """Args:
@@ -71,46 +73,58 @@ class ResourceManager():
         """        
         return self.query.filter(self.model_class.id == id).first()
 
-    def list(self):
-        """Returns:
-            List: The list of objects.
-        """        
-        return self.query.all()
 
-    def paginated_list(self):
-        """Returns:
-            List: The paginated list of objects.
-        """        
-        from src.core.board.repositories.configuration import get_cfg
-        return self.query.paginate(per_page=get_cfg().record_number, error_out=False)
+    def list(self,order_criteria:ColumnOperators=None,paginate:bool=True) -> Union[Pagination, list]:
+        """ Returns a list of objects. pagination is enabled by default. order_criteria is optional.
 
-    def paginated_filter(self, col_name, text):
-        """Args:
-            col_name (String): The column name.
-            text (String): The text to filter.
+        Args:
+            order_criteria (ColumnOperators, optional): The order of the records . Defaults to None.
+            paginate (bool, optional): Paginate if true, record_amount comes from config. Defaults to True.
+
         Returns:
-            List: The paginated and filtered list of objects.
-        """        
+            Union[Pagination, list]: if pagination is enabled returns a Pagination object, otherwise a list.
+        """         
         from src.core.board.repositories.configuration import get_cfg
-        return self.base_filter(col_name, text).paginate(per_page=get_cfg().record_number, error_out=False)
+        ordered_query = self.query.order_by(order_criteria)
+        if paginate:
+            return ordered_query.paginate(per_page=get_cfg().record_number, error_out=False)
+        return ordered_query.all()
 
-    def paginated_ordered_filter(self, col_name, text,order_criteria):
-        """Args:
-            col_name (String): The column name.
-            text (String): The text to filter.
-            order_criteria (String): The order criteria.
-        Returns:
-            List: The paginated, filtered and ordered list of objects.
-        """        
-        from src.core.board.repositories.configuration import get_cfg
-        return self.base_filter(col_name, text).order_by(order_criteria).paginate(per_page=get_cfg().record_number, error_out=False)
+    def filter(self,col_name:str, match:str,order_criteria:ColumnOperators=None,paginate:bool=True) -> Union[Pagination, list]:
+        """ Returns a list of filtered objects of a certain column. pagination is enabled by default. order_criteria is optional.
 
-    def paginated_ordered_list(self,order_criteria):
-        """Args:
-            order_criteria (String): The order criteria.
+        Args:
+            col_name (str): The column to apply the filter to
+            match (str): The string to be matched, matches are by like
+            order_criteria (ColumnOperators, optional): The order of the records . Defaults to None.
+            paginate (bool, optional): Paginate if true, record_amount comes from config. Defaults to True.
+
         Returns:
-            List: The paginated and ordered list of objects.
-        """        
+            Union[Pagination, list]: if pagination is enabled returns a Pagination object, otherwise a list.
+        """             
         from src.core.board.repositories.configuration import get_cfg
-        return self.query.order_by(order_criteria).paginate(per_page=get_cfg().record_number, error_out=False)
-    
+        ordered_query = self._base_filter(col_name, match).order_by(order_criteria)
+        if paginate:
+            return ordered_query.paginate(per_page=get_cfg().record_number, error_out=False)
+        return ordered_query.all()
+
+    def _base_join(self,join_table):
+        return self._base_query(self.model_class).join(join_table).filter(join_table.deleted==False)
+
+    def join_search(self, col_name:str, match:str,join_table:Table, paginate:bool=True) -> Union[Pagination, list]:
+        """ Returns a list of filtered objects of a certain column of a join. pagination is enabled by default.
+
+        Args:
+            col_name (str): The column to apply the filter to
+            match (str): The string to be matched, matches are by like
+            join_table (Table): Table to join to the main table
+            paginate (bool, optional): Paginate if true, record_amount comes from config. Defaults to True.
+
+        Returns:
+            Union[Pagination, list]: _description_
+        """        
+
+        from src.core.board.repositories.configuration import get_cfg
+        if paginate:
+            return self._base_filter(col_name, match,self._base_join(join_table),join_table).paginate(per_page=get_cfg().record_number, error_out=False)
+        return self._base_filter(col_name, match,self._base_join(join_table),join_table).all()

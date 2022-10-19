@@ -22,7 +22,6 @@ class ConfigForm(BaseForm):
     currency = SelectField(
         "Moneda",
         choices=[("ARS", "Peso Argentino"), ("USD", "Dolar")],
-        validators=[validators.input_required()],
     )
     base_fee = DecimalField(
         "Cuota mensual base", default=500, validators=[validators.input_required()]
@@ -38,7 +37,6 @@ class ConfigForm(BaseForm):
     payment_available = SelectField(
         "Tabla de pago pública",
         choices=[("True", "Disponible"), ("False", "No disponible")],
-        validators=[validators.input_required()],
     )
     contact = StringField(
         "Información de contacto",

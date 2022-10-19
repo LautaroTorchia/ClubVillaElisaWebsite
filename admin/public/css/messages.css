@@ -1,37 +1,36 @@
 .flashes {
-    -moz-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 5s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+  -moz-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 .errors {
-    -moz-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 10s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 10s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+  -moz-animation: cssAnimation 0s ease-in 10s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 10s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 10s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 10s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 @keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-        visibility:hidden;
-    }
+  to {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 }
 @-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
+  to {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+  }
 }

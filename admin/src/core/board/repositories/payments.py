@@ -5,14 +5,16 @@ from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 
 #listing payments
-def list_payments(column=None,filter=True):
+def list_payments(column=None,filter=True, join_table=None):
     """ List all payments
     Returns:
         - List of Payment objects
     """
     if column:
-        return payments.paginated_ordered_filter(column,filter,Payment.date.desc())
-    return payments.paginated_ordered_list(Payment.date.desc())
+        if join_table:
+            return payments.join_search(column,filter,join_table)
+        return payments.filter(column,filter,order_criteria=Payment.date.desc())
+    return payments.list(order_criteria=Payment.date.desc())
 
 
 #get last fee paid
@@ -32,7 +34,9 @@ def create_payment(associate,amount,last_installment,paid_late=False,date=dateti
     Returns:
         - Payment object
     """
-    return payments.add(Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late))
+    payment=Payment(associate_id=associate.id,amount=amount,date=date,installment_number=last_installment+1,paid_late=paid_late)
+    payments.add(payment)
+    return payment
 
 def get_payment_by_id(id):
     """ Get a payment by global id
@@ -48,3 +52,15 @@ def delete_payment(id):
         - Payment object
     """
     return payments.delete(id)
+
+
+#update payment with updated amount
+def update_payment(payment,amount):
+    """ Update a payment
+    Returns:
+        - Payment object
+    """
+    data={
+        "amount":amount
+    }
+    return payments.update(payment.id,data)
