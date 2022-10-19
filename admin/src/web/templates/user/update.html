@@ -10,15 +10,21 @@
   Modificar usuario
   {% endblock header %}
   {% block form %}
-  <form action="#" method="POST" class="d-flex flex-column "> 
+  <form action="#" method="POST" class="d-flex flex-column ">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
+      {% if field.label.text=="Roles" %}
+      <p class="form-label">
+        {{ field.label.text }}
+      </p>
+      {% else %}
       {{ field.label(class="form-label") }}
+      {% endif %}
       {{ field(class="form-control") }}
     </div>
     {% endfor %}
-    <button type="submit" class="btn own_golden_bg mt-4">Modificar</button>
+    <button type="submit" class="btn own_golden_bg own_border_radius mt-4">Modificar</button>
   </form>
   {% endblock form %}
 </body>

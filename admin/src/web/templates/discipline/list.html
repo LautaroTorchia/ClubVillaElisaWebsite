@@ -46,7 +46,7 @@
         {% if has_permission(session["user"],"discipline_update") %}
         <td style="--title7:'Modificar';">
           <a class="btn btn-outline-info w-100 p-1 own_options_button"
-            href="{{ url_for('discipline.update', id=discipline.id) }}" name="Update" value="{{ discipline.id }}">
+            href="{{ url_for('discipline.update', id=discipline.id) }}">
             Mod.
           </a>
         </td>

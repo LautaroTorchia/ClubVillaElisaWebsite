@@ -39,7 +39,7 @@ def get_roles():
     """Returns:
         List: A list of all roles.
     """    
-    return roles.list()
+    return roles.list(paginate=False)
 
 
 def get_role(role_name):
@@ -49,7 +49,6 @@ def get_role(role_name):
         Role: The role object.
     """    
     try:
-        role = roles.filter("name", role_name)[0]
-        return role
+        return roles.filter("name", role_name, paginate=False)[0]
     except:
         return None

@@ -9,52 +9,52 @@
 
 <body>
   {% block upperbar %}
-      {% include "search.html" %}
+  {% include "search.html" %}
   {% endblock upperbar %}
   {% block table %}
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Nombre y apellido</th>
-              <th>Numero de socio</th>
-              <th>Fecha</th>
-              <th>Monto</th>
-              <th>Pago tarde</th>
-              <th>Eliminar</th>
-              <th>Vista detallada </th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for payment in payments.items |sort(attribute='date', reverse = True ) %}
-            <tr>
-              <td style="--title1:'Nombre';"> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
-              <td style="--title2:'Nro. Socio';"> {{ payment.associate.id }} </td>
-              <td style="--title3:'Fecha';"> {{ payment.date.strftime('%Y-%m-%d') }} </td>
-              <td style="--title4:'Monto';"> {{ payment.amount }} </td>
-              <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
-              <td style="--title6:'Eliminar';">
-                <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
-                  <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-                    onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
-                    X
-                  </button>
-                </form>
-              </td>
-              <td style="--title7:'Ver';">
-                <form action="{{ url_for('payments.detail_view', id=payment.id) }}" method="get">
-                  <button class="btn btn-outline-info w-100 p-1 own_options_button">
-                    Ver
-                  </button>
-                </form>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-    {% endblock table%}
-    {% block js%}
-    {{ super() }}
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    {% endblock js%}
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre y apellido</th>
+        <th>Numero de socio</th>
+        <th>Fecha</th>
+        <th>Monto</th>
+        <th>Pago tarde</th>
+        <th>Eliminar</th>
+        <th>Vista detallada </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payment in payments.items |sort(attribute='date', reverse = True ) %}
+      <tr>
+        <td style="--title1:'Nombre';"> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
+        <td style="--title2:'Nro. Socio';"> {{ payment.associate.id }} </td>
+        <td style="--title3:'Fecha';"> {{ payment.date.strftime('%Y-%m-%d') }} </td>
+        <td style="--title4:'Monto';"> {{ payment.amount }} </td>
+        <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
+        <td style="--title6:'Eliminar';">
+          <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
+            <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+              onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
+              X
+            </button>
+          </form>
+        </td>
+        <td style="--title7:'Ver';">
+          <form action="{{ url_for('payments.detail_view', id=payment.id) }}" method="get">
+            <button class="btn btn-outline-info w-100 p-1 own_options_button">
+              Ver
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock table%}
+  {% block js%}
+  {{ super() }}
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+  {% endblock js%}
 </body>

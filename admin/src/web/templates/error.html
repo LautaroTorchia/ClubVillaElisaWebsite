@@ -1,18 +1,19 @@
-{% extends "base.html" %} 
-{% block css %} 
+{% extends "base.html" %}
+{% block css %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}" />
 {% endblock css %}
 {% set current_template = self._TemplateReference__context.name %}
 {% block title %} Error! {% endblock title %}
+
 <body>
   {% block content %}
   <h1 class="own_big_title">{{ error_name }}</h1>
   <p class="zoom-area"><b>Error!</b> {{ error_description }} </p>
-    <div class="link-container">
-      <a class="btn own_golden_bg own_button" href="{{ url_for(url_value) }}">
-          {{ button_text }}
-      </a>
-    </div>
+  <div class="link-container">
+    <a class="btn own_golden_bg own_button" href="{{ url_for(url_value) }}">
+      {{ button_text }}
+    </a>
+  </div>
   {% endblock content %}
 </body>

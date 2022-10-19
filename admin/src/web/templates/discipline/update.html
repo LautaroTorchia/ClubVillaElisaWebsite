@@ -1,15 +1,15 @@
-{% extends "base_form.html" %} 
-{% set current_template = self._TemplateReference__context.name %} 
+{% extends "base_form.html" %}
+{% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %} {% block title %} Modificar disciplina {% endblock title %}
 
 <body>
   {% block header %}
-  Modificar disciplina  
+  Modificar disciplina
   {% endblock header %}
   {% block form %}
-  <form action="#" method="POST" class="d-flex flex-column "> 
+  <form action="#" method="POST" class="d-flex flex-column ">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
@@ -17,7 +17,7 @@
       {{ field(class="form-control") }}
     </div>
     {% endfor %}
-    <button type="submit" class="btn own_golden_bg mt-4">Modificar Disciplina</button>
+    <button type="submit" class="btn own_golden_bg own_border_radius mt-4">Modificar Disciplina</button>
   </form>
   {% endblock form %}
 </body>
