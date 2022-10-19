@@ -13,14 +13,16 @@
   </div>
   {%endif%}
 
-  <div class="d-flex align-items-center justify-content-center align-self-center gap-2">
+  <div id="exportSection" class="d-flex align-items-center justify-content-center align-self-center gap-2 pb-4">
     <span class="own_export_text"><b>Exportar:</b></span>
-    <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
-      <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
-    </a>
-    <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
-      <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
-    </a>
+    <div>
+      <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
+        <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
+      </a>
+      <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
+        <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
+      </a>
+    </div>
   </div>
   {% endblock upperbar %}
 
