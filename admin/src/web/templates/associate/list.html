@@ -15,11 +15,11 @@
 
   <div class="d-flex align-items-center justify-content-center align-self-center gap-2">
     <span class="own_export_text"><b>Exportar:</b></span>
-    <a href="{{ url_for('associate.write_csv',column=args[" column"], search=args["search"] ) }}">
-      <input type="image" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
+    <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
+      <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
     </a>
-    <a href="{{ url_for('associate.write_pdf', column=args[" column"], search=args["search"] ) }}">
-      <input type="image" src="/public/img/PDF_icon.png" style="height: 50px;">
+    <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
+      <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
     </a>
   </div>
   {% endblock upperbar %}
@@ -75,19 +75,17 @@
         has_permission(session["user"],"associate_remove_discip") %}
         <td style="--title7:'Asig. Disciplinas';">
           <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
-            action="{{ url_for('associate.add_discipline', id=associate.id) }}">
+            href="{{ url_for('associate.add_discipline', id=associate.id) }}">
             Asignar
           </a>
         </td>
         {%endif%}
         {% if has_permission(session["user"],"payments_create") %}
         <td style="--title8:'Pagar cuota';">
-          <form action="{{ url_for('payments.confirm_payment_get', id=associate.id) }}" method="get">
-            <button class="btn btn-outline-success w-100 p-1 own_options_button"
-              onclick="return confirm('Seguro que desea pagar una cuota de {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-              Pagar
-            </button>
-          </form>
+          <a class="btn btn-outline-success w-100 p-1 own_options_button"
+            href="{{ url_for('payments.confirm_payment_get', id=associate.id) }}">
+            Pagar
+          </a>
         </td>
         {% endif %}
         {% if has_permission(session["user"],"associate_destroy") %}

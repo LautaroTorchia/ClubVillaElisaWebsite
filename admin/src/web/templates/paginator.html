@@ -1,11 +1,13 @@
-<section class="d-flex align-self-center" style="text-align: center">
+<div class="d-flex align-self-center" style="text-align: center">
   <nav class="text-secondary d-flex">
     <ul class="pagination">
       {% if prev_url %}
-      <a class="page-link" aria-label="Previous" href={{ prev_url }} style="border-top-left-radius: 5px; 
-            border-bottom-left-radius: 5px;
-            text-decoration: none;
-            color: #000000;"><span aria-hidden="true">«</span></a>
+      <li>
+        <a class="page-link" aria-label="Previous" href={{ prev_url }} style="border-top-left-radius: 5px; 
+              border-bottom-left-radius: 5px;
+              text-decoration: none;
+              color: #000000;"><span aria-hidden="true">«</span></a>
+      </li>
       {% endif %}
       {% for url,number in pages_urls %}
 
@@ -14,18 +16,22 @@
       {%else%}
       {%set highlight_class= "page-link"%}
       {%endif%}
-      <a class="{{highlight_class}}" aria-label={{ number }} href={{ url }} style="
-            text-decoration: none;
-            color: #000000;"><span aria-hidden="true">{{ number }}</span></a>
+      <li>
+        <a class="{{highlight_class}}" aria-label={{ number }} href={{ url }} style="
+              text-decoration: none;
+              color: #000000;"><span aria-hidden="true">{{ number }}</span></a>
+      </li>
       {% endfor %}
       {% if next_url %}
-      <a class="page-link" aria-label="Next" href={{ next_url }} style="
-              text-decoration: none;
-              color: #000000;
-              border-top-right-radius: 5px;
-              border-bottom-right-radius: 5px;
-            "><span aria-hidden="true">»</span></a>
+      <li>
+        <a class="page-link" aria-label="Next" href={{ next_url }} style="
+                text-decoration: none;
+                color: #000000;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+              "><span aria-hidden="true">»</span></a>
+      </li>
       {% endif %}
     </ul>
   </nav>
-</section>
+</div>

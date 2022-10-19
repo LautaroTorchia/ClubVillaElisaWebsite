@@ -137,7 +137,9 @@ main {
 }
 .own_golden_bg {
   background: #b5a166;
-  border-radius: 5px !important;
+}
+.own_border_radius {
+  border-radius: 5px;
 }
 
 .form-control {
@@ -175,7 +177,6 @@ main {
 .resize {
   max-width: 200px;
   width: 100%;
-  heigh: auto;
 }
 
 .own_input_label {
@@ -238,7 +239,11 @@ main {
   border-color: #b5a166 !important;
 }
 
-.btn-outline-secondary:hover,
+.btn-outline-secondary:hover {
+  color: #fffffe !important;
+  background-color: #b5a167 !important;
+  border-color: #b5a167 !important;
+}
 .btn-outline-secondary:focus {
   color: #ffffff !important;
   background-color: #b5a166 !important;
@@ -278,7 +283,7 @@ th {
 }
 
 @media only screen and (max-width: 767px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-width: 768px) and (max-width: 1024px) {
   /* Force table to not be like tables anymore */
   table,
   thead,
@@ -371,9 +376,6 @@ th {
   }
   .own_add_button {
     margin: 0;
-  }
-  .own_list_header {
-    display: flexbox;
   }
   .own_flex_column {
     flex-direction: column !important;
