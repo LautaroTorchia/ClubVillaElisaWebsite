@@ -22,8 +22,8 @@ class CreateAssociateForm(FlaskForm):
     surname= StringField('Apellido', validators=[validators.DataRequired()])
     email= EmailField('Email')
     DNI_number = IntegerField('DNI', validators=[validators.input_required()])
-    DNI_type  = SelectField('Tipo de documento', choices=[('DNI', 'DNI'), ('LC', 'LC'), ('LE', 'LE')],validators=[validators.input_required()])
-    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')],validators=[validators.input_required()])
+    DNI_type  = SelectField('Tipo de documento', choices=[('DNI', 'DNI'), ('LC', 'LC'), ('LE', 'LE')])
+    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')])
     address = StringField('Direccion', validators=[validators.input_required()])
     phone_number = StringField('Telefono')
     
@@ -55,8 +55,8 @@ class UpdateAssociateForm(FlaskForm):
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
     email= EmailField('Email')
-    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')], validators=[validators.input_required()])
+    gender = SelectField('Genero', choices=[('male', 'Hombre'), ('female', 'Mujer'), ('other', 'Otro')])
     address = StringField('Direccion', validators=[validators.input_required()])
     phone_number = StringField('Telefono')
-    active = SelectField('Disponible',choices=[("True",'Activo'),("False",'Inactivo')],validators=[validators.input_required()])
+    active = SelectField('Disponible',choices=[("True",'Activo'),("False",'Inactivo')])
     
