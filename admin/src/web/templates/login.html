@@ -1,5 +1,5 @@
-{% extends "base_form.html" %} 
-{% set current_template = self._TemplateReference__context.name %} 
+{% extends "base_form.html" %}
+{% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %}
@@ -9,26 +9,26 @@
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="card">
       <div class="card-body text-center d-flex flex-column align-items-center border">
-      {% block header %}
-      Club Deportivo Villa Elisa
-      {% endblock header %}
-      {% block image %}
-      <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize mt-3 p-3">
-      {% endblock image %}
-      {% block form %}
-      <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column "> 
-        {{ form.hidden_tag() }}
-        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% block header %}
+        Club Deportivo Villa Elisa
+        {% endblock header %}
+        {% block image %}
+        <img alt="Logo del Club" src="{{ url_for('static', filename='img/logo_club.png') }}" class="resize mt-3 p-3">
+        {% endblock image %}
+        {% block form %}
+        <form action="{{ url_for('auth.authenticate') }}" method="post" class="d-flex flex-column ">
+          {{ form.hidden_tag() }}
+          {% for field in form if field.widget.input_type != 'hidden' %}
           <div class="form-group">
             {{ field.label(class="form-label") }}
             {{ field(class="form-control") }}
           </div>
-        {% endfor %}
-        <button class="btn own_golden_bg mt-4" type="submit">
-          Iniciar sesión
-        </button>
-      </form>
-      {% endblock form %}
+          {% endfor %}
+          <button class="btn own_golden_bg mt-4" type="submit">
+            Iniciar sesión
+          </button>
+        </form>
+        {% endblock form %}
       </div>
     </div>
   </div>

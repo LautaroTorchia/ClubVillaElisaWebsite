@@ -37,7 +37,7 @@
         <td style="--title2:'Categoría';"> {{ discipline.category }} </td>
         <td style="--title3:'Instructores';"> {{ discipline.instructors }} </td>
         <td style="--title4:'Días y horarios';"> {{ discipline.dates }} </td>
-        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }}  </td>
+        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} </td>
         <td style="--title6:'Accion';">
           {% if discipline in associate.disciplines and has_permission(session["user"],"associate_remove_discip") %}
           <form action="{{ url_for('associate.delete_discipline', id=associate.id,discipline_id=discipline.id) }}"

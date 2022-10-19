@@ -1,7 +1,7 @@
 {% for field, errors in form.errors.items() %}
 <ul class="errors">
-    {% for error in errors %}
-      <li class="alert alert-danger w-50 ">{{ error }}</li>
-    {% endfor %}
+  {% for error in errors %}
+  <li class="alert alert-danger w-50 ">{{ error }}</li>
+  {% endfor %}
 </ul>
 {% endfor %}

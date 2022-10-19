@@ -1,25 +1,23 @@
-{% extends "base_form.html" %} 
-{% set current_template = self._TemplateReference__context.name %} 
+{% extends "base_form.html" %}
+{% set current_template = self._TemplateReference__context.name %}
 {% block css %}
 {{ super() }}
 {% endblock css %} {% block title %} Vista detallada {% endblock title %}
+
 <body>
   {% block header %}
   Vista detallada
   {% endblock header %}
   {% block form %}
-  <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="POST" class="d-flex flex-column "> 
+  <form action="{{ url_for('payments.download_receipt', id=payment.id) }}" method="POST" class="d-flex flex-column ">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
-        {{ field.label(class="form-label") }}
-        {{ field(class="form-control",disabled = True) }}
+      {{ field.label(class="form-label") }}
+      {{ field(class="form-control",disabled = True) }}
     </div>
     {% endfor %}
     <button class="btn own_golden_bg mt-4">Descargar recibo</button>
   </form>
   {% endblock form %}
 </body>
-
-
-
