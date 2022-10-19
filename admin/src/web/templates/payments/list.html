@@ -20,7 +20,9 @@
         <th>Fecha</th>
         <th>Monto</th>
         <th>Pago tarde</th>
-        <th>Eliminar</th>
+        {% if has_permission(session["user"],"payments_destroy") %}
+          <th>Eliminar</th>
+        {%endif%}
         <th>Vista detallada </th>
       </tr>
     </thead>
@@ -32,14 +34,16 @@
         <td style="--title3:'Fecha';"> {{ payment.date.strftime('%m-%y') }} </td>
         <td style="--title4:'Monto';"> {{ payment.amount }} </td>
         <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
-        <td style="--title6:'Eliminar';">
-          <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
-            <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-              onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
-              X
-            </button>
-          </form>
-        </td>
+        {% if has_permission(session["user"],"payments_destroy") %}
+          <td style="--title6:'Eliminar';">
+            <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
+              <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
+                X
+              </button>
+            </form>
+          </td>
+        {% endif %}
         <td style="--title7:'Ver';">
           <form action="{{ url_for('payments.detail_view', id=payment.id) }}" method="get">
             <button class="btn btn-outline-info w-100 p-1 own_options_button">
