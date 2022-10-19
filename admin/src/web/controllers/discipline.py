@@ -23,7 +23,7 @@ def index():
     else:
         paginated_query_data = pagination_generator(list_disciplines(), request,"disciplines")
 
-    return render_template("discipline/list.html",pairs=pairs,**paginated_query_data)
+    return render_template("discipline/list.html",currency=get_cfg().currency,pairs=pairs,**paginated_query_data)
 
 @discipline_blueprint.get("/agregar")
 @has_permission("discipline_create")
@@ -31,7 +31,7 @@ def get_add():
     """Returns:
         HTML: Form to create a discipline.
     """    
-    return render_template("discipline/add.html",form=DisciplineForm(currency=get_cfg().currency))
+    return render_template("discipline/add.html",form=DisciplineForm())
 
 @discipline_blueprint.post("/agregar")
 @has_permission("discipline_create")
@@ -41,7 +41,7 @@ def post_add():
     """    
     form = DisciplineForm(request.form)
     if form.validate():
-        add_discipline(form.data,get_cfg().currency)
+        add_discipline(form.data)
         flash(f"Se agregó {get_last_discipline()}", category="alert alert-info")
         return redirect(url_for("discipline.index"))
     else:
@@ -55,7 +55,7 @@ def get_update(id):
     Returns:
         HTML: Form to update a discipline.
     """    
-    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id),currency=get_cfg().currency))
+    return render_template("discipline/update.html",form=DisciplineForm(obj=get_discipline(id)))
 
 @discipline_blueprint.post("/actualizar/<id>")
 @has_permission("discipline_update")

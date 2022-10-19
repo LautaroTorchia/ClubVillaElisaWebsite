@@ -41,7 +41,7 @@
         <td style="--title2:'Categoría';"> {{ discipline.category }} </td>
         <td style="--title3:'Instructores';"> {{ discipline.instructors }} </td>
         <td style="--title4:'Fechas';"> {{ discipline.dates }} </td>
-        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} {{ discipline.currency }} </td>
+        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} {{ currency }} </td>
         <td style="--title6:'Cupo';"> {{ "Si" if discipline.available else "No" }} </td>
         {% if has_permission(session["user"],"discipline_update") %}
         <td style="--title7:'Modificar';">

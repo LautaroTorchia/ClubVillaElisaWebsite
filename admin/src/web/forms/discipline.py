@@ -21,13 +21,4 @@ class DisciplineForm(BaseForm):
     monthly_cost = DecimalField("Costo mensual",validators=[InputRequired(),NumberRange(0,message="El costo mensual debe ser mayor a 0")])
     available = SelectField('Disponible',choices=[(True,'Disponible'),('False','No disponible')])
 
-    def __init__(self, formdata=..., **kwargs):
-        """Args:
-            formdata (dict): Form data
-        """        
-        super().__init__( **kwargs)
-        try:
-            self['monthly_cost'].label = Label(self['monthly_cost'].id, f"Costo mensual ({kwargs['currency']})")
-        except:
-            pass
         

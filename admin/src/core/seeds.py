@@ -186,7 +186,6 @@ def populate():
                     "instructors": instructors[i],
                     "dates": days_and_hours[i],
                     "monthly_cost": monthly_cost[i],
-                    "currency": "Pesos",
                     "available": True,
                 }
             )
