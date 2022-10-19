@@ -79,7 +79,7 @@ def post_add():
                 "user/add.html",
                 form=UserForm(roles=list(map(lambda r: (r, r), get_roles()))),
             )
-    return redirect(url_for("user.index"))
+    return render_template("user/add.html", form=form)
 
 @user_blueprint.get("/actualizar/<id>")
 @login_required
