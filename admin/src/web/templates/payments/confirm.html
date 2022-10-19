@@ -15,11 +15,21 @@
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
       {% if field.label.text== "Monto" %}
-      {{ field.label(class="form-label") }}
-      {{ field(class="form-control") }}
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control") }}
       {% else %}
-      {{ field.label(class="form-label") }}
-      {{ field(class="form-control") }}
+        {% if field.label.text== "Pago fuera de termino" %}
+          {{ field.label(class="form-label") }}
+          {% if paid_late %} 
+            <input type="text" class="form-control" disabled="true" value="Si"/> 
+          {% else %} 
+            <input type="text" class="form-control"  disabled="true" value="No"/> 
+          {% endif %}
+        {% else %}
+          {{ field.label(class="form-label") }}
+          {{ field(class="form-control",disabled = True) }}
+        {% endif %}
+
       {% endif %}
     </div>
     {% endfor %}

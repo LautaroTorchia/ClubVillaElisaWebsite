@@ -16,7 +16,7 @@ class PaymentUpdateForm(BaseForm):
     name = StringField("Nombre",validators=[Length(max=50)])
     surname= StringField("Apellido",validators=[Length(max=50)])
     date=  StringField("Fecha",validators=[Length(max=50)])
-    paid_late= SelectField("Pago fuera de termino",choices=[(True,"Si"),(False,"No")])
+    paid_late= StringField("Pago fuera de termino")
     installment_number= IntegerField("Numero de Cuota")
     tipo_de_moneda= StringField("Tipo de moneda")
     amount= IntegerField("Monto",validators=[NumberRange(min=0, max=10000000000)])
