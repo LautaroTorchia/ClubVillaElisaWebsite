@@ -121,7 +121,7 @@ class ResourceManager():
             paginate (bool, optional): Paginate if true, record_amount comes from config. Defaults to True.
 
         Returns:
-            Union[Pagination, list]: _description_
+            Union[Pagination, list]: if pagination is enabled returns a Pagination object, otherwise a list.
         """        
 
         from src.core.board.repositories.configuration import get_cfg
