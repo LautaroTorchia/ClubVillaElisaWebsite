@@ -1,12 +1,13 @@
 from logging import PlaceHolder
 from core.board import get_associate_by_DNI
 from flask_wtf import FlaskForm
+from src.web.forms.base_form import BaseForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, validators,EmailField
 from wtforms.validators import ValidationError
 
 
 
-class CreateAssociateForm(FlaskForm):
+class CreateAssociateForm(BaseForm):
     """Form to create a new associate
     name: Name of the associate
     surname: Surname of the associate
@@ -41,7 +42,7 @@ class CreateAssociateForm(FlaskForm):
         return True
 
 
-class UpdateAssociateForm(FlaskForm):
+class UpdateAssociateForm(BaseForm):
     """Form to update an associate
     name: Name of the associate
     surname: Surname of the associate
