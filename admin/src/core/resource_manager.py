@@ -3,6 +3,7 @@ from sqlalchemy.sql.expression import cast
 from sqlalchemy import String
 from sqlalchemy.sql.expression import ColumnOperators
 from flask_sqlalchemy import Pagination
+from sqlalchemy import Table
 
 
 
@@ -18,12 +19,18 @@ class ResourceManager():
         self.dbs = dbsession 
         self.model_class = model_class
 
+    def _base_query(self,model):
+        """Returns:
+            SQLAlchemy Query: The SQLAlchemy query.
+        """        
+        return self.dbs.query(model).filter(model.deleted == False)
+
     @property
     def query(self):
         """Returns:
             SQLAlchemy Query: The SQLAlchemy query.
         """        
-        return self.dbs.query(self.model_class).filter(self.model_class.deleted==False)
+        return self._base_query(self.model_class)
 
     def add(self, obj):
         """Args:
@@ -32,16 +39,16 @@ class ResourceManager():
         self.dbs.add(obj)
         self.dbs.commit()
 
-    def base_filter(self, col_name, text):
+    def _base_filter(self, col_name, text, query_in=None, class_in=None):
         """Args:
             col_name (String): The column name.
             text (String): The text to filter.
         Returns:
             SQLAlchemy Query: The SQLAlchemy query.
         """        
-        return self.query.filter(
-            cast(getattr(self.model_class, col_name), String).ilike(f"%{text}%")
-        )
+        if query_in:
+            return query_in.filter(cast(getattr(class_in, col_name), String).ilike(f"%{text}%"))
+        return self.query.filter(cast(getattr(self.model_class, col_name), String).ilike(f"%{text}%"))
 
     def update(self, id, data):
         """Args:
@@ -96,7 +103,28 @@ class ResourceManager():
             Union[Pagination, list]: if pagination is enabled returns a Pagination object, otherwise a list.
         """             
         from src.core.board.repositories.configuration import get_cfg
-        ordered_query = self.base_filter(col_name, match).order_by(order_criteria)
+        ordered_query = self._base_filter(col_name, match).order_by(order_criteria)
         if paginate:
             return ordered_query.paginate(per_page=get_cfg().record_number, error_out=False)
         return ordered_query.all()
+
+    def _base_join(self,join_table):
+        return self._base_query(self.model_class).join(join_table).filter(join_table.deleted==False)
+
+    def join_search(self, col_name:str, match:str,join_table:Table, paginate:bool=True) -> Union[Pagination, list]:
+        """ Returns a list of filtered objects of a certain column of a join. pagination is enabled by default.
+
+        Args:
+            col_name (str): The column to apply the filter to
+            match (str): The string to be matched, matches are by like
+            join_table (Table): Table to join to the main table
+            paginate (bool, optional): Paginate if true, record_amount comes from config. Defaults to True.
+
+        Returns:
+            Union[Pagination, list]: _description_
+        """        
+
+        from src.core.board.repositories.configuration import get_cfg
+        if paginate:
+            return self._base_filter(col_name, match,self._base_join(join_table),join_table).paginate(per_page=get_cfg().record_number, error_out=False)
+        return self._base_filter(col_name, match,self._base_join(join_table),join_table).all()

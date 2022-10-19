@@ -10,7 +10,7 @@ from src.web.forms.payments import PaymentUpdateForm
 from src.web.helpers.form_utils import bool_checker
 from sqlalchemy.sql.expression import cast
 from sqlalchemy import String
-from src.core.board.repositories.configuration import get_cfg
+from src.core.board import get_cfg, payments
 
 from src.core.db import db
 from src.core.board.payment import Payment
@@ -26,15 +26,15 @@ def index():
     """Returns:
         HTML: List of payments.
     """    
-    pairs=[("associate.surname","Apellido"),("associate_id","Numero de socio")]
+    pairs=[("surname","Apellido"),("associate_id","Numero de socio")]
 
     if request.args.get("search"):
         if request.args.get("column") == "associate_id":
             paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search")), request,"payments")
-        if request.args.get("column") == "surname":
 
-            paginated_query_data = pagination_generator(db.session.query(Payment).filter(Payment.deleted==False).join(Associate).filter(Associate.deleted==False)
-            .filter(cast(getattr(Associate, request.args.get("column")), String).ilike(f"%{request.args.get('search')}%")).paginate(per_page=get_cfg().record_number, error_out=False), request,"payments")
+        if request.args.get("column") == "surname":
+             paginated_query_data = pagination_generator(list_payments(request.args.get("column"),request.args.get("search"),Associate), request,"payments")
+             
     else:
         paginated_query_data = pagination_generator(list_payments(), request,"payments")
 

@@ -5,12 +5,14 @@ from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 
 #listing payments
-def list_payments(column=None,filter=True):
+def list_payments(column=None,filter=True, join_table=None):
     """ List all payments
     Returns:
         - List of Payment objects
     """
     if column:
+        if join_table:
+            return payments.join_search(column,filter,join_table)
         return payments.filter(column,filter,order_criteria=Payment.date.desc())
     return payments.list(order_criteria=Payment.date.desc())
 
