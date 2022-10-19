@@ -18,7 +18,6 @@ class Discipline(db.Model):
     instructors = Column(String(255))
     dates = Column(String(255))
     monthly_cost = Column(Numeric())
-    currency= Column(String(3))
     available = Column(Boolean())
     deleted = Column(Boolean(), default=False)
     created_at = Column(db.DateTime, default=db.func.now())
@@ -33,12 +32,11 @@ class Discipline(db.Model):
         self.dates=discipline_data["dates"]
         self.monthly_cost=discipline_data["monthly_cost"]
         self.available=discipline_data["available"]
-        self.currency=discipline_data["currency"]
 
     def __repr__(self):
         return f"""{self.name} en la categoría {self.category} 
         con los instructores {self.instructors} 
-        con un costo de {self.monthly_cost} {self.currency} disponible en los días y horarios {self.dates}"""
+        con un costo de {self.monthly_cost} disponible en los días y horarios {self.dates}"""
 
     def to_dict(self):
         my_dict = self.__dict__

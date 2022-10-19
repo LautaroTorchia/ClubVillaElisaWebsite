@@ -58,6 +58,6 @@ def add_discipline(discipline_data,currency="ARS"):
         - Add discipline
     """
     discipline_data = csrf_remover(discipline_data)
-    discipline_data.update(currency=currency,available=bool_checker(discipline_data["available"]))
+    discipline_data.update(available=bool_checker(discipline_data["available"]))
     disciplines.add(Discipline(discipline_data))
 
