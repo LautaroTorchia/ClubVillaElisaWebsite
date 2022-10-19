@@ -41,11 +41,11 @@ def write_pdf_file(filename,data):
     
     pdf.set_fill_color(181, 161, 102)
     # create a cell
-    pdf.cell(180, 30, txt = "Club Deportivo Villa Elisa",ln = 1, align = 'C')
+    pdf.cell(190, 30, txt = "Club Deportivo Villa Elisa",ln = 1, align = 'C')
     
     # add another cell
     pdf.set_font("Arial", size = 15)
-    pdf.cell(180, 20, txt = "Reporte completo del listado de asociados",ln = 2, align = 'C')
+    pdf.cell(190, 20, txt = "Reporte completo del listado de asociados",ln = 2, align = 'C')
     
     pdf.set_font("Arial", size = 12)
     for associate in data:
