@@ -33,16 +33,18 @@ def build_payment(last_fee,associate):
     
     if last_fee.installment_number!=0: #if the associate has paid at least one fee
         if last_fee.date.month==datetime.now().month and last_fee.date.year==datetime.now().year: #if the last fee was paid this month
-            flash_number=1 
-        
-        elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
+            flash_number=1
             
+        elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
             flash_number=2
             amount+=amount*(config.due_fee/100)
             fee_date=last_fee.date.replace(month=last_fee.date.month+1)
             paid_late=True
             
         else:
+            if datetime.now().day>10: #if the person is paying after the 10th of the month
+                paid_late=True
+                amount+=amount*(config.due_fee/100)
             flash_number=3
             
     else:
