@@ -17,10 +17,9 @@ def associate_payments(id):
     Returns:
         JSON: List of payments for an associate
     """    
-    associate = get_associate_by_id(id)
-    payments = associate.payments
+    payments = list(filter(lambda x : x["deleted"]==False, map(lambda x: x.to_dict(), get_associate_by_id(id).payments)))
     if payments:
-        return response(200, list(map(lambda x: x.to_dict(), payments)))
+        return response(200, payments)
     else:
         return response(200,[])
 
