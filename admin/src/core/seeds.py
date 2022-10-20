@@ -211,4 +211,4 @@ def populate():
         print(e)
     
     associate=list_all_associates()[0]
-    create_payment(last_installment=1, amount= 800, date= "2022-03-03", associate=associate)
+    create_payment(last_installment=1, amount= 800, date= "2021-12-12", associate=associate)
