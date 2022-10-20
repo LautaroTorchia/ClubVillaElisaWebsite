@@ -61,6 +61,5 @@ class Associate(db.Model):
         self.entry_date=datetime.utcnow()
 
     def __repr__(self):
-        #TODO add user relation  
         return f"""{self.name} {self.surname} con el dni {self.DNI_number} con el correo {self.email}"""
         
