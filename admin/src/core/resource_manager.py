@@ -35,9 +35,13 @@ class ResourceManager():
     def add(self, obj):
         """Args:
             obj (Object): The object to add.
-        """        
-        self.dbs.add(obj)
-        self.dbs.commit()
+        """
+        try:
+            self.dbs.add(obj)
+            self.dbs.commit()
+        except Exception as e:
+            self.dbs.rollback()
+            raise e
 
     def _base_filter(self, col_name, text, query_in=None, class_in=None):
         """Args:

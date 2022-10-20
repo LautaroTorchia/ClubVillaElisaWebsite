@@ -11,6 +11,14 @@ def get_user_by_id(user_id):
     """    
     return users.query.filter(User.id == user_id).first()
 
+def get_user_by_email(user_email):
+    """Args:
+        user_id (int): The id of the user to retrieve.
+    Returns:
+        User: The user object.
+    """    
+    return users.query.filter(User.email == user_email).first()
+
 
 def list_users(column=None, filter=True):
     """Args:
