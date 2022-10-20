@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import session, abort
+from flask import session, abort, redirect, url_for
 from src.core.auth import user_has_permission
 
 
@@ -16,6 +16,16 @@ def login_required(f):
 
     return decorated_function
 
+def check_logged(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user") is not None:
+            return redirect(url_for('home'))
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
 
 def get_permissions():
     """Returns:
@@ -27,8 +37,6 @@ def get_permissions():
     actions_admin = [*actions_operator, "destroy"]
 
     operator_permissions = [
-        "associate_add_discip",
-        "associate_remove_discip",
         "payments_import",
     ]
     

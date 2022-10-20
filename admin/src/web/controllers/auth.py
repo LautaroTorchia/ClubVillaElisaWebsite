@@ -1,11 +1,12 @@
 from flask import Blueprint, redirect,render_template,request,url_for,flash,session
 from src.core.auth import get_by_usr_and_pwd
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import login_required,check_logged
 from src.web.forms.login import LoginForm
 
 auth_blueprint=Blueprint("auth",__name__,url_prefix="/autenticar")
 
 @auth_blueprint.get("/")
+@check_logged
 def login():
     """Returns:
         HTML: Login form.
@@ -13,6 +14,7 @@ def login():
     return render_template("login.html",form=LoginForm())
 
 @auth_blueprint.post("/iniciarSesion")
+@check_logged
 def authenticate():
     """Returns:
         HTML: Redirect to index.
