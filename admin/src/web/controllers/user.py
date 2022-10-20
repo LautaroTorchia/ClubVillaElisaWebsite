@@ -33,9 +33,12 @@ def index():
         ("last_name", "Apellido"),
         ("email", "Email"),
         ("username", "Usuario"),
+        ("true","Activo"),
+        ("false","Inactivo")
     ]
-
-    if request.args.get("search"):
+    if request.args.get("column") in ["true","false"]:
+        paginated_query_data = pagination_generator(list_users("active",request.args.get("column")), request,"users")
+    elif request.args.get("search"):
         paginated_query_data = pagination_generator(
             list_users(request.args.get("column"), request.args.get("search")),
             request,
