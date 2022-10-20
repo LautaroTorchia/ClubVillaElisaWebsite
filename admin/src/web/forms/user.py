@@ -19,6 +19,7 @@ class BasicUserForm(BaseForm):
     username = StringField(
         "Nombre de usuario", validators=[Length(max=255), InputRequired()]
     )
+    roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
     def validate_email(form, field):
         """Args:
@@ -46,7 +47,7 @@ class BasicUserForm(BaseForm):
             raise ValidationError("Nombre de usuario ya registrado")
         return True
         
-    roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
+    
 
     def __init__(self, formdata=..., **kwargs):
         super().__init__(**kwargs)
@@ -68,5 +69,5 @@ class UserForm(BasicUserForm):
     password = PasswordField(
         "Contraseña", validators=[Length(max=255), InputRequired()]
     )
-
+    roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
