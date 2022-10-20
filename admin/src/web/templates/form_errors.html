@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center flex-column">
 {% for field, errors in form.errors.items() %}
   {% for error in errors %}
   <span class="alert alert-danger flashes own_flash">{{ error }}</span>
