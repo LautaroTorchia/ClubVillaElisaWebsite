@@ -9,7 +9,7 @@ def get_user_by_id(user_id):
     Returns:
         User: The user object.
     """
-    return users.query.filter(User.id == user_id).first()
+    return users.get(value=user_id)
 
 
 def get_user_by(field, value):
@@ -18,8 +18,7 @@ def get_user_by(field, value):
     Returns:
         User: The user object.
     """
-    list=users.filter(field,value,paginate=False)
-    return None if list==[] else list.pop()
+    return users.get(field,value)
 
 def list_users(column=None, filter=True):
     """Args:

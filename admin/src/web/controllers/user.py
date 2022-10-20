@@ -95,7 +95,7 @@ def get_update(id):
         HTML: Form to update a user.
     """
     user = get_user_by_id(id)
-    form = BasicUserForm(obj=user, roles=get_roles())
+    form = BasicUserForm(obj=user, roles=get_roles(), user_id=id)
     return render_template("user/update.html", form=form)
 
 
@@ -107,7 +107,7 @@ def post_update(id):
     Returns:
         HTML: Redirect to user list.
     """
-    form = BasicUserForm(request.form, roles=get_roles())
+    form = BasicUserForm(request.form, roles=get_roles(), user_id=id)
     if form.validate():
         form = csrf_remover(form.data)
         roles_form = form.pop("roles")
@@ -124,8 +124,9 @@ def post_update(id):
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
             return render_template(
                 "user/update.html",
-                form=BasicUserForm(obj=user, roles=get_roles()),
+                form=BasicUserForm(obj=user, roles=get_roles(), user_id=id)
             )
+        flash("Usuario actualizado correctamente", "alert alert-info")
         return redirect(url_for("user.index"))
     return render_template("user/update.html", form=form)
 

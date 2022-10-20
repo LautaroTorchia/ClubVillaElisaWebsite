@@ -2,7 +2,7 @@ from wtforms.validators import Length, InputRequired, Email, ValidationError
 from wtforms import StringField, PasswordField, EmailField, SelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from src.web.forms.base_form import BaseForm
-from src.core.auth.repositories.user import get_user_by
+from src.core.auth.repositories.user import get_user_by, get_user_by_id
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -21,40 +21,41 @@ class BasicUserForm(BaseForm):
     )
     roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
-    def validate_email(form, field):
-        """Args:
-            form (CreateAssociateForm): Form to create a new associate
-            field (DNI_number): DNI number of the associate
-        Raises:
-            ValidationError: If the DNI number is already in use
-        Returns:
-            Boolean: True if the DNI number is not in use
-        """
-        if get_user_by("email",field.data):
-            raise ValidationError("Email ya registrado")
-        return True
-    
-    def validate_username(form, field):
-        """Args:
-            form (CreateAssociateForm): Form to create a new associate
-            field (DNI_number): DNI number of the associate
-        Raises:
-            ValidationError: If the DNI number is already in use
-        Returns:
-            Boolean: True if the DNI number is not in use
-        """
-        if get_user_by("username",field.data):
-            raise ValidationError("Nombre de usuario ya registrado")
-        return True
-        
-    
-
     def __init__(self, formdata=..., **kwargs):
+        self.user_id=kwargs.pop("user_id",None)
         super().__init__(**kwargs)
         try:
             self["roles"].choices = kwargs["roles"]
         except:
             pass
+
+    def validate_email(self, field):
+        """Args:
+            form (CreateAssociateForm): Form to create a new associate
+            field (DNI_number): DNI number of the associate
+        Raises:
+            ValidationError: If the DNI number is already in use
+        Returns:
+            Boolean: True if the DNI number is not in use
+        """
+        if get_user_by_id(self.user_id).email != field.data:
+            if get_user_by("email",field.data):
+                raise ValidationError("Email ya registrado")
+        return True
+    
+    def validate_username(self, field):
+        """Args:
+            form (CreateAssociateForm): Form to create a new associate
+            field (DNI_number): DNI number of the associate
+        Raises:
+            ValidationError: If the DNI number is already in use
+        Returns:
+            Boolean: True if the DNI number is not in use
+        """
+        if get_user_by_id(self.user_id).username != field.data:
+            if get_user_by("username",field.data):
+                raise ValidationError("Nombre de usuario ya registrado")
+        return True
 
 class UserForm(BasicUserForm):
     """Form to create a new user
@@ -70,4 +71,3 @@ class UserForm(BasicUserForm):
         "Contraseña", validators=[Length(max=255), InputRequired()]
     )
     roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
-

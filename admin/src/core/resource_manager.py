@@ -72,17 +72,16 @@ class ResourceManager:
         self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
-    def get(self, id):
+    def get(self, field="id", value=None):
         """Args:
             id (Integer): The id of the object to get.
         Returns:
             Object: The object.
         """
-        return self.query.filter(self.model_class.id == id).first()
+        return self.query.filter(getattr(self.model_class, field) == value).first()
 
     def list(
-        self, order_criteria: ColumnOperators = None, paginate: bool = True
-    ) -> Union[Pagination, list]:
+        self, order_criteria: ColumnOperators = None, paginate: bool = True) -> Union[Pagination, list]:
         """Returns a list of objects. pagination is enabled by default. order_criteria is optional.
 
         Args:
