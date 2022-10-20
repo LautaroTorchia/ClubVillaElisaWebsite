@@ -23,10 +23,13 @@ def authenticate():
         pwd=request.form["password"]
         user=get_by_usr_and_pwd(usr,pwd)
         if not user:
-            flash("Usuario o clave incorrecta.", category="alert alert-danger w-50")
+            flash("Usuario o clave incorrecta.", category="alert alert-danger")
             return redirect(url_for('auth.login'))
+        if not user.active:
+            flash("Usuario inactivo.", category="alert alert-danger")
+            return redirect(url_for('auth.login')) 
         session["user"]=user.id
-        flash("La sesion se inicio correctamente", category="alert alert-success w-50")
+        flash("La sesion se inicio correctamente", category="alert alert-success")
     return redirect(url_for('home'))
 
 @auth_blueprint.get("/cerrarSesion")
