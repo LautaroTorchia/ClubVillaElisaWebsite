@@ -18,14 +18,14 @@ from src.core.auth.user import User
 from src.web.forms.user import UserForm, UpdateUserForm
 from passlib.hash import sha256_crypt
 from src.web.helpers.form_utils import csrf_remover
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/usuarios")
 
 
 @user_blueprint.get("/")
-@login_required
+@has_permission("user_index")
 def index():
     """Returns:
         HTML: List of users.
@@ -52,7 +52,7 @@ def index():
     return render_template("user/list.html", pairs=pairs, **paginated_query_data)
 
 @user_blueprint.get("/agregar")
-@login_required
+@has_permission("user_create")
 def get_add():
     """Returns:
         HTML: Form to create a user.
@@ -62,7 +62,7 @@ def get_add():
     )
 
 @user_blueprint.post("/agregar")
-@login_required
+@has_permission("user_create")
 def post_add():
     """Returns:
         HTML: Redirect to user list.
@@ -88,7 +88,7 @@ def post_add():
         return render_template("user/add.html", form=form)
 
 @user_blueprint.get("/actualizar/<id>")
-@login_required
+@has_permission("user_update")
 def get_update(id):
     """Args:
         id (int): User id.
@@ -100,7 +100,7 @@ def get_update(id):
     return render_template("user/update.html", form=form)
 
 @user_blueprint.post("/actualizar/<id>")
-@login_required
+@has_permission("user_update")
 def post_update(id):
     """Args:
         id (int): User id.
@@ -131,7 +131,7 @@ def post_update(id):
 
 
 @user_blueprint.post("/borrar/<id>")
-@login_required
+@has_permission("user_destroy")
 def delete(id):
     """Args:
         id (int): Id of the user to delete.
@@ -144,7 +144,7 @@ def delete(id):
 
 
 @user_blueprint.post("/desactivar/<id>")
-@login_required
+@has_permission("user_update")
 def disable(id):
     """Args:
         id (int): Id of the user to disable.
@@ -160,7 +160,7 @@ def disable(id):
 
 # disabling associates
 @user_blueprint.post("/activar/<id>")
-@login_required
+@has_permission("user_update")
 def enable(id):
     """Args:
         id (int): Id of the user to enable.
