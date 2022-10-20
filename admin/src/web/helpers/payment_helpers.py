@@ -67,6 +67,14 @@ def build_payment(last_fee, associate):
             amount += amount * (config.due_fee / 100)
             flash_number = 3
 
+
+    elif (
+            datetime.now().day > 10
+        ):  # if the person is paying after the 10th of the month
+            paid_late = True
+            amount += amount * (config.due_fee / 100)
+            flash_number = 3
+    
     else:  # if the associate has not paid any fee
         flash_number = 3
 
