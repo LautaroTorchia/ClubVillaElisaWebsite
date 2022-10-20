@@ -1,6 +1,7 @@
 from src.web.helpers.form_utils import bool_checker, csrf_remover
 from src.core.board.discipline import Discipline
 from src.core.board import disciplines
+from src.core.board.repositories.associate import remove_discipline_to_associate
 
 def list_disciplines(column=None,filter=True):
     """ List all disciplines paginated with an option for a filter
@@ -39,6 +40,8 @@ def delete_discipline(id):
     Returns:
         - Get discipline by id
     """
+    for associate in disciplines.get(id).associates:
+        remove_discipline_to_associate(associate,disciplines.get(id))
     disciplines.delete(id)
 
 def update_discipline(id,discipline_data):

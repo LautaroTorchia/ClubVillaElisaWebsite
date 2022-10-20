@@ -1,6 +1,4 @@
-from logging import PlaceHolder
 from core.board import get_associate_by_DNI
-from flask_wtf import FlaskForm
 from src.web.forms.base_form import BaseForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, validators,EmailField
 from wtforms.validators import ValidationError,Email
