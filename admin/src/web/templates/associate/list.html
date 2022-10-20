@@ -38,8 +38,8 @@
         {% if has_permission(session["user"],"associate_update") %}
         <th>Modificar</th>
         {%endif%}
-        {% if has_permission(session["user"],"associate_add_discip") or
-        has_permission(session["user"],"associate_remove_discip") %}
+        {% if has_permission(session["user"],"associate_update") or
+        has_permission(session["user"],"associate_update") %}
         <th>Disciplinas</th>
         {%endif%}
         {% if has_permission(session["user"],"payments_create") %}
@@ -73,7 +73,7 @@
           </a>
         </td>
         {%endif%}
-        {% if has_permission(session["user"],"associate_add_discip") or
+        {% if has_permission(session["user"],"associate_update") or
         has_permission(session["user"],"associate_remove_discip") %}
         <td style="--title7:'Asig. Disciplinas';">
           <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
