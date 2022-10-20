@@ -17,12 +17,12 @@ class Configuration(db.Model):
     __tablename__ = "configuration"
     id = Column(Integer, primary_key=True)
     record_number = Column(Integer)
-    currency = Column(String(255))
+    currency = Column(String())
     base_fee = Column(Numeric())
     due_fee = Column(Numeric())
     payment_available = Column(Boolean())
-    contact = Column(String(255))
-    payment_header = Column(String(255))
+    contact = Column(String())
+    payment_header = Column(String())
 
     def __init__(self, configuration_data):
         self.record_number = configuration_data["record_number"]

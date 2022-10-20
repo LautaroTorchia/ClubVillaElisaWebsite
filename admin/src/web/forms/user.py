@@ -2,7 +2,7 @@ from wtforms.validators import Length, InputRequired, Email, ValidationError
 from wtforms import StringField, PasswordField, EmailField, SelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from src.web.forms.base_form import BaseForm
-from src.core.auth.repositories.user import get_user_by_email
+from src.core.auth.repositories.user import get_user_by
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -19,8 +19,9 @@ class BasicUserForm(BaseForm):
     username = StringField(
         "Nombre de usuario", validators=[Length(max=255), InputRequired()]
     )
+    roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
-    def validate_DNI_number(form, field):
+    def validate_email(form, field):
         """Args:
             form (CreateAssociateForm): Form to create a new associate
             field (DNI_number): DNI number of the associate
@@ -29,10 +30,31 @@ class BasicUserForm(BaseForm):
         Returns:
             Boolean: True if the DNI number is not in use
         """
-        if get_user_by_email(field.data):
+        if get_user_by("email",field.data):
             raise ValidationError("Email ya registrado")
         return True
+    
+    def validate_username(form, field):
+        """Args:
+            form (CreateAssociateForm): Form to create a new associate
+            field (DNI_number): DNI number of the associate
+        Raises:
+            ValidationError: If the DNI number is already in use
+        Returns:
+            Boolean: True if the DNI number is not in use
+        """
+        if get_user_by("username",field.data):
+            raise ValidationError("Nombre de usuario ya registrado")
+        return True
+        
+    
 
+    def __init__(self, formdata=..., **kwargs):
+        super().__init__(**kwargs)
+        try:
+            self["roles"].choices = kwargs["roles"]
+        except:
+            pass
 
 class UserForm(BasicUserForm):
     """Form to create a new user
@@ -49,31 +71,3 @@ class UserForm(BasicUserForm):
     )
     roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
-    def __init__(self, formdata=..., **kwargs):
-        super().__init__(**kwargs)
-        try:
-            self["roles"].choices = kwargs["roles"]
-        except:
-            pass
-
-
-class UpdateUserForm(BasicUserForm):
-    """Form to update a user
-    first_name: First name of the user
-    last_name: Last name of the user
-    email: Email of the user
-    username: Username of the user
-    roles: Roles of the user
-    """
-
-    roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
-
-    def __init__(self, formdata=..., **kwargs):
-        """Args:
-        formdata (dict): Form data
-        """
-        super().__init__(**kwargs)
-        try:
-            self["roles"].choices = kwargs["roles"]
-        except:
-            pass

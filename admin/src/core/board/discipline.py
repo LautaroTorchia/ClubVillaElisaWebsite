@@ -15,10 +15,10 @@ class Discipline(db.Model):
 
     __tablename__ = "disciplines"
     id = Column(Integer, primary_key=True)
-    name = Column(String(255))
-    category = Column(String(255))
-    instructors = Column(String(255))
-    dates = Column(String(255))
+    name = Column(String())
+    category = Column(String())
+    instructors = Column(String())
+    dates = Column(String())
     monthly_cost = Column(Numeric())
     available = Column(Boolean())
     deleted = Column(Boolean(), default=False)
