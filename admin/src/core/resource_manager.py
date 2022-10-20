@@ -72,13 +72,13 @@ class ResourceManager:
         self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
-    def get(self, field="id", value=None):
+    def get(self,value=None, field="id"):
         """Args:
             id (Integer): The id of the object to get.
         Returns:
             Object: The object.
         """
-        return self.query.filter(getattr(self.model_class, field) == value).first()
+        return self.query.filter(cast(getattr(self.model_class, field), String) == str(value)).first()
 
     def list(
         self, order_criteria: ColumnOperators = None, paginate: bool = True) -> Union[Pagination, list]:
