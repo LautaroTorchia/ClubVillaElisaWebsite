@@ -10,7 +10,8 @@ payment_api_blueprint = Blueprint("payment_api", __name__, url_prefix="/payments
 # request.form.id
 @payment_api_blueprint.get("/<id>")
 def associate_payments(id):
-    """Args:
+    """Gets payments from associate
+    Args:
         id (int): Associate id
     Returns:
         JSON: List of payments for an associate
@@ -32,10 +33,11 @@ def associate_payments(id):
 
 @payment_api_blueprint.post("/<id>")
 def add_payment(id):
-    """Args:
+    """Adds a payment to an associate
+    Args:
         id (int): Associate id
     Returns:
-        Str: Success message
+        JSON: Payment created/error
     """
     associate = get_associate_by_id(id)
     if not associate:
@@ -43,9 +45,6 @@ def add_payment(id):
     last_fee = get_last_fee_paid(associate)
     flash_number, paid_late, fee_date, amount = build_payment(last_fee, associate)
 
-    associate = get_associate_by_id(id)
-    last_fee = get_last_fee_paid(associate)
-    flash_number, paid_late, fee_date, amount = build_payment(last_fee, associate)
     if flash_number == 1:
         message = "Pago rechazado"
         status = 400
