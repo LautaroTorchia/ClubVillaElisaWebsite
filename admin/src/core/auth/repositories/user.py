@@ -12,14 +12,14 @@ def get_user_by_id(user_id):
     return users.query.filter(User.id == user_id).first()
 
 
-def get_user_by_email(user_email):
+def get_user_by(field, value):
     """Args:
         user_id (int): The id of the user to retrieve.
     Returns:
         User: The user object.
     """
-    return users.query.filter(User.email == user_email).first()
-
+    list=users.filter(field,value,paginate=False)
+    return None if list==[] else list.pop()
 
 def list_users(column=None, filter=True):
     """Args:

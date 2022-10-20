@@ -14,8 +14,7 @@ from src.core.auth import (
     get_role,
     remove_role_to_user,
 )
-from src.core.auth.user import User
-from src.web.forms.user import UserForm, UpdateUserForm
+from src.web.forms.user import UserForm, BasicUserForm
 from passlib.hash import sha256_crypt
 from src.web.helpers.form_utils import csrf_remover
 from src.web.helpers.auth import has_permission
@@ -77,15 +76,12 @@ def post_add():
             return render_template("user/add.html", form=UserForm(roles=get_roles()))
 
         form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
-        try:
-            user = create_user(form_encp)
-            for role in form_encp["roles"]:
-                add_role_to_user(user, get_role(role))
-            flash("Usuario creado correctamente", "alert alert-info")
-            return redirect(url_for("user.index"))
-        except:
-            flash("Error al crear el usuario", "alert alert-danger")
-            return render_template("user/add.html", form=form)
+        user = create_user(form_encp)
+        for role in form_encp["roles"]:
+            add_role_to_user(user, get_role(role))
+        flash("Usuario creado correctamente", "alert alert-info")
+        return redirect(url_for("user.index"))
+
     else:
         return render_template("user/add.html", form=form)
 
@@ -99,7 +95,7 @@ def get_update(id):
         HTML: Form to update a user.
     """
     user = get_user_by_id(id)
-    form = UpdateUserForm(obj=user, roles=get_roles())
+    form = BasicUserForm(obj=user, roles=get_roles())
     return render_template("user/update.html", form=form)
 
 
@@ -111,7 +107,7 @@ def post_update(id):
     Returns:
         HTML: Redirect to user list.
     """
-    form = UpdateUserForm(request.form, roles=get_roles())
+    form = BasicUserForm(request.form, roles=get_roles())
     if form.validate():
         form = csrf_remover(form.data)
         roles_form = form.pop("roles")
@@ -128,7 +124,7 @@ def post_update(id):
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
             return render_template(
                 "user/update.html",
-                form=UpdateUserForm(obj=user, roles=get_roles()),
+                form=BasicUserForm(obj=user, roles=get_roles()),
             )
         return redirect(url_for("user.index"))
     return render_template("user/update.html", form=form)

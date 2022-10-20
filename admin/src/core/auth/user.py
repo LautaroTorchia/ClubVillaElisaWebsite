@@ -23,14 +23,14 @@ class User(db.Model):
 
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    email = Column(String(255), unique=True)
-    username = Column(String(255), unique=True)
-    password = Column(String(255))
+    email = Column(String())
+    username = Column(String())
+    password = Column(String())
     active = Column(Boolean(), default=True)
     updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = Column(db.DateTime, default=datetime.utcnow)
-    first_name = Column(String(255))
-    last_name = Column(String(255))
+    first_name = Column(String())
+    last_name = Column(String())
     deleted = Column(Boolean(), default=False)
 
     roles = db.relationship("Role", secondary="user_roles", back_populates="users")
