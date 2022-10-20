@@ -66,7 +66,12 @@ def index():
             list_payments(), request, "payments"
         )
 
-    return render_template("payments/list.html", pairs=pairs, **paginated_query_data,currency=get_cfg().currency)
+    return render_template(
+        "payments/list.html",
+        pairs=pairs,
+        **paginated_query_data,
+        currency=get_cfg().currency,
+    )
 
 
 # deleting a payment

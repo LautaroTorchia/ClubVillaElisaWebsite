@@ -28,18 +28,20 @@ user_blueprint = Blueprint("user", __name__, url_prefix="/usuarios")
 @has_permission("user_index")
 def index():
     """Returns:
-        HTML: List of users.
-    """    
+    HTML: List of users.
+    """
     pairs = [
         ("first_name", "Nombre"),
         ("last_name", "Apellido"),
         ("email", "Email"),
         ("username", "Usuario"),
-        ("true","Activo"),
-        ("false","Inactivo")
+        ("true", "Activo"),
+        ("false", "Inactivo"),
     ]
-    if request.args.get("column") in ["true","false"]:
-        paginated_query_data = pagination_generator(list_users("active",request.args.get("column")), request,"users")
+    if request.args.get("column") in ["true", "false"]:
+        paginated_query_data = pagination_generator(
+            list_users("active", request.args.get("column")), request, "users"
+        )
     elif request.args.get("search"):
         paginated_query_data = pagination_generator(
             list_users(request.args.get("column"), request.args.get("search")),
@@ -51,28 +53,28 @@ def index():
 
     return render_template("user/list.html", pairs=pairs, **paginated_query_data)
 
+
 @user_blueprint.get("/agregar")
 @has_permission("user_create")
 def get_add():
     """Returns:
-        HTML: Form to create a user.
-    """    
-    return render_template(
-        "user/add.html", form=UserForm(roles=get_roles())
-    )
+    HTML: Form to create a user.
+    """
+    return render_template("user/add.html", form=UserForm(roles=get_roles()))
+
 
 @user_blueprint.post("/agregar")
 @has_permission("user_create")
 def post_add():
     """Returns:
-        HTML: Redirect to user list.
-    """    
-    form = UserForm(request.form, roles = get_roles())
+    HTML: Redirect to user list.
+    """
+    form = UserForm(request.form, roles=get_roles())
     if not form.validate():
         form_encp = dict(form.data)
         if form_encp["roles"] == []:
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
-            return render_template("user/add.html",form=UserForm(roles=get_roles()))
+            return render_template("user/add.html", form=UserForm(roles=get_roles()))
 
         form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
         try:
@@ -87,6 +89,7 @@ def post_add():
     else:
         return render_template("user/add.html", form=form)
 
+
 @user_blueprint.get("/actualizar/<id>")
 @has_permission("user_update")
 def get_update(id):
@@ -94,10 +97,11 @@ def get_update(id):
         id (int): User id.
     Returns:
         HTML: Form to update a user.
-    """    
+    """
     user = get_user_by_id(id)
     form = UpdateUserForm(obj=user, roles=get_roles())
     return render_template("user/update.html", form=form)
+
 
 @user_blueprint.post("/actualizar/<id>")
 @has_permission("user_update")
@@ -106,7 +110,7 @@ def post_update(id):
         id (int): User id.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
     form = UpdateUserForm(request.form, roles=get_roles())
     if form.validate():
         form = csrf_remover(form.data)
@@ -137,7 +141,7 @@ def delete(id):
         id (int): Id of the user to delete.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
     flash(f"Se elimino al usuario satisfactoriamente", category="alert alert-warning")
     delete_user(id)
     return redirect(url_for("user.index"))
@@ -150,11 +154,14 @@ def disable(id):
         id (int): Id of the user to disable.
     Returns:
         HTML: Redirect to user list.
-    """    
-    user=get_user_by_id(id)
+    """
+    user = get_user_by_id(id)
     for role in user.roles:
         if role.name == "Admin":
-            flash(f"No se puede desactivar al usuario {user.username} porque es administrador", category="alert alert-warning")
+            flash(
+                f"No se puede desactivar al usuario {user.username} porque es administrador",
+                category="alert alert-warning",
+            )
             return redirect(url_for("user.index"))
     flash(
         f"Se deshabilito al usuario satisfactoriamente", category="alert alert-warning"
@@ -171,7 +178,7 @@ def enable(id):
         id (int): Id of the user to enable.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
     flash(f"Se habilito al usuario satisfactoriamente", category="alert alert-warning")
     enable_user(id)
     return redirect(url_for("user.index"))

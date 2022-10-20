@@ -12,7 +12,7 @@ class ConfigForm(BaseForm):
     payment_available: Visibility of the payments table on the public page
     contact: Contact info of the club
     payment_header: Header text of the payment receipts
-    """    
+    """
 
     record_number = IntegerField(
         "Cantidad de filas por página",

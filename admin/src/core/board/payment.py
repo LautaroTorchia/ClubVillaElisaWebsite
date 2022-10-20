@@ -17,17 +17,18 @@ class Payment(db.Model):
     amount = Column(Float)
     installment_number = Column(Integer)
     deleted = Column(Boolean(), default=False)
-    
-    
+
     associate_id = Column(Integer, db.ForeignKey("associates.id"), nullable=False)
     associate = db.relationship("Associate")
 
-    def __init__(self, amount, installment_number, associate_id, date=None,paid_late=False):
+    def __init__(
+        self, amount, installment_number, associate_id, date=None, paid_late=False
+    ):
         self.amount = amount
         self.installment_number = installment_number
-        self.associate_id=associate_id
-        self.date=date
-        self.paid_late=paid_late
+        self.associate_id = associate_id
+        self.date = date
+        self.paid_late = paid_late
 
     def __repr__(self):
         return f"""{self.date} fecha de pago de 
@@ -35,5 +36,5 @@ class Payment(db.Model):
 
     def to_dict(self):
         my_dict = self.__dict__
-        del my_dict['_sa_instance_state']
+        del my_dict["_sa_instance_state"]
         return my_dict

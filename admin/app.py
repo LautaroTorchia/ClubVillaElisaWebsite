@@ -2,7 +2,7 @@ from pathlib import Path
 from src.web import create_app
 
 
-static_folder = Path(__file__).parent.joinpath("public")  
+static_folder = Path(__file__).parent.joinpath("public")
 app = create_app(static_folder=static_folder)
 
 

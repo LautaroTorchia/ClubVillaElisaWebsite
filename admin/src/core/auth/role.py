@@ -7,11 +7,12 @@ roles_permissions = db.Table(
     Column("permission_id", Integer, db.ForeignKey("permissions.id"), primary_key=True),
 )
 
+
 class Role(db.Model):
     """Model for the roles table.
     Args:
         name (str): The name of the role.
-    """    
+    """
 
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
@@ -23,12 +24,12 @@ class Role(db.Model):
 
     def __init__(self, name):
         """Args:
-            name (str): The name of the role.
-        """        
+        name (str): The name of the role.
+        """
         self.name = name
 
     def __repr__(self):
         """Returns:
-            str: The string representation of the role.
-        """        
+        str: The string representation of the role.
+        """
         return f"{self.name}"

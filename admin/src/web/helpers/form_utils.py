@@ -5,12 +5,15 @@ def bool_checker(attribute):
         ValueError: If the attribute is not a boolean
     Returns:
         bool: Returns the attribute as a boolean
-    """    
+    """
     if type(attribute) == bool:
         return attribute
     if type(attribute) == str:
         return True if attribute == "True" else False
-    raise ValueError(f"This should be a bool or the str values 'True' o 'False' it was {attribute}")
+    raise ValueError(
+        f"This should be a bool or the str values 'True' o 'False' it was {attribute}"
+    )
+
 
 def csrf_remover(form):
     """Args:

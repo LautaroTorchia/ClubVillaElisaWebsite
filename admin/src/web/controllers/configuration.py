@@ -14,8 +14,8 @@ configuration_blueprint = Blueprint(
 @has_permission("configuration_index")
 def index():
     """Returns:
-        HTML: Form to update configuration.
-    """    
+    HTML: Form to update configuration.
+    """
     return render_template("configuration.html", form=ConfigForm(obj=get_cfg()))
 
 
@@ -23,8 +23,8 @@ def index():
 @has_permission("configuration_update")
 def update():
     """Returns:
-        HTML: Redirect to configuration list.
-    """    
+    HTML: Redirect to configuration list.
+    """
     form = ConfigForm(request.form)
     if form.validate():
         form = csrf_remover(request.form)
