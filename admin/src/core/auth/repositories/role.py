@@ -52,3 +52,12 @@ def get_role(role_name):
         return roles.filter("name", role_name, paginate=False)[0]
     except:
         return None
+
+def role_has_permission(role,permission):
+    """Args:
+        role (Role): The role to check.
+        permission (Permission): The permission to check.
+    Returns:
+        bool: True if the role has the permission, False otherwise.
+    """    
+    return permission in map(lambda perm: perm.name,role.permissions)

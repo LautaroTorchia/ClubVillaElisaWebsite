@@ -1,6 +1,5 @@
 import csv 
 from fpdf import FPDF
-from flask import render_template
  
 
 def write_csv_file(filename,data):

@@ -3,6 +3,7 @@ from passlib.hash import sha256_crypt
 from src.core.auth import users
 
 
+
 def get_user_by_id(user_id):
     """Args:
         user_id (int): The id of the user to retrieve.
@@ -115,9 +116,6 @@ def user_has_permission(user_id,permission):
     Returns:
         Boolean: Whether the user has the permission or not.
     """    
+    from src.core.auth import role_has_permission
     user = get_user_by_id(user_id)
-    for role in user.roles:
-        for perm in role.permissions:
-            if perm.name == permission:
-                return True
-    return False
+    return any([role_has_permission(role,permission) for role in user.roles])
