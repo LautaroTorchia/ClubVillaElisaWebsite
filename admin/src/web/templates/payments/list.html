@@ -32,7 +32,7 @@
         <td style="--title1:'Nombre';"> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
         <td style="--title2:'Nro. Socio';"> {{ payment.associate.id }} </td>
         <td style="--title3:'Fecha';"> {{ payment.date.strftime('%m-%y') }} </td>
-        <td style="--title4:'Monto';"> {{ payment.amount }} </td>
+        <td style="--title4:'Monto';"> {{ payment.amount }} {{ currency }} </td>
         <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
         {% if has_permission(session["user"],"payments_destroy") %}
           <td style="--title6:'Eliminar';">
