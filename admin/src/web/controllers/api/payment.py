@@ -15,10 +15,13 @@ def associate_payments(id):
     Returns:
         JSON: List of payments for an associate
     """
+    associate = get_associate_by_id(id)
+    if not associate:
+        return response(404, "No existe el asociado")
     payments = list(
         filter(
             lambda x: x["deleted"] == False,
-            map(lambda x: x.to_dict(), get_associate_by_id(id).payments),
+            map(lambda x: x.to_dict(), associate.payments),
         )
     )
     if payments:
@@ -35,6 +38,8 @@ def add_payment(id):
         Str: Success message
     """
     associate = get_associate_by_id(id)
+    if not associate:
+        return response(404, "No existe el asociado")
     last_fee = get_last_fee_paid(associate)
     flash_number, paid_late, fee_date, amount = build_payment(last_fee, associate)
 

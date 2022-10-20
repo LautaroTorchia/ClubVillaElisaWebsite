@@ -18,6 +18,7 @@ def api_user(user_id):
     Returns:
         JSON: User data
     """
-    user = get_user_by_id(user_id).to_dict()
-    user.pop("password")
-    return response(200, user)
+    user = get_user_by_id(user_id)
+    if user:
+        return response(200, user.to_dict().pop("password"))
+    return response(404, "No existe el usuario")

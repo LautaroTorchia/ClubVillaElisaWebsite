@@ -1,6 +1,6 @@
 from flask import Blueprint
 from src.web.helpers.build_response import response
-
+from src.core.board import get_cfg
 
 info_api_blueprint = Blueprint("info_api", __name__, url_prefix="/info")
 
@@ -11,5 +11,5 @@ def index_api():
     JSON: Information about the club.
     """
     return response(
-        200, {"email": "clubdeportivovillaelisa@gmail.com", "phone": "0221 487-0193"}
+        200, {"Contacto": get_cfg().contact}
     )

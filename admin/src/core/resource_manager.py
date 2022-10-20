@@ -72,7 +72,7 @@ class ResourceManager:
         self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
-    def get(self, field="id", value=None):
+    def get(self, value=None, field="id"):
         """Args:
             id (Integer): The id of the object to get.
         Returns:

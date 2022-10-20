@@ -17,21 +17,28 @@ class ConfigForm(BaseForm):
     record_number = IntegerField(
         "Cantidad de filas por página",
         default=5,
-        validators=[validators.input_required()],
+        validators=[
+            validators.input_required(),
+            NumberRange(min = 1, message = "No pueden haber 0 filas por página"),   
+        ],
     )
     currency = SelectField(
         "Moneda",
         choices=[("ARS", "Peso Argentino"), ("USD", "Dolar")],
     )
     base_fee = DecimalField(
-        "Cuota mensual base", default=500, validators=[validators.input_required()]
+        "Cuota mensual base", default=500, 
+        validators=[
+            validators.input_required(),
+            validators.number_range(min = 0, message = "El monto no puede ser negativo"),
+        ]
     )
     due_fee = DecimalField(
         "Recargo por cuota adeudada (%)",
         default=10,
         validators=[
             validators.input_required(),
-            NumberRange(0, 100, message="El costo mensual debe ser mayor a 0"),
+            NumberRange(0, 100, message="El recargo por cuota adeudada debe estar entre 0 y 100."),
         ],
     )
     payment_available = SelectField(
