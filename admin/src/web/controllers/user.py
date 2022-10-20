@@ -68,26 +68,22 @@ def post_add():
         HTML: Redirect to user list.
     """    
     form = UserForm(request.form, roles = get_roles())
-    if form.validate():
+    if not form.validate():
         form_encp = dict(form.data)
-        if form_encp["roles"] != []:
-            form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
-            try:
-                user = create_user(form_encp)
-                user = get_user_by_id(user.id)
-                for role in form_encp["roles"]:
-                    add_role_to_user(user, get_role(role))
-                flash("Usuario creado correctamente", "alert alert-info")
-            except:
-                flash("Error al crear el usuario", "alert alert-danger")
-                return render_template("user/add.html", form=form)
-        else:
+        if form_encp["roles"] == []:
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
-            return render_template(
-                "user/add.html",
-                form=UserForm(roles=get_roles()),
-            )
-        return redirect(url_for("user.index"))
+            return render_template("user/add.html",form=UserForm(roles=get_roles()))
+
+        form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
+        try:
+            user = create_user(form_encp)
+            for role in form_encp["roles"]:
+                add_role_to_user(user, get_role(role))
+            flash("Usuario creado correctamente", "alert alert-info")
+            return redirect(url_for("user.index"))
+        except:
+            flash("Error al crear el usuario", "alert alert-danger")
+            return render_template("user/add.html", form=form)
     else:
         return render_template("user/add.html", form=form)
 
