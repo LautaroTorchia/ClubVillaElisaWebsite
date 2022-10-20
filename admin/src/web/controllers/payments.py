@@ -127,7 +127,7 @@ def confirm_payment_get(id):
         date=fee_date.strftime("%m-%Y"),
         amount=amount,
         paid_late=paid_late,
-        installment_number=last_fee.installment_number,
+        installment_number=last_fee.installment_number+1,
         tipo_de_moneda=get_cfg().currency,
     )
 
