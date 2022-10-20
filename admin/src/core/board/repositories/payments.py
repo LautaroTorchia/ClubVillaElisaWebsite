@@ -4,7 +4,6 @@ from src.core.board import payments
 from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 
-# listing payments
 def list_payments(column=None, filter=True, join_table=None):
     """List all payments
     Returns:
@@ -19,7 +18,6 @@ def list_payments(column=None, filter=True, join_table=None):
     return payments.list(order_criteria=Payment.date.desc())
 
 
-# get last fee paid
 def get_last_fee_paid(associate):
     """Get last fee paid
     Returns:
@@ -37,7 +35,6 @@ def get_last_fee_paid(associate):
     )
 
 
-# creating a payment
 def create_payment(
     associate, amount, last_installment, paid_late=False, date=datetime.now()
 ):
@@ -64,7 +61,6 @@ def get_payment_by_id(id):
     return payments.get(id)
 
 
-# delete payment
 def delete_payment(id):
     """Delete a payment
     Returns:
@@ -73,7 +69,6 @@ def delete_payment(id):
     return payments.delete(id)
 
 
-# update payment with updated amount
 def update_payment(payment, amount):
     """Update a payment
     Returns:

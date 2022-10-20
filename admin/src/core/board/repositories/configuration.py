@@ -2,7 +2,6 @@ from src.core.board.configuration import Configuration
 
 from src.core.db import db
 
-# begin config repo
 def get_cfg():
     """Get configuration
     Returns:
@@ -47,5 +46,3 @@ def update_cfg(cfg_data):
     db.session.commit()
     return cfg_data
 
-
-# end config repo
