@@ -115,7 +115,7 @@ class ResourceManager():
     def _base_join(self,join_table):
         return self._base_query(self.model_class).join(join_table).filter(join_table.deleted==False)
 
-    def join_search(self, col_name:str, match:str,join_table:Table, paginate:bool=True) -> Union[Pagination, list]:
+    def join_search(self, col_name:str, match:str,join_table:Table, paginate:bool=True,order_criteria=False) -> Union[Pagination, list]:
         """ Returns a list of filtered objects of a certain column of a join. pagination is enabled by default.
 
         Args:
@@ -129,6 +129,7 @@ class ResourceManager():
         """        
 
         from src.core.board.repositories.configuration import get_cfg
+        ordered_query = self._base_filter(col_name, match,self._base_join(join_table),join_table).order_by(order_criteria)
         if paginate:
-            return self._base_filter(col_name, match,self._base_join(join_table),join_table).paginate(per_page=get_cfg().record_number, error_out=False)
-        return self._base_filter(col_name, match,self._base_join(join_table),join_table).all()
+            return ordered_query.paginate(per_page=get_cfg().record_number, error_out=False)
+        return ordered_query.all()

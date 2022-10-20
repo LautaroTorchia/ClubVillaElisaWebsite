@@ -12,7 +12,7 @@ def list_payments(column=None,filter=True, join_table=None):
     """
     if column:
         if join_table:
-            return payments.join_search(column,filter,join_table)
+            return payments.join_search(column,filter,join_table,order_criteria=Payment.date.desc())
         return payments.filter(column,filter,order_criteria=Payment.date.desc())
     return payments.list(order_criteria=Payment.date.desc())
 
