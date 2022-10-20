@@ -127,9 +127,9 @@ def write_pdf():
     return send_file(PDF_PATH,as_attachment=True)
 
 
-#add a new discipline to the associate
+# add a new discipline to the associate
 @associate_blueprint.get("/agregar/<id>")
-@has_permission("associate_create")
+@has_permission("associate_update")
 def add_discipline(id):
     """Args:
         id (int): id of the associate
@@ -151,9 +151,9 @@ def add_discipline(id):
         return redirect(url_for("associate.index"))
 
 
-#add a discipline to the associate
+# add a discipline to the associate
 @associate_blueprint.post("/agregar_disciplina/<id>/<discipline_id>")
-@has_permission("associate_add_discip")
+@has_permission("associate_update")
 def register_discipline(id,discipline_id):
     """Args:
         id (int): id of the associate
@@ -173,9 +173,9 @@ def register_discipline(id,discipline_id):
     return redirect(url_for("associate.add_discipline",id=id))
 
 
-#delete a discipline from the associate
+# delete a discipline from the associate
 @associate_blueprint.post("/quitar_disciplina/<id>/<discipline_id>")
-@has_permission("associate_remove_discip") # TODO preguntar
+@has_permission("associate_update")
 def delete_discipline(id,discipline_id):
     """Args:
         id (int): id of the associate
