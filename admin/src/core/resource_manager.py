@@ -72,11 +72,12 @@ class ResourceManager:
         self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
-    def get(self, field="id", value=None):
+    def get(self, value=None, field="id"):
         """Args:
-            id (Integer): The id of the object to get.
+            field (String): The field to filter.
+            value (Any): The value to filter.
         Returns:
-            Object: The object.
+            Object: First object of list.
         """
         return self.query.filter(getattr(self.model_class, field) == value).first()
 

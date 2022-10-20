@@ -18,7 +18,7 @@ def get_user_by(field, value):
     Returns:
         User: The user object.
     """
-    return users.get(field,value)
+    return users.get(value,field)
 
 def list_users(column=None, filter=True):
     """Args:
