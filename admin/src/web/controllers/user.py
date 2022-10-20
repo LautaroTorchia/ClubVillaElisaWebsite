@@ -151,6 +151,11 @@ def disable(id):
     Returns:
         HTML: Redirect to user list.
     """    
+    user=get_user_by_id(id)
+    for role in user.roles:
+        if role.name == "Admin":
+            flash(f"No se puede desactivar al usuario {user.username} porque es administrador", category="alert alert-warning")
+            return redirect(url_for("user.index"))
     flash(
         f"Se deshabilito al usuario satisfactoriamente", category="alert alert-warning"
     )
