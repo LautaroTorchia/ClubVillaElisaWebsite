@@ -22,7 +22,7 @@ class BasicUserForm(BaseForm):
     roles = MultiCheckboxField("Roles", validate_choice=False, choices=[])
 
     def __init__(self, formdata=..., **kwargs):
-        self.user_id=kwargs.pop("user_id",None)
+        self.user_id = kwargs.pop("user_id", None)
         super().__init__(**kwargs)
         try:
             self["roles"].choices = kwargs["roles"]
@@ -38,11 +38,17 @@ class BasicUserForm(BaseForm):
         Returns:
             Boolean: True if the DNI number is not in use
         """
-        if get_user_by_id(self.user_id).email != field.data:
-            if get_user_by("email",field.data):
+        if self.user_id:
+            if get_user_by_id(self.user_id).email != field.data and get_user_by(
+                "email", field.data
+            ):
                 raise ValidationError("Email ya registrado")
+        else:
+            if get_user_by("email", field.data):
+                raise ValidationError("Email ya registrado")
+
         return True
-    
+
     def validate_username(self, field):
         """Args:
             form (CreateAssociateForm): Form to create a new associate
@@ -52,10 +58,16 @@ class BasicUserForm(BaseForm):
         Returns:
             Boolean: True if the DNI number is not in use
         """
-        if get_user_by_id(self.user_id).username != field.data:
-            if get_user_by("username",field.data):
+        if self.user_id:
+            if get_user_by_id(self.user_id).username != field.data and get_user_by(
+                "username", field.data
+            ):
+                raise ValidationError("Nombre de usuario ya registrado")
+        else:
+            if get_user_by("username", field.data):
                 raise ValidationError("Nombre de usuario ya registrado")
         return True
+
 
 class UserForm(BasicUserForm):
     """Form to create a new user

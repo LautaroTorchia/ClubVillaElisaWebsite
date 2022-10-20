@@ -74,9 +74,10 @@ class ResourceManager:
 
     def get(self, value=None, field="id"):
         """Args:
-            id (Integer): The id of the object to get.
+            field (String): The field to filter.
+            value (Any): The value to filter.
         Returns:
-            Object: The object.
+            Object: First object of list.
         """
         return self.query.filter(getattr(self.model_class, field) == value).first()
 
