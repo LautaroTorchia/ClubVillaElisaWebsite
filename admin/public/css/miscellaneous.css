@@ -380,7 +380,6 @@ th {
     justify-content:center;
     align-items:center;
     text-align:center;
-    margin:0 20%;
   }
   .own_main_table {
     width: 100% !important;
@@ -426,6 +425,23 @@ th {
 }
 
 @media (width < 360px) {
+    td{
+        position: relative;
+        overflow:hidden;
+    }
+    td::before{
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+        display:inline-block !important;
+    }
+    .btn,.btn-outline-secondary,.btn-outline-info,.btn-outline-warning{
+        width:100% !important;
+    }
+    #roles {
+        flex-direction: column !important;
+        gap:8px;
+    }
   #searchBar{
     display:flex;
     flex-direction:column;
