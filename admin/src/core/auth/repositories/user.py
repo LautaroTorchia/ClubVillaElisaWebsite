@@ -39,6 +39,9 @@ def delete_user(user_id):
     """Args:
         user_id (int): The id of the user to delete.
     """    
+    user=get_user_by_id(user_id)
+    for roles in user.roles:
+        remove_role_to_user(user, roles)
     users.delete(user_id)
 
 
