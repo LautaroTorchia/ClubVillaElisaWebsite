@@ -77,6 +77,7 @@ def post_add():
                 user = get_user_by_id(user.id)
                 for role in form_encp["roles"]:
                     add_role_to_user(user, get_role(role))
+                flash("Usuario creado correctamente", "alert alert-info")
             except:
                 flash("Error al crear el usuario", "alert alert-danger")
                 return render_template("user/add.html", form=form)
