@@ -28,8 +28,6 @@ def index():
     """Returns:
         HTML: List of users.
     """    
-    # return render_template("user/list.html", users=list_users())
-
     pairs = [
         ("first_name", "Nombre"),
         ("last_name", "Apellido"),
@@ -55,7 +53,7 @@ def get_add():
         HTML: Form to create a user.
     """    
     return render_template(
-        "user/add.html", form=UserForm(roles=list(map(lambda r: (r, r), get_roles())))
+        "user/add.html", form=UserForm(roles=get_roles())
     )
 
 @user_blueprint.post("/agregar")
@@ -64,7 +62,7 @@ def post_add():
     """Returns:
         HTML: Redirect to user list.
     """    
-    form = UserForm(request.form)
+    form = UserForm(request.form,roles=get_roles())
     if form.validate():
         form_encp = dict(form.data)
         if form_encp["roles"] != []:
@@ -77,7 +75,7 @@ def post_add():
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
             return render_template(
                 "user/add.html",
-                form=UserForm(roles=list(map(lambda r: (r, r), get_roles()))),
+                form=UserForm(roles=get_roles()),
             )
     return render_template("user/add.html", form=form)
 
@@ -101,7 +99,7 @@ def post_update(id):
     Returns:
         HTML: Redirect to user list.
     """    
-    form = UpdateUserForm(request.form)
+    form = UpdateUserForm(request.form, roles=get_roles())
     if form.validate():
         form = csrf_remover(form.data)
         roles_form = form.pop("roles")
