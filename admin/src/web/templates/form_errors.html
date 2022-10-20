@@ -1,7 +1,7 @@
+<div class="d-flex justify-content-center">
 {% for field, errors in form.errors.items() %}
-<ul class="errors">
   {% for error in errors %}
-  <li class="alert alert-danger w-50 ">{{ error }}</li>
+  <span class="alert alert-danger flashes own_flash">{{ error }}</span>
   {% endfor %}
-</ul>
 {% endfor %}
+</div>
