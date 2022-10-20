@@ -35,7 +35,7 @@ def build_payment(last_fee,associate):
         if last_fee.date.month==datetime.now().month and last_fee.date.year==datetime.now().year: #if the last fee was paid this month
             flash_number=1
             
-        elif (datetime.now()-last_fee.date).days>60: #if the last fee was paid more than one month ago
+        elif (datetime.now().month>=last_fee.date.month+2): #if the last fee was paid more than one month ago
             flash_number=2
             amount+=amount*(config.due_fee/100)
             fee_date=last_fee.date.replace(month=last_fee.date.month+1)
@@ -74,7 +74,7 @@ def make_receipt(payment,RCPT_PATH):
     receipt.paste(logo,(15,40),logo)
     
     from src.core.board.repositories.configuration import get_cfg
-    draw.text((230,10),f"Recibo de pago #{payment.installment_number}",fill="black",font=titleFont)
+    draw.text((230,10),f"{get_cfg().payment_header} #{payment.installment_number}",fill="black",font=titleFont)
     draw.text((615,20),f"Fecha: {datetime.now().strftime('%d/%m/%Y')}",fill="black",font=nameFont)
     draw.text((230,125),f"Recibimos de : {payment.associate.name} {payment.associate.surname}",fill="black",font=nameFont)
     draw.text((230,175),f"el importe ${payment.amount} {get_cfg().currency}",fill="black",font=nameFont)

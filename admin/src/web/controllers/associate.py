@@ -1,11 +1,12 @@
 import os
+from src.core.board.repositories.configuration import get_cfg
 from flask import Blueprint, render_template, request, redirect, url_for,flash,send_file
 from src.core.board import create_associate, delete_associate,get_associate_by_id, list_associates, update_associate,add_discipline_to_associate,remove_discipline_to_associate,get_discipline,list_all_associates,list_all_disciplines
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file,write_pdf_file
 from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
-from src.web.helpers.associate import no_es_moroso
+from src.web.helpers.associate import is_up_to_date
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_associate_by_id
 
@@ -137,14 +138,14 @@ def add_discipline(id):
         HTML: Redirect to associate list.
     """    
     associate=get_associate_by_id(id)
-    if no_es_moroso(associate):
+    if is_up_to_date(associate):
         pairs=[("name","Nombre")]
         
         if request.args.get("search"):
             disciplines = list_all_disciplines(request.args.get("column"),request.args.get("search"))
         else:
             disciplines = list_all_disciplines()
-        return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate)
+        return render_template("associate/add_discipline.html",pairs=pairs,disciplines=disciplines,associate=associate,currency=get_cfg().currency)
     
     else:
         flash(f"El asociado {associate.name} {associate.surname} esta moroso, no se le puede agregar una disciplina", category="alert alert-warning")
