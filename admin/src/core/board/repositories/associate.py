@@ -64,6 +64,13 @@ def delete_associate(id):
     Returns:
         - Delete associate
     """
+    associate=associates.get(id)
+    for discipline in associate.disciplines:
+        remove_discipline_to_associate(associate,discipline)
+    from src.core.board.repositories.payments import delete_payment
+    for payment in associate.payments:
+        delete_payment(payment.id)
+        
     associates.delete(id)
     
 #agregar_disciplina_a_asociado
