@@ -32,7 +32,7 @@ def build_payment(last_fee,associate):
     fee_date=datetime.now()
     
     if last_fee.installment_number!=0: #if the associate has paid at least one fee
-        if last_fee.date.year==datetime.now().year and last_fee.date.month==datetime.now().month and last_fee.date.year==datetime.now().year: #if the last fee was paid this month
+        if last_fee.date.year==datetime.now().year and last_fee.date.month==datetime.now().month: #if the last fee was paid this month
             flash_number=1
             
         elif (last_fee.date.year==datetime.now().year and datetime.now().month>=last_fee.date.month+2 or 
