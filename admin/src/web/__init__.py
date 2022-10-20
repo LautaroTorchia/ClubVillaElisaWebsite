@@ -15,7 +15,6 @@ from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
-from src.core import seeds
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -85,16 +84,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     def resetdb():
         """Resets the database"""
         database.reset_db()
-
-    @app.cli.command("seeds")
-    def seedsdb():
-        """Seeds the database"""
-        seeds.run()
-
-    @app.cli.command("populate")
-    def populatedb():
-        """Populates the database"""
-        seeds.populate()
 
     # error handlers
     app.register_error_handler(400, handlers.bad_request_error)

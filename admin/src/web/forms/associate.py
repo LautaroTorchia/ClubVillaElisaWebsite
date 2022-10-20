@@ -15,7 +15,7 @@ class CreateAssociateForm(BaseForm):
     gender: Gender of the associate
     address: Address of the associate
     phone_number: Phone of the associate
-    """    
+    """
     
     name= StringField('Nombre', validators=[validators.DataRequired()])
     surname= StringField('Apellido', validators=[validators.DataRequired()])
