@@ -70,7 +70,7 @@ def post_add():
     HTML: Redirect to user list.
     """
     form = UserForm(request.form, roles=get_roles())
-    if not form.validate():
+    if form.validate():
         form_encp = dict(form.data)
         if form_encp["roles"] == []:
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
