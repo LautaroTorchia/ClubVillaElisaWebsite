@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% set current_template =
-self._TemplateReference__context.name %} {% block css %} {{ super() }}
+self._TemplateReference__context.name %} {% block css %} 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth&amp;display=swap" />
-{% endblock css %} {% block title %} Club Deportivo Villa Elisa {% endblock
-title %}
+{% endblock css %} 
+{% block title %} Club Deportivo Villa Elisa {% endblock title %}
 
 <body>
   {% block content %}
+
   <div class="d-flex flex-column justify-content-center mt-5 align-items-center">
-    {% include "flashes.html" %}
     <div class="card">
       <div class="card-body text-center d-flex flex-column align-items-center border bg-light" style="padding: 5rem">
         <h1 class="fw-bold">¡Bienvenidos!</h1>
@@ -26,6 +26,9 @@ title %}
         </div>
       </div>
     </div>
+  </div>
+  <div class="flashes my-5">
+    {% include "flashes.html" %}
   </div>
   {% endblock content %}
 </body>

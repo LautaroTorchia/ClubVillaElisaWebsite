@@ -6,7 +6,7 @@ from src.core.board.payment import Payment
 
 associates = ResourceManager(db.session, Associate)
 disciplines = ResourceManager(db.session, Discipline)
-payments= ResourceManager(db.session, Payment)
+payments = ResourceManager(db.session, Payment)
 
 
 from src.core.board.repositories.configuration import *

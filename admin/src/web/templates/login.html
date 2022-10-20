@@ -1,8 +1,5 @@
 {% extends "base_form.html" %}
 {% set current_template = self._TemplateReference__context.name %}
-{% block css %}
-{{ super() }}
-{% endblock css %}
 {% block title %} Login {% endblock title %}
 
 <body>
@@ -24,7 +21,7 @@
             {{ field(class="form-control") }}
           </div>
           {% endfor %}
-          <button class="btn own_golden_bg mt-4" type="submit">
+          <button class="btn own_golden_bg own_border_radius mt-4" type="submit">
             Iniciar sesión
           </button>
         </form>

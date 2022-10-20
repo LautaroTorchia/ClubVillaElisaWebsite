@@ -13,14 +13,16 @@
   </div>
   {%endif%}
 
-  <div class="d-flex align-items-center justify-content-center align-self-center gap-2">
+  <div id="exportSection" class="d-flex align-items-center justify-content-center align-self-center gap-2 pb-4">
     <span class="own_export_text"><b>Exportar:</b></span>
-    <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
-      <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
-    </a>
-    <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
-      <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
-    </a>
+    <div>
+      <a href="{{ url_for('associate.write_csv',column=args['column'], search=args['search'] ) }}">
+        <img alt="Descargar Excel" src="/public/img/Excel_icon.png" style="height: 50px; margin-right:10px;">
+      </a>
+      <a href="{{ url_for('associate.write_pdf', column=args['column'], search=args['search'] ) }}">
+        <img alt="Descargar PDF" src="/public/img/PDF_icon.png" style="height: 50px;">
+      </a>
+    </div>
   </div>
   {% endblock upperbar %}
 
@@ -36,8 +38,7 @@
         {% if has_permission(session["user"],"associate_update") %}
         <th>Modificar</th>
         {%endif%}
-        {% if has_permission(session["user"],"associate_add_discip") or
-        has_permission(session["user"],"associate_remove_discip") %}
+        {% if has_permission(session["user"],"associate_update") %}
         <th>Disciplinas</th>
         {%endif%}
         {% if has_permission(session["user"],"payments_create") %}
@@ -71,8 +72,7 @@
           </a>
         </td>
         {%endif%}
-        {% if has_permission(session["user"],"associate_add_discip") or
-        has_permission(session["user"],"associate_remove_discip") %}
+        {% if has_permission(session["user"],"associate_update") %}
         <td style="--title7:'Asig. Disciplinas';">
           <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
             href="{{ url_for('associate.add_discipline', id=associate.id) }}">

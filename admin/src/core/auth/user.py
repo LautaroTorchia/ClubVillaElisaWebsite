@@ -37,14 +37,14 @@ class User(db.Model):
 
     def __init__(self, active=True, **data):
         """Args:
-            active (bool, optional): User active status. Defaults to True.
-            username (str): User username
-            password (str): User password
-            email (str): User email
-            first_name (str): User first name
-            last_name (str): User last name
-            active (bool): User active status (default True)
-        """              
+        active (bool, optional): User active status. Defaults to True.
+        username (str): User username
+        password (str): User password
+        email (str): User email
+        first_name (str): User first name
+        last_name (str): User last name
+        active (bool): User active status (default True)
+        """
         self.username = data["username"]
         self.password = data["password"]
         self.email = data["email"]
@@ -54,16 +54,16 @@ class User(db.Model):
 
     def __repr__(self):
         """Returns:
-            User: The string representation of the user.
-        """        
+        User: The string representation of the user.
+        """
         return f"""{self.username} con el correo {self.email}
                 con el nombre {self.first_name} {self.last_name}
                 y con el estado {self.active}"""
-    
+
     def to_dict(self):
         """Returns:
-            User: The dictionary representation of the user.
-        """        
+        User: The dictionary representation of the user.
+        """
         my_dict = self.__dict__
-        del my_dict['_sa_instance_state']
+        del my_dict["_sa_instance_state"]
         return my_dict

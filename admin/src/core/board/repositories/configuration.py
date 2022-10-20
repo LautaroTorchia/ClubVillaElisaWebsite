@@ -24,7 +24,6 @@ def get_cfg():
                 }
             )
         )
-    # TODO discuss default values
 
 
 def add_cfg(cfg_data):

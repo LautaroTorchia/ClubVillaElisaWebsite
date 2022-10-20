@@ -1,8 +1,6 @@
 {% extends "base_form.html" %}
 {% set current_template = self._TemplateReference__context.name %}
-{% block css %}
-{{ super() }}
-{% endblock css %} {% block title %} Vista detallada {% endblock title %}
+{% block title %} Vista detallada {% endblock title %}
 
 <body>
   {% block header %}
@@ -13,11 +11,21 @@
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <div class="form-group">
-      {{ field.label(class="form-label") }}
-      {{ field(class="form-control",disabled = True) }}
+      {% if field.label.text== "Pago fuera de termino" %}
+        {{ field.label(class="form-label") }}
+        {% if paid_late %} 
+          <input type="text" class="form-control" disabled="true" value="Si"/> 
+        {% else %} 
+          <input type="text" class="form-control"  disabled="true" value="No"/> 
+        {% endif %}
+      {% else %}
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control",disabled = True) }}
+      {% endif %}
+      
     </div>
     {% endfor %}
-    <button class="btn own_golden_bg mt-4">Descargar recibo</button>
+    <button class="btn own_golden_bg own_border_radius mt-4">Descargar recibo</button>
   </form>
   {% endblock form %}
 </body>

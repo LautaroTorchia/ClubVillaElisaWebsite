@@ -128,6 +128,10 @@ main {
   color: white;
   width: 20%;
 }
+#searchText,#searchFilter{
+  border-radius:0px !important;
+}
+
 #searchText {
   width: 30%;
 }
@@ -334,6 +338,7 @@ th {
   /*
 	Label the data
 	*/
+
   td:nth-of-type(1):before {
     content: var(--title1);
   }
@@ -370,6 +375,12 @@ th {
 }
 
 @media (width < 768px) {
+  #navcol-1 > a ,.nav-link{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+  }
   .own_main_table {
     width: 100% !important;
     margin-bottom: 30px;
@@ -414,6 +425,43 @@ th {
 }
 
 @media (width < 360px) {
+    td{
+        position: relative;
+        overflow:hidden;
+    }
+    td::before{
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+        display:inline-block !important;
+    }
+    .btn,.btn-outline-secondary,.btn-outline-info,.btn-outline-warning{
+        width:100% !important;
+    }
+    #roles {
+        flex-direction: column !important;
+        gap:8px;
+    }
+  #searchBar{
+    display:flex;
+    flex-direction:column;
+    margin:0;
+  }
+  #searchHeader{
+    margin:5px;
+
+  }
+  #searchFilter,#searchText,#searchButton{
+    width:100% !important;
+    border:1px solid #ccc;
+    border-radius:0px;
+    padding:10px !important;
+  }
+
+  #exportSection{
+    display:flex;
+    flex-direction:column;
+  }
   .own_main_table {
     width: 100% !important;
     margin-bottom: 30px;

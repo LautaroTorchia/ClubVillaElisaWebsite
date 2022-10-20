@@ -1,3 +1,5 @@
+from cmath import e
+from sqlite3 import IntegrityError
 from flask import Blueprint, redirect, url_for, request, render_template, flash
 from src.core.auth import (
     create_user,
@@ -16,28 +18,31 @@ from src.core.auth.user import User
 from src.web.forms.user import UserForm, UpdateUserForm
 from passlib.hash import sha256_crypt
 from src.web.helpers.form_utils import csrf_remover
-from src.web.helpers.auth import login_required
+from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/usuarios")
 
 
 @user_blueprint.get("/")
-@login_required
+@has_permission("user_index")
 def index():
     """Returns:
-        HTML: List of users.
-    """    
-    # return render_template("user/list.html", users=list_users())
-
+    HTML: List of users.
+    """
     pairs = [
         ("first_name", "Nombre"),
         ("last_name", "Apellido"),
         ("email", "Email"),
         ("username", "Usuario"),
+        ("true", "Activo"),
+        ("false", "Inactivo"),
     ]
-
-    if request.args.get("search"):
+    if request.args.get("column") in ["true", "false"]:
+        paginated_query_data = pagination_generator(
+            list_users("active", request.args.get("column")), request, "users"
+        )
+    elif request.args.get("search"):
         paginated_query_data = pagination_generator(
             list_users(request.args.get("column"), request.args.get("search")),
             request,
@@ -48,60 +53,65 @@ def index():
 
     return render_template("user/list.html", pairs=pairs, **paginated_query_data)
 
+
 @user_blueprint.get("/agregar")
-@login_required
+@has_permission("user_create")
 def get_add():
     """Returns:
-        HTML: Form to create a user.
-    """    
-    return render_template(
-        "user/add.html", form=UserForm(roles=list(map(lambda r: (r, r), get_roles())))
-    )
+    HTML: Form to create a user.
+    """
+    return render_template("user/add.html", form=UserForm(roles=get_roles()))
+
 
 @user_blueprint.post("/agregar")
-@login_required
+@has_permission("user_create")
 def post_add():
     """Returns:
-        HTML: Redirect to user list.
-    """    
-    form = UserForm(request.form)
-    if form.validate():
+    HTML: Redirect to user list.
+    """
+    form = UserForm(request.form, roles=get_roles())
+    if not form.validate():
         form_encp = dict(form.data)
-        if form_encp["roles"] != []:
-            form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
+        if form_encp["roles"] == []:
+            flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
+            return render_template("user/add.html", form=UserForm(roles=get_roles()))
+
+        form_encp["password"] = sha256_crypt.encrypt(form_encp["password"])
+        try:
             user = create_user(form_encp)
-            user = get_user_by_id(user.id)
             for role in form_encp["roles"]:
                 add_role_to_user(user, get_role(role))
-        else:
-            flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
-            return render_template(
-                "user/add.html",
-                form=UserForm(roles=list(map(lambda r: (r, r), get_roles()))),
-            )
-    return redirect(url_for("user.index"))
+            flash("Usuario creado correctamente", "alert alert-info")
+            return redirect(url_for("user.index"))
+        except:
+            flash("Error al crear el usuario", "alert alert-danger")
+            return render_template("user/add.html", form=form)
+    else:
+        return render_template("user/add.html", form=form)
+
 
 @user_blueprint.get("/actualizar/<id>")
-@login_required
+@has_permission("user_update")
 def get_update(id):
     """Args:
         id (int): User id.
     Returns:
         HTML: Form to update a user.
-    """    
+    """
     user = get_user_by_id(id)
     form = UpdateUserForm(obj=user, roles=get_roles())
     return render_template("user/update.html", form=form)
 
+
 @user_blueprint.post("/actualizar/<id>")
-@login_required
+@has_permission("user_update")
 def post_update(id):
     """Args:
         id (int): User id.
     Returns:
         HTML: Redirect to user list.
-    """    
-    form = UpdateUserForm(request.form)
+    """
+    form = UpdateUserForm(request.form, roles=get_roles())
     if form.validate():
         form = csrf_remover(form.data)
         roles_form = form.pop("roles")
@@ -125,26 +135,34 @@ def post_update(id):
 
 
 @user_blueprint.post("/borrar/<id>")
-@login_required
+@has_permission("user_destroy")
 def delete(id):
     """Args:
         id (int): Id of the user to delete.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
     flash(f"Se elimino al usuario satisfactoriamente", category="alert alert-warning")
     delete_user(id)
     return redirect(url_for("user.index"))
 
 
 @user_blueprint.post("/desactivar/<id>")
-@login_required
+@has_permission("user_update")
 def disable(id):
     """Args:
         id (int): Id of the user to disable.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
+    user = get_user_by_id(id)
+    for role in user.roles:
+        if role.name == "Admin":
+            flash(
+                f"No se puede desactivar al usuario {user.username} porque es administrador",
+                category="alert alert-warning",
+            )
+            return redirect(url_for("user.index"))
     flash(
         f"Se deshabilito al usuario satisfactoriamente", category="alert alert-warning"
     )
@@ -154,13 +172,13 @@ def disable(id):
 
 # disabling associates
 @user_blueprint.post("/activar/<id>")
-@login_required
+@has_permission("user_update")
 def enable(id):
     """Args:
         id (int): Id of the user to enable.
     Returns:
         HTML: Redirect to user list.
-    """    
+    """
     flash(f"Se habilito al usuario satisfactoriamente", category="alert alert-warning")
     enable_user(id)
     return redirect(url_for("user.index"))
