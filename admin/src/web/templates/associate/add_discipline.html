@@ -1,7 +1,6 @@
 {% set current_template = self._TemplateReference__context.name %}
 {% extends "base_list.html" %}
 {% block css %}
-{{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
 {% endblock css %}

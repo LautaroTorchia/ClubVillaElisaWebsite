@@ -1,10 +1,5 @@
 {% set current_template = self._TemplateReference__context.name %}
 {% extends "base_list.html" %}
-{% block css %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
-{% endblock css %}
 {% block title %} Pagos {% endblock title %}
 
 <body>
@@ -57,7 +52,7 @@
   </table>
   {% endblock table%}
   {% block js%}
-  {{ super() }}
+  
   <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
   {% endblock js%}
