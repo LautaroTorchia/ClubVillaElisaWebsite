@@ -79,6 +79,7 @@ def delete_associate(id):
     associates.delete(id)
 
 
+# agregar_disciplina_a_asociado
 def add_discipline_to_associate(associate, discipline):
     """Add discipline to associate
     Returns:
@@ -88,6 +89,7 @@ def add_discipline_to_associate(associate, discipline):
     associates.add(associate)
 
 
+# remove_discipline_to_associate
 def remove_discipline_to_associate(associate, discipline):
     """Remove discipline to associate
     Returns:

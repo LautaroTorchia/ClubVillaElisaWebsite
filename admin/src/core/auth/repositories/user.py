@@ -2,17 +2,7 @@ from src.core.auth.user import User
 from passlib.hash import sha256_crypt
 from src.core.auth import users
 
-
-def get_user_by_id(user_id):
-    """Args:
-        user_id (int): The id of the user to retrieve.
-    Returns:
-        User: The user object.
-    """
-    return users.get(value=user_id)
-
-
-def get_user_by(field, value):
+def get_user_by( value,field="id"):
     """Args:
         user_id (int): The id of the user to retrieve.
     Returns:
@@ -47,7 +37,7 @@ def delete_user(user_id):
     """Args:
     user_id (int): The id of the user to delete.
     """
-    user = get_user_by_id(user_id)
+    user = get_user_by(value=user_id)
     for roles in user.roles:
         remove_role_to_user(user, roles)
     users.delete(user_id)
@@ -118,5 +108,5 @@ def user_has_permission(user_id, permission):
     """
     from src.core.auth import role_has_permission
 
-    user = get_user_by_id(user_id)
+    user = get_user_by(value=user_id)
     return any([role_has_permission(role, permission) for role in user.roles])

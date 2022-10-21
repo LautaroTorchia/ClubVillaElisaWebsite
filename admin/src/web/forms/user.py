@@ -2,7 +2,7 @@ from wtforms.validators import Length, InputRequired, Email, ValidationError
 from wtforms import StringField, PasswordField, EmailField, SelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from src.web.forms.base_form import BaseForm
-from src.core.auth.repositories.user import get_user_by, get_user_by_id
+from src.core.auth.repositories.user import get_user_by
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -39,12 +39,12 @@ class BasicUserForm(BaseForm):
             Boolean: True if the DNI number is not in use
         """
         if self.user_id:
-            if get_user_by_id(self.user_id).email != field.data and get_user_by(
-                "email", field.data
+            if get_user_by(self.user_id).email != field.data and get_user_by(
+                 field.data,"email"
             ):
                 raise ValidationError("Email ya registrado")
         else:
-            if get_user_by("email", field.data):
+            if get_user_by(field.data,"email"):
                 raise ValidationError("Email ya registrado")
 
         return True
@@ -59,12 +59,12 @@ class BasicUserForm(BaseForm):
             Boolean: True if the DNI number is not in use
         """
         if self.user_id:
-            if get_user_by_id(self.user_id).username != field.data and get_user_by(
-                "username", field.data
+            if get_user_by(self.user_id).username != field.data and get_user_by(
+                 field.data,"username"
             ):
                 raise ValidationError("Nombre de usuario ya registrado")
         else:
-            if get_user_by("username", field.data):
+            if get_user_by(field.data,"username"):
                 raise ValidationError("Nombre de usuario ya registrado")
         return True
 
