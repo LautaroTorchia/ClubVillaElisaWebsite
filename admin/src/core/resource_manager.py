@@ -79,7 +79,7 @@ class ResourceManager:
         Returns:
             Object: First object of list.
         """
-        return self.query.filter(getattr(self.model_class, field) == value).first()
+        return self.query.filter(cast(getattr(self.model_class, field), String) == str(value)).first()
 
     def list(
         self, order_criteria: ColumnOperators = None, paginate: bool = True) -> Union[Pagination, list]:

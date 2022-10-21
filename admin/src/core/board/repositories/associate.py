@@ -10,7 +10,7 @@ def get_associate_by_id(id):
     Returns:
         - Associate object
     """
-    return associates.get(id)
+    return associates.get(value=id)
 
 
 def get_associate_by_DNI(DNI_number):
