@@ -5,6 +5,7 @@ from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
 from src.web.controllers.api.configuration import configuration_api_blueprint
+from src.web.controllers.api.auth import auth_api_blueprint
 from src.web.controllers.api.discipline import discipline_api_blueprint
 from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
@@ -49,6 +50,8 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # Api
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api_blueprint.register_blueprint(configuration_api_blueprint)
+    api_blueprint.register_blueprint(auth_api_blueprint)
+    
 
     # Api me
     api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")

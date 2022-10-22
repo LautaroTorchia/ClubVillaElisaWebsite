@@ -53,8 +53,8 @@ def update_user(user_id, form):
 
 def get_by_usr_and_pwd(usr, pwd):
     """Args:
-        usr (User): The name of the user to retrive.
-        pwd (Str): The password of the user to retrive.
+        usr (str): The name of the user to retrive.
+        pwd (str): The password of the user to retrive.
     Returns:
         User: The user object.
     """
@@ -63,6 +63,18 @@ def get_by_usr_and_pwd(usr, pwd):
         return usr
     return None
 
+
+def get_by_email_and_pwd(email, pwd):
+    """Args:
+        email (str): The email of the user to retrive.
+        pwd (str): The password of the user to retrive.
+    Returns:
+        User: The user object.
+    """
+    usr = users.query.filter(User.email == email).first()
+    if usr != None and sha256_crypt.verify(pwd, usr.password):
+        return usr
+    return None
 
 def disable_user(id):
     """Args:
