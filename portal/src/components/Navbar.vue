@@ -41,6 +41,11 @@ export default {
             <router-link class="nav-link" to="/pagos">Pagos</router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/estadisticas"
+              >Estadísticas</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/autenticar"
               >Iniciar sesion</router-link
             >
