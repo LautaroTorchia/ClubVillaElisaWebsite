@@ -35,54 +35,62 @@
         {%endif%}
       </tr>
     </thead>
-    <tbody>
-      {% for user in users.items %}
-      <tr class="own_centered">
-        <td style="--title1:'Nombre';"> {{ user.first_name }} </td>
-        <td style="--title2:'Apellido';"> {{ user.last_name }} </td>
-        <td style="--title3:'Email';"> {{ user.email }} </td>
-        <td style="--title4:'Usuario';"> {{ user.username }} </td>
-        {% if has_permission(session["user"],"user_update") %}
-        <td style="--title5:'Modificar'">
-          <a class="btn btn-outline-info w-100 p-1 own_options_button"
-            href="{{ url_for('user.get_update' ,id=user.id ) }}">
-            Mod.
-          </a>
-        </td>
-        {% endif %}
-        {% if has_permission(session["user"],"user_update") %}
-        <td style="--title6:'Activo'">
-          {% if user.active %}
-          <form action="{{ url_for('user.disable', id=user.id) }}" method="post">
-            <button class="btn btn-outline-success w-100 p-1 own_options_button"
-              onclick="return confirm('Seguro que desea inhabilitar a {{ user.first_name }} {{ user.last_name }} ?');">
-              Sí
-            </button>
-          </form>
-          {% else %}
-          <form action="{{ url_for('user.enable', id=user.id) }}" method="post">
-            <button class="btn btn-outline-warning w-100 p-1 own_options_button"
-              onclick="return confirm('Seguro que desea habilitar a {{ user.first_name }} {{ user.last_name }} ?');">
-              No
-            </button>
-          </form>
+    {% if users.items %}
+      <tbody>
+        {% for user in users.items %}
+        <tr class="own_centered">
+          <td style="--title1:'Nombre';"> {{ user.first_name }} </td>
+          <td style="--title2:'Apellido';"> {{ user.last_name }} </td>
+          <td style="--title3:'Email';"> {{ user.email }} </td>
+          <td style="--title4:'Usuario';"> {{ user.username }} </td>
+          {% if has_permission(session["user"],"user_update") %}
+          <td style="--title5:'Modificar'">
+            <a class="btn btn-outline-info w-100 p-1 own_options_button"
+              href="{{ url_for('user.get_update' ,id=user.id ) }}">
+              Mod.
+            </a>
+          </td>
           {% endif %}
-        </td>
-        {% endif %}
-        {% if has_permission(session["user"],"user_destroy") %}
-        <td style="--title7:'Eliminar'">
-          <form action="{{ url_for('user.delete', id=user.id ) }}" method="post">
-            <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button" name="Delete"
-              value="{{ user.id }}"
-              onclick="return confirm('Seguro que desea eliminar {{ user.first_name }} {{ user.last_name }} ?');">
-              X
-            </button>
-          </form>
-        </td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-    </tbody>
+          {% if has_permission(session["user"],"user_update") %}
+          <td style="--title6:'Activo'">
+            {% if user.active %}
+            <form action="{{ url_for('user.disable', id=user.id) }}" method="post">
+              <button class="btn btn-outline-success w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea inhabilitar a {{ user.first_name }} {{ user.last_name }} ?');">
+                Sí
+              </button>
+            </form>
+            {% else %}
+            <form action="{{ url_for('user.enable', id=user.id) }}" method="post">
+              <button class="btn btn-outline-warning w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea habilitar a {{ user.first_name }} {{ user.last_name }} ?');">
+                No
+              </button>
+            </form>
+            {% endif %}
+          </td>
+          {% endif %}
+          {% if has_permission(session["user"],"user_destroy") %}
+          <td style="--title7:'Eliminar'">
+            <form action="{{ url_for('user.delete', id=user.id ) }}" method="post">
+              <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button" name="Delete"
+                value="{{ user.id }}"
+                onclick="return confirm('Seguro que desea eliminar {{ user.first_name }} {{ user.last_name }} ?');">
+                X
+              </button>
+            </form>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    {% else %}
+      <tbody>
+        <tr>
+          <td colspan="7" style="text-align: center;" class="own_no_padding_sides">No hay entradas para mostrar</td>
+        </tr>
+      </tbody>
+    {% endif %}
   </table>
   {% endblock table %}
   {% block js %}

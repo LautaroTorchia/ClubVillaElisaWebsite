@@ -72,7 +72,7 @@ class ResourceManager:
         self.query.filter(self.model_class.id == id).update({"deleted": True})
         self.dbs.commit()
 
-    def get(self, value, field):
+    def get(self, value, field="id"):
         """Args:
             field (String): The field to filter.
             value (Any): The value to filter.

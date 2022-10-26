@@ -21,34 +21,42 @@
         <th>Vista detallada </th>
       </tr>
     </thead>
-    <tbody>
-      {% for payment in payments.items |sort(attribute='date', reverse = True ) %}
-      <tr>
-        <td style="--title1:'Nombre';"> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
-        <td style="--title2:'Nro. Socio';"> {{ payment.associate.id }} </td>
-        <td style="--title3:'Fecha';"> {{ payment.date.strftime('%m-%y') }} </td>
-        <td style="--title4:'Monto';"> {{ payment.amount }} {{ currency }} </td>
-        <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
-        {% if has_permission(session["user"],"payments_destroy") %}
-          <td style="--title6:'Eliminar';">
-            <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
-              <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-                onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
-                X
+    {% if payments.items %}
+      <tbody>
+        {% for payment in payments.items |sort(attribute='date', reverse = True ) %}
+        <tr>
+          <td style="--title1:'Nombre';"> {{ payment.associate.name }} {{ payment.associate.surname }}</td>
+          <td style="--title2:'Nro. Socio';"> {{ payment.associate.id }} </td>
+          <td style="--title3:'Fecha';"> {{ payment.date.strftime('%m-%y') }} </td>
+          <td style="--title4:'Monto';"> {{ payment.amount }} {{ currency }} </td>
+          <td style="--title5:'Pago tarde';"> {% if payment.paid_late %} Si {% else %} No {% endif %}</td>
+          {% if has_permission(session["user"],"payments_destroy") %}
+            <td style="--title6:'Eliminar';">
+              <form action="{{ url_for('payments.delete', id=payment.id) }}" method="post">
+                <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                  onclick="return confirm('Seguro que desea eliminar a {{ payment.name }} {{ payment.surname }} con DNI {{payment.DNI_number}} ?');">
+                  X
+                </button>
+              </form>
+            </td>
+          {% endif %}
+          <td style="--title7:'Ver';">
+            <form action="{{ url_for('payments.detail_view', id=payment.id) }}" method="get">
+              <button class="btn btn-outline-info w-100 p-1 own_options_button">
+                Ver
               </button>
             </form>
           </td>
-        {% endif %}
-        <td style="--title7:'Ver';">
-          <form action="{{ url_for('payments.detail_view', id=payment.id) }}" method="get">
-            <button class="btn btn-outline-info w-100 p-1 own_options_button">
-              Ver
-            </button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
+        </tr>
+        {% endfor %}
+      </tbody>
+    {% else %}
+      <tbody>
+        <tr>
+          <td colspan="7" style="text-align: center;" class="own_no_padding_sides">No hay entradas para mostrar</td>
+        </tr>
+      </tbody>
+    {% endif %}
   </table>
   {% endblock table%}
   {% block js%}

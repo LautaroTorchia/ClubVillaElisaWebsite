@@ -49,58 +49,66 @@
         {%endif%}
       </tr>
     </thead>
-    <tbody>
-      {% for associate in associates.items %}
-      <tr>
-        <td style="--title1:'Nombre';"> {{ associate.name }} {{ associate.surname }}</td>
-        <td style="--title2:'DNI';"> {{ associate.DNI_number }} </td>
-        <td style="--title3:'Domicilio';"> {{ associate.address }} </td>
-        <td style="--title4:'Estado';"> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
-        <td style="--title5:'Disciplinas';"> {% if associate.disciplines %}
-          {% for disciplina in associate.disciplines %}
-          {{ disciplina.name }} {{ disciplina.category}},
-          {% endfor %}
-          {% else %}
-          No posee
+    {% if associates.items %}
+      <tbody>
+        {% for associate in associates.items %}
+        <tr>
+          <td style="--title1:'Nombre';"> {{ associate.name }} {{ associate.surname }}</td>
+          <td style="--title2:'DNI';"> {{ associate.DNI_number }} </td>
+          <td style="--title3:'Domicilio';"> {{ associate.address }} </td>
+          <td style="--title4:'Estado';"> {% if associate.active %} Activo {% else %} Inactivo {% endif %} </td>
+          <td style="--title5:'Disciplinas';"> {% if associate.disciplines %}
+            {% for disciplina in associate.disciplines %}
+            {{ disciplina.name }} {{ disciplina.category}},
+            {% endfor %}
+            {% else %}
+            No posee
+            {% endif %}
+          </td>
+          {% if has_permission(session["user"],"associate_update") %}
+          <td style="--title6:'Modificar';">
+            <a class="btn btn-outline-info w-100 p-1 own_options_button"
+              href="{{ url_for('associate.get_update' ,id=associate.id) }}">
+              Mod.
+            </a>
+          </td>
+          {%endif%}
+          {% if has_permission(session["user"],"associate_update") %}
+          <td style="--title7:'Asig. Disciplinas';">
+            <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
+              href="{{ url_for('associate.add_discipline', id=associate.id) }}">
+              Asignar
+            </a>
+          </td>
+          {%endif%}
+          {% if has_permission(session["user"],"payments_create") %}
+          <td style="--title8:'Pagar cuota';">
+            <a class="btn btn-outline-success w-100 p-1 own_options_button"
+              href="{{ url_for('payments.confirm_payment_get', id=associate.id) }}">
+              Pagar
+            </a>
+          </td>
           {% endif %}
-        </td>
-        {% if has_permission(session["user"],"associate_update") %}
-        <td style="--title6:'Modificar';">
-          <a class="btn btn-outline-info w-100 p-1 own_options_button"
-            href="{{ url_for('associate.get_update' ,id=associate.id) }}">
-            Mod.
-          </a>
-        </td>
-        {%endif%}
-        {% if has_permission(session["user"],"associate_update") %}
-        <td style="--title7:'Asig. Disciplinas';">
-          <a class="btn btn-outline-secondary w-100 p-1 own_options_button"
-            href="{{ url_for('associate.add_discipline', id=associate.id) }}">
-            Asignar
-          </a>
-        </td>
-        {%endif%}
-        {% if has_permission(session["user"],"payments_create") %}
-        <td style="--title8:'Pagar cuota';">
-          <a class="btn btn-outline-success w-100 p-1 own_options_button"
-            href="{{ url_for('payments.confirm_payment_get', id=associate.id) }}">
-            Pagar
-          </a>
-        </td>
-        {% endif %}
-        {% if has_permission(session["user"],"associate_destroy") %}
-        <td style="--title9:'Eliminar';">
-          <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
-            <button class="btn btn-outline-danger w-100 p-1 own_options_button"
-              onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
-              X
-            </button>
-          </form>
-        </td>
-        {%endif%}
-      </tr>
-      {% endfor %}
-    </tbody>
+          {% if has_permission(session["user"],"associate_destroy") %}
+          <td style="--title9:'Eliminar';">
+            <form action="{{ url_for('associate.delete', id=associate.id) }}" method="post">
+              <button class="btn btn-outline-danger w-100 p-1 own_options_button"
+                onclick="return confirm('Seguro que desea pagar la cuota a {{ associate.name }} {{ associate.surname }} con DNI {{associate.DNI_number}} ?');">
+                X
+              </button>
+            </form>
+          </td>
+          {%endif%}
+        </tr>
+        {% endfor %}
+      </tbody>
+    {% else %}
+      <tbody>
+        <tr>
+          <td colspan="9" style="text-align: center" class="own_no_padding_sides">No hay entradas para mostrar</td>
+        </tr>
+      </tbody>
+    {% endif %}
   </table>
   {% endblock table%}
 </body>
