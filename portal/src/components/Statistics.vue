@@ -14,7 +14,8 @@ export default {
 </script>
 
 <style>
-@media screen and (min-width: 300px) {
+@media only screen and (max-width: 767px),
+  (min-width: 768px) and (max-width: 1024px)  {
   .chart {
     width: 100%;
   }
