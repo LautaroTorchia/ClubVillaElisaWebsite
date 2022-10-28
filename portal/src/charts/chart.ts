@@ -35,8 +35,8 @@ export default defineComponent({
   },
   setup(props) {
     const chartData = {
-      labels: [ 'January', 'February', 'March' ],
-      datasets: [ { data: [40, 20, 12] } ]
+      labels: [ 'Inscripciones', 'Pago al día', 'Morosos' ],
+      datasets: [ { data: [40, 20, 62] } ]
     }
 
     const chartOptions = { responsive: true }

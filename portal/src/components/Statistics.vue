@@ -11,7 +11,7 @@
 import BarChart from '../charts/chart'
 
 export default {
-  name: 'App',
+  name: 'Statistics',
   components: { BarChart }
 }
 </script>
