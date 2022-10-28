@@ -5,8 +5,11 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <Navbar />
-  <router-view></router-view>
+  <Navbar/>
+  <div class="container p-5">
+    <router-view></router-view>
+  </div>
+  
 </template>
 
 <style scoped></style>
