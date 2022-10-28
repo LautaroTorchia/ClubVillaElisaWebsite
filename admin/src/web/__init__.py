@@ -16,6 +16,7 @@ from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
+from flask_cors import CORS
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -27,6 +28,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         Flask: Flask app
     """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
+
+    # cors
+    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # load config
     config = get_config()
