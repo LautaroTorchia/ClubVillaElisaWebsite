@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3">
+  <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 bg-white">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/"
         ><img
@@ -62,5 +62,8 @@ export default {
 }
 nav {
   border-bottom: 1px solid rgba(45, 45, 45, 0.1);
+}
+.bg-white{
+  background-color: white;
 }
 </style>
