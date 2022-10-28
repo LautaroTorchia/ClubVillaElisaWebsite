@@ -5,11 +5,31 @@ import Login from './components/Login.vue'
 import Estadisticas from './components/Estadisticas.vue'
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/disciplinas', component: Discipline },
-    { path: '/pagos', component: Payment },
-    { path: '/estadisticas', component: Estadisticas },
-    { path: '/autenticar', component: Login },
-]
+  { 
+    name: "home",
+    path: "/", 
+    component: Home 
+  },
+  { 
+    name: "disciplines",
+    path: "/disciplinas", 
+    component: Discipline 
+  },
+  { 
+    name: "payments",
+    path: "/pagos", 
+  component: Payment 
+  },
+  { 
+    name: "statistics",
+    path: '/estadisticas', 
+    component: Estadisticas 
+  },
+  { 
+    name: "login",
+    path: "/autenticar", 
+    component: Login 
+  },
+];
 
 export default routes
