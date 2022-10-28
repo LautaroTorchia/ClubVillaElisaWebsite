@@ -2,9 +2,10 @@ import Home from './components/Home.vue'
 import Discipline from './components/Discipline.vue'
 import Payment from './components/Payment.vue'
 import Login from './components/Login.vue'
-import Estadisticas from './components/Estadisticas.vue'
+import Statistics from './components/Statistics.vue'
 
 const routes = [
+<<<<<<< Updated upstream
   { 
     name: "home",
     path: "/", 
@@ -31,5 +32,13 @@ const routes = [
     component: Login 
   },
 ];
+=======
+    { path: '/', component: Home },
+    { path: '/disciplinas', component: Discipline },
+    { path: '/pagos', component: Payment },
+    { path: '/estadisticas', component: Statistics },
+    { path: '/autenticar', component: Login },
+]
+>>>>>>> Stashed changes
 
 export default routes
