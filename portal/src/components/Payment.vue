@@ -5,7 +5,7 @@ import { getPayments, createPayment } from '../services/PaymentService'
 export default defineComponent({
   data() {
     return {
-      payments: [] as Payment[],
+      payments: [] as Payment[] | string,
     }
   },
   methods: {
