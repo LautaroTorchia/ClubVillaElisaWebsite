@@ -11,6 +11,7 @@ from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
 from src.web.controllers.api.payment import payment_api_blueprint
 from src.web.controllers.api.info import info_api_blueprint
+from src.web.controllers.api.statistics import statistics_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
@@ -55,6 +56,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api_blueprint.register_blueprint(configuration_api_blueprint)
     api_blueprint.register_blueprint(auth_api_blueprint)
+    api_blueprint.register_blueprint(statistics_api_blueprint)
     
 
     # Api me

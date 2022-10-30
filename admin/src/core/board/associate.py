@@ -1,7 +1,9 @@
 from datetime import datetime
 import enum
-from sqlalchemy import Column, String, Integer, Sequence, Enum, Boolean
+from sqlalchemy import Column, String, Integer, Enum, Boolean
 from src.core.db import db
+from src.core.board.base_model import BaseModel
+
 
 associate_disciplines = db.Table(
     "associate_disciplines",
@@ -15,14 +17,13 @@ class GenderOptions(enum.Enum):
     female = 2
     other = 3
 
-
 class DNIOptions(enum.Enum):
     DNI = 1
     LE = 2
     LC = 3
 
 
-class Associate(db.Model):
+class Associate(BaseModel):
     """Club associate model
     Args:
         - DNI type (select) : list with all different DNI types ex: DNI, LE, LC
@@ -68,3 +69,22 @@ class Associate(db.Model):
 
     def __repr__(self):
         return f"""{self.name} {self.surname} con el dni {self.DNI_number} con el correo {self.email}"""
+
+
+    def _to_dict(self):
+        """Returns:
+        User: The dictionary representation of the user.
+        """
+        return {
+            "name": self.name,
+            "surname": self.surname,
+            "email": self.email,
+            "DNI_number": self.DNI_number,
+            "DNI_type": str(self.DNI_type).rsplit(".", 1)[-1],
+            "gender":str(self.gender).rsplit(".", 1)[-1],
+            "address":self.address,
+            "phone_number":self.phone_number,
+            }
+
+    def to_dict(self):
+        return self._to_dict()

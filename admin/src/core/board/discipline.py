@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Integer, Numeric, Boolean
 from src.core.db import db
+from src.core.board.base_model import BaseModel
 
-
-class Discipline(db.Model):
+class Discipline(BaseModel):
     """Modelo de las disciplinas del club
     Args:
         name (str): Discipline name
