@@ -1,18 +1,13 @@
 <script lang="ts">
-  import { ref } from 'vue'
   import Carousel from './DisciplinesCarousel.vue'
+  import DiscTable from './DisciplinesTable.vue'
 
   export default {
     name: 'Home',
     components: { 
-      Carousel
+      Carousel,
+      DiscTable,
     }, 
-    setup() {
-      const count = ref(0)
-      return {
-        count,
-      }
-    },
   }
 </script>
 
@@ -21,6 +16,7 @@
   <div class="holder">
     <h1 class="own_big_title">Club Deportivo Villa Elisa</h1>
     <Carousel></Carousel>
+    <DiscTable></DiscTable>
   </div>
 </template>
 
