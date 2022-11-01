@@ -18,11 +18,24 @@
 
 
 <template>
-  <Carousel></Carousel>
-  <h1>Aca estaria el carousel con disciplinas</h1>
-  <button @click="count++">Increment</button>
-  <p>Count is: {{ count }}</p>
+  <div class="holder">
+    <h1 class="own_big_title">Club Deportivo Villa Elisa</h1>
+    <Carousel></Carousel>
+  </div>
 </template>
 
 
-<style scoped></style>
+<style scoped>
+.own_big_title {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-shadow: 0px -5px 5px rgba(181, 161, 102, 0.5);
+  font-family: Amaranth, sans-serif;
+  text-align: center;
+  width: auto;
+}
+.holder{
+  background-color: #fafafa;
+  box-shadow: 0 -2px 20px #00000015;
+}
+</style>
