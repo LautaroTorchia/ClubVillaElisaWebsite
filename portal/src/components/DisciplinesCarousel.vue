@@ -80,14 +80,6 @@
         ]
       }
     },
-    methods: {
-      async print() {
-        console.log(this.slides[0].image)
-      }
-    },
-    mounted() {
-      this.print()
-    }
   })
 </script>
 
