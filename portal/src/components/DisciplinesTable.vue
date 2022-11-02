@@ -1,9 +1,23 @@
 
 <template>
     <div>
-        <p> {{ disciplines }} </p>
+        <p> {{ disciplines.keys }} </p>
         <table id="tableComponent" class="table table-bordered table-striped">
-        </table>
+            <thead>
+                <tr>
+                <!-- loop through each value of the fields to get the table header -->
+                <th v-for="(k, v, index) in disciplines" :key='index' @click="sortTable(discipline)" > 
+                    {{k}} <i class="bi bi-sort-alpha-down" aria-label='Sort Icon'></i>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the list get the each student data -->
+                <tr v-for="item in filteredList" :key='item'>
+                <td v-for="field in fields" :key='field'>{{item[field]}}</td>
+                </tr>
+            </tbody>
+        </table> 
     </div>
 </template>
 
