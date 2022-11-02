@@ -1,8 +1,8 @@
-import { Discipline } from '../Discipline'
+import { DisciplineClub } from '../Discipline'
 
-export interface DisciplineResponse {
+export interface DisciplineClubResponse {
   timestamp: string
   status: number
   status_msg: string
-  data: Discipline[] | string
+  data: DisciplineClub[]
 }
