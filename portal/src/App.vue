@@ -2,14 +2,15 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <template>
-  <Navbar/>
-  <div class="container p-5">
+  <Navbar />
+  <main class="container p-5">
     <router-view></router-view>
-  </div>
-  
+  </main>
+  <Footer />
 </template>
 
 <style scoped></style>

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 :root {
   color-scheme: light dark;
 
@@ -11,6 +12,21 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.active{
+  font-weight:700 !important;
+}
+
+*{
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+}
+nav{
+  height: 15vh;
+}
+main{
+  height: 85vh;
+
+}
 /* TODO: revisit when prefering other styles
 @media (prefers-color-scheme: light) {
   :root {
