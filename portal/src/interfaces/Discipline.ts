@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 export interface Discipline {
   available: boolean
   category: string
@@ -12,10 +11,8 @@ export interface Discipline {
   updated_at: string
   associated_at?: string
 }
-=======
 export interface DisciplineClub {
     name: string,
     teacher: string,
     dates: string,
   }
->>>>>>> development
