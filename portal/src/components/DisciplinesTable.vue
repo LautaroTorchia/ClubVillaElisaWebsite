@@ -1,29 +1,3 @@
-
-<template>
-    <div>
-        <p> {{ disciplines }} </p>
-        <table id="tableComponent" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <!-- loop through each value of the fields to get the table header -->
-                    <th> Nombre </th>
-                    <th> Instructores </th>
-                    <th> Días y horarios </th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Loop through the list get the each student data -->
-                <tr v-for="(k, index) in disciplines" :key='index'>
-                    <td v-for="(data, index2) in k" :key='index2'>
-                        {{data}}
-                    </td>
-                </tr>
-            </tbody>
-        </table> 
-    </div>
-</template>
-
-
 <script lang="ts">
     import { defineComponent } from 'vue'
     import { DisciplineClub } from '../interfaces/Discipline'
@@ -33,7 +7,6 @@
         data() {
             return {
                 disciplines: [] as DisciplineClub[]
-
             }
         },
         components: {
@@ -51,6 +24,32 @@
         }
     });
 </script>
+
+
+<template>
+    <div>
+        <table id="tableComponent" class="table table-bordered table-striped">
+            <thead>
+                <tr class="text-center">
+                    <!-- loop through each value of the fields to get the table header -->
+                    <th> Nombre </th>
+                    <th> Instructores </th>
+                    <th> Días y horarios </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the list get the each student data -->
+                <tr v-for="(data, index) in disciplines" :key='index' class="text-center">
+                    <td> {{data.name}} </td>
+                    <td> {{data.teacher}} </td>
+                    <td> {{data.dates}} </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+</template>
+
+
 
 
 <style>

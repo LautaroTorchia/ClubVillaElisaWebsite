@@ -16,7 +16,8 @@
   <div class="holder">
     <h1 class="own_big_title">Club Deportivo Villa Elisa</h1>
     <Carousel></Carousel>
-    <DiscTable></DiscTable>
+    <h2 class="text-center mt-5">Disciplinas</h2>
+    <DiscTable class="mt-2"></DiscTable>
   </div>
 </template>
 
