@@ -9,6 +9,7 @@ associate_disciplines = db.Table(
     "associate_disciplines",
     Column("associate_id", Integer, db.ForeignKey("associates.id"), primary_key=True),
     Column("discipline_id", Integer, db.ForeignKey("disciplines.id"), primary_key=True),
+    Column("created_at", db.DateTime, default=db.func.now()),
 )
 
 
@@ -86,5 +87,22 @@ class Associate(BaseModel):
             "phone_number":self.phone_number,
             }
 
-    def to_dict(self):
-        return self._to_dict()
+    def _to_dict_with_disciplines(self):
+        """Returns:
+        User: The dictionary representation of the user.
+        """
+        return {
+            "id": self.id,
+            "name": self.name,
+            "surname": self.surname,
+            "email": self.email,
+            "DNI_number": self.DNI_number,
+            "DNI_type": str(self.DNI_type).rsplit(".", 1)[-1],
+            "gender":str(self.gender).rsplit(".", 1)[-1],
+            "address":self.address,
+            "phone_number":self.phone_number,
+            "disciplines":list(map(lambda d:d.to_dict(), self.disciplines))
+            }
+
+    def to_dict(self,disciplines=False):
+        return self._to_dict_with_disciplines() if disciplines else self._to_dict()

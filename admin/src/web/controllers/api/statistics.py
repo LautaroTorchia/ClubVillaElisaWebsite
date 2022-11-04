@@ -1,12 +1,23 @@
 from src.core.board import associate_disciplines,Associate,Discipline,associates, list_all_associates
-from src.web.helpers.auth import jwt_required
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from src.web.helpers.build_response import response
 from src.core.db import db
 
 statistics_api_blueprint = Blueprint("statistics_api", __name__, url_prefix="/stats")
 
-
-@jwt_required
-@statistics_api_blueprint.get("/")
+@statistics_api_blueprint.get("/associates")
 def disciplines_by_gender():
-    return jsonify( list(filter(lambda elem:elem, map(lambda x: {"associate":x.to_dict(),"disciplines":list(map(lambda d:d.to_dict(), x.disciplines))} if x.disciplines else None,list_all_associates()))))
+    res=[]
+    relationship=db.session.query(associate_disciplines).all()
+    relationship.sort(key=lambda x: x[1])
+    associates=db.session.query(Associate).filter(Associate.disciplines.any(),Associate.deleted==False).all()
+    for associate in associates:
+        associate=associate.to_dict(disciplines=True)
+        for discipline in associate["disciplines"]:
+            discipline["associated_at"]=list(map(lambda y:y[2],filter(lambda tuple:tuple[0]==associate["id"] and tuple[1]==discipline["id"],relationship)))[0].strftime('%Y-%m-%d %H:%M:%S.%f')
+        res+=[associate]
+    return jsonify({"data":res,"years":[relationship[0][2].strftime('%Y'),relationship[-1][2].strftime('%Y')]})        #YYYY-MM-DDTHH:mm:ss.sssZ
+    if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
+        return jsonify({"error": "Invalid secret key"}), 401
+
+

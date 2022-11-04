@@ -1,7 +1,6 @@
 from datetime import datetime
 from src.core.board.payment import Payment
 from src.core.board import payments
-from src.web.helpers.form_utils import bool_checker, csrf_remover
 
 
 def list_payments(column=None, filter=True, join_table=None):

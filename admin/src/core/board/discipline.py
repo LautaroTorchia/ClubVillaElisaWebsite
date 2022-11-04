@@ -43,9 +43,19 @@ class Discipline(BaseModel):
         con un costo de {self.monthly_cost} disponible en los días y horarios {self.dates}"""
 
     def to_dict(self):
-        my_dict = self.__dict__
-        del my_dict["_sa_instance_state"]
-        return my_dict
+        return {
+            "id" : self.id,
+            "name" : self.name,
+            "category" : self.category,
+            "instructors" : self.instructors,
+            "dates" : self.dates,
+            "monthly_cost" : self.monthly_cost,
+            "available" : self.available,
+            "deleted" : self.deleted,
+            "created_at" : self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f'),
+            "updated_at" : self.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        }
+
 
     def dict_repr(self):
         return {
