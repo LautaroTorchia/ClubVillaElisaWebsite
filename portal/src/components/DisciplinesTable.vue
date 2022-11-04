@@ -6,16 +6,16 @@
             <thead>
                 <tr>
                     <!-- loop through each value of the fields to get the table header -->
-                    <th v-for="(k, v, index) in disciplines" :key='index'> 
-                        {{k}} <i class="bi bi-sort-alpha-down" aria-label='Sort Icon'></i>
-                    </th>
+                    <th> Nombre </th>
+                    <th> Instructores </th>
+                    <th> Días y horarios </th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Loop through the list get the each student data -->
-                <tr v-for="(k, v, index) in disciplines" :key='index'>
-                    <td v-for="(k, v, index2) in disciplines" :key='index2'>
-                        {{v}}
+                <tr v-for="(k, index) in disciplines" :key='index'>
+                    <td v-for="(data, index2) in k" :key='index2'>
+                        {{data}}
                     </td>
                 </tr>
             </tbody>
