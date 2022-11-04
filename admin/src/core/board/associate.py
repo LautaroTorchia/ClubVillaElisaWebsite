@@ -42,6 +42,7 @@ class Associate(BaseModel):
     name = Column(String(50), nullable=False)
     surname = Column(String(50), nullable=False)
     active = Column(Boolean(), default=True)
+    profile_pic = Column(String())
     email = Column(String(50), nullable=False)
     DNI_number = Column(Integer, nullable=False)
     DNI_type = Column(Enum(DNIOptions, validate_string=True))

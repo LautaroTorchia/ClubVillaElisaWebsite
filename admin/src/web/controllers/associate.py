@@ -1,5 +1,6 @@
 import os
 from src.core.board.repositories.configuration import get_cfg
+from werkzeug.utils import secure_filename
 from flask import (
     Blueprint,
     render_template,
@@ -8,6 +9,7 @@ from flask import (
     url_for,
     flash,
     send_file,
+    session,
 )
 from src.core.board import (
     create_associate,
@@ -20,6 +22,7 @@ from src.core.board import (
     get_discipline,
     list_all_associates,
     list_all_disciplines,
+    update_associate_profile_pic,
 )
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file, write_pdf_file
@@ -256,8 +259,40 @@ def club_card_view(id):
     """
     associate = get_associate_by_id(id)
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
-    generate_associate_card(associate,CARD_PATH)
+    QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
+    #search for the specific associate profile picture
+    try:
+        PROFILE_PIC_PATH = os.path.join(os.getcwd(), "public", "associate_pics" ,associate.profile_pic)
+        
+    except:
+        PROFILE_PIC_PATH=os.path.join(os.getcwd(), "public", "profile_icon.png")
+    
+    generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH,QR_PATH)
     return render_template("associate/club_card.html", associate=associate)
+
+
+@associate_blueprint.post("/carnet/<id>")
+@has_permission("associate_index")
+def club_card_view_post(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """
+    associate=get_associate_by_id(id)
+    image_data = request.files['image']
+    if image_data.filename == '':
+        flash('No se subio ninguna foto',category="alert alert-danger",)
+        return redirect(request.url)
+
+    image_data.filename=f"{associate.name}_{associate.surname}_{image_data.filename}"
+    secure_filename(image_data.filename)
+    image_data.save(os.path.join(os.getcwd(), "public", "associate_pics", image_data.filename))
+    associate.profile_pic=image_data.filename
+    update_associate_profile_pic(associate)
+        
+    return redirect(url_for("associate.club_card_view", id=id))
+
 
 
 #download the card
@@ -286,6 +321,7 @@ def club_card_download_pdf(id):
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     CARD_PATH_2 = os.path.join(os.getcwd(), "public", "associate_card_in_pdf.png")
     PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
+    QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
     
     write_pdf_card(CARD_PATH,PDF_CARD_PATH,CARD_PATH_2)
     return send_file(PDF_CARD_PATH, as_attachment=True)
