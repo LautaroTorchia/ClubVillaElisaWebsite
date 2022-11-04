@@ -17,6 +17,8 @@ from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
 from flask_cors import CORS
+import os
+from werkzeug.utils import secure_filename
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -28,6 +30,11 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         Flask: Flask app
     """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
+    
+    #uploading files config
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), "public", "associate_pics")
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     # cors
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})

@@ -34,7 +34,7 @@ def is_up_to_date(associate):
 
 
 
-def generate_associate_card(associate,CARD_PATH):
+def generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH):
     """Generates the associate card"""
     from src.core.board.repositories.configuration import get_cfg
     from PIL import Image, ImageDraw, ImageFont,ImageOps
@@ -58,8 +58,8 @@ def generate_associate_card(associate,CARD_PATH):
     card1 = Image.new("RGBA", (900, 500), "white")
     card = ImageOps.expand(card1,border=1,fill='black')
     draw = ImageDraw.Draw(card)
-    profile_pic = Image.open(os.path.join(os.getcwd(), "public", "profile_icon.png"))
     
+    profile_pic = Image.open(PROFILE_PIC_PATH)
     profile_pic = profile_pic.resize((200, 200))
     profile_pic = profile_pic.convert("RGBA")
     
