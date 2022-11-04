@@ -32,6 +32,7 @@ export default {
       scales: {
         x: {
           stacked: true,
+          barThickness: 0.1,
         },
         y: {
           stacked: true,
@@ -43,40 +44,43 @@ export default {
     this.loaded = false
     try {
       const res = await getAssociates()
-
-      const associates_by_gender = Array.from(
-        res.data
-          .reduce(
-            (m, v: Associate) =>
-              m.set(v.gender, [...(m.get(v.gender) || []), v]),
-            new Map()
-          )
-          .values()
-      )
-      //Array de arrays de asociados por genero
-
+      let dict = {}
+      res.data.map((assoc) =>
+          assoc.disciplines.map((discip) => {
+            let d = new Date(discip.associated_at).getFullYear()
+            if (dict[assoc.gender] == undefined){
+              dict[assoc.gender]={}
+            }
+            if (dict[assoc.gender][d] == undefined) {
+              dict[assoc.gender][d] = 1
+            } else {
+              dict[assoc.gender][d] += 1
+            }
+          })
+        )
       const disciplines = res.data.map((associate) => associate.disciplines)
 
       this.chartData = {
-        labels: Array.from(
-          { length: Number(res.years[1]) - Number(res.years[0]) + 1 },
+        labels: 
+        Array.from(
+          { length: Number(res.years[1]) - Number(res.years[0]) + ((Number(res.years[1]) - Number(res.years[0])) <10 ?10:1)},
           (_, i) => String(Number(res.years[0]) + i)
         ),
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: "#ff00ff",
-            data: [1, 2, 3],
+            label: "Hombres",
+            backgroundColor: "#ffad08",
+            data: Object.values(dict.male),
           },
           {
-            label: "Data 2",
-            backgroundColor: "#f00fff",
-            data: [1, 2, 3],
+            label: "Mujeres",
+            backgroundColor: "#73b06f",
+            data: Object.values(dict.female),
           },
           {
-            label: "Data 3",
-            backgroundColor: "#f8ff79",
-            data: [1, 2, 3],
+            label: "Otro",
+            backgroundColor: "#405059",
+            data: Object.values(dict.other),
           },
         ],
       }
