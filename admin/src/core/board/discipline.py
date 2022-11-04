@@ -51,5 +51,5 @@ class Discipline(db.Model):
         return {
             "name": self.name,
             "teacher": self.instructors,
-            "days and time": self.dates,
+            "dates": self.dates,
         }
