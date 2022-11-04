@@ -102,6 +102,7 @@ def make_receipt(payment, RCPT_PATH):
         11: "Noviembre",
         12: "Diciembre",
     }
+    
     FONT_PATH = os.path.join(os.getcwd(), "public", "fonts", "Roboto-Bold.ttf")
     FONT_TXT_PATH = os.path.join(os.getcwd(), "public", "fonts", "Roboto-Regular.ttf")
     receipt = Image.new("RGBA", (850, 300), "white")

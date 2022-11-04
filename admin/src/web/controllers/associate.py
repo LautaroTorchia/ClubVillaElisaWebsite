@@ -25,7 +25,7 @@ from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file, write_pdf_file
 from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
-from src.web.helpers.associate import is_up_to_date
+from src.web.helpers.associate import generate_associate_card, is_up_to_date, write_pdf_card
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_associate_by_id
 
@@ -243,3 +243,49 @@ def delete_discipline(id, discipline_id):
         category="alert alert-info",
     )
     return redirect(url_for("associate.add_discipline", id=id))
+
+
+#view the associate club card
+@associate_blueprint.get("/carnet/<id>")
+@has_permission("associate_index")
+def club_card_view(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """
+    associate = get_associate_by_id(id)
+    CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
+    generate_associate_card(associate,CARD_PATH)
+    return render_template("associate/club_card.html", associate=associate)
+
+
+#download the card
+@associate_blueprint.post("/carnet_descargar/<id>")
+@has_permission("associate_create")
+def club_card_download(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """
+    CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
+    return send_file(CARD_PATH, as_attachment=True)
+
+
+
+#download the card
+@associate_blueprint.post("/carnet_descargar_pdf/<id>")
+@has_permission("associate_create")
+def club_card_download_pdf(id):
+    """Args:
+        id (int): id of the associate
+    Returns:
+        HTML: Redirect to associate list.
+    """
+    CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
+    CARD_PATH_2 = os.path.join(os.getcwd(), "public", "associate_card_in_pdf.png")
+    PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
+    
+    write_pdf_card(CARD_PATH,PDF_CARD_PATH,CARD_PATH_2)
+    return send_file(PDF_CARD_PATH, as_attachment=True)
