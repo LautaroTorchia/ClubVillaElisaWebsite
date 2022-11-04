@@ -1,5 +1,4 @@
 <template>
-
   <CCarousel controls indicators>
     <CCarouselItem>
       <img class="d-block w-100" :src="slides[0].image" alt="0"/>
@@ -38,7 +37,6 @@
       </CCarouselCaption>
     </CCarouselItem> 
   </CCarousel>
-
 </template>
 
 
@@ -94,7 +92,10 @@
   .black_box {
     background: rgba(0,0,0,0.55);
     display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
+  
   .short {
     width: 30rem;
   }
