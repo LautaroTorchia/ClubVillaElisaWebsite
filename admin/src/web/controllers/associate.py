@@ -259,6 +259,7 @@ def club_card_view(id):
     """
     associate = get_associate_by_id(id)
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
+    QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
     #search for the specific associate profile picture
     try:
         PROFILE_PIC_PATH = os.path.join(os.getcwd(), "public", "associate_pics" ,associate.profile_pic)
@@ -266,8 +267,7 @@ def club_card_view(id):
     except:
         PROFILE_PIC_PATH=os.path.join(os.getcwd(), "public", "profile_icon.png")
     
-    print(PROFILE_PIC_PATH)
-    generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH)
+    generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH,QR_PATH)
     return render_template("associate/club_card.html", associate=associate)
 
 
@@ -321,6 +321,7 @@ def club_card_download_pdf(id):
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     CARD_PATH_2 = os.path.join(os.getcwd(), "public", "associate_card_in_pdf.png")
     PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
+    QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
     
     write_pdf_card(CARD_PATH,PDF_CARD_PATH,CARD_PATH_2)
     return send_file(PDF_CARD_PATH, as_attachment=True)
