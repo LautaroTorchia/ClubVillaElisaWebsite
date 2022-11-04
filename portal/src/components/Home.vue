@@ -1,8 +1,10 @@
 <template>
-  <div class="holder">
-    <h1 class="own_big_title">Club Deportivo Villa Elisa</h1>
-    <Carousel></Carousel>
-    <h2 class="text-center mt-5">Disciplinas</h2>
+  <div>
+    <div class="holder">
+      <h1 class="own_golden_title">Club Deportivo Villa Elisa</h1>
+      <Carousel></Carousel>
+    </div>
+    <h2 class="own_golden_title mt-5">Disciplinas</h2>
     <DiscTable class="mt-2"></DiscTable>
   </div>
 </template>
@@ -23,7 +25,7 @@
 
 
 <style scoped>
-.own_big_title {
+.own_golden_title {
   padding-top: 1rem;
   padding-bottom: 1rem;
   text-shadow: 0px -5px 5px rgba(181, 161, 102, 0.5);
