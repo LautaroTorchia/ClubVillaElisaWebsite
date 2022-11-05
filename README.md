@@ -13,7 +13,7 @@
   - Used both as and server side rendering app and a api
   
 ## Public Associate Application
-  - An application that is mainly for any user to use and displays Information about the club
+  - An application that is mainly for any user to use and to display Information about the club
   - Hosted on https://grupo12.proyecto2022.linti.unlp.edu.ar/
   - Developed in Vuejs framework using Typescript
   - Used Bootstrap for CSS
