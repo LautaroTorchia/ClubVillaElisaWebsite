@@ -15,7 +15,7 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js"
-import { Associate } from "../interfaces/Associate"
+import { Discipline } from "../interfaces/Discipline"
 import { getAssociates } from "../services/AssociateDataService"
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
@@ -44,10 +44,10 @@ export default {
     this.loaded = false
     try {
       const res = await getAssociates()
-      let dict = {}
+      let dict = {} as { [key: string]: {[key: string ]:number}}
       res.data.map((assoc) =>
-          assoc.disciplines.map((discip) => {
-            let d = new Date(discip.associated_at).getFullYear()
+          assoc.disciplines!.map((discip: Discipline) => {
+            let d = new Date(discip.associated_at!).getFullYear()
             if (dict[assoc.gender] == undefined){
               dict[assoc.gender]={}
             }
@@ -58,7 +58,7 @@ export default {
             }
           })
         )
-      const disciplines = res.data.map((associate) => associate.disciplines)
+
 
       this.chartData = {
         labels: 
@@ -67,20 +67,21 @@ export default {
           (_, i) => String(Number(res.years[0]) + i)
         ),
         datasets: [
+          
           {
             label: "Hombres",
             backgroundColor: "#ffad08",
-            data: Object.values(dict.male),
+            data: dict.male? Object.values(dict.male):[],
           },
           {
             label: "Mujeres",
             backgroundColor: "#73b06f",
-            data: Object.values(dict.female),
+            data: dict.female? Object.values(dict.female):[],
           },
           {
             label: "Otro",
             backgroundColor: "#405059",
-            data: Object.values(dict.other),
+            data: dict.other ? Object.values(dict.other): [],
           },
         ],
       }

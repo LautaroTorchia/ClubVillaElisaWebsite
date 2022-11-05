@@ -9,5 +9,5 @@ export interface Associate {
   name: string
   phone_number: number
   surname: string
-  disciplines?: string
+  disciplines?: Discipline[]
 }
