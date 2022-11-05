@@ -4,7 +4,7 @@
 ## Authors: Juan Vicens, Ignacio Traberg, Lautaro Torchia and Facundo Tomatis
 
 
-#This development consist of two web applications:
+# This development consist of two web applications:
 ## Admin application: 
   - An application that is mainly for Associate and Payment administration. 
   - Hosted on  https://admin-grupo12.proyecto2022.linti.unlp.edu.ar
