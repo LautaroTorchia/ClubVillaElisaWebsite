@@ -1,20 +1,20 @@
-
 <template>
-  <div class="card own_main_holder text-center">
+  <div class="text-center">
     <h1>Estadisticas</h1>
-    <div class="card-body text-center statistics_body">
-      <BarChart/>
+    <div class="card own_main_holder">
+      <div class="card-body text-center statistics_body">
+        <BarChart />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import BarChart from '../charts/Chart.vue'
-import { defineComponent } from 'vue'
-
+import BarChart from "../charts/DisciplinesByGender.vue"
+import { defineComponent } from "vue"
 
 export default defineComponent({
-  name: 'Statistics',
+  name: "Statistics",
   components: { BarChart },
 })
 </script>
