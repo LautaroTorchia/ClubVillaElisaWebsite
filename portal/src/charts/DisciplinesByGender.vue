@@ -42,12 +42,12 @@ export default {
         title: {
           display: true,
           text: "Cantidad de inscriptos a disciplinas por género",
-          font: {size: 24},
+          font: { size: 24 },
         },
         subtitle: {
           display: true,
           text: "",
-          font: {size: 14},
+          font: { size: 14 },
         },
       },
       scales: {
@@ -57,6 +57,14 @@ export default {
         },
         y: {
           stacked: true,
+          ticks: {
+            beginAtZero: true,
+            callback: function (value) {
+              if (value % 1 === 0) {
+                return value
+              }
+            },
+          },
         },
       },
     },
@@ -66,14 +74,9 @@ export default {
     try {
       const res = await getAssociates()
 
-      //res.data[0].disciplines[0].associated_at = "2023-11-04 19:07:26.279404"
-      //res.data[0].disciplines[0].associated_at = "2023-11-04 19:07:26.279404"
       const labelList = Array.from(
         {
-          length:
-            Number(res.years[1]) -
-            Number(res.years[0]) +
-            (Number(res.years[1]) - Number(res.years[0]) < 10 ? 10 : 1),
+          length: (Number(res.years[1]) - Number(res.years[0]) < 10 ? 10 : Number(res.years[1]) - Number(res.years[0])+1),
         },
         (_, i) => String(Number(res.years[0]) + i)
       )
@@ -104,6 +107,7 @@ export default {
         ? countdict[currentYear] - countdict[currentYear - 1]
         : countdict[currentYear]
       console.log(associatesSinceLastYear)
+      console.log(countdict[currentYear - 1])
       if (countdict[currentYear - 1] == undefined) {
         this.chartOptions.plugins.subtitle.text = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
       } else {
@@ -111,16 +115,14 @@ export default {
           countdict[currentYear - 1] == 0 ? 1 : countdict[currentYear - 1]
         this.chartOptions.plugins.subtitle.text =
           associatesSinceLastYear >= 0
-            ? `Se inscribieron ${associatesSinceLastYear} más personas a disciplinas este año, un ${Math.round(
+            ? `Se inscribieron ${associatesSinceLastYear} más personas a disciplinas este año, un ${
                 (associatesSinceLastYear / countdict[currentYear - 1]) * 100
-              )}% más inscriptos que el año pasado`
-            : `Se desinscribieron ${Math.abs(
+              }% más inscriptos que el año pasado`
+            : `Se inscribieron ${Math.round(Math.abs(
                 associatesSinceLastYear
-              )} personas a disciplinas este año, un ${Math.abs(
-                Math.round(
-                  (associatesSinceLastYear / countdict[currentYear - 1]) * 100
-                )
-              )}% menos inscriptos que el año pasado`
+              ))} personas menos a disciplinas este año, un ${Math.round(Math.abs(
+                (associatesSinceLastYear / countdict[currentYear - 1]) * 100
+              ))}% menos inscriptos que el año pasado`
       }
 
       this.chartData = {
