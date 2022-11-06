@@ -16,3 +16,10 @@ export interface DisciplineClub {
     teacher: string,
     dates: string,
   }
+
+  export interface DisciplineClubWithCosts {
+    name: string,
+    teacher: string,
+    dates: string,
+    monthly_cost: number,
+  }

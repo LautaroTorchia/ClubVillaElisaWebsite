@@ -57,9 +57,17 @@ class Discipline(BaseModel):
         }
 
 
-    def dict_repr(self):
-        return {
+    def dict_repr(self,costs=False):
+        reqs_api_dict = {
             "name": self.name,
             "teacher": self.instructors,
             "dates": self.dates,
         }
+
+        private_api_dict = {
+            "name": self.name,
+            "teacher": self.instructors,
+            "dates": self.dates,
+            "monthly_cost": self.monthly_cost,
+        }
+        return private_api_dict if costs else reqs_api_dict

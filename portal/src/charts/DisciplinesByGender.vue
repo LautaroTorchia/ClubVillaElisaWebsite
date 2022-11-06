@@ -101,13 +101,12 @@ export default {
         })
       )
 
-      console.log(countdict)
+      
       const currentYear = new Date(Date.now()).getFullYear()
       const associatesSinceLastYear = countdict[currentYear - 1]
         ? countdict[currentYear] - countdict[currentYear - 1]
         : countdict[currentYear]
-      console.log(associatesSinceLastYear)
-      console.log(countdict[currentYear - 1])
+      
       if (countdict[currentYear - 1] == undefined) {
         this.chartOptions.plugins.subtitle.text = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
       } else {
