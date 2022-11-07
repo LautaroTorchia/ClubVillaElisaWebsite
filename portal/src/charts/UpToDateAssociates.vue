@@ -41,7 +41,7 @@ export default {
     this.loaded = false
     try {
       const res = await getUpToDateAssociates()
-      console.log(Object.values(res))
+
       this.chartData = {
         labels: ["Adeuda", "No Adeuda"],
         datasets: [

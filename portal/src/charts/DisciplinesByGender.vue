@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions" />
+    <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions"  />
+    <p v-if="!loaded">Cargando Estadísticas</p>
   </div>
 </template>
 
@@ -72,6 +73,7 @@ export default {
   async mounted() {
     this.loaded = false
     try {
+      
       const res = await getAssociates()
 
       const labelList = Array.from(

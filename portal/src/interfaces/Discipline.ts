@@ -21,5 +21,6 @@ export interface DisciplineClub {
     name: string,
     teacher: string,
     dates: string,
+    category: string,
     monthly_cost: number,
   }

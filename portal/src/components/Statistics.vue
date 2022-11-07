@@ -8,18 +8,22 @@
       <div class="card-body text-center statistics_body">
         <DoughnutChart />
       </div>
+      <div class="card-body text-center statistics_body">
+        <BarChartCost />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import BarChart from "../charts/DisciplinesByGender.vue"
+import BarChartCost from "../charts/DisciplinesByCost.vue"
 import DoughnutChart from "../charts/UpToDateAssociates.vue"
 import { defineComponent } from "vue"
 
 export default defineComponent({
   name: "Statistics",
-  components: { BarChart, DoughnutChart },
+  components: { BarChart, DoughnutChart, BarChartCost },
 })
 </script>
 
