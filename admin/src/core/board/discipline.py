@@ -68,6 +68,7 @@ class Discipline(BaseModel):
             "name": self.name,
             "teacher": self.instructors,
             "dates": self.dates,
+            "category": self.category,
             "monthly_cost": self.monthly_cost,
         }
         return private_api_dict if costs else reqs_api_dict
