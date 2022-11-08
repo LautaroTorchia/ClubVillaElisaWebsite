@@ -314,9 +314,7 @@ def club_card_download_pdf(id):
         HTML: Redirect to associate list.
     """
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
-    CARD_PATH_2 = os.path.join(os.getcwd(), "public", "associate_card_in_pdf.png")
     PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
-    QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
     
-    write_pdf_card(CARD_PATH,PDF_CARD_PATH,CARD_PATH_2)
+    write_pdf_card(CARD_PATH,PDF_CARD_PATH)
     return send_file(PDF_CARD_PATH, as_attachment=True)
