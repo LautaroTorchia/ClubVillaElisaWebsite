@@ -14,7 +14,6 @@ associate_api_blueprint = Blueprint(
 
 
 @associate_api_blueprint.get("/disciplines/<id>")
-@jwt_required
 def index_api(id):
     """Args:
         id (int): id of the associate
@@ -28,7 +27,7 @@ def index_api(id):
             {
                 "name": discipline.name,
                 "days": discipline.dates,
-                "time": discipline.dates,
+                "category": discipline.category,
                 "teacher": discipline.instructors,
                 "price": discipline.monthly_cost,
             }
