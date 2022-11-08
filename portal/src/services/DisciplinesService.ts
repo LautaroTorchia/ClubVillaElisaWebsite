@@ -20,3 +20,5 @@ export const getMyDisciplines = async (id: string): Promise<DisciplineResponse> 
   const response = await axios.get('/me/disciplines/' + id)
   return response.data
 }
+
+
