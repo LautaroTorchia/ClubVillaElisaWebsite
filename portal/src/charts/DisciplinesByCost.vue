@@ -18,7 +18,8 @@ import {
 } from "chart.js"
 
 import { getDisciplinesWithCosts } from "../services/DisciplinesService"
-import Discipline from "../components/Discipline.vue"
+import { getAssociates } from "../services/AssociateDataService"
+
 
 ChartJS.register(
   Title,
@@ -39,6 +40,24 @@ export default {
     chartOptions: {
       responsive: true,
       maintainAspectRatio: false,
+      scales: {
+        y: {
+          stacked: true,
+          ticks: {
+            beginAtZero: true,
+            callback: function (value:Number) {
+              if (value % 1 === 0) {
+                return value
+              }
+            },
+          },
+        },
+      },
+      title: {
+          display: true,
+          text: "Cantidad de inscriptos a disciplinas particulares",
+          font: { size: 24 },
+        },
       plugins: {
         title: {
           display: true,
@@ -52,25 +71,37 @@ export default {
     this.loaded = false
     try {
       const res = await getDisciplinesWithCosts()
-      console.log(res.data)
-      //take res.data and map it to a list of objects of the kind discipline.name+discipline.dates: discipline.cost
       const disciplines = res.data
-      const disciplinesWithCosts = disciplines.map((discipline) => {
+      const disciplinesAmount = disciplines.map((discipline) => {
         return {
           [discipline.name +
           " " +
           discipline.category +
           " " +
-          discipline.dates]: Number(discipline.monthly_cost),
+          discipline.dates]: 0,
         }
       })
-      disciplinesWithCosts.sort(
+
+      const associates = await getAssociates()
+      const associatesDisciplines = associates.data.map((associate) => {
+          return associate.disciplines!.map((discipline) => discipline.name +
+          " " +
+          discipline.category +
+          " " +
+          discipline.dates)
+      }).flat()
+      disciplinesAmount.forEach((discipline) => {
+        const disciplineName = Object.keys(discipline)[0]
+        discipline[disciplineName] = associatesDisciplines.filter((discipline) => discipline === disciplineName).length
+      })
+
+      disciplinesAmount.sort(
         (a, b) => Object.values(b)[0] - Object.values(a)[0]
       )
       function dynamicColors() {
-        var r = Math.floor(Math.random() * 255)
-        var g = Math.floor(Math.random() * 255)
-        var b = Math.floor(Math.random() * 255)
+        var r = Math.ceil(Math.random() * 255)
+        var g = Math.ceil(Math.random() * 255)
+        var b = Math.ceil(Math.random() * 255)
         return "rgba(" + r + "," + g + "," + b + ", 0.8)"
       }
       function poolColors(a) {
@@ -80,15 +111,16 @@ export default {
         }
         return pool
       }
-
+      
       this.chartData = {
-        labels: disciplinesWithCosts.map((discipline) =>
+        labels: disciplinesAmount.map((discipline) =>
           Object.keys(discipline)
         ),
         datasets: [
           {
-            backgroundColor: poolColors(disciplinesWithCosts.length),
-            data: disciplinesWithCosts.map(
+            label: "Cantidad de inscriptos",
+            backgroundColor: poolColors(disciplinesAmount.length),
+            data: disciplinesAmount.map(
               (discipline) => Object.values(discipline)[0]
             ),
           },
