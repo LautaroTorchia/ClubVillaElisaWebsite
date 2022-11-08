@@ -7,8 +7,6 @@ statistics_api_blueprint = Blueprint("statistics_api", __name__, url_prefix="/st
 
 @statistics_api_blueprint.get("/associates")
 def disciplines_by_gender():
-    if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
-        return jsonify({"error": "Invalid secret key"}), 401
     res=[]
     relationship=db.session.query(associate_disciplines).all()
     relationship.sort(key=lambda x: x[1])
@@ -19,6 +17,8 @@ def disciplines_by_gender():
             discipline["associated_at"]=list(map(lambda y:y[2],filter(lambda tuple:tuple[0]==associate["id"] and tuple[1]==discipline["id"],relationship)))[0].strftime('%Y-%m-%d %H:%M:%S.%f')
         res+=[associate]
     return jsonify({"data":res,"years":[relationship[0][2].strftime('%Y'),relationship[-1][2].strftime('%Y')]})        #YYYY-MM-DDTHH:mm:ss.sssZ
+    if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
+        return jsonify({"error": "Invalid secret key"}), 401
 
 
 
