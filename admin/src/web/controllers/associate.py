@@ -260,13 +260,7 @@ def club_card_view(id):
     associate = get_associate_by_id(id)
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
-    #search for the specific associate profile picture
-    try:
-        PROFILE_PIC_PATH = os.path.join(os.getcwd(), "public", "associate_pics" ,associate.profile_pic)
-        
-    except:
-        PROFILE_PIC_PATH=os.path.join(os.getcwd(), "public", "profile_icon.png")
-    
+    PROFILE_PIC_PATH = associate.profile_pic
     generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH,QR_PATH)
     return render_template("associate/club_card.html", associate=associate)
 
@@ -287,8 +281,9 @@ def club_card_view_post(id):
 
     image_data.filename=f"{associate.name}_{associate.surname}_{image_data.filename}"
     secure_filename(image_data.filename)
-    image_data.save(os.path.join(os.getcwd(), "public", "associate_pics", image_data.filename))
-    associate.profile_pic=image_data.filename
+    profile_path=os.path.join(os.getcwd(), "public", "associate_pics", image_data.filename)
+    image_data.save(profile_path)
+    associate.profile_pic=profile_path
     update_associate_profile_pic(associate)
         
     return redirect(url_for("associate.club_card_view", id=id))
