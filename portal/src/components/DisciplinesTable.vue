@@ -1,7 +1,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue'
     import { DisciplineClub } from '../interfaces/Discipline'
-    import { getDisciplines } from '../services/DisciplinesService'
+    import { getDisciplinesWithCosts } from "../services/DisciplinesService"
     import { BTable } from 'bootstrap-vue'
     export default defineComponent({
         data() {
@@ -14,9 +14,9 @@
         },
         methods: {
             async getDisciplines() {
-                const res = await getDisciplines()
+                const res = await getDisciplinesWithCosts()
                 this.disciplines = res.data
-                console.log(res.data)
+                console.log(this.disciplines)
             }
         },
         mounted() {
@@ -33,16 +33,20 @@
                 <tr class="text-center">
                     <!-- loop through each value of the fields to get the table header -->
                     <th> Nombre </th>
+                    <th> Categoría </th>
                     <th> Instructores </th>
                     <th> Días y horarios </th>
+                    <th> Costo mensual </th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Loop through the list get the each student data -->
                 <tr v-for="(data, index) in disciplines" :key='index' class="text-center">
                     <td> {{data.name}} </td>
+                    <td> {{data.category}} </td>
                     <td> {{data.teacher}} </td>
                     <td> {{data.dates}} </td>
+                    <td> ${{data.monthly_cost}} </td>
                 </tr>
             </tbody>
         </table> 
