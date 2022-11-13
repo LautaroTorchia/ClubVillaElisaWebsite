@@ -16,7 +16,6 @@
             async getDisciplines() {
                 const res = await getDisciplinesWithCosts()
                 this.disciplines = res.data
-                console.log(this.disciplines)
             }
         },
         mounted() {

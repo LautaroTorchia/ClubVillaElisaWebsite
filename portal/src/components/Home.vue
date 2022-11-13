@@ -6,6 +6,8 @@
     </div>
     <h2 class="own_golden_title mt-5">Disciplinas</h2>
     <DiscTable class="mt-2"></DiscTable>
+    <h3 class="own_golden_title mt-5">Mis pagos</h3>
+    <PaymentsSearch class="mt-2"></PaymentsSearch>
   </div>
 </template>
 
