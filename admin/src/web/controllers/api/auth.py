@@ -11,9 +11,12 @@ auth_api_blueprint = Blueprint(
 
 @auth_api_blueprint.post("/")
 def post():
-    user=get_by_email_and_pwd(request.json["user"], request.json["password"])
-    if user:
-        encoded_jwt = jwt.encode({"id": f"{user.id}"}, Config.SECRET_KEY, algorithm="HS256")
-        return response(200,encoded_jwt,"token")
-    else:
-        return response(401, "Credenciales incorrectas")
+    try:
+        user=get_by_email_and_pwd(request.form["user"], request.form["password"])
+        if user:
+            encoded_jwt = jwt.encode({"id": f"{user.id}"}, Config.SECRET_KEY, algorithm="HS256")
+            return response(200,encoded_jwt,"token")
+        else:
+            return response(401, "Credenciales incorrectas")
+    except:
+        return response(500, "Error interno")

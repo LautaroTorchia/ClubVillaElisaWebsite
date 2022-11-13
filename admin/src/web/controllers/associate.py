@@ -21,11 +21,22 @@ from src.core.board import (
     list_all_associates,
     list_all_disciplines,
 )
+from src.core.auth import (
+    get_role,
+    create_user,
+    add_role_to_user,
+)
+
+from passlib.hash import sha256_crypt
 from src.web.forms.associate import CreateAssociateForm, UpdateAssociateForm
 from src.web.helpers.writers import write_csv_file, write_pdf_file
 from src.web.helpers.auth import has_permission
 from src.web.helpers.pagination import pagination_generator
-from src.web.helpers.associate import generate_associate_card, is_up_to_date, write_pdf_card
+from src.web.helpers.associate import (
+    generate_associate_card,
+    is_up_to_date,
+    write_pdf_card,
+)
 from src.web.helpers.pagination import pagination_generator
 from src.core.board import get_associate_by_id
 
@@ -77,6 +88,11 @@ def post_add():
     """
     form = CreateAssociateForm(request.form)
     if form.validate():
+        user_dict = dict(form.data)
+        user_dict["username"] = user_dict["DNI_number"]
+        user_dict["password"] = sha256_crypt.encrypt(user_dict["password"])
+        user = create_user(user_dict)
+        add_role_to_user(user, get_role("Socio"))
         associate = create_associate(form.data)
         flash(f"Se agregó {associate}", category="alert alert-info")
         return redirect(url_for("associate.index"))
@@ -245,7 +261,7 @@ def delete_discipline(id, discipline_id):
     return redirect(url_for("associate.add_discipline", id=id))
 
 
-#view the associate club card
+# view the associate club card
 @associate_blueprint.get("/carnet/<id>")
 @has_permission("associate_index")
 def club_card_view(id):
@@ -256,11 +272,11 @@ def club_card_view(id):
     """
     associate = get_associate_by_id(id)
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
-    generate_associate_card(associate,CARD_PATH)
+    generate_associate_card(associate, CARD_PATH)
     return render_template("associate/club_card.html", associate=associate)
 
 
-#download the card
+# download the card
 @associate_blueprint.post("/carnet_descargar/<id>")
 @has_permission("associate_create")
 def club_card_download(id):
@@ -273,8 +289,7 @@ def club_card_download(id):
     return send_file(CARD_PATH, as_attachment=True)
 
 
-
-#download the card
+# download the card
 @associate_blueprint.post("/carnet_descargar_pdf/<id>")
 @has_permission("associate_create")
 def club_card_download_pdf(id):
@@ -286,6 +301,6 @@ def club_card_download_pdf(id):
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     CARD_PATH_2 = os.path.join(os.getcwd(), "public", "associate_card_in_pdf.png")
     PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
-    
-    write_pdf_card(CARD_PATH,PDF_CARD_PATH,CARD_PATH_2)
+
+    write_pdf_card(CARD_PATH, PDF_CARD_PATH, CARD_PATH_2)
     return send_file(PDF_CARD_PATH, as_attachment=True)
