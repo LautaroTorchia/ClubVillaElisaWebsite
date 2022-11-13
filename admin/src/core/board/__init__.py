@@ -1,6 +1,6 @@
 from src.core.resource_manager import ResourceManager
 from src.core.db import db
-from src.core.board.associate import Associate
+from src.core.board.associate import Associate, associate_disciplines
 from src.core.board.discipline import Discipline
 from src.core.board.payment import Payment
 
