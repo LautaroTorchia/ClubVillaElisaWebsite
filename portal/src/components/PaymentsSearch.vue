@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <input type="text" />
-    <button class="bt-secondary"></button>
+  <div class="d-flex justify-content-center">
+    <input type="number" id="searchId" class="own_input"/>
+    <button class="btn btn-light" action>Buscar</button>
   </div>
   <div name="asociado">
     <p></p>
@@ -12,10 +12,8 @@
         <tr class="text-center">
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>DNI</th>
-          <th>Fecha de nacimiento</th>
           <th>Disciplina</th>
-          <th>Fecha de pago</th>
+          <th>Fecha de cuota</th>
           <th>Monto</th>
           <th>Estado</th>
         </tr>
@@ -29,33 +27,27 @@
   </div>
 </template>
 
+
+
 <script lang="ts">
 import { defineComponent } from "vue";
-
 export default defineComponent({
   name: "PaymentsSearch",
   data() {
     return {
       payments: [],
-      search: "",
-      searchBy: "name",
-      searchByOptions: [
-        { value: "name", text: "Nombre" },
-        { value: "email", text: "Email" },
-        { value: "dni", text: "DNI" },
-        { value: "phone", text: "Teléfono" },
-      ],
     };
   },
   components: {
   },
   methods: {
     async searchPayments() {
+      const id = document.getElementById("searchId") as HTMLInputElement;
       const response = await fetch(
-        `http://localhost:3000/payments?${this.searchBy}=${this.search}`
+        `http://localhost:3000/payments${id}`
       );
       this.payments = await response.json();
-      console.log(this.payments);
+      console.log("Pagos: ", this.payments)
     },
   },
   mounted() {
@@ -64,4 +56,12 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+
+
+<style>
+  .own_input {
+    min-width: 10%;
+    max-width: 30%;
+    margin-right: 1rem;
+  }
+</style>

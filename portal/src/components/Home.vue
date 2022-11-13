@@ -15,12 +15,14 @@
 <script lang="ts">
   import Carousel from './DisciplinesCarousel.vue'
   import DiscTable from './DisciplinesTable.vue'
+  import PaymentsSearch from './PaymentsSearch.vue'
 
   export default {
     name: 'Home',
     components: { 
       Carousel,
       DiscTable,
+      PaymentsSearch
     }, 
   }
 </script>

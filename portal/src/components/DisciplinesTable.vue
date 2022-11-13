@@ -1,12 +1,12 @@
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import { DisciplineClub } from '../interfaces/Discipline'
+    import { DisciplineClubWithCosts } from '../interfaces/Discipline'
     import { getDisciplinesWithCosts } from "../services/DisciplinesService"
     import { BTable } from 'bootstrap-vue'
     export default defineComponent({
         data() {
             return {
-                disciplines: [] as DisciplineClub[]
+                disciplines: [] as DisciplineClubWithCosts[]
             }
         },
         components: {

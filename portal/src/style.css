@@ -21,10 +21,10 @@
   font-family: "Inter", sans-serif;
 }
 nav{
-  height: 15vh;
+  min-height: 15vh;
 }
 main{
-  height: 85vh;
+  min-height: 85vh;
 
 }
 /* TODO: revisit when prefering other styles
