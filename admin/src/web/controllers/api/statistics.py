@@ -18,7 +18,10 @@ def disciplines_by_gender():
         for discipline in associate["disciplines"]:
             discipline["associated_at"]=list(map(lambda y:y[2],filter(lambda tuple:tuple[0]==associate["id"] and tuple[1]==discipline["id"],relationship)))[0].strftime('%Y-%m-%d %H:%M:%S.%f')
         res+=[associate]
-    return jsonify({"data":res,"years":[relationship[0][2].strftime('%Y'),relationship[-1][2].strftime('%Y')]})        #YYYY-MM-DDTHH:mm:ss.sssZ
+    try:
+        return jsonify({"data":res,"years":[relationship[0][2].strftime('%Y'),relationship[-1][2].strftime('%Y')]})        #YYYY-MM-DDTHH:mm:ss.sssZ
+    except:
+        return jsonify({"data":[],"years":[]})        #YYYY-MM-DDTHH:mm:ss.sssZ
 
 
 
