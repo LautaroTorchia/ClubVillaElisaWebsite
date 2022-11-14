@@ -58,13 +58,6 @@ export default {
           text: "Cantidad de inscriptos a disciplinas particulares",
           font: { size: 24 },
         },
-      plugins: {
-        title: {
-          display: true,
-          text: "Precio de las disciplinas",
-          font: { size: 24 },
-        },
-      },
     },
   }),
   async mounted() {
