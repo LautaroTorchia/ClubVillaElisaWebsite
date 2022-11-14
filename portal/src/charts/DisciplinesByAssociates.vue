@@ -67,21 +67,13 @@ export default {
       const disciplines = res.data
       const disciplinesAmount = disciplines.map((discipline) => {
         return {
-          [discipline.name +
-          " " +
-          discipline.category +
-          " " +
-          discipline.dates]: 0,
+          [discipline.name]: 0,
         }
       })
 
       const associates = await getAssociates()
       const associatesDisciplines = associates.data.map((associate) => {
-          return associate.disciplines!.map((discipline) => discipline.name +
-          " " +
-          discipline.category +
-          " " +
-          discipline.dates)
+          return associate.disciplines!.map((discipline) => discipline.name)
       }).flat()
       disciplinesAmount.forEach((discipline) => {
         const disciplineName = Object.keys(discipline)[0]
