@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="footer text-center text-lg-start bg-light text-muted position-relative bottom-0 top-0 w-100 own_footer">
+    class="text-center text-lg-start bg-light text-muted position-relative bottom-0 top-0 w-100">
     <div
       class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
     >
@@ -69,7 +69,5 @@
 </script>
 
 <style scoped>
-.own_footer {
-  margin-top: auto;
-}
+
 </style>

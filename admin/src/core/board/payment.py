@@ -1,3 +1,4 @@
+import json
 from sqlalchemy import Float, DateTime, Integer, Column, Boolean
 from src.core.db import db
 
@@ -36,5 +37,6 @@ class Payment(db.Model):
 
     def to_dict(self):
         my_dict = self.__dict__
+        my_dict["date"] = my_dict["date"].strftime('%Y-%m-%d %H:%M:%S.%f')
         del my_dict["_sa_instance_state"]
         return my_dict

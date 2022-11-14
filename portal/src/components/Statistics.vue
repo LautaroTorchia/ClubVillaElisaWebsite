@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import BarChart from "../charts/DisciplinesByGender.vue"
-import BarChartCost from "../charts/DisciplinesByCost.vue"
+import BarChartCost from "../charts/DisciplinesByAssociates.vue"
 import DoughnutChart from "../charts/UpToDateAssociates.vue"
 import { defineComponent } from "vue"
 
