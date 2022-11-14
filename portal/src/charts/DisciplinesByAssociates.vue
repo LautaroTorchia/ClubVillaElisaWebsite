@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Bar } from "vue-chartjs"
+import { Bar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
   Title,
@@ -15,11 +15,11 @@ import {
   CategoryScale,
   LinearScale,
   SubTitle,
-} from "chart.js"
+} from 'chart.js'
 
-import { getDisciplinesWithCosts } from "../services/DisciplinesService"
-import { getAssociates } from "../services/AssociateDataService"
-
+import { getDisciplinesWithCosts } from '../services/DisciplinesService'
+import { getAssociates } from '../services/AssociateDataService'
+import { defineComponent } from 'vue'
 
 ChartJS.register(
   Title,
@@ -31,41 +31,44 @@ ChartJS.register(
   LinearScale
 )
 
-export default {
-  name: "BarChartCost",
+export default defineComponent({
+  name: 'BarChartCost',
   components: { Bar },
-  data: () => ({
-    loaded: false,
-    chartData: {},
-    chartOptions: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          stacked: true,
-          ticks: {
-            beginAtZero: true,
-            callback: function (value:Number) {
-              if (value % 1 === 0) {
-                return value
-              }
+  data() {
+    return {
+      loaded: false,
+      chartData: { datasets: [] as any, labels: [] as any },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            stacked: true,
+            ticks: {
+              beginAtZero: true,
+              callback: function (value: number) {
+                if (value % 1 === 0) {
+                  return value
+                }
+              },
             },
           },
         },
-      },
-      plugins: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Cantidad de inscriptos a disciplinas particulares',
+            font: { size: 24 },
+          },
+        },
         title: {
           display: true,
-          text: "Cantidad de inscriptos a disciplinas particulares",
-          font: { size: 24 },
-        },},
-      title: {
-          display: true,
-          text: "Cantidad de inscriptos a disciplinas particulares",
+          text: 'Cantidad de inscriptos a disciplinas particulares',
           font: { size: 24 },
         },
-    },
-  }),
+      },
+    }
+  },
   async mounted() {
     this.loaded = false
     try {
@@ -78,12 +81,16 @@ export default {
       })
 
       const associates = await getAssociates()
-      const associatesDisciplines = associates.data.map((associate) => {
+      const associatesDisciplines = associates.data
+        .map((associate) => {
           return associate.disciplines!.map((discipline) => discipline.name)
-      }).flat()
+        })
+        .flat()
       disciplinesAmount.forEach((discipline) => {
         const disciplineName = Object.keys(discipline)[0]
-        discipline[disciplineName] = associatesDisciplines.filter((discipline) => discipline === disciplineName).length
+        discipline[disciplineName] = associatesDisciplines.filter(
+          (discipline) => discipline === disciplineName
+        ).length
       })
 
       disciplinesAmount.sort(
@@ -93,23 +100,21 @@ export default {
         var r = Math.ceil(Math.random() * 255)
         var g = Math.ceil(Math.random() * 255)
         var b = Math.ceil(Math.random() * 255)
-        return "rgba(" + r + "," + g + "," + b + ", 0.8)"
+        return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)'
       }
-      function poolColors(a) {
+      function poolColors(a: any) {
         var pool = []
         for (let i = 0; i < a; i++) {
           pool.push(dynamicColors())
         }
         return pool
       }
-      
+
       this.chartData = {
-        labels: disciplinesAmount.map((discipline) =>
-          Object.keys(discipline)
-        ),
+        labels: disciplinesAmount.map((discipline) => Object.keys(discipline)),
         datasets: [
           {
-            label: "Cantidad de inscriptos",
+            label: 'Cantidad de inscriptos',
             backgroundColor: poolColors(disciplinesAmount.length),
             data: disciplinesAmount.map(
               (discipline) => Object.values(discipline)[0]
@@ -123,5 +128,5 @@ export default {
       console.error(e)
     }
   },
-}
+})
 </script>

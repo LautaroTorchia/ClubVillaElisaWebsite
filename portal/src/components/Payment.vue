@@ -5,7 +5,7 @@ import { getPayments, createPayment } from '../services/PaymentService'
 export default defineComponent({
   data() {
     return {
-      payments: [] as Payment[] | string,
+      payments: [] as Payment[],
     }
   },
   methods: {
@@ -34,7 +34,7 @@ export default defineComponent({
       <p>date: {{ payment.date }} | numero de cuota: {{ payment.installment_number }}</p>
     </div>
     <h1>Realizar Pago</h1>
-    <button @click="this.createPayment()">Pagar</button>
+    <button @click="createPayment">Pagar</button>
   </div>
 </template>
 
