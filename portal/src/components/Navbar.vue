@@ -1,6 +1,24 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-export default defineComponent({})
+import { mapActions, mapGetters } from 'vuex'
+
+export default defineComponent({
+  computed: {
+    ...mapGetters({
+      authUser: 'auth/user',
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
+  },
+  methods: {
+    ...mapActions('auth', ['logoutUser']),
+    async logout() {
+      await this.logoutUser().catch((err) => {
+        console.log(err)
+      })
+      this.$router.push('/autenticar')
+    },
+  },
+})
 </script>
 
 <template>
@@ -28,7 +46,7 @@ export default defineComponent({})
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
+          <li v-if="isLoggedIn" class="nav-item">
             <router-link class="nav-link" to="/disciplinas"
               >Disciplinas</router-link
             >
@@ -42,8 +60,18 @@ export default defineComponent({})
             >
           </li>
         </ul>
-        <router-link class="btn own_btn px-3 d-flex justify-content-center" to="/autenticar"
+        <router-link
+          v-if="!isLoggedIn"
+          class="btn own_btn px-3 d-flex justify-content-center"
+          to="/autenticar"
           >Iniciar sesion</router-link
+        >
+        <router-link
+          v-if="isLoggedIn"
+          @click="logout"
+          class="btn own_btn px-3 d-flex justify-content-center"
+          to="/autenticar"
+          >Cerrar sesion</router-link
         >
       </div>
     </div>
@@ -73,7 +101,7 @@ nav {
 }
 .own_btn:hover {
   border: solid 1px #333 !important;
-  background:transparent !important;
+  background: transparent !important;
 }
 .btn.active {
   background: #b5a166;
