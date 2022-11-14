@@ -53,6 +53,12 @@ export default {
           },
         },
       },
+      plugins: {
+        title: {
+          display: true,
+          text: "Cantidad de inscriptos a disciplinas particulares",
+          font: { size: 24 },
+        },},
       title: {
           display: true,
           text: "Cantidad de inscriptos a disciplinas particulares",
