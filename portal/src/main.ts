@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './icons.ts'
+import store from './stores'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -16,5 +17,6 @@ const router = createRouter({
 })
 createApp(App)
   .use(router)
+  .use(store)
   .component('font-awesome-icon', FontAwesomeIcon)
   .mount('#app')
