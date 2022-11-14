@@ -20,6 +20,7 @@ from flask_session import Session
 from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
+from flask_jwt_extended import JWTManager
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -50,6 +51,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
 
     # Session
     Session(app)
+
+    # jwt
+    jwt = JWTManager(app)
 
     # Controllers
     app.register_blueprint(discipline_blueprint)
