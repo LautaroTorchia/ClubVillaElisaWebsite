@@ -1,0 +1,42 @@
+{% set current_template = self._TemplateReference__context.name %}
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome-all.min.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Pretty-Search-Form-.css') }}" />
+{% endblock css %}
+{% block title %} Carnet de socio {% endblock title %}
+
+<body>
+    {% block content %}
+    {% include "flashes.html" %}
+    <div class="d-flex flex-column pb-5">
+        <div class="d-flex flex-column justify-content-center align-items-center" id="searchHeader">
+            {% if has_permission(session["user"],"associate_index") %}
+            <a class="btn own_golden_bg own_button" href="{{url_for('associate.index')}}">
+            Volver al listado
+            </a>
+            {%endif%}
+        </div>
+
+        <div>
+            <form method = "POST" enctype = "multipart/form-data" action="{{ url_for("associate.club_card_view_post",id=associate.id) }}">
+                <input type="file" name="image" id="image" />
+                <input type="submit" value="Subir foto del asociado" />
+            </form>        
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <img src="{{url_for('static', filename="associate_card.png")}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image" 
+            style="max-width: 700px; max-height: 900px;">
+        </div>
+
+        <form action="{{ url_for('associate.club_card_download', id=associate.id) }}" method="POST" class="d-flex flex-column ">
+        <button class="btn own_golden_bg own_border_radius mt-4">Descargar carnet</button>
+        </form>
+        <form action="{{ url_for('associate.club_card_download_pdf', id=associate.id) }}" method="POST" class="d-flex flex-column ">
+            <button class="btn own_golden_bg own_border_radius mt-4">Descargar en PDF</button>
+        </form>
+    </div>
+    {% endblock content %}
+
+  </body>
+  

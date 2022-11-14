@@ -270,6 +270,11 @@ main {
   padding-left: 0px !important;
 }
 
+.own_no_padding_sides {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
 /* 
 Generic Styling, for Desktops/Laptops 
 */

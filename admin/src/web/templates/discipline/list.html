@@ -34,37 +34,45 @@
         {%endif%}
       </tr>
     </thead>
-    <tbody>
-      {% for discipline in disciplines.items %}
-      <tr>
-        <td style="--title1:'Nombre';"> {{ discipline.name }} </td>
-        <td style="--title2:'Categoría';"> {{ discipline.category }} </td>
-        <td style="--title3:'Instructores';"> {{ discipline.instructors }} </td>
-        <td style="--title4:'Fechas';"> {{ discipline.dates }} </td>
-        <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} {{ currency }} </td>
-        <td style="--title6:'Cupo';"> {{ "Si" if discipline.available else "No" }} </td>
-        {% if has_permission(session["user"],"discipline_update") %}
-        <td style="--title7:'Modificar';">
-          <a class="btn btn-outline-info w-100 p-1 own_options_button"
-            href="{{ url_for('discipline.update', id=discipline.id) }}">
-            Mod.
-          </a>
-        </td>
-        {%endif%}
-        {% if has_permission(session["user"],"discipline_destroy") %}
-        <td style="--title8:'Eliminar';">
-          <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post">
-            <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button" style="border-radius: 5px"
-              name="Delete" value="{{ discipline.id }}"
-              onclick="return confirm('Seguro que desea eliminar {{ discipline.name }} {{ discipline.category }} ?');">
-              X
-            </button>
-          </form>
-        </td>
-        {%endif%}
-      </tr>
-      {% endfor %}
-    </tbody>
+    {% if disciplines.items %}
+      <tbody>
+        {% for discipline in disciplines.items %}
+        <tr>
+          <td style="--title1:'Nombre';"> {{ discipline.name }} </td>
+          <td style="--title2:'Categoría';"> {{ discipline.category }} </td>
+          <td style="--title3:'Instructores';"> {{ discipline.instructors }} </td>
+          <td style="--title4:'Fechas';"> {{ discipline.dates }} </td>
+          <td style="--title5:'Costo mensual';"> {{ discipline.monthly_cost }} {{ currency }} </td>
+          <td style="--title6:'Cupo';"> {{ "Si" if discipline.available else "No" }} </td>
+          {% if has_permission(session["user"],"discipline_update") %}
+          <td style="--title7:'Modificar';">
+            <a class="btn btn-outline-info w-100 p-1 own_options_button"
+              href="{{ url_for('discipline.update', id=discipline.id) }}">
+              Mod.
+            </a>
+          </td>
+          {%endif%}
+          {% if has_permission(session["user"],"discipline_destroy") %}
+          <td style="--title8:'Eliminar';">
+            <form action="{{ url_for('discipline.delete', id=discipline.id) }}" method="post">
+              <button type="submit" class="btn btn-outline-danger w-100 p-1 own_options_button" style="border-radius: 5px"
+                name="Delete" value="{{ discipline.id }}"
+                onclick="return confirm('Seguro que desea eliminar {{ discipline.name }} {{ discipline.category }} ?');">
+                X
+              </button>
+            </form>
+          </td>
+          {%endif%}
+        </tr>
+        {% endfor %}
+      </tbody>
+    {% else %}
+      <tbody>
+        <tr>
+          <td colspan="8" style="text-align: center;" class="own_no_padding_sides">No hay entradas para mostrar</td>
+        </tr>
+      </tbody>
+    {% endif %}
   </table>
   {% endblock table %}
   {% block js %}

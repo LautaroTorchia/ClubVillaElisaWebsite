@@ -2,17 +2,7 @@ from src.core.auth.user import User
 from passlib.hash import sha256_crypt
 from src.core.auth import users
 
-
-def get_user_by_id(user_id):
-    """Args:
-        user_id (int): The id of the user to retrieve.
-    Returns:
-        User: The user object.
-    """
-    return users.get(value=user_id)
-
-
-def get_user_by(field, value):
+def get_user_by( value,field="id"):
     """Args:
         user_id (int): The id of the user to retrieve.
     Returns:
@@ -47,7 +37,7 @@ def delete_user(user_id):
     """Args:
     user_id (int): The id of the user to delete.
     """
-    user = get_user_by_id(user_id)
+    user = get_user_by(value=user_id)
     for roles in user.roles:
         remove_role_to_user(user, roles)
     users.delete(user_id)
@@ -63,8 +53,8 @@ def update_user(user_id, form):
 
 def get_by_usr_and_pwd(usr, pwd):
     """Args:
-        usr (User): The name of the user to retrive.
-        pwd (Str): The password of the user to retrive.
+        usr (str): The name of the user to retrive.
+        pwd (str): The password of the user to retrive.
     Returns:
         User: The user object.
     """
@@ -73,6 +63,18 @@ def get_by_usr_and_pwd(usr, pwd):
         return usr
     return None
 
+
+def get_by_email_and_pwd(email, pwd):
+    """Args:
+        email (str): The email of the user to retrive.
+        pwd (str): The password of the user to retrive.
+    Returns:
+        User: The user object.
+    """
+    usr = users.query.filter(User.email == email).first()
+    if usr != None and sha256_crypt.verify(pwd, usr.password):
+        return usr
+    return None
 
 def disable_user(id):
     """Args:
@@ -118,5 +120,5 @@ def user_has_permission(user_id, permission):
     """
     from src.core.auth import role_has_permission
 
-    user = get_user_by_id(user_id)
+    user = get_user_by(value=user_id)
     return any([role_has_permission(role, permission) for role in user.roles])

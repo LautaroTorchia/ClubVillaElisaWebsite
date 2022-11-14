@@ -25,10 +25,14 @@ def associate_payments(id):
             map(lambda x: x.to_dict(), associate.payments),
         )
     )
-    if payments:
-        return response(200, payments)
-    else:
-        return response(200, [])
+    res = {
+        "payments": payments,
+        "name" : associate.name,
+        "entry_date": associate.entry_date.strftime('%Y-%m-%d %H:%M:%S.%f'),
+    }
+    return response(200, res)
+
+    
 
 
 @payment_api_blueprint.post("/<id>")

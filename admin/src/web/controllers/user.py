@@ -6,7 +6,7 @@ from src.core.auth import (
     list_users,
     update_user,
     delete_user,
-    get_user_by_id,
+    get_user_by,
     disable_user,
     enable_user,
     add_role_to_user,
@@ -30,8 +30,8 @@ def index():
     HTML: List of users.
     """
     pairs = [
-        ("first_name", "Nombre"),
-        ("last_name", "Apellido"),
+        ("name", "Nombre"),
+        ("surname", "Apellido"),
         ("email", "Email"),
         ("username", "Usuario"),
         ("true", "Activo"),
@@ -94,7 +94,7 @@ def get_update(id):
     Returns:
         HTML: Form to update a user.
     """
-    user = get_user_by_id(id)
+    user = get_user_by(value=id)
     form = BasicUserForm(obj=user, roles=get_roles(), user_id=id)
     return render_template("user/update.html", form=form)
 
@@ -112,7 +112,7 @@ def post_update(id):
         form = csrf_remover(form.data)
         roles_form = form.pop("roles")
         update_user(id, form)
-        user = get_user_by_id(id)
+        user = get_user_by(value=id)
         roles = get_roles()
         if roles_form != []:
             for role in roles:
@@ -152,7 +152,7 @@ def disable(id):
     Returns:
         HTML: Redirect to user list.
     """
-    user = get_user_by_id(id)
+    user = get_user_by(value=id)
     for role in user.roles:
         if role.name == "Admin":
             flash(

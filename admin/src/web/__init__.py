@@ -5,16 +5,22 @@ from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.associate import associate_blueprint
 from src.web.controllers.configuration import configuration_blueprint
 from src.web.controllers.api.configuration import configuration_api_blueprint
+from src.web.controllers.api.auth import auth_api_blueprint
 from src.web.controllers.api.discipline import discipline_api_blueprint
 from src.web.controllers.api.associate import associate_api_blueprint
 from src.web.controllers.api.user import user_api_blueprint
 from src.web.controllers.api.payment import payment_api_blueprint
 from src.web.controllers.api.info import info_api_blueprint
+from src.web.controllers.api.statistics import statistics_api_blueprint
 from src.web.controllers.user import user_blueprint
 from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.payments import payments_blueprint
 from src.web.helpers import handlers, auth
 from flask_session import Session
+from flask_cors import CORS
+import os
+from werkzeug.utils import secure_filename
+from flask_jwt_extended import JWTManager
 
 
 def create_app(env="development", static_folder="/static", template_folder="templates"):
@@ -26,6 +32,14 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         Flask: Flask app
     """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
+    
+    #uploading files config
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), "public", "associate_pics")
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    # cors
+    cors = CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
 
     # load config
     config = get_config()
@@ -38,6 +52,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # Session
     Session(app)
 
+    # jwt
+    jwt = JWTManager(app)
+
     # Controllers
     app.register_blueprint(discipline_blueprint)
     app.register_blueprint(associate_blueprint)
@@ -49,6 +66,9 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     # Api
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api_blueprint.register_blueprint(configuration_api_blueprint)
+    api_blueprint.register_blueprint(auth_api_blueprint)
+    api_blueprint.register_blueprint(statistics_api_blueprint)
+    
 
     # Api me
     api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")

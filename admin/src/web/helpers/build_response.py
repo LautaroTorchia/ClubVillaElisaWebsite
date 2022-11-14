@@ -32,7 +32,7 @@ class DecimalEncoder(json.JSONEncoder):
             return fake_float(o)
 
 
-def response(status, data):
+def response(status, data,data_field_name="data"):
     """Args:
         status (int): HTTP status code
         data (dict): Data to be returned
@@ -48,6 +48,6 @@ def response(status, data):
         "timestamp": f"{datetime.now()}",
         "status": status,
         "status_msg": status_msg[status][0],  # gets status msg from gist
-        "data": data,
+        f"{data_field_name}": data,
     }
     return json.loads(json.dumps(dict, indent=4, cls=DecimalEncoder))

@@ -22,7 +22,10 @@ class Config(object):
     # db
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://localhost:5432/grupo12"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
+    # flask jwt extended
+    JWT_SECRET_KEY="secret_key"
+    JWT_TOKEN_LOCATION=["cookies"]
+    JWT_ACCESS_COOKIE_NAME="access_token_cookie"
 
 class ProductionConfig(Config):
     DEBUG = False

@@ -1,6 +1,5 @@
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from src.web.forms.config import ConfigForm
-from src.core.board.configuration import Configuration
 from src.core.board.repositories.configuration import update_cfg, get_cfg
 from src.web.helpers.form_utils import csrf_remover, bool_checker
 from src.web.helpers.auth import has_permission

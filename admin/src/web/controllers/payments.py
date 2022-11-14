@@ -27,9 +27,6 @@ from src.web.helpers.form_utils import bool_checker
 from sqlalchemy.sql.expression import cast
 from sqlalchemy import String
 from src.core.board import get_cfg, payments
-
-from src.core.db import db
-from src.core.board.payment import Payment
 from src.core.board.associate import Associate
 
 payments_blueprint = Blueprint("payments", __name__, url_prefix="/pagos")
