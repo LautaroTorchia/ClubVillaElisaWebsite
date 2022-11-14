@@ -24,8 +24,8 @@ def disciplines_by_gender():
 
 @statistics_api_blueprint.get("/associates_up_to_date")
 def associates_up_to_date():
-    #if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
-    #    return jsonify({"error": "Invalid secret key"}), 401
+    if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
+        return jsonify({"error": "Invalid secret key"}), 401
     up_to_date=0
     not_up_to_date=0
     for associate in list_all_associates():    
