@@ -51,7 +51,7 @@ export default defineComponent({
 
 <template>
   <div class="col-md-4 offset-md-4">
-    <form action class="form" @submit.prevent="login">
+    <form class="form" @submit.prevent="login">
       <h1 class="text-center h3 pb-5">Iniciar sesión</h1>
       <input
         type="text"
