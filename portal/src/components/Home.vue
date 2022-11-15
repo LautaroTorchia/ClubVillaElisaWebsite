@@ -16,15 +16,16 @@
   import Carousel from './DisciplinesCarousel.vue'
   import DiscTable from './DisciplinesTable.vue'
   import PaymentsSearch from './PaymentsSearch.vue'
+  import { defineComponent } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Home',
     components: { 
       Carousel,
       DiscTable,
       PaymentsSearch
     }, 
-  }
+  })
 </script>
 
 
