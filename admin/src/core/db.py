@@ -29,8 +29,6 @@ def config_db(app):
     def create_tables():
         """Create tables in the database."""
         db.create_all()
-        # Create Admin
-        seeds.run()
 
     @app.teardown_appcontext
     def close_session(exception=None):
