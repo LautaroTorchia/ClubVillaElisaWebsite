@@ -33,14 +33,14 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         Flask: Flask app
     """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
-    
-    #uploading files config
+
+    # uploading files config
     UPLOAD_FOLDER = os.path.join(os.getcwd(), "public", "associate_pics")
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
     # cors
-    cors = CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
+    CORS(app, resources=r"/api/*", supports_credentials=True)
 
     # load config
     config = get_config()
@@ -70,7 +70,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_blueprint.register_blueprint(configuration_api_blueprint)
     api_blueprint.register_blueprint(auth_api_blueprint)
     api_blueprint.register_blueprint(statistics_api_blueprint)
-    
 
     # Api me
     api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")
