@@ -43,6 +43,7 @@ def config_db(app):
 def reset_db():
     """Reset the database."""
     print("   Deleting database...")
+    db.session.commit()
     db.drop_all()
     print("   Creating database ...")
     db.create_all()
