@@ -210,6 +210,9 @@ def populate():
         print(e)
 
     associate = list_all_associates()[0]
+    from src.core.board.repositories.configuration import get_cfg
+    from src.web.helpers.payment_helpers import disciplines_fee_amount
+    config = get_cfg()
     create_payment(
-        last_installment=1, amount=800, date="2021-12-12", associate=associate
+        last_installment=1, amount=disciplines_fee_amount(associate) + config.base_fee, date="2021-12-12", associate=associate
     )
