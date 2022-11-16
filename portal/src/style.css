@@ -27,6 +27,21 @@ main{
   min-height: 85vh;
 
 }
+
+.btn-secondary{
+  background: #b5a166 !important;
+  color: #333 !important;
+  border: solid 1px transparent !important;
+  border-radius: 5px !important;
+  font-weight: 700 !important;
+  transition: 0.3s !important;
+}
+
+.btn-secondary:hover {
+  border: solid 1px #333 !important;
+  background: transparent !important;
+}
+
 /* TODO: revisit when prefering other styles
 @media (prefers-color-scheme: light) {
   :root {
