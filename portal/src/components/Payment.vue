@@ -67,13 +67,13 @@ export default defineComponent({
         }
       }
     },
-    async getMorosityFee() {
+    async getConfig() {
       const res = await getConfiguration()
       this.config = res.data
     },
   },
   mounted() {
-    this.getMorosityFee()
+    this.getConfig()
   },
 })
 </script>
