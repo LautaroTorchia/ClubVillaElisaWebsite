@@ -43,10 +43,224 @@ main{
 }
 
 /* TODO: revisit when prefering other styles
-@media (prefers-color-scheme: light) {
-  :root {
+*/
+@media only screen and (max-width: 767px),
+  (min-width: 768px) and (max-width: 1024px) {
+  /*:root {
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
+  }*/
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border-bottom: 1px solid #ccc !important;
+    position: relative;
+    padding-left: 50% !important;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    font-weight: bold;
+    border-right: 1px solid #ccc;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  tr:nth-child(odd) > td:before {
+    border-right: 1px solid #aaa !important;
+  }
+
+  /*
+	Label the data
+	*/
+
+  td:nth-of-type(1):before {
+    content: var(--title1);
+  }
+  td:nth-of-type(2):before {
+    content: var(--title2);
+  }
+  td:nth-of-type(3):before {
+    content: var(--title3);
+  }
+  td:nth-of-type(4):before {
+    content: var(--title4);
+  }
+  td:nth-of-type(5):before {
+    content: var(--title5);
+  }
+  td:nth-of-type(6):before {
+    content: var(--title6);
+  }
+  td:nth-of-type(7):before {
+    content: var(--title7);
+  }
+  td:nth-of-type(8):before {
+    content: var(--title8);
+  }
+  td:nth-of-type(9):before {
+    content: var(--title9);
+  }
+  td:nth-of-type(10):before {
+    content: var(--title10);
+  }
+  td:nth-of-type(11):before {
+    content: var(--title11);
+  }
+
+}
+
+
+
+@media (width < 768px) {
+  #navcol-1 > a ,.nav-link{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+  }
+  .own_main_table {
+    width: 100% !important;
+    margin-bottom: 30px;
+  }
+  .own_add_button {
+    margin: 0;
+  }
+  .own_flex_column {
+    flex-direction: column !important;
+  }
+  .own_export_text {
+    align-self: center;
+  }
+  .own_confirmation_button {
+    width: 60% !important;
+  }
+  #magGlass {
+    display: none !important;
+  }
+  #searchHeader {
+    margin-top: 15px;
+    flex-direction: column !important;
+  }
+
+  #searchButton {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .own_config_table {
+    width: 400px;
+    background: rgba(136, 136, 136, 0.19);
+    margin: auto;
+    border-radius: 5px;
+  }
+  #searchText,
+  #searchFilter {
+    padding: 5px;
+  }
+  #sectionTable {
+    padding: 10px !important;
   }
 }
-*/
+
+
+
+@media (width < 360px) {
+    td{
+        position: relative;
+        overflow:hidden;
+    }
+    td::before{
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 16px !important;
+        display:inline-block !important;
+    }
+    .btn,.btn-outline-secondary,.btn-outline-info,.btn-outline-warning{
+        width:100% !important;
+    }
+    #roles {
+        flex-direction: column !important;
+        gap:8px;
+    }
+  #searchBar{
+    display:flex;
+    flex-direction:column;
+    margin:0;
+  }
+  #searchHeader{
+    margin:5px;
+
+  }
+  #searchFilter,#searchText,#searchButton{
+    width:100% !important;
+    border:1px solid #ccc;
+    border-radius:0px;
+    padding:10px !important;
+  }
+
+  #exportSection{
+    display:flex;
+    flex-direction:column;
+  }
+  .own_main_table {
+    width: 100% !important;
+    margin-bottom: 30px;
+  }
+  .card {
+    width: 100% !important;
+  }
+  .h1 {
+    font-size: 16px !important;
+  }
+  .own_logo_home {
+    margin-bottom: 10px;
+  }
+  .own_list_header {
+    display: block;
+  }
+
+  .search_form {
+    display: block;
+  }
+  .own_add_button {
+    width: auto;
+    border-radius: 5px;
+  }
+
+  .own_full_width {
+    width: 100% !important;
+  }
+  .own_config_table {
+    width: 320px;
+    background: rgba(136, 136, 136, 0.19);
+    margin: auto;
+    border-radius: 5px;
+  }
+}

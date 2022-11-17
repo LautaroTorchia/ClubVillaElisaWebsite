@@ -6,9 +6,9 @@ import Footer from './components/Footer.vue'
 </script>
 
 <template>
-  <div class="own_main_body">
+  <div >
     <Navbar />
-    <main class="container p-5">
+    <main class="container p-5 own_main_body">
       <router-view></router-view>
     </main>
   </div>
@@ -16,5 +16,15 @@ import Footer from './components/Footer.vue'
 </template>
 
 <style scoped>
+@media (width < 768px) and (width >= 360px) {
+  .own_main_body {
+    padding: 20px !important;
+  }
+}
 
+@media (width < 360px) {
+  .own_main_body {
+    padding: 0 !important;
+  }
+}
 </style>

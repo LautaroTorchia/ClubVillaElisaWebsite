@@ -41,11 +41,11 @@
             <tbody>
                 <!-- Loop through the list get the each student data -->
                 <tr v-for="(data, index) in disciplines" :key='index' class="text-center">
-                    <td> {{data.name}} </td>
-                    <td> {{data.category}} </td>
-                    <td> {{data.teacher}} </td>
-                    <td> {{data.dates}} </td>
-                    <td> ${{data.monthly_cost}} </td>
+                    <td style="--title1:'Nombre';"> {{data.name}} </td>
+                    <td style="--title2:'Categoría';"> {{data.category}} </td>
+                    <td style="--title3:'Instructores';"> {{data.teacher}} </td>
+                    <td style="--title4:'Días y horarios';"> {{data.dates}} </td>
+                    <td style="--title5:'Costo mensual';"> ${{data.monthly_cost}} </td>
                 </tr>
             </tbody>
         </table> 
