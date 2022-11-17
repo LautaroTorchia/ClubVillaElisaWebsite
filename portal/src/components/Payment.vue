@@ -118,7 +118,7 @@ export default defineComponent({
           <th>Fecha de cuota</th>
           <th>Monto</th>
           <th>Estado</th>
-          <th>Accion</th>
+          <th>Acción</th>
         </tr>
       </thead>
       <tbody>
@@ -127,11 +127,11 @@ export default defineComponent({
           :key="index"
           class="text-center"
         >
-          <td>{{ user.name }}</td>
-          <td>{{ user.surname }}</td>
-          <td>{{ new Date(data.date).toLocaleDateString('es-ES') }}</td>
-          <td>{{ data.amount }} {{ config.currency }}</td>
-          <td>
+          <td style="--title1:'Nombre';">{{ user.name }}</td>
+          <td style="--title2:'Apellido';">{{ user.surname }}</td>
+          <td style="--title3:'Fecha de cuota';">{{ new Date(data.date).toLocaleDateString('es-ES') }}</td>
+          <td style="--title4:'Monto';">{{ data.amount }} {{ config.currency }}</td>
+          <td style="--title5:'Estado';">
             {{
               data.installment_number < 0
                 ? 'No esta paga'
@@ -140,7 +140,7 @@ export default defineComponent({
                 : 'Pago a tiempo'
             }}
           </td>
-          <td>
+          <td style="--title6:'Acción';">
             <button
               v-if="data.installment_number == -1"
               class="btn btn-secondary"
@@ -148,6 +148,7 @@ export default defineComponent({
             >
               Pagar
             </button>
+            <p v-if="data.installment_number != -1"> </p>
           </td>
         </tr>
       </tbody>
