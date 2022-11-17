@@ -102,11 +102,11 @@ def populate():
         "Futbol",
         "Basquetbol",
         "Voleibol",
-        "Natacion",
-        "Atletismo",
+        "Gimnasia Artística",
+        "Handball",
         "Tenis",
-        "Beisbol",
-        "Softbol",
+        "Taekwon-do",
+        "Patín artístico",
     ]
     dicipline_category = [
         "12 a 14 años",
