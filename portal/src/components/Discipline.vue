@@ -21,12 +21,10 @@
       async loadMyDisciplines() {
         const res = await getMyDisciplines()
         this.disciplines = res.data
-        console.log(res.data)
       },
       async loadMyCard() {
         const res = await getMyCard()
         this.associate_card= res.data
-        console.log(res.data)
       },
     },
     mounted() {
@@ -47,7 +45,7 @@
   </div>
   <div>
     <h2>Mi Carnet</h2>
-    <img :src="'data:image/jpg;base64,' + associate_card.associate_card " alt="Associate Carnet" />
+    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" />
   </div>
 </template>
 

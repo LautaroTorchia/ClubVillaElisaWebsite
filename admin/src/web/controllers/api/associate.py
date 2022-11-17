@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from src.web.helpers.build_response import response
-from src.core.board import get_associate_by_id,get_associate_by_DNI
+from src.core.board import get_associate_by_DNI
+from src.core.auth import get_user_by
 from datetime import datetime
 from src.web.helpers.auth import jwt_required
 from src.web.helpers.associate import is_up_to_date
@@ -26,7 +27,8 @@ def index_api():
         JSON: list of disciplines
     """
     current_user = get_jwt_identity()
-    associate=get_associate_by_DNI(current_user.username)
+    user = get_user_by(current_user)
+    associate=get_associate_by_DNI(user.username)
     if associate.disciplines:
         disciplines = [
             {
@@ -53,7 +55,8 @@ def associate_card_api():
         JSON: associate card
     """
     current_user = get_jwt_identity()
-    associate=get_associate_by_DNI(current_user.username)
+    user = get_user_by(current_user)
+    associate=get_associate_by_DNI(user.username)
     if associate:
         CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
         QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
@@ -70,8 +73,8 @@ def associate_card_api():
             "entry_date": f"{associate.entry_date.day}/{associate.entry_date.month}/{associate.entry_date.year}",
             "associate_number":associate.id,
             "status":"Al dia" if is_up_to_date(associate) else "Moroso",
-            "profile_pic":str(profile_pic_in64),
-            "associate_card":str(card_in64)        
+            "profile_pic":str(profile_pic_in64.decode("utf-8")),
+            "associate_card":str(card_in64.decode("utf-8"))        
         }
         return response(200,card_data)
     return response(200,[])
