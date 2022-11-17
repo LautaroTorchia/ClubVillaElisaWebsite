@@ -15,8 +15,8 @@ class User(db.Model):
         username (str): User username
         password (str): User password
         email (str): User email
-        first_name (str): User first name
-        last_name (str): User last name
+        name (str): User first name
+        surname (str): User last name
         active (bool): User active status (default True)
         deleted (bool): User is deleted
     """
@@ -29,11 +29,13 @@ class User(db.Model):
     active = Column(Boolean(), default=True)
     updated_at = Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = Column(db.DateTime, default=datetime.utcnow)
-    first_name = Column(String())
-    last_name = Column(String())
+    name = Column(String())
+    surname = Column(String())
     deleted = Column(Boolean(), default=False)
 
     roles = db.relationship("Role", secondary="user_roles", back_populates="users")
+
+    # TODO: foreign key associate
 
     def __init__(self, active=True, **data):
         """Args:
@@ -41,15 +43,15 @@ class User(db.Model):
         username (str): User username
         password (str): User password
         email (str): User email
-        first_name (str): User first name
-        last_name (str): User last name
+        name (str): User first name
+        surname (str): User last name
         active (bool): User active status (default True)
         """
         self.username = data["username"]
         self.password = data["password"]
         self.email = data["email"]
-        self.first_name = data["first_name"]
-        self.last_name = data["last_name"]
+        self.name = data["name"]
+        self.surname = data["surname"]
         self.active = active
 
     def __repr__(self):
@@ -57,7 +59,7 @@ class User(db.Model):
         User: The string representation of the user.
         """
         return f"""{self.username} con el correo {self.email}
-                con el nombre {self.first_name} {self.last_name}
+                con el nombre {self.name} {self.surname}
                 y con el estado {self.active}"""
 
     def to_dict(self):

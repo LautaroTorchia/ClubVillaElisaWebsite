@@ -1,19 +1,75 @@
-
 <script lang="ts">
-export default {
-  setup() {},
-}
+import { defineComponent } from 'vue'
+import { mapGetters, mapActions } from 'vuex'
+export default defineComponent({
+  data() {
+    return {
+      error: false,
+      user: {
+        username: '',
+        password: '',
+      },
+    }
+  },
+  computed: {
+    ...mapGetters({
+      authUser: 'auth/user',
+      isLoggedIn: 'auth/isLoggedIn',
+    }),
+  },
+  methods: {
+    ...mapActions('auth', ['loginUser', 'logoutUser']),
+    async login() {
+      await this.loginUser(this.user).catch(() => {
+        // Handle error
+        this.error = true
+      })
+      //Cleaning
+      this.user = {
+        username: '',
+        password: '',
+      }
+
+      if (this.isLoggedIn) {
+        this.$router.push('/')
+      }
+    },
+    async logout() {
+      await this.logoutUser().catch((err) => {
+        console.log(err)
+      })
+      this.error = false
+      this.user = {
+        username: '',
+        password: '',
+      }
+      this.$router.push('/')
+    },
+  },
+})
 </script>
 
 <template>
-    <div class="col-md-4 offset-md-4">
-      <form>
-        <h1 class="text-center h3 pb-5">Iniciar sesión</h1>
-        <input type="text" placeholder="Nombre de usuario" class="form-control mb-3"/>
-        <input type="text" placeholder="Contraseña" class="form-control mb-3"/>
-      </form>
-    </div>
+  <div class="col-md-4 offset-md-4">
+    <form class="form" @submit.prevent="login">
+      <h1 class="text-center h3 pb-5">Iniciar sesión</h1>
+      <input
+        type="text"
+        v-model="user.username"
+        placeholder="Nombre de usuario"
+        class="form-control mb-3"
+      />
+      <input
+        type="text"
+        v-model="user.password"
+        placeholder="Contraseña"
+        class="form-control mb-3"
+      />
+      <button type="submit" class="btn btn-primary btn-block">
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

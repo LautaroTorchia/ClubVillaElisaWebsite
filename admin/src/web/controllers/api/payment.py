@@ -19,16 +19,22 @@ def associate_payments(id):
     associate = get_associate_by_id(id)
     if not associate:
         return response(404, "No existe el asociado")
+    last_fee = get_last_fee_paid(associate)
+    payment = build_payment(last_fee, associate)
     payments = list(
         filter(
             lambda x: x["deleted"] == False,
             map(lambda x: x.to_dict(), associate.payments),
         )
     )
-    if payments:
-        return response(200, payments)
-    else:
-        return response(200, [])
+    res = {
+        "payments": payments,
+        "name": associate.name,
+        "actual_amount": payment[3], # amount
+        "surname": associate.surname,
+        "entry_date": associate.entry_date.strftime("%Y-%m-%d %H:%M:%S.%f"),
+    }
+    return response(200, res)
 
 
 @payment_api_blueprint.post("/<id>")

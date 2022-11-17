@@ -39,8 +39,8 @@
       <tbody>
         {% for user in users.items %}
         <tr class="own_centered">
-          <td style="--title1:'Nombre';"> {{ user.first_name }} </td>
-          <td style="--title2:'Apellido';"> {{ user.last_name }} </td>
+          <td style="--title1:'Nombre';"> {{ user.name }} </td>
+          <td style="--title2:'Apellido';"> {{ user.surname }} </td>
           <td style="--title3:'Email';"> {{ user.email }} </td>
           <td style="--title4:'Usuario';"> {{ user.username }} </td>
           {% if has_permission(session["user"],"user_update") %}

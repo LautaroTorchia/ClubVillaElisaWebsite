@@ -30,8 +30,8 @@ def index():
     HTML: List of users.
     """
     pairs = [
-        ("first_name", "Nombre"),
-        ("last_name", "Apellido"),
+        ("name", "Nombre"),
+        ("surname", "Apellido"),
         ("email", "Email"),
         ("username", "Usuario"),
         ("true", "Activo"),

@@ -13,14 +13,15 @@
 <script lang="ts">
   import Carousel from './DisciplinesCarousel.vue'
   import DiscTable from './DisciplinesTable.vue'
+  import { defineComponent } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Home',
     components: { 
       Carousel,
       DiscTable,
     }, 
-  }
+  })
 </script>
 
 

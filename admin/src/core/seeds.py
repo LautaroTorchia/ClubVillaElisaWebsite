@@ -49,8 +49,8 @@ def run():
     if get_by_usr_and_pwd("admin", "1234") is None:
         create_user(
             {
-                "first_name": "admin",
-                "last_name": "admin",
+                "name": "admin",
+                "surname": "admin",
                 "email": "admin@villaelisa.com",
                 "username": "admin",
                 "password": sha256_crypt.encrypt("1234"),
@@ -63,8 +63,7 @@ def populate():
     """Populates the database with some data"""
     adm_role = get_role("Admin")
     op_role = get_role("Operario")
-    us_role = get_role("Socio")
-    roles = [adm_role, op_role, us_role]
+    roles = [adm_role, op_role]
     names = ["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names = [
         "Perez",
@@ -177,8 +176,8 @@ def populate():
         for i in range(0, 7):
             u = create_user(
                 {
-                    "first_name": names[i],
-                    "last_name": last_names[i],
+                    "name": names[i],
+                    "surname": last_names[i],
                     "email": emails[i],
                     "username": usernames[i],
                     "password": sha256_crypt.encrypt(passwords[i]),
@@ -211,6 +210,9 @@ def populate():
         print(e)
 
     associate = list_all_associates()[0]
+    from src.core.board.repositories.configuration import get_cfg
+    from src.web.helpers.payment_helpers import disciplines_fee_amount
+    config = get_cfg()
     create_payment(
-        last_installment=1, amount=800, date="2021-12-12", associate=associate
+        last_installment=1, amount=disciplines_fee_amount(associate) + config.base_fee, date="2021-12-12", associate=associate
     )
