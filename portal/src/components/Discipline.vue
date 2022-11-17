@@ -67,7 +67,7 @@
   </div>
   <div class="d-flex flex-column align-center">
     <h2 class="text-muted">Carnet de socio:</h2>
-    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid w-50 align-self-center" />
+    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center" style="max-width:650px" />
   </div>
 </template>
 
