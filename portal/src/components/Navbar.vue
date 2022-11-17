@@ -48,7 +48,7 @@ export default defineComponent({
           </li>
           <li v-if="isLoggedIn" class="nav-item">
             <router-link class="nav-link" to="/disciplinas"
-              >Disciplinas</router-link
+              >Mis datos</router-link
             >
           </li>
           <li class="nav-item">

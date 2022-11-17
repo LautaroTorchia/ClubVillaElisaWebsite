@@ -104,7 +104,7 @@ export default defineComponent({
   </div>
   <div>
     <div v-if="user.payments && user.payments.length == 0 && user.name">
-      <h3 class="text-center">No se encontraron pagos para {{ user.name }}</h3>
+      <h3 class="text-center">No se encontraron pagos para {{ user.name }} {{ user.surname }}</h3>
     </div>
     <table
       v-if="user.payments && user.payments.length > 0"
