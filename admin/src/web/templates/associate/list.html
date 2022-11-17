@@ -105,7 +105,7 @@
           {% if has_permission(session["user"],"associate_create") %}
           <td style="--title10:'Carnet digital';">
             <form action="{{ url_for('associate.club_card_view', id=associate.id) }}" method="get">
-              <button class="btn btn-outline-danger w-100 p-1 own_options_button">
+              <button class="btn btn-outline-info w-100 p-1 own_options_button">
                 Ver
               </button>
             </form>
