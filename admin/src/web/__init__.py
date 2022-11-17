@@ -86,20 +86,22 @@ def create_app(env="development", static_folder="/static", template_folder="temp
 
     app.register_blueprint(api_blueprint)
 
-    white = ['http://localhost:5173','https://grupo12.proyecto2022.linti.unlp.edu.ar/']
+    white = ['http://localhost:5173','http://localhost:5000','https://grupo12.proyecto2022.linti.unlp.edu.ar/']
     @app.after_request
     def add_cors_headers(response):
-        r = request.referrer[:-1]
-        if r in white:
-            response.headers.add('Access-Control-Allow-Origin', r)
-            response.headers.add('Access-Control-Allow-Credentials', 'true')
-            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            response.headers.add('Access-Control-Allow-Headers', 'Secret-Key')
-            response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
-            response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
-            response.headers.add('Access-Control-Allow-Headers', 'Authorization')
-            response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+        if request.referrer:
+            r = request.referrer[:-1]
+            if r in white:
+                response.headers.add('Access-Control-Allow-Origin', r)
+                response.headers.add('Access-Control-Allow-Credentials', 'true')
+                response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+                response.headers.add('Access-Control-Allow-Headers', 'Secret-Key')
+                response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
+                response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
+                response.headers.add('Access-Control-Allow-Headers', 'Authorization')
+                response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
         return response
+    
 
     # Routes
     @app.get("/")
