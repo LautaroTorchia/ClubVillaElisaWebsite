@@ -11,7 +11,7 @@ export const getAssociates = async (): Promise<AssociateResponse> => {
   return response.data
 }
 
-export const getMyCard = async (id: string): Promise<CardResponse> => {
-  const response = await axios.get('/me/license/' + id)
+export const getMyCard = async (): Promise<CardResponse> => {
+  const response = await axios.get('/me/license/')
   return response.data
 }

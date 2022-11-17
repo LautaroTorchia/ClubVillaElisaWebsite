@@ -19,14 +19,14 @@
     },
     methods: {
       async loadMyDisciplines() {
-        const id = '2' // WARNING: get from jwt
-        const res = await getMyDisciplines(id)
+        const res = await getMyDisciplines()
         this.disciplines = res.data
+        console.log(res.data)
       },
       async loadMyCard() {
-        const id = '1' // WARNING: get from jwt
-        const res = await getMyCard(id)
+        const res = await getMyCard()
         this.associate_card= res.data
+        console.log(res.data)
       },
     },
     mounted() {
@@ -37,7 +37,7 @@
 </script>
 <template>
   <div>
-    <h1>Datos de {{ authUser.username }}</h1>
+    <h1>Datos de {{ authUser.name }} {{ authUser.surname }}</h1>
     <h2>Disciplinas:</h2>
     <div v-for="(discipline, index) in disciplines" :key="index">
       <p>Disciplina: {{ discipline.name }} | Categoria: {{ discipline.category }}</p>

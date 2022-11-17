@@ -16,8 +16,8 @@ export const getDisciplinesWithCosts = async (): Promise<DisciplineClubResponseW
 }
 
 
-export const getMyDisciplines = async (id: string): Promise<DisciplineResponse> => {
-  const response = await axios.get('/me/disciplines/' + id)
+export const getMyDisciplines = async (): Promise<DisciplineResponse> => {
+  const response = await axios.get('/me/disciplines/')
   return response.data
 }
 
