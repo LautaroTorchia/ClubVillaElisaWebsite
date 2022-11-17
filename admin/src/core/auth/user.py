@@ -35,7 +35,6 @@ class User(db.Model):
 
     roles = db.relationship("Role", secondary="user_roles", back_populates="users")
 
-    # TODO: foreign key associate
 
     def __init__(self, active=True, **data):
         """Args:

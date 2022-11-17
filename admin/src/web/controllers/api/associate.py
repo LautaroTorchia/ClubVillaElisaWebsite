@@ -1,28 +1,33 @@
 from flask import Blueprint, jsonify
 from src.web.helpers.build_response import response
-from src.core.board import list_disciplines, get_associate_by_id
+from src.core.board import get_associate_by_id,get_associate_by_DNI
 from datetime import datetime
 from src.web.helpers.auth import jwt_required
 from src.web.helpers.associate import is_up_to_date
 from src.web.helpers.associate import generate_associate_card
 import base64
 import os
+from flask_jwt_extended import (
+    jwt_required,
+    get_jwt_identity,
+)
 
 associate_api_blueprint = Blueprint(
     "associate_api", __name__, url_prefix=""
 )
 
 
-@associate_api_blueprint.get("/disciplines/<id>")
-def index_api(id):
+@associate_api_blueprint.get("/disciplines/")
+@jwt_required()
+def index_api():
     """Args:
         id (int): id of the associate
     Returns:
         JSON: list of disciplines
     """
-    associate = get_associate_by_id(id)
+    current_user = get_jwt_identity()
+    associate=get_associate_by_DNI(current_user.username)
     if associate.disciplines:
-        # transform associates IntrumentedLIst into dict
         disciplines = [
             {
                 "name": discipline.name,
@@ -39,14 +44,16 @@ def index_api(id):
     
 
 #make an api for the associate card
-@associate_api_blueprint.get("/license/<id>") 
-def associate_card_api(id):
+@associate_api_blueprint.get("/license/") 
+@jwt_required()
+def associate_card_api():
     """Args:
         id (int): id of the associate
     Returns:
         JSON: associate card
     """
-    associate = get_associate_by_id(id)
+    current_user = get_jwt_identity()
+    associate=get_associate_by_DNI(current_user.username)
     if associate:
         CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
         QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
