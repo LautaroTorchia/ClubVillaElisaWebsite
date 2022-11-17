@@ -79,7 +79,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <h1 class="own_golden_title mt-5">Pagos</h1>
+  <h1 class="own_golden_title">Pagos</h1>
   <div class="d-flex justify-content-center input-group">
     <div class="input-group-prepend">
       <label for="associate_number" class="rounded-0 m-0 input-group-text"
@@ -91,7 +91,7 @@ export default defineComponent({
       id="searchId"
       v-model="associate_number"
       class="form-control"
-      style="min-width: 100px"
+      style="min-width: 100px; max-width: 300px;"
     />
     <div class="input-group-append">
       <button class="btn btn-secondary rounded-0" @click="loadPayments" action>
