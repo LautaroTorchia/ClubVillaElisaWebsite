@@ -7,7 +7,7 @@ export const getPayments = async (id:number): Promise<PaymentResponse> => {
 }
 
 
-export const createPayment = async (id:number): Promise<PaymentResponse> => {
-  const response = await axios.post('/me/payments/' + id)
+export const createPayment = async (id:number,image:string): Promise<PaymentResponse> => {
+  const response = await axios.post('/me/payments/' + id,{image})
   return response.data
 }
