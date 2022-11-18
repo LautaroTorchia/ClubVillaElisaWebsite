@@ -52,5 +52,6 @@ export default defineComponent({
 }
 .statistics_body {
   width: 80%;
+  margin-bottom: 5rem;
 }
 </style>
