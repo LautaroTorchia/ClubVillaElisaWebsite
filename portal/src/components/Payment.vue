@@ -125,6 +125,11 @@ export default defineComponent({
     <p></p>
   </div>
   <div>
+    <div v-if="user.name == null">
+      <h3 class="text-center">
+        No se encontró un asociado con ese número
+      </h3>
+    </div>
     <div v-if="user.payments && user.payments.length == 0 && user.name">
       <h3 class="text-center">
         No se encontraron pagos para {{ user.name }} {{ user.surname }}
@@ -227,8 +232,8 @@ export default defineComponent({
         <div class="modal__action">
           <button
             class="btn btn-secondary mx-2"
-            v-if="this.image"
-            @click="this.createPayment()"
+            v-if="image"
+            @click="createPayment()"
           >
             Confirmar
           </button>
