@@ -1,4 +1,5 @@
 <template>
+  <h4>Cantidad de inscriptos a disciplinas particulares</h4>
   <div class="container">
     <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions" />
   </div>
@@ -53,18 +54,6 @@ export default defineComponent({
               },
             },
           },
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Cantidad de inscriptos a disciplinas particulares',
-            font: { size: 24 },
-          },
-        },
-        title: {
-          display: true,
-          text: 'Cantidad de inscriptos a disciplinas particulares',
-          font: { size: 24 },
         },
       },
     }

@@ -1,4 +1,5 @@
 <template>
+  <h4>Proporcion de usuarios deudores</h4>
   <div class="container">
     <Doughnut
       v-if="loaded"
@@ -17,7 +18,6 @@ import {
   Legend,
   ArcElement,
   CategoryScale,
-  ChartDataset,
 } from 'chart.js'
 
 import { getUpToDateAssociates } from '../services/UpToDateAmountService'
@@ -35,13 +35,6 @@ export default defineComponent({
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Proporcion de usuarios deudores',
-            font: { size: 24 },
-          },
-        },
       },
     }
   },
