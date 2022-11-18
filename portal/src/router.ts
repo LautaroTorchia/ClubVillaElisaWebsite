@@ -41,7 +41,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  console.log(to.name)
   if (
     !store.getters['auth/isLoggedIn'] &&
     to.name == 'disciplines'
