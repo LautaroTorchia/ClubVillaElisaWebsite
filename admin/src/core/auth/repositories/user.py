@@ -10,7 +10,7 @@ def get_user_by( value,field="id"):
     """
     return users.get(value,field)
 
-def list_users(column=None, filter=True):
+def list_users(column=None, filter=True, paginate=True):
     """Args:
         column (int, optional): The column to order by. Defaults to None.
         filter (bool, optional): Whether to filter by active or not. Defaults to True.
@@ -19,7 +19,7 @@ def list_users(column=None, filter=True):
     """
     if column:
         return users.filter(column, filter)
-    return users.list()
+    return users.list(paginate=paginate)
 
 
 def create_user(form):

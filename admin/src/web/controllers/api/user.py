@@ -8,7 +8,7 @@ user_api_blueprint = Blueprint("user_api", __name__, url_prefix="/users")
 
 @user_api_blueprint.get("/")
 def api_all_users():
-    return response(200, list(map(lambda x: {x}, list_users())))
+    return response(200, list(map(lambda x: x.to_dict(), list_users(paginate=False))))
 
 
 @user_api_blueprint.get("/<user_id>")
