@@ -1,6 +1,6 @@
 <template>
   <h4>Cantidad de inscriptos a disciplinas por género</h4>
-  <p v-if="loaded" :tooltip="tooltip">{{tooltip}}</p>
+  <p v-if="loaded">{{tooltip}}</p>
   <div class="container">
     <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions" />
     <p v-if="!loaded">Cargando Estadísticas</p>
@@ -36,6 +36,7 @@ export default defineComponent({
   components: { Bar },
   data() {
     return {
+      tooltip:'',
       loaded: false,
       chartData: { datasets: [] as any, labels: [] as any },
       chartOptions: {
@@ -101,13 +102,12 @@ export default defineComponent({
         ? countdict[currentYear] - countdict[currentYear - 1]
         : countdict[currentYear]
 
-      let tooltip=""
       if (countdict[currentYear - 1] == undefined) {
-        tooltip = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
+        this.tooltip = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
       } else {
         countdict[currentYear - 1] =
           countdict[currentYear - 1] == 0 ? 1 : countdict[currentYear - 1]
-          tooltip =
+          this.tooltip =
           associatesSinceLastYear >= 0
             ? `Se inscribieron ${associatesSinceLastYear} más personas a disciplinas este año, un ${
                 (associatesSinceLastYear / countdict[currentYear - 1]) * 100
@@ -120,10 +120,6 @@ export default defineComponent({
                 )
               )}% menos inscriptos que el año pasado`
       }
-      
-      //pass tooltip as a prop to the component
-      this.tooltip = tooltip
-
 
 
       this.chartData = {

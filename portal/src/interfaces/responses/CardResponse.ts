@@ -4,6 +4,6 @@ export interface CardResponse {
     timestamp: string
     status: number
     status_msg: string
-    data: Card[]
+    data: Card
   }
   

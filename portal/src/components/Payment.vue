@@ -19,7 +19,7 @@ export default defineComponent({
       config: {} as Configuration,
       paymentToPay: {} as Payment | undefined,
       showModal: false,
-      image: '',
+      image: '' as string,
       count: 0,
     }
   },
@@ -227,8 +227,8 @@ export default defineComponent({
         <div class="modal__action">
           <button
             class="btn btn-secondary mx-2"
-            v-if="this.image"
-            @click="this.createPayment()"
+            v-if="image"
+            @click="createPayment()"
           >
             Confirmar
           </button>
