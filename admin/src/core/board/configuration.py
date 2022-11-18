@@ -38,5 +38,14 @@ class Configuration(db.Model):
             f"""{self.record_number} cantidad de registros, moneda: {self.currency}"""
         )
 
-    def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+    def to_dict(self):
+        return {
+            "id" : self.id,
+            "record_number" : self.record_number,
+            "currency" : self.currency,
+            "base_fee" : self.base_fee,
+            "due_fee" : self.due_fee,
+            "payment_available" : self.payment_available,
+            "contact" : self.contact,
+            "payment_header" : self.payment_header
+        }
