@@ -19,7 +19,7 @@ export default defineComponent({
       config: {} as Configuration,
       paymentToPay: {} as Payment | undefined,
       showModal: false,
-      image: '',
+      image: '' as string,
       count: 0,
     }
   },
