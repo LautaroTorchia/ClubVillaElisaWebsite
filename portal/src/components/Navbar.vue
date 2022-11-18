@@ -84,6 +84,7 @@ export default defineComponent({
 }
 nav {
   border-bottom: 1px solid rgba(45, 45, 45, 0.1);
+  z-index: 10 !important;
 }
 .bg-white {
   background-color: white;
