@@ -15,7 +15,6 @@ authService.interceptors.response.use(
   },
   async (error) => {
     const error_message = error.response.data.msg
-    console.log(error_message)
     switch (error.response.status) {
       case 401:
         if (!error.config.retry && error_message === COOKIE_EXPIRED_MSG) {
