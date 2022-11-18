@@ -6,5 +6,7 @@ qr.png
 associate_card.png
 associate_card.pdf
 associate_card_in_pdf.png
+*.png
+*.pdf
 
 associate_pics/
