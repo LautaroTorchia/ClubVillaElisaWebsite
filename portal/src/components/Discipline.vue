@@ -8,8 +8,8 @@
   export default defineComponent({
     data() {
       return {
-        disciplines: [] as Discipline[] | string,
-        associate_card: [] as Card[] | string,
+        disciplines: [] as Discipline[],
+        associate_card: {} as Card,
       }
     },
     computed: {

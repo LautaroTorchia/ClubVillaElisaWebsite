@@ -227,8 +227,8 @@ export default defineComponent({
         <div class="modal__action">
           <button
             class="btn btn-secondary mx-2"
-            v-if="this.image"
-            @click="this.createPayment()"
+            v-if="image"
+            @click="createPayment()"
           >
             Confirmar
           </button>
