@@ -34,6 +34,15 @@ export default defineComponent({
     width: 100%;
   }
 }
+@media only screen and (max-width: 767px) {
+  .statistics_body {
+    width: 100% !important;
+    padding: 0px !important;
+  }
+  .own_main_holder {
+  padding: 0px !important;
+}
+}
 
 .own_main_holder {
   width: 100%;
@@ -42,8 +51,6 @@ export default defineComponent({
   border: 0px;
 }
 .statistics_body {
-  margin-top: 20px;
   width: 80%;
-  padding: 20px;
 }
 </style>

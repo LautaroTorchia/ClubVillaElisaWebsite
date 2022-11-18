@@ -8,7 +8,7 @@ import Footer from './components/Footer.vue'
 <template>
   <div >
     <Navbar />
-    <main class="container p-5 own_main_body">
+    <main class="container own_main_body">
       <router-view></router-view>
     </main>
   </div>
