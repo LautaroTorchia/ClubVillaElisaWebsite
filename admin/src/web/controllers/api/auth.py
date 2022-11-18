@@ -3,6 +3,7 @@ from src.core.auth import get_by_usr_and_pwd, get_user_by
 from flask import Blueprint, request, jsonify
 from src.web.config import Config
 from functools import wraps
+from src.core.board import get_associate_by_DNI
 import jwt
 
 from flask_jwt_extended import (
@@ -24,15 +25,18 @@ def login():
     username = data["username"]
     password = data["password"]
     user = get_by_usr_and_pwd(username, password)
-    if user:
-        token = create_access_token(identity=user.id)
-        refresh= create_refresh_token(identity=user.id)
-        res = jsonify()
-        set_access_cookies(res, token)
-        set_refresh_cookies(res, refresh)
-        return res, 201
-    else:
+
+    try:
+        if user and get_associate_by_DNI(user.username):
+            token = create_access_token(identity=user.id)
+            refresh= create_refresh_token(identity=user.id)
+            res = jsonify()
+            set_access_cookies(res, token)
+            set_refresh_cookies(res, refresh)
+            return res, 201
+    except:
         return "Invalid credentials", 401
+    return "Not found", 404
 
 
 @auth_api_blueprint.post("/logout")
