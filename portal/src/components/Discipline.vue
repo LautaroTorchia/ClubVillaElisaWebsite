@@ -1,19 +1,73 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { mapGetters } from 'vuex'
-export default defineComponent({
-  computed: {
-    ...mapGetters({
-      authUser: 'auth/user',
-    }),
-  },
+  import { defineComponent } from 'vue'
+  import { Discipline } from '../interfaces/Discipline'
+  import { Card } from '../interfaces/Card'
+  import { getMyDisciplines } from '../services/DisciplinesService'
+  import { getMyCard } from "../services/AssociateDataService";
+  import { mapGetters } from 'vuex'
+  export default defineComponent({
+    data() {
+      return {
+        disciplines: [] as Discipline[] | string,
+        associate_card: [] as Card[] | string,
+      }
+    },
+    computed: {
+      ...mapGetters({
+        authUser: 'auth/user',
+      }),
+    },
+    methods: {
+      async loadMyDisciplines() {
+        const res = await getMyDisciplines()
+        this.disciplines = res.data
+      },
+      async loadMyCard() {
+        const res = await getMyCard()
+        this.associate_card= res.data
+      },
+    },
+    mounted() {
+      this.loadMyDisciplines()
+      this.loadMyCard()
+    }
 })
 </script>
-
 <template>
   <div>
-    <h1>Disciplinas</h1>
-    <p>Usuario: {{ authUser.username }}</p>
+    <h1 class="own_golden_title">Datos de {{ authUser.name }} {{ authUser.surname }}</h1>
+    <h2 class="text-muted">Disciplinas anotadas:</h2>
+    <div>
+      <table id="tableComponent" class="table table-bordered table-striped" v-if="disciplines.length > 0">
+          <thead>
+              <tr class="text-center">
+                  <!-- loop through each value of the fields to get the table header -->
+                  <th> Disciplina </th>
+                  <th> Categoría </th>
+                  <th> Instructores </th>
+                  <th> Días y horarios </th>
+                  <th> Costo mensual </th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Loop through the list get the each student data -->
+              <tr v-for="(discipline, index) in disciplines" :key='index' class="text-center">
+                  <td style="--title1:'Disciplina';"> {{ discipline.name }} </td>
+                  <td style="--title2:'Categoría';"> {{ discipline.category  }} </td>
+                  <td style="--title3:'Instructores';"> {{ discipline.teacher }} </td>
+                  <td style="--title4:'Días y horarios';"> {{ discipline.days }} </td>
+                  <td style="--title5:'Costo mensual';"> ${{ discipline.price }} </td>
+              </tr>
+          </tbody>
+      </table> 
+      <div v-else>
+      <h3 class="text-center">No se encontraron Disciplinas para {{ authUser.name }} {{ authUser.surname }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column align-center">
+    <h2 class="text-muted">Carnet de socio:</h2>
+    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center" style="max-width:650px" />
   </div>
 </template>
 

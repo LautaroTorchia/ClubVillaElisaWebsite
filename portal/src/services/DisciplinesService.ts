@@ -1,5 +1,5 @@
 import axios from './axios'
-import { DisciplineClubResponse,DisciplineClubResponseWithCosts } from '../interfaces/responses/DisciplineResponse'
+import { DisciplineClubResponse,DisciplineClubResponseWithCosts, DisciplineResponse } from '../interfaces/responses/DisciplineResponse'
 
 export const getDisciplines = async (): Promise<DisciplineClubResponse> => {
   const response = await axios.get('/club/disciplines')
@@ -14,3 +14,11 @@ export const getDisciplinesWithCosts = async (): Promise<DisciplineClubResponseW
   })
   return response.data
 }
+
+
+export const getMyDisciplines = async (): Promise<DisciplineResponse> => {
+  const response = await axios.get('/me/disciplines/')
+  return response.data
+}
+
+

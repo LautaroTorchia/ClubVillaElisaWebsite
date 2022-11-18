@@ -2,7 +2,12 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 /* import specific icons */
-import { faHome, faPhone } from '@fortawesome/free-solid-svg-icons'
+import {
+  faHome,
+  faPhone,
+  faTimesCircle,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
 import {
   faFacebook,
   faTwitter,
@@ -10,4 +15,4 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 
 /* add icons to the library */
-library.add(faHome, faPhone, faFacebook, faTwitter, faInstagram)
+library.add(faHome, faPhone, faFacebook, faTwitter, faInstagram, faTimes)

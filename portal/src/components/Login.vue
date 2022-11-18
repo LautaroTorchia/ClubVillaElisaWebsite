@@ -20,7 +20,7 @@ export default defineComponent({
   methods: {
     ...mapActions('auth', ['loginUser', 'logoutUser']),
     async login() {
-      await this.loginUser(this.user).catch(() => {
+      await this.loginUser(this.user).catch((e) => {
         // Handle error
         this.error = true
       })
@@ -32,6 +32,11 @@ export default defineComponent({
 
       if (this.isLoggedIn) {
         this.$router.push('/')
+      }else{
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 3000);
       }
     },
     async logout() {
@@ -51,8 +56,9 @@ export default defineComponent({
 
 <template>
   <div class="col-md-4 offset-md-4">
-    <form class="form" @submit.prevent="login">
-      <h1 class="text-center h3 pb-5">Iniciar sesión</h1>
+    <form class="form d-flex flex-column justify-content-center align-items-center" @submit.prevent="login">
+      <h1 class="text-center h3 pb-5 own_golden_title">Iniciar sesión</h1>
+      <img src="/logo_club.svg" class="mb-3 w-100" alt="club deportivo villa elisa" style="max-width:200px">
       <input
         type="text"
         v-model="user.username"
@@ -60,15 +66,18 @@ export default defineComponent({
         class="form-control mb-3"
       />
       <input
-        type="text"
+        type="password"
         v-model="user.password"
         placeholder="Contraseña"
         class="form-control mb-3"
       />
-      <button type="submit" class="btn btn-primary btn-block">
+      <button type="submit" class="btn btn-secondary btn-block w-100">
         Iniciar sesión
       </button>
     </form>
+    <div v-if="error" class="alert alert-danger mt-3 d-flex justify-content-center align-items-center text-center" role="alert">
+      Credenciales incorrectas
+    </div>
   </div>
 </template>
 

@@ -18,7 +18,7 @@ def get():
     """Returns:
     JSON: System configuration
     """
-    return response(200, get_cfg().as_dict())
+    return response(200, get_cfg().to_dict())
 
 
 @configuration_api_blueprint.put("/update")
@@ -32,4 +32,4 @@ def update():
     except:
         return response(500, "Unexpected error")
 
-    return response(200, updated.as_dict())
+    return response(200, updated.to_dict())

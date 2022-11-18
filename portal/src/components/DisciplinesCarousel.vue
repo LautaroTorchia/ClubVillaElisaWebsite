@@ -56,22 +56,22 @@
       return {
         slides: [
           {
-            image: "../../public/carousel/gimnasia_artistica.png",
+            image: "carousel/gimnasia_artistica.png",
             title: 'Gimnasia artística',
             body: 'de 8 a 14 años'
           },
           {
-            image: "../../public/carousel/handball.png",
+            image: "carousel/handball.png",
             title: 'Handball',
             body: 'de 12 a 15 años'
           },
           {
-            image: "../../public/carousel/patin_artistico.png",
+            image: "carousel/patin_artistico.png",
             title: 'Patín artístico',
             body: 'de 8 a 14 años'
           },
           {
-            image: "../../public/carousel/taekwon-do.png",
+            image: "carousel/taekwon-do.png",
             title: 'Taekwon-do',
             body: 'de 12 a 18 años'
           },

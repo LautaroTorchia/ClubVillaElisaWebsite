@@ -1,4 +1,6 @@
 <template>
+  <h4>Cantidad de inscriptos a disciplinas por género</h4>
+  <p v-if="loaded" :tooltip="tooltip">{{tooltip}}</p>
   <div class="container">
     <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions" />
     <p v-if="!loaded">Cargando Estadísticas</p>
@@ -15,7 +17,6 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
-  SubTitle,
 } from 'chart.js'
 import { Discipline } from '../interfaces/Discipline'
 import { getAssociates } from '../services/AssociateDataService'
@@ -23,7 +24,6 @@ import { defineComponent } from 'vue'
 
 ChartJS.register(
   Title,
-  SubTitle,
   Tooltip,
   Legend,
   BarElement,
@@ -41,18 +41,6 @@ export default defineComponent({
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Cantidad de inscriptos a disciplinas por género',
-            font: { size: 24 },
-          },
-          subtitle: {
-            display: true,
-            text: '',
-            font: { size: 14 },
-          },
-        },
         scales: {
           x: {
             stacked: true,
@@ -113,12 +101,13 @@ export default defineComponent({
         ? countdict[currentYear] - countdict[currentYear - 1]
         : countdict[currentYear]
 
+      let tooltip=""
       if (countdict[currentYear - 1] == undefined) {
-        this.chartOptions.plugins.subtitle.text = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
+        tooltip = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
       } else {
         countdict[currentYear - 1] =
           countdict[currentYear - 1] == 0 ? 1 : countdict[currentYear - 1]
-        this.chartOptions.plugins.subtitle.text =
+          tooltip =
           associatesSinceLastYear >= 0
             ? `Se inscribieron ${associatesSinceLastYear} más personas a disciplinas este año, un ${
                 (associatesSinceLastYear / countdict[currentYear - 1]) * 100
@@ -131,6 +120,11 @@ export default defineComponent({
                 )
               )}% menos inscriptos que el año pasado`
       }
+      
+      //pass tooltip as a prop to the component
+      this.tooltip = tooltip
+
+
 
       this.chartData = {
         labels: labelList,

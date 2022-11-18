@@ -48,7 +48,7 @@ export default defineComponent({
           </li>
           <li v-if="isLoggedIn" class="nav-item">
             <router-link class="nav-link" to="/disciplinas"
-              >Disciplinas</router-link
+              >Mis datos</router-link
             >
           </li>
           <li class="nav-item">
@@ -84,6 +84,7 @@ export default defineComponent({
 }
 nav {
   border-bottom: 1px solid rgba(45, 45, 45, 0.1);
+  z-index: 10 !important;
 }
 .bg-white {
   background-color: white;

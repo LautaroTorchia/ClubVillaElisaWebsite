@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Estadisticas</h1>
+    <h1 class="own_golden_title">Estadisticas</h1>
     <div class="card own_main_holder">
       <div class="card-body text-center statistics_body">
         <BarChart />

@@ -1,6 +1,6 @@
 from flask import Blueprint
 from src.web.helpers.build_response import response
-from src.core.board import get_associate_by_id, get_last_fee_paid
+from src.core.board import get_associate_by_id, get_last_fee_paid, get_associate_by_DNI
 from src.web.helpers.payment_helpers import build_payment
 from src.core.board.repositories.payments import create_payment
 
@@ -16,9 +16,11 @@ def associate_payments(id):
     Returns:
         JSON: List of payments for an associate
     """
-    associate = get_associate_by_id(id)
+    associate=get_associate_by_id(id)
     if not associate:
         return response(404, "No existe el asociado")
+    last_fee = get_last_fee_paid(associate)
+    payment = build_payment(last_fee, associate)
     payments = list(
         filter(
             lambda x: x["deleted"] == False,
@@ -27,12 +29,12 @@ def associate_payments(id):
     )
     res = {
         "payments": payments,
-        "name" : associate.name,
-        "entry_date": associate.entry_date.strftime('%Y-%m-%d %H:%M:%S.%f'),
+        "name": associate.name,
+        "actual_amount": payment[3], # amount
+        "surname": associate.surname,
+        "entry_date": associate.entry_date.strftime("%Y-%m-%d %H:%M:%S.%f"),
     }
     return response(200, res)
-
-    
 
 
 @payment_api_blueprint.post("/<id>")
@@ -43,7 +45,7 @@ def add_payment(id):
     Returns:
         JSON: Payment created/error
     """
-    associate = get_associate_by_id(id)
+    associate=get_associate_by_id(id)
     if not associate:
         return response(404, "No existe el asociado")
     last_fee = get_last_fee_paid(associate)

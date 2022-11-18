@@ -85,18 +85,17 @@ def generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH,QR_PATH):
     card.save(CARD_PATH)
     
 
-def write_pdf_card(CARD_PATH, PDF_PATH,CARD_PATH_2):
+def write_pdf_card(CARD_PATH, PDF_PATH):
     """Generates the associate card pdf"""
     from fpdf import FPDF
     from PIL import Image
 
-    pdf = FPDF()
+    pdf = FPDF(format=(900, 500))
     pdf.add_page()
     
     img = Image.open(CARD_PATH)
     img = img.convert('RGB')
-    img.save(CARD_PATH_2)
-    pdf.image(CARD_PATH_2, 0, 0, 210, 297)
+    pdf.image(CARD_PATH, 0, 0, 900, 500)
     
     pdf.output(PDF_PATH, "F")
 

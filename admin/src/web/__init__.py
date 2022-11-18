@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template
+from flask import Flask, Blueprint, render_template,request
 from src.web.config import get_config
 import src.core.db as database
 from src.web.controllers.discipline import discipline_blueprint
@@ -33,14 +33,16 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         Flask: Flask app
     """
     app = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
-    
-    #uploading files config
+
+    # uploading files config
     UPLOAD_FOLDER = os.path.join(os.getcwd(), "public", "associate_pics")
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
     # cors
-    cors = CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
+    if env =="development":
+        white_list = ['http://localhost:5173','https://grupo12.proyecto2022.linti.unlp.edu.ar']
+        CORS(app, resources={r"/api/*":{"origins":white_list}}, supports_credentials=True)
 
     # load config
     config = get_config()
@@ -70,7 +72,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_blueprint.register_blueprint(configuration_api_blueprint)
     api_blueprint.register_blueprint(auth_api_blueprint)
     api_blueprint.register_blueprint(statistics_api_blueprint)
-    
 
     # Api me
     api_me_blueprint = Blueprint("api_me", __name__, url_prefix="/me")
@@ -86,6 +87,23 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     api_blueprint.register_blueprint(api_club_blueprint)
 
     app.register_blueprint(api_blueprint)
+
+    
+    #@app.after_request   
+    #def add_cors_headers(response):   TODO: remove if works in production
+    # if request.referrer:
+    #        r = request.referrer[:-1]
+    #        if r in white_list:
+    #            response.headers.add('Access-Control-Allow-Origin', r)
+    #            response.headers.add('Access-Control-Allow-Credentials', 'true')
+    #            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    #            response.headers.add('Access-Control-Allow-Headers', 'Secret-Key')
+    #            response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
+    #            response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
+    #            response.headers.add('Access-Control-Allow-Headers', 'Authorization')
+    #            response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+    #    return response
+    
 
     # Routes
     @app.get("/")
