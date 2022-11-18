@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types":"vue-tsc --noEmit"
   },
   "dependencies": {
     "@coreui/coreui": "^4.2.2",
