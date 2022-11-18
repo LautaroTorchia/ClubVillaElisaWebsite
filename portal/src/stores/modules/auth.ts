@@ -15,8 +15,9 @@ const getters = {
 
 const actions = {
   async loginUser(context: Context, user: object) {
-    await authService.post('/login', user)
-    await context.dispatch('fetchUser')
+    const res=await authService.post('/login', user)
+    if (res.status==201)
+      await context.dispatch('fetchUser')
   },
   async fetchUser(context: Context) {
     await authService

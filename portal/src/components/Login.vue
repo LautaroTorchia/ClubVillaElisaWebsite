@@ -20,7 +20,7 @@ export default defineComponent({
   methods: {
     ...mapActions('auth', ['loginUser', 'logoutUser']),
     async login() {
-      await this.loginUser(this.user).catch(() => {
+      await this.loginUser(this.user).catch((e) => {
         // Handle error
         this.error = true
       })
@@ -32,6 +32,11 @@ export default defineComponent({
 
       if (this.isLoggedIn) {
         this.$router.push('/')
+      }else{
+        this.error = true
+        setTimeout(() => {
+          this.error = false
+        }, 3000);
       }
     },
     async logout() {
@@ -70,6 +75,9 @@ export default defineComponent({
         Iniciar sesión
       </button>
     </form>
+    <div v-if="error" class="alert alert-danger mt-3 d-flex justify-content-center align-items-center text-center" role="alert">
+      Credenciales incorrectas
+    </div>
   </div>
 </template>
 
