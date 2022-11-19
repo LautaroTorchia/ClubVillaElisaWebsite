@@ -19,12 +19,14 @@
     },
     methods: {
       async loadMyDisciplines() {
-        const res = await getMyDisciplines()
-        this.disciplines = res.data
+        await getMyDisciplines().then((res) => {
+          this.disciplines = res.data
+        })
       },
       async loadMyCard() {
-        const res = await getMyCard()
-        this.associate_card= res.data
+        await getMyCard().then((res) => {
+          this.associate_card = res.data
+        })
       },
     },
     mounted() {
@@ -36,7 +38,7 @@
 <template>
   <div>
     <h1 class="own_golden_title">Datos de {{ authUser.name }} {{ authUser.surname }}</h1>
-    <h2 class="text-muted">Disciplinas anotadas:</h2>
+    <h2>Disciplinas anotadas:</h2>
     <div>
       <table id="tableComponent" class="table table-bordered table-striped" v-if="disciplines.length > 0">
           <thead>
@@ -66,8 +68,8 @@
     </div>
   </div>
   <div class="d-flex flex-column align-center">
-    <h2 class="text-muted">Carnet de socio:</h2>
-    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center" style="max-width:650px" />
+    <h2>Carnet de socio:</h2>
+    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center w-100 mb-4" style="max-width:650px" />
   </div>
 </template>
 

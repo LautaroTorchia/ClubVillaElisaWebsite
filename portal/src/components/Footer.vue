@@ -1,6 +1,7 @@
 <template>
   <footer
-    class="text-center text-lg-start bg-light position-relative bottom-0 top-0 w-100">
+    class="text-center text-lg-start bg-light position-relative bottom-0 top-0 w-100"
+  >
     <div
       class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
     >
@@ -16,21 +17,21 @@
           href="https://www.facebook.com/eldepove"
           class="text-reset"
         >
-          <font-awesome-icon icon="fa-brands fa-facebook me-3"/>
+          <font-awesome-icon icon="fa-brands fa-facebook me-3" />
         </a>
         <a
           target="_blank"
           href="https://twitter.com/deportivove"
           class="text-reset"
         >
-          <font-awesome-icon icon="fa-brands fa-twitter me-3"/>
+          <font-awesome-icon icon="fa-brands fa-twitter me-3" />
         </a>
         <a
           target="_blank"
           href="https://www.instagram.com/eldepove/"
           class="text-reset"
         >
-          <font-awesome-icon icon="fa-brands fa-instagram me-3"/>
+          <font-awesome-icon icon="fa-brands fa-instagram me-3" />
         </a>
       </div>
     </div>
@@ -55,9 +56,15 @@
 
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-            <p><font-awesome-icon icon="fa-solid fa-home me-3"/> Camino Centenario y 48</p>
+            <p>
+              <font-awesome-icon icon="fa-solid fa-home me-3" /> Camino
+              Centenario y 48
+            </p>
             <p>Villa Elisa, La Plata</p>
-            <p><font-awesome-icon icon="fa-solid fa-phone me-3"/> (0221) 487-0193</p>
+            <p>
+              <font-awesome-icon icon="fa-solid fa-phone me-3" /> (0221)
+              487-0193
+            </p>
           </div>
         </div>
       </div>
@@ -65,9 +72,11 @@
   </footer>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
-
+footer{
+  background-color: rgb(250, 250, 250) !important;
+  color:rgb(78, 93, 120);
+}
 </style>

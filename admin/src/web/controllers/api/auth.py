@@ -57,11 +57,10 @@ def user_jwt():
 
 
 @auth_api_blueprint.post("/refresh")
-@jwt_required()
+@jwt_required(refresh=True)
 def refresh():
     current_user = get_jwt_identity()
-    user = get_user_by(current_user)
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=current_user)
     res = jsonify()
     set_access_cookies(res, token)
     return res, 201

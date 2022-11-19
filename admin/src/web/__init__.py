@@ -88,23 +88,6 @@ def create_app(env="development", static_folder="/static", template_folder="temp
 
     app.register_blueprint(api_blueprint)
 
-    
-    #@app.after_request   
-    #def add_cors_headers(response):   TODO: remove if works in production
-    # if request.referrer:
-    #        r = request.referrer[:-1]
-    #        if r in white_list:
-    #            response.headers.add('Access-Control-Allow-Origin', r)
-    #            response.headers.add('Access-Control-Allow-Credentials', 'true')
-    #            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    #            response.headers.add('Access-Control-Allow-Headers', 'Secret-Key')
-    #            response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
-    #            response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
-    #            response.headers.add('Access-Control-Allow-Headers', 'Authorization')
-    #            response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-    #    return response
-    
-
     # Routes
     @app.get("/")
     def home():
