@@ -9,4 +9,4 @@ associate_card_in_pdf.png
 *.png
 *.pdf
 
-associate_pics/
+associate_pics/*
