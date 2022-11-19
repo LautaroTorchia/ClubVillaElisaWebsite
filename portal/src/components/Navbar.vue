@@ -27,6 +27,7 @@ export default defineComponent({
       <router-link class="navbar-brand" to="/"
         ><img
           src="/logo_club.svg"
+          width="100px"
           class="logo"
           alt="club deportivo villa elisa"
       /></router-link>
