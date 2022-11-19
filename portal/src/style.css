@@ -25,21 +25,20 @@ nav{
 }
 main{
   min-height: 85vh;
-
 }
 
-.btn-secondary{
-  background: #b5a166 !important;
-  color: #333 !important;
-  border: solid 1px transparent !important;
+.btn-outline-secondary{
+  background: transparent !important;
+  color: #b5a166 !important;
+  border: solid 1px #b5a166 !important;
   border-radius: 5px !important;
   font-weight: 700 !important;
   transition: 0.3s !important;
 }
 
-.btn-secondary:hover {
-  border: solid 1px #333 !important;
-  background: transparent !important;
+.btn-outline-secondary:hover {
+  background: #b5a166 !important;
+  color:white !important;
 }
 
 .own_golden_title {
@@ -201,6 +200,17 @@ main{
 
 
 @media (width < 360px) {
+    .modal__action {
+        flex-direction: column !important;
+        gap:5px;
+    }
+    #searchPayment{
+        flex-direction: column !important;
+    }
+    #searchId{
+        width:100%;
+        max-width:none !important;
+    }
     td{
         position: relative;
         overflow:hidden;
@@ -248,6 +258,9 @@ main{
   .h1 {
     font-size: 16px !important;
   }
+  h1,h2,h3,h4,h5{
+    text-align:center;
+  }
   .own_logo_home {
     margin-bottom: 10px;
   }
@@ -273,3 +286,5 @@ main{
     border-radius: 5px;
   }
 }
+
+

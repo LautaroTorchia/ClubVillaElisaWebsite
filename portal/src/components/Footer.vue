@@ -74,4 +74,9 @@
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+footer{
+  background-color: rgb(250, 250, 250) !important;
+  color:rgb(78, 93, 120);
+}
+</style>

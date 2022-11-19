@@ -102,10 +102,10 @@ export default defineComponent({
 
 <template>
   <h1 class="own_golden_title">Pagos</h1>
-  <div class="d-flex justify-content-center input-group">
+  <div class="d-flex justify-content-center input-group" id="searchPayment">
     <div class="input-group-prepend">
       <label for="associate_number" class="rounded-0 m-0 input-group-text"
-        >Número de asociado:
+        >Número de socio:
       </label>
     </div>
     <input
@@ -113,10 +113,10 @@ export default defineComponent({
       id="searchId"
       v-model="associate_number"
       class="form-control"
-      style="min-width: 100px; max-width: 300px"
+      style="min-width: 85px; max-width: 300px"
     />
     <div class="input-group-append">
-      <button class="btn btn-secondary rounded-0" @click="loadPayments" action>
+      <button class="btn btn-light rounded-0 border" @click="loadPayments" action>
         Buscar
       </button>
     </div>
@@ -181,7 +181,7 @@ export default defineComponent({
           <td style="--title6: 'Acción'">
             <button
               v-if="data.installment_number == -1"
-              class="btn btn-secondary"
+              class="btn btn-outline-secondary"
               @click="showModal = true"
             >
               Pagar
@@ -226,18 +226,18 @@ export default defineComponent({
             :src="image"
             alt="Foto del comprobante"
             class="img-fluid mt-4"
-            style="max-width: 500px; max-height: 500px"
+            style="max-height: 500px; height: 100%"
           />
         </div>
         <div class="modal__action">
           <button
-            class="btn btn-secondary mx-2"
+            class="btn btn-outline-secondary mx-2"
             v-if="image"
             @click="createPayment()"
           >
             Confirmar
           </button>
-          <button class="btn btn-danger mx-2" @click="closeModal">
+          <button class="btn btn-outline-danger mx-2" @click="closeModal">
             Cancelar
           </button>
         </div>
