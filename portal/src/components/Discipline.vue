@@ -19,12 +19,14 @@
     },
     methods: {
       async loadMyDisciplines() {
-        const res = await getMyDisciplines()
-        this.disciplines = res.data
+        await getMyDisciplines().then((res) => {
+          this.disciplines = res.data
+        })
       },
       async loadMyCard() {
-        const res = await getMyCard()
-        this.associate_card= res.data
+        await getMyCard().then((res) => {
+          this.associate_card = res.data
+        })
       },
     },
     mounted() {

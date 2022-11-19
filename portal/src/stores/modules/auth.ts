@@ -1,4 +1,4 @@
-import { authService } from '../../services/AuthService'
+import  axios  from '../../services/axios'
 import { StateAuth, Context } from '../../interfaces/StateAuth'
 
 const namespaced = true
@@ -15,17 +15,17 @@ const getters = {
 
 const actions = {
   async loginUser(context: Context, user: object) {
-    const res=await authService.post('/login', user)
+    const res=await axios.post('/auth/login', user)
     if (res.status==201)
       await context.dispatch('fetchUser')
   },
   async fetchUser(context: Context) {
-    await authService
-      .get('/user_jwt')
+    await axios
+      .get('/auth/user_jwt')
       .then(({ data }) => context.commit('setUser', data))
   },
   async logoutUser(context: Context) {
-    await authService.post('/logout')
+    await axios.post('/auth/logout')
     context.commit('logoutUserState')
   },
 }
