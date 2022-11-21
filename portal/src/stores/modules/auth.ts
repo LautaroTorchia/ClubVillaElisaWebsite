@@ -25,8 +25,8 @@ const actions = {
       .then(({ data }) => context.commit('setUser', data))
   },
   async logoutUser(context: Context) {
-    await axios.post('/auth/logout')
     context.commit('logoutUserState')
+    await axios.post('/auth/logout')
   },
 }
 
