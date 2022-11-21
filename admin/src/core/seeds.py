@@ -63,6 +63,7 @@ def populate():
     """Populates the database with some data"""
     adm_role = get_role("Admin")
     op_role = get_role("Operario")
+    us_role= get_role("Socio")
     roles = [adm_role, op_role]
     names = ["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names = [
@@ -179,11 +180,11 @@ def populate():
                     "name": names[i],
                     "surname": last_names[i],
                     "email": emails[i],
-                    "username": usernames[i],
+                    "username": dni[i],
                     "password": sha256_crypt.encrypt(passwords[i]),
                 }
             )
-            add_role_to_user(u, random.choice(roles))
+            add_role_to_user(u, us_role)
             add_discipline(
                 {
                     "name": dicipline_name[i],
@@ -209,6 +210,16 @@ def populate():
     except Exception as e:
         print(e)
 
+    u = create_user(
+        {
+            "name": "operador",
+            "surname": "operador",
+            "email": "operador@villaelisa.com",
+            "username": "operador",
+            "password": sha256_crypt.encrypt("1234"),
+        }
+    )
+    add_role_to_user(u, op_role)
     associate = list_all_associates()[0]
     from src.core.board.repositories.configuration import get_cfg
     from src.web.helpers.payment_helpers import disciplines_fee_amount
