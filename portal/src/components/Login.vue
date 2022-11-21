@@ -55,8 +55,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="col-md-4 offset-md-4">
-    <form class="form d-flex flex-column justify-content-center align-items-center" @submit.prevent="login">
+  <div class="d-flex justify-content-center align-items-center flex-column">
+    <form class="container form d-flex flex-column justify-content-center align-items-center" @submit.prevent="login">
       <h1 class="text-center h3 pb-5 own_golden_title">Iniciar sesión</h1>
       <img src="/logo_club.svg" class="mb-3 w-100" alt="club deportivo villa elisa" style="max-width:200px">
       <input
@@ -71,7 +71,7 @@ export default defineComponent({
         placeholder="Contraseña"
         class="form-control mb-3"
       />
-      <button type="submit" class="btn btn-secondary btn-block w-100">
+      <button type="submit" class="btn own_btn w-100">
         Iniciar sesión
       </button>
     </form>
@@ -81,4 +81,25 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.own_btn {
+  background: #b5a166;
+  color: #333;
+  border: solid 1px transparent;
+  border-radius: 5px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+.own_btn:hover {
+  border: solid 1px #333 !important;
+  background: transparent !important;
+}
+.btn.active {
+  background: #b5a166;
+  border: solid 1px transparent;
+}
+form{
+  max-width: 800px;
+  width: 100%;
+}
+</style>

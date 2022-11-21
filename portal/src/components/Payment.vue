@@ -36,9 +36,13 @@ export default defineComponent({
       )
     },
     async createPayment() {
-      const res = await createPayment(this.associate_number, this.image)
-      this.loadPayments()
       this.closeModal()
+      const res = await createPayment(this.associate_number, this.image).catch(
+        (err) => {
+          this.loadPayments()
+        }
+      )
+      this.loadPayments()
     },
 
     createUnpaidPayments() {
