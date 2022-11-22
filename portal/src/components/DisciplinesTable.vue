@@ -21,9 +21,9 @@
                 this.disciplines = res.data
             },
             async getConfig() {
-            const res = await getConfiguration()
-            this.config = res.data
-        },
+                const res = await getConfiguration()
+                this.config = res.data
+            },
         },
         mounted() {
             this.getDisciplines(),

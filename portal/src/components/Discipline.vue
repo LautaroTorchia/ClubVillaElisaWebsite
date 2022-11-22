@@ -4,12 +4,15 @@
   import { Card } from '../interfaces/Card'
   import { getMyDisciplines } from '../services/DisciplinesService'
   import { getMyCard } from "../services/AssociateDataService";
+  import { getConfiguration } from '../services/ConfigurationService'
+    import { Configuration } from '../interfaces/Configuration'
   import { mapGetters } from 'vuex'
   export default defineComponent({
     data() {
       return {
         disciplines: [] as Discipline[],
         associate_card: {} as Card,
+        config: {} as Configuration,
       }
     },
     computed: {
@@ -28,10 +31,15 @@
           this.associate_card = res.data
         })
       },
+      async getConfig() {
+        const res = await getConfiguration()
+        this.config = res.data
+      },
     },
     mounted() {
       this.loadMyDisciplines()
       this.loadMyCard()
+      this.getConfig()
     }
 })
 </script>
@@ -58,7 +66,7 @@
                   <td style="--title2:'Categoría';"> {{ discipline.category  }} </td>
                   <td style="--title3:'Instructores';"> {{ discipline.teacher }} </td>
                   <td style="--title4:'Días y horarios';"> {{ discipline.days }} </td>
-                  <td style="--title5:'Costo mensual';"> ${{ discipline.price }} </td>
+                  <td style="--title5:'Costo mensual';"> ${{ discipline.price }} {{ config.currency }} </td>
               </tr>
           </tbody>
       </table> 
