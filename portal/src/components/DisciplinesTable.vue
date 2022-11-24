@@ -2,11 +2,14 @@
     import { defineComponent } from 'vue'
     import { DisciplineClubWithCosts } from '../interfaces/Discipline'
     import { getDisciplinesWithCosts } from "../services/DisciplinesService"
+    import { getConfiguration } from '../services/ConfigurationService'
+    import { Configuration } from '../interfaces/Configuration'
     import { BTable } from 'bootstrap-vue'
     export default defineComponent({
         data() {
             return {
-                disciplines: [] as DisciplineClubWithCosts[]
+                disciplines: [] as DisciplineClubWithCosts[],
+                config: {} as Configuration,
             }
         },
         components: {
@@ -16,10 +19,15 @@
             async getDisciplines() {
                 const res = await getDisciplinesWithCosts()
                 this.disciplines = res.data
-            }
+            },
+            async getConfig() {
+                const res = await getConfiguration()
+                this.config = res.data
+            },
         },
         mounted() {
-            this.getDisciplines()
+            this.getDisciplines(),
+            this.getConfig()
         }
     });
 </script>
@@ -45,7 +53,7 @@
                     <td style="--title2:'Categoría';"> {{data.category}} </td>
                     <td style="--title3:'Instructores';"> {{data.teacher}} </td>
                     <td style="--title4:'Días y horarios';"> {{data.dates}} </td>
-                    <td style="--title5:'Costo mensual';"> ${{data.monthly_cost}} </td>
+                    <td style="--title5:'Costo mensual';"> ${{data.monthly_cost}} {{ config.currency }}</td>
                 </tr>
             </tbody>
         </table> 

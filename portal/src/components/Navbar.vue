@@ -22,11 +22,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 bg-white">
+  <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3 bg-light">
     <div class="container">
       <router-link class="navbar-brand" to="/"
         ><img
           src="/logo_club.svg"
+          width="100px"
           class="logo"
           alt="club deportivo villa elisa"
       /></router-link>
@@ -85,9 +86,7 @@ export default defineComponent({
 nav {
   border-bottom: 1px solid rgba(45, 45, 45, 0.1);
   z-index: 10 !important;
-}
-.bg-white {
-  background-color: white;
+  background-color: rgb(250, 250, 250) !important;
 }
 .nav-link {
   text-align: center;

@@ -19,6 +19,4 @@ def index_api_costs():
     """Returns:
     JSON: List of disciplines.
     """
-    if request.headers["Secret-Key"] != "f0fda58630310a6dd91a7d8f0a4ceda2:4225637426":
-        return jsonify({"error": "Invalid secret key"}), 401
     return response(200, list(map(lambda x: x.dict_repr(costs=True), list_all_disciplines())))

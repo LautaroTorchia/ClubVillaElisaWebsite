@@ -4,12 +4,15 @@
   import { Card } from '../interfaces/Card'
   import { getMyDisciplines } from '../services/DisciplinesService'
   import { getMyCard } from "../services/AssociateDataService";
+  import { getConfiguration } from '../services/ConfigurationService'
+    import { Configuration } from '../interfaces/Configuration'
   import { mapGetters } from 'vuex'
   export default defineComponent({
     data() {
       return {
         disciplines: [] as Discipline[],
         associate_card: {} as Card,
+        config: {} as Configuration,
       }
     },
     computed: {
@@ -19,24 +22,31 @@
     },
     methods: {
       async loadMyDisciplines() {
-        const res = await getMyDisciplines()
-        this.disciplines = res.data
+        await getMyDisciplines().then((res) => {
+          this.disciplines = res.data
+        })
       },
       async loadMyCard() {
-        const res = await getMyCard()
-        this.associate_card= res.data
+        await getMyCard().then((res) => {
+          this.associate_card = res.data
+        })
+      },
+      async getConfig() {
+        const res = await getConfiguration()
+        this.config = res.data
       },
     },
     mounted() {
       this.loadMyDisciplines()
       this.loadMyCard()
+      this.getConfig()
     }
 })
 </script>
 <template>
   <div>
     <h1 class="own_golden_title">Datos de {{ authUser.name }} {{ authUser.surname }}</h1>
-    <h2 class="text-muted">Disciplinas anotadas:</h2>
+    <h2>Disciplinas anotadas:</h2>
     <div>
       <table id="tableComponent" class="table table-bordered table-striped" v-if="disciplines.length > 0">
           <thead>
@@ -56,7 +66,7 @@
                   <td style="--title2:'Categoría';"> {{ discipline.category  }} </td>
                   <td style="--title3:'Instructores';"> {{ discipline.teacher }} </td>
                   <td style="--title4:'Días y horarios';"> {{ discipline.days }} </td>
-                  <td style="--title5:'Costo mensual';"> ${{ discipline.price }} </td>
+                  <td style="--title5:'Costo mensual';"> ${{ discipline.price }} {{ config.currency }} </td>
               </tr>
           </tbody>
       </table> 
@@ -66,8 +76,8 @@
     </div>
   </div>
   <div class="d-flex flex-column align-center">
-    <h2 class="text-muted">Carnet de socio:</h2>
-    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center" style="max-width:650px" />
+    <h2>Carnet de socio:</h2>
+    <img :src="'data:image/jpg;base64, ' + associate_card.associate_card" alt="Associate Carnet" class="img-fluid align-self-center w-100 mb-4" style="max-width:650px" />
   </div>
 </template>
 
