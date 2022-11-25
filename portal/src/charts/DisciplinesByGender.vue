@@ -32,7 +32,7 @@ ChartJS.register(
 )
 
 export default defineComponent({
-  name: 'BarChart',
+  name: 'DisciplinesByGender',
   components: { Bar },
   data() {
     return {
@@ -98,13 +98,11 @@ export default defineComponent({
       )
 
       const currentYear = new Date(Date.now()).getFullYear()
-      const associatesSinceLastYear = countdict[currentYear - 1]
-        ? countdict[currentYear] - countdict[currentYear - 1]
-        : countdict[currentYear]
 
       if (countdict[currentYear - 1] == undefined) {
-        this.tooltip = `Se inscribieron ${associatesSinceLastYear} personas a disciplinas este año`
+        this.tooltip = `Se inscribieron ${countdict[currentYear]} personas a disciplinas este año`
       } else {
+        const associatesSinceLastYear =  countdict[currentYear] - countdict[currentYear - 1]
         countdict[currentYear - 1] =
           countdict[currentYear - 1] == 0 ? 1 : countdict[currentYear - 1]
           this.tooltip =

@@ -26,7 +26,7 @@ import { defineComponent } from 'vue'
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
 export default defineComponent({
-  name: 'DoughnutChart',
+  name: 'UpToDateAssociates',
   components: { Doughnut },
   data() {
     return {
