@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Integer, Numeric, Boolean
 from src.core.db import db
 from src.core.board.base_model import BaseModel
 
+
 class Discipline(BaseModel):
     """Modelo de las disciplinas del club
     Args:
@@ -44,20 +45,19 @@ class Discipline(BaseModel):
 
     def to_dict(self):
         return {
-            "id" : self.id,
-            "name" : self.name,
-            "category" : self.category,
-            "instructors" : self.instructors,
-            "dates" : self.dates,
-            "monthly_cost" : self.monthly_cost,
-            "available" : self.available,
-            "deleted" : self.deleted,
-            "created_at" : self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f'),
-            "updated_at" : self.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            "id": self.id,
+            "name": self.name,
+            "category": self.category,
+            "instructors": self.instructors,
+            "dates": self.dates,
+            "monthly_cost": self.monthly_cost,
+            "available": self.available,
+            "deleted": self.deleted,
+            "created_at": self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f"),
+            "updated_at": self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f"),
         }
 
-
-    def dict_repr(self,costs=False):
+    def dict_repr(self, costs=False):
         reqs_api_dict = {
             "name": self.name,
             "teacher": self.instructors,

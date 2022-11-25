@@ -62,13 +62,14 @@ def update_associate(form_data, id):
     associate_data.update(active=bool_checker(form_data["active"]))
     associates.update(id, associate_data)
 
+
 def update_associate_profile_pic(associate):
     """Update associate
     Returns:
         - Update associate
     """
-    data= {"profile_pic": associate.profile_pic}
-    associates.update(associate.id,data)
+    data = {"profile_pic": associate.profile_pic}
+    associates.update(associate.id, data)
 
 
 def delete_associate(id):

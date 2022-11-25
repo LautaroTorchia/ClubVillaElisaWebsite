@@ -2,13 +2,15 @@ from src.core.auth.user import User
 from passlib.hash import sha256_crypt
 from src.core.auth import users
 
-def get_user_by( value,field="id"):
+
+def get_user_by(value, field="id"):
     """Args:
         user_id (int): The id of the user to retrieve.
     Returns:
         User: The user object.
     """
-    return users.get(value,field)
+    return users.get(value, field)
+
 
 def list_users(column=None, filter=True, paginate=True):
     """Args:
@@ -75,6 +77,7 @@ def get_by_email_and_pwd(email, pwd):
     if usr != None and sha256_crypt.verify(pwd, usr.password):
         return usr
     return None
+
 
 def disable_user(id):
     """Args:

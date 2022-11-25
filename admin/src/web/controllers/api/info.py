@@ -10,6 +10,4 @@ def index_api():
     """Returns:
     JSON: Information about the club.
     """
-    return response(
-        200, {"Contacto": get_cfg().contact}
-    )
+    return response(200, {"Contacto": get_cfg().contact})
