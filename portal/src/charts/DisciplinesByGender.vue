@@ -1,6 +1,6 @@
 <template>
   <h4>Cantidad de inscriptos a disciplinas por género</h4>
-  <p v-if="loaded">{{tooltip}}</p>
+  <p v-if="loaded">{{ tooltip }}</p>
   <div class="container">
     <Bar v-if="loaded" :chart-data="chartData" :chart-options="chartOptions" />
     <p v-if="!loaded">Cargando Estadísticas</p>
@@ -22,21 +22,14 @@ import { Discipline } from '../interfaces/Discipline'
 import { getAssociates } from '../services/AssociateDataService'
 import { defineComponent } from 'vue'
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default defineComponent({
   name: 'DisciplinesByGender',
   components: { Bar },
   data() {
     return {
-      tooltip:'',
+      tooltip: '',
       loaded: false,
       chartData: { datasets: [] as any, labels: [] as any },
       chartOptions: {
@@ -102,10 +95,11 @@ export default defineComponent({
       if (countdict[currentYear - 1] == undefined) {
         this.tooltip = `Se inscribieron ${countdict[currentYear]} personas a disciplinas este año`
       } else {
-        const associatesSinceLastYear =  countdict[currentYear] - countdict[currentYear - 1]
+        const associatesSinceLastYear =
+          countdict[currentYear] - countdict[currentYear - 1]
         countdict[currentYear - 1] =
           countdict[currentYear - 1] == 0 ? 1 : countdict[currentYear - 1]
-          this.tooltip =
+        this.tooltip =
           associatesSinceLastYear >= 0
             ? `Se inscribieron ${associatesSinceLastYear} más personas a disciplinas este año, un ${
                 (associatesSinceLastYear / countdict[currentYear - 1]) * 100
@@ -118,7 +112,6 @@ export default defineComponent({
                 )
               )}% menos inscriptos que el año pasado`
       }
-
 
       this.chartData = {
         labels: labelList,

@@ -1,4 +1,8 @@
-import { Discipline, DisciplineClub,DisciplineClubWithCosts } from '../Discipline'
+import {
+  Discipline,
+  DisciplineClub,
+  DisciplineClubWithCosts,
+} from '../Discipline'
 
 export interface DisciplineClubResponse {
   timestamp: string

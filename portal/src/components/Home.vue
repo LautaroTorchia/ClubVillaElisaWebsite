@@ -9,25 +9,22 @@
   </div>
 </template>
 
-
 <script lang="ts">
-  import Carousel from './DisciplinesCarousel.vue'
-  import DiscTable from './DisciplinesTable.vue'
-  import { defineComponent } from 'vue'
+import Carousel from './DisciplinesCarousel.vue'
+import DiscTable from './DisciplinesTable.vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    name: 'Home',
-    components: { 
-      Carousel,
-      DiscTable,
-    }, 
-  })
+export default defineComponent({
+  name: 'Home',
+  components: {
+    Carousel,
+    DiscTable,
+  },
+})
 </script>
 
-
 <style scoped>
-
-.holder{
+.holder {
   background-color: #fafafa;
   box-shadow: 0 -2px 20px #00000015;
 }

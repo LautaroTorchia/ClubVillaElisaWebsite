@@ -72,29 +72,29 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue'
-    import { getInfo } from "../services/InfoService"
-    export default defineComponent({
-        data() {
-            return {
-                info: "",
-            }
-        },
-        methods: {
-            async getInfo() {
-                const res = await getInfo()
-                this.info = res.data.Contacto
-            },
-        },
-        mounted() {
-          this.getInfo()
-        }
-    });
+import { defineComponent } from 'vue'
+import { getInfo } from '../services/InfoService'
+export default defineComponent({
+  data() {
+    return {
+      info: '',
+    }
+  },
+  methods: {
+    async getInfo() {
+      const res = await getInfo()
+      this.info = res.data.Contacto
+    },
+  },
+  mounted() {
+    this.getInfo()
+  },
+})
 </script>
 
 <style scoped>
-footer{
+footer {
   background-color: rgb(250, 250, 250) !important;
-  color:rgb(78, 93, 120);
+  color: rgb(78, 93, 120);
 }
 </style>

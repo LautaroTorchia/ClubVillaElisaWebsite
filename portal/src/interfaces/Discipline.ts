@@ -13,15 +13,15 @@ export interface Discipline {
 }
 
 export interface DisciplineClub {
-    name: string,
-    teacher: string,
-    dates: string,
-  }
+  name: string
+  teacher: string
+  dates: string
+}
 
-  export interface DisciplineClubWithCosts {
-    name: string,
-    teacher: string,
-    dates: string,
-    category: string,
-    monthly_cost: number,
-  }
+export interface DisciplineClubWithCosts {
+  name: string
+  teacher: string
+  dates: string
+  category: string
+  monthly_cost: number
+}

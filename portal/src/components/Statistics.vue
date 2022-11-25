@@ -16,14 +16,18 @@
 </template>
 
 <script lang="ts">
-import DisciplinesByGender from "../charts/DisciplinesByGender.vue"
-import DisciplinesByAssociates from "../charts/DisciplinesByAssociates.vue"
-import UpToDateAssociates from "../charts/UpToDateAssociates.vue"
-import { defineComponent } from "vue"
+import DisciplinesByGender from '../charts/DisciplinesByGender.vue'
+import DisciplinesByAssociates from '../charts/DisciplinesByAssociates.vue'
+import UpToDateAssociates from '../charts/UpToDateAssociates.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Statistics",
-  components: { DisciplinesByGender, UpToDateAssociates, DisciplinesByAssociates },
+  name: 'Statistics',
+  components: {
+    DisciplinesByGender,
+    UpToDateAssociates,
+    DisciplinesByAssociates,
+  },
 })
 </script>
 
@@ -40,8 +44,8 @@ export default defineComponent({
     padding: 0px !important;
   }
   .own_main_holder {
-  padding: 0px !important;
-}
+    padding: 0px !important;
+  }
 }
 
 .own_main_holder {
