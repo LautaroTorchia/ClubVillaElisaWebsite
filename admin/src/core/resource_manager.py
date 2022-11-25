@@ -82,7 +82,8 @@ class ResourceManager:
         return self.query.filter(getattr(self.model_class, field) == value).first()
 
     def list(
-        self, order_criteria: ColumnOperators = None, paginate: bool = True) -> Union[Pagination, list]:
+        self, order_criteria: ColumnOperators = None, paginate: bool = True
+    ) -> Union[Pagination, list]:
         """Returns a list of objects. pagination is enabled by default. order_criteria is optional.
 
         Args:
@@ -153,7 +154,7 @@ class ResourceManager:
 
         Returns:
             Union[Pagination, list]: if pagination is enabled returns a Pagination object, otherwise a list.
-        """        
+        """
 
         from src.core.board.repositories.configuration import get_cfg
 

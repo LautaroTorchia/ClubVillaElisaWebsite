@@ -277,7 +277,7 @@ def club_card_view(id):
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
     PROFILE_PIC_PATH = associate.profile_pic
-    generate_associate_card(associate,CARD_PATH,PROFILE_PIC_PATH,QR_PATH)
+    generate_associate_card(associate, CARD_PATH, PROFILE_PIC_PATH, QR_PATH)
     return render_template("associate/club_card.html", associate=associate)
 
 
@@ -289,24 +289,28 @@ def club_card_view_post(id):
     Returns:
         HTML: Redirect to associate list.
     """
-    associate=get_associate_by_id(id)
-    image_data = request.files['image']
-    if image_data.filename == '':
-        flash('No se subio ninguna foto',category="alert alert-danger",)
+    associate = get_associate_by_id(id)
+    image_data = request.files["image"]
+    if image_data.filename == "":
+        flash(
+            "No se subio ninguna foto",
+            category="alert alert-danger",
+        )
         return redirect(request.url)
 
-    image_data.filename=f"{associate.name}_{associate.surname}_{image_data.filename}"
+    image_data.filename = f"{associate.name}_{associate.surname}_{image_data.filename}"
     secure_filename(image_data.filename)
-    profile_path=os.path.join(os.getcwd(), "public", "associate_pics", image_data.filename)
+    profile_path = os.path.join(
+        os.getcwd(), "public", "associate_pics", image_data.filename
+    )
     image_data.save(profile_path)
-    associate.profile_pic=profile_path
+    associate.profile_pic = profile_path
     update_associate_profile_pic(associate)
-        
+
     return redirect(url_for("associate.club_card_view", id=id))
 
 
-
-#download the card
+# download the card
 @associate_blueprint.post("/carnet_descargar/<id>")
 @has_permission("associate_create")
 def club_card_download(id):
@@ -330,6 +334,6 @@ def club_card_download_pdf(id):
     """
     CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
     PDF_CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.pdf")
-    
-    write_pdf_card(CARD_PATH,PDF_CARD_PATH)
+
+    write_pdf_card(CARD_PATH, PDF_CARD_PATH)
     return send_file(PDF_CARD_PATH, as_attachment=True)
