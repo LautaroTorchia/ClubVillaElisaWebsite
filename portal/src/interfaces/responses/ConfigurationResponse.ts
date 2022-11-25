@@ -1,8 +1,8 @@
-import { Configuration } from '../Configuration';
+import { Configuration } from '../Configuration'
 
 export interface ConfigurationResponse {
-  timestamp: string;
-  status: number;
-  status_msg: string;
-  data: Configuration;
+  timestamp: string
+  status: number
+  status_msg: string
+  data: Configuration
 }

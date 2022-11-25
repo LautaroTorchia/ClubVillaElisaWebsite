@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template,request
+from flask import Flask, Blueprint, render_template, request
 from src.web.config import get_config
 import src.core.db as database
 from src.web.controllers.discipline import discipline_blueprint
@@ -40,9 +40,16 @@ def create_app(env="development", static_folder="/static", template_folder="temp
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
     # cors
-    if env =="development":
-        white_list = ['http://localhost:5173','https://grupo12.proyecto2022.linti.unlp.edu.ar']
-        CORS(app, resources={r"/api/*":{"origins":white_list}}, supports_credentials=True)
+    if env == "development":
+        white_list = [
+            "http://localhost:5173",
+            "https://grupo12.proyecto2022.linti.unlp.edu.ar",
+        ]
+        CORS(
+            app,
+            resources={r"/api/*": {"origins": white_list}},
+            supports_credentials=True,
+        )
 
     # load config
     config = get_config()

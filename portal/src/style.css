@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 :root {
   color-scheme: light dark;
 
@@ -12,22 +12,22 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.active{
-  font-weight:700 !important;
+.active {
+  font-weight: 700 !important;
 }
 
-*{
+* {
   font-size: 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
-nav{
+nav {
   min-height: 15vh;
 }
-main{
+main {
   min-height: 85vh;
 }
 
-.btn-outline-secondary{
+.btn-outline-secondary {
   background: transparent !important;
   color: #b5a166 !important;
   border: solid 1px #b5a166 !important;
@@ -38,7 +38,7 @@ main{
 
 .btn-outline-secondary:hover {
   background: #b5a166 !important;
-  color:white !important;
+  color: white !important;
 }
 
 .own_golden_title {
@@ -142,17 +142,15 @@ main{
   td:nth-of-type(11):before {
     content: var(--title11);
   }
-
 }
 
-
-
 @media (width < 768px) {
-  #navcol-1 > a ,.nav-link{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+  #navcol-1 > a,
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   .own_main_table {
     width: 100% !important;
@@ -197,56 +195,58 @@ main{
   }
 }
 
-
-
 @media (width < 360px) {
-    .modal__action {
-        flex-direction: column !important;
-        gap:5px;
-    }
-    #searchPayment{
-        flex-direction: column !important;
-    }
-    #searchId{
-        width:100%;
-        max-width:none !important;
-    }
-    td{
-        position: relative;
-        overflow:hidden;
-    }
-    td::before{
-        word-wrap: break-word !important;
-        white-space: normal !important;
-        line-height: 16px !important;
-        display:inline-block !important;
-    }
-    .btn,.btn-outline-secondary,.btn-outline-info,.btn-outline-warning{
-        width:100% !important;
-    }
-    #roles {
-        flex-direction: column !important;
-        gap:8px;
-    }
-  #searchBar{
-    display:flex;
-    flex-direction:column;
-    margin:0;
+  .modal__action {
+    flex-direction: column !important;
+    gap: 5px;
   }
-  #searchHeader{
-    margin:5px;
+  #searchPayment {
+    flex-direction: column !important;
+  }
+  #searchId {
+    width: 100%;
+    max-width: none !important;
+  }
+  td {
+    position: relative;
+    overflow: hidden;
+  }
+  td::before {
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 16px !important;
+    display: inline-block !important;
+  }
+  .btn,
+  .btn-outline-secondary,
+  .btn-outline-info,
+  .btn-outline-warning {
+    width: 100% !important;
+  }
+  #roles {
+    flex-direction: column !important;
+    gap: 8px;
+  }
+  #searchBar {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  #searchHeader {
+    margin: 5px;
+  }
+  #searchFilter,
+  #searchText,
+  #searchButton {
+    width: 100% !important;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 10px !important;
+  }
 
-  }
-  #searchFilter,#searchText,#searchButton{
-    width:100% !important;
-    border:1px solid #ccc;
-    border-radius:0px;
-    padding:10px !important;
-  }
-
-  #exportSection{
-    display:flex;
-    flex-direction:column;
+  #exportSection {
+    display: flex;
+    flex-direction: column;
   }
   .own_main_table {
     width: 100% !important;
@@ -258,8 +258,12 @@ main{
   .h1 {
     font-size: 16px !important;
   }
-  h1,h2,h3,h4,h5{
-    text-align:center;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-align: center;
   }
   .own_logo_home {
     margin-bottom: 10px;
@@ -286,5 +290,3 @@ main{
     border-radius: 5px;
   }
 }
-
-

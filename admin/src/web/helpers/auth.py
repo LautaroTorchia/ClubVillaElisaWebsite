@@ -1,10 +1,11 @@
 from src.core.auth import user_has_permission, get_user_by
 from src.web.helpers.build_response import response
 from flask import session, abort, redirect, url_for
-from flask import request,jsonify
+from flask import request, jsonify
 from src.web.config import Config
 from functools import wraps
 import jwt
+
 
 def is_authenticated(session):
     return session.get("user") != None
@@ -102,30 +103,30 @@ def _jwt_required():
 
     """
 
-    token = request.headers.get('Authorization', None)
+    token = request.headers.get("Authorization", None)
     if token is None:
-        abort(jsonify(response(400, "No token provided","reason")))
+        abort(jsonify(response(400, "No token provided", "reason")))
     try:
-        payload = jwt.decode(token.split(" ")[1],Config.SECRET_KEY,algorithms=["HS256"])
+        payload = jwt.decode(
+            token.split(" ")[1], Config.SECRET_KEY, algorithms=["HS256"]
+        )
     except jwt.InvalidTokenError:
-        abort(jsonify(response(400, "Invalid token","reason")))
+        abort(jsonify(response(400, "Invalid token", "reason")))
     except IndexError:
-        abort(jsonify(response(400, "Invalid token","reason")))
-    user=get_user_by(payload["id"])
+        abort(jsonify(response(400, "Invalid token", "reason")))
+    user = get_user_by(payload["id"])
 
     if user is None:
-        abort(jsonify(response(401, "User not found","reason")))
+        abort(jsonify(response(401, "User not found", "reason")))
     return user
 
 
-
 def jwt_required(fn):
-    """View decorator that requires a valid JWT token to be present in the request
-    """
+    """View decorator that requires a valid JWT token to be present in the request"""
+
     @wraps(fn)
     def decorator(*args, **kwargs):
-        user=_jwt_required()
+        user = _jwt_required()
         return fn(user)
+
     return decorator
-
-

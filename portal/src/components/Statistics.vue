@@ -3,27 +3,31 @@
     <h1 class="own_golden_title">Estadisticas</h1>
     <div class="card own_main_holder">
       <div class="card-body text-center statistics_body">
-        <BarChart />
+        <DisciplinesByGender />
       </div>
       <div class="card-body text-center statistics_body">
-        <DoughnutChart />
+        <UpToDateAssociates />
       </div>
       <div class="card-body text-center statistics_body">
-        <BarChartCost />
+        <DisciplinesByAssociates />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import BarChart from "../charts/DisciplinesByGender.vue"
-import BarChartCost from "../charts/DisciplinesByAssociates.vue"
-import DoughnutChart from "../charts/UpToDateAssociates.vue"
-import { defineComponent } from "vue"
+import DisciplinesByGender from '../charts/DisciplinesByGender.vue'
+import DisciplinesByAssociates from '../charts/DisciplinesByAssociates.vue'
+import UpToDateAssociates from '../charts/UpToDateAssociates.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Statistics",
-  components: { BarChart, DoughnutChart, BarChartCost },
+  name: 'Statistics',
+  components: {
+    DisciplinesByGender,
+    UpToDateAssociates,
+    DisciplinesByAssociates,
+  },
 })
 </script>
 
@@ -40,8 +44,8 @@ export default defineComponent({
     padding: 0px !important;
   }
   .own_main_holder {
-  padding: 0px !important;
-}
+    padding: 0px !important;
+  }
 }
 
 .own_main_holder {

@@ -5,8 +5,8 @@ const axiosInstance: AxiosInstance = axios.create({
     : 'http://localhost:5000/api',
   withCredentials: true,
   xsrfCookieName: 'csrf_access_token',
-  headers:{
-    'Content-Type': 'application/json'
+  headers: {
+    'Content-Type': 'application/json',
   },
 })
 
@@ -20,7 +20,6 @@ axiosInstance.interceptors.response.use(
     switch (error.response.status) {
       case 401:
         const error_message = error.response.data.msg
-        const config = error.config
         if (!error.config.retry && error_message === COOKIE_EXPIRED_MSG) {
           error.config.retry = true
           axiosInstance.defaults.xsrfCookieName = 'csrf_refresh_token'

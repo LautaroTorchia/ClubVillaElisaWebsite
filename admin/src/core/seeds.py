@@ -63,7 +63,7 @@ def populate():
     """Populates the database with some data"""
     adm_role = get_role("Admin")
     op_role = get_role("Operario")
-    us_role= get_role("Socio")
+    us_role = get_role("Socio")
     roles = [adm_role, op_role]
     names = ["Juan", "Pablo", "Maria", "Diana", "Horacio", "Pedro", "Kevin", "César"]
     last_names = [
@@ -223,7 +223,11 @@ def populate():
     associate = list_all_associates()[0]
     from src.core.board.repositories.configuration import get_cfg
     from src.web.helpers.payment_helpers import disciplines_fee_amount
+
     config = get_cfg()
     create_payment(
-        last_installment=1, amount=disciplines_fee_amount(associate) + config.base_fee, date="2021-12-12", associate=associate
+        last_installment=1,
+        amount=disciplines_fee_amount(associate) + config.base_fee,
+        date="2021-12-12",
+        associate=associate,
     )

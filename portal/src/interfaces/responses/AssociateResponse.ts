@@ -1,6 +1,6 @@
 import { Associate } from '../Associate'
 
 export interface AssociateResponse {
-    data: Associate[]
-    years: string[]
+  data: Associate[]
+  years: string[]
 }

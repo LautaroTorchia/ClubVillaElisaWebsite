@@ -32,11 +32,11 @@ export default defineComponent({
 
       if (this.isLoggedIn) {
         this.$router.push('/')
-      }else{
+      } else {
         this.error = true
         setTimeout(() => {
           this.error = false
-        }, 3000);
+        }, 3000)
       }
     },
     async logout() {
@@ -56,9 +56,17 @@ export default defineComponent({
 
 <template>
   <div class="d-flex justify-content-center align-items-center flex-column">
-    <form class="container form d-flex flex-column justify-content-center align-items-center" @submit.prevent="login">
+    <form
+      class="container form d-flex flex-column justify-content-center align-items-center"
+      @submit.prevent="login"
+    >
       <h1 class="text-center h3 pb-5 own_golden_title">Iniciar sesión</h1>
-      <img src="/logo_club.svg" class="mb-3 w-100" alt="club deportivo villa elisa" style="max-width:200px">
+      <img
+        src="/logo_club.svg"
+        class="mb-3 w-100"
+        alt="club deportivo villa elisa"
+        style="max-width: 200px"
+      />
       <input
         type="text"
         v-model="user.username"
@@ -71,11 +79,13 @@ export default defineComponent({
         placeholder="Contraseña"
         class="form-control mb-3"
       />
-      <button type="submit" class="btn own_btn w-100">
-        Iniciar sesión
-      </button>
+      <button type="submit" class="btn own_btn w-100">Iniciar sesión</button>
     </form>
-    <div v-if="error" class="alert alert-danger mt-3 d-flex justify-content-center align-items-center text-center" role="alert">
+    <div
+      v-if="error"
+      class="alert alert-danger mt-3 d-flex justify-content-center align-items-center text-center"
+      role="alert"
+    >
       Credenciales incorrectas
     </div>
   </div>
@@ -98,7 +108,7 @@ export default defineComponent({
   background: #b5a166;
   border: solid 1px transparent;
 }
-form{
+form {
   max-width: 800px;
   width: 100%;
 }

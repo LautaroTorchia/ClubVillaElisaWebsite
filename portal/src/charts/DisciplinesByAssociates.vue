@@ -18,7 +18,7 @@ import {
   SubTitle,
 } from 'chart.js'
 
-import { getDisciplinesWithCosts } from '../services/DisciplinesService'
+import { getDisciplines } from '../services/DisciplinesService'
 import { getAssociates } from '../services/AssociateDataService'
 import { defineComponent } from 'vue'
 
@@ -33,7 +33,7 @@ ChartJS.register(
 )
 
 export default defineComponent({
-  name: 'BarChartCost',
+  name: 'DisciplinesByAssociatesBarChart',
   components: { Bar },
   data() {
     return {
@@ -44,9 +44,7 @@ export default defineComponent({
         maintainAspectRatio: false,
         scales: {
           y: {
-            stacked: true,
             ticks: {
-              beginAtZero: true,
               callback: function (value: number) {
                 if (value % 1 === 0) {
                   return value
@@ -61,7 +59,7 @@ export default defineComponent({
   async mounted() {
     this.loaded = false
     try {
-      const res = await getDisciplinesWithCosts()
+      const res = await getDisciplines()
       const disciplines = res.data
       const disciplinesAmount = disciplines.map((discipline) => {
         return {

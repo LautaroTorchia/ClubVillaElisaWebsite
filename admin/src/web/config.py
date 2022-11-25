@@ -24,12 +24,13 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://localhost:5432/grupo12"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # flask jwt extended
-    JWT_SECRET_KEY="secret_key"
-    JWT_TOKEN_LOCATION=["cookies"]
+    JWT_SECRET_KEY = "secret_key"
+    JWT_TOKEN_LOCATION = ["cookies"]
     JWT_ACCESS_CSRF_HEADER_NAME = "X-Xsrf-Token"
     JWT_REFRESH_CSRF_HEADER_NAME = "X-Xsrf-Token"
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
+
 
 class ProductionConfig(Config):
     DEBUG = False

@@ -32,7 +32,7 @@ class DecimalEncoder(json.JSONEncoder):
             return fake_float(o)
 
 
-def response(status, data,data_field_name="data"):
+def response(status, data, data_field_name="data"):
     """Args:
         status (int): HTTP status code
         data (dict): Data to be returned

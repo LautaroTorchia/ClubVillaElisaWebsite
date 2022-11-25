@@ -75,7 +75,7 @@ class BasicUserForm(BaseForm):
         if self.user_id:
             if get_user_by(self.user_id).username != field.data:
                 raise ValidationError("No se puede cambiar el nombre de usuario")
-        else: 
+        else:
             if get_user_by(field.data, "username"):
                 raise ValidationError("Nombre de usuario ya registrado")
         return True
@@ -90,6 +90,7 @@ class UserForm(BasicUserForm):
     password: Password of the user
     roles: Roles of the user
     """
+
     password = PasswordField(
         "Contraseña", validators=[Length(max=255), InputRequired()]
     )
