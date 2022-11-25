@@ -62,8 +62,7 @@
             </p>
             <p>Villa Elisa, La Plata</p>
             <p>
-              <font-awesome-icon icon="fa-solid fa-phone me-3" /> (0221)
-              487-0193
+              <font-awesome-icon icon="fa-solid fa-phone me-3" /> {{ info }}
             </p>
           </div>
         </div>
@@ -72,7 +71,26 @@
   </footer>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts">
+    import { defineComponent } from 'vue'
+    import { getInfo } from "../services/InfoService"
+    export default defineComponent({
+        data() {
+            return {
+                info: "",
+            }
+        },
+        methods: {
+            async getInfo() {
+                const res = await getInfo()
+                this.info = res.data.Contacto
+            },
+        },
+        mounted() {
+          this.getInfo()
+        }
+    });
+</script>
 
 <style scoped>
 footer{
