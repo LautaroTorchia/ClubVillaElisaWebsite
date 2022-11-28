@@ -124,7 +124,7 @@ def post_update(id):
             flash(f"Se deben asignar roles al usuario", category="alert alert-warning")
             return render_template(
                 "user/update.html",
-                form=BasicUserForm(obj=user, roles=get_roles(), user_id=id)
+                form=BasicUserForm(obj=user, roles=get_roles(), user_id=id),
             )
         flash("Usuario actualizado correctamente", "alert alert-info")
         return redirect(url_for("user.index"))

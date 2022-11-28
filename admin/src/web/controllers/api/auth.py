@@ -29,7 +29,7 @@ def login():
     try:
         if user and get_associate_by_DNI(user.username):
             token = create_access_token(identity=user.id)
-            refresh= create_refresh_token(identity=user.id)
+            refresh = create_refresh_token(identity=user.id)
             res = jsonify()
             set_access_cookies(res, token)
             set_refresh_cookies(res, refresh)

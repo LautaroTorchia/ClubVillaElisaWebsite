@@ -1,4 +1,3 @@
 export interface UpToDateResponse {
-    data: Number[]
-  }
-  
+  data: Number[]
+}

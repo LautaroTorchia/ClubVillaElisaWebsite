@@ -67,14 +67,11 @@ def build_payment(last_fee, associate):
             amount += amount * (config.due_fee / 100)
             flash_number = 3
 
+    elif datetime.now().day > 10:  # if the person is paying after the 10th of the month
+        paid_late = True
+        amount += amount * (config.due_fee / 100)
+        flash_number = 3
 
-    elif (
-            datetime.now().day > 10
-        ):  # if the person is paying after the 10th of the month
-            paid_late = True
-            amount += amount * (config.due_fee / 100)
-            flash_number = 3
-    
     else:  # if the associate has not paid any fee
         flash_number = 3
 
@@ -102,7 +99,7 @@ def make_receipt(payment, RCPT_PATH):
         11: "Noviembre",
         12: "Diciembre",
     }
-    
+
     FONT_PATH = os.path.join(os.getcwd(), "public", "fonts", "Roboto-Bold.ttf")
     FONT_TXT_PATH = os.path.join(os.getcwd(), "public", "fonts", "Roboto-Regular.ttf")
     receipt = Image.new("RGBA", (850, 300), "white")

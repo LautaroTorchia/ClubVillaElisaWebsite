@@ -13,9 +13,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
 )
 
-associate_api_blueprint = Blueprint(
-    "associate_api", __name__, url_prefix=""
-)
+associate_api_blueprint = Blueprint("associate_api", __name__, url_prefix="")
 
 
 @associate_api_blueprint.get("/disciplines/")
@@ -28,7 +26,7 @@ def index_api():
     """
     current_user = get_jwt_identity()
     user = get_user_by(current_user)
-    associate=get_associate_by_DNI(user.username)
+    associate = get_associate_by_DNI(user.username)
     if associate.disciplines:
         disciplines = [
             {
@@ -43,10 +41,10 @@ def index_api():
         return response(200, disciplines)
     else:
         return response(200, [])
-    
 
-#make an api for the associate card
-@associate_api_blueprint.get("/license/") 
+
+# make an api for the associate card
+@associate_api_blueprint.get("/license/")
 @jwt_required()
 def associate_card_api():
     """Args:
@@ -56,26 +54,25 @@ def associate_card_api():
     """
     current_user = get_jwt_identity()
     user = get_user_by(current_user)
-    associate=get_associate_by_DNI(user.username)
+    associate = get_associate_by_DNI(user.username)
     if associate:
         CARD_PATH = os.path.join(os.getcwd(), "public", "associate_card.png")
         QR_PATH = os.path.join(os.getcwd(), "public", "qr.png")
-        generate_associate_card(associate,CARD_PATH,associate.profile_pic,QR_PATH)
-        
+        generate_associate_card(associate, CARD_PATH, associate.profile_pic, QR_PATH)
+
         with open(associate.profile_pic, "rb") as img_file:
-                profile_pic_in64 = base64.b64encode(img_file.read())
+            profile_pic_in64 = base64.b64encode(img_file.read())
         with open(CARD_PATH, "rb") as img_file:
-                card_in64 = base64.b64encode(img_file.read())
-        card_data={
-            "name":associate.name,
-            "surname":associate.surname,
-            "dni":associate.DNI_number,
+            card_in64 = base64.b64encode(img_file.read())
+        card_data = {
+            "name": associate.name,
+            "surname": associate.surname,
+            "dni": associate.DNI_number,
             "entry_date": f"{associate.entry_date.day}/{associate.entry_date.month}/{associate.entry_date.year}",
-            "associate_number":associate.id,
-            "status":"Al dia" if is_up_to_date(associate) else "Moroso",
-            "profile_pic":str(profile_pic_in64.decode("utf-8")),
-            "associate_card":str(card_in64.decode("utf-8"))        
+            "associate_number": associate.id,
+            "status": "Al dia" if is_up_to_date(associate) else "Moroso",
+            "profile_pic": str(profile_pic_in64.decode("utf-8")),
+            "associate_card": str(card_in64.decode("utf-8")),
         }
-        return response(200,card_data)
-    return response(200,[])
-        
+        return response(200, card_data)
+    return response(200, [])

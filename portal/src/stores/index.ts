@@ -7,7 +7,7 @@ const store: Store<State> = createStore({
   modules: {
     auth: authModule,
   },
-  plugins: [createPersistedState()]
+  plugins: [createPersistedState()],
 })
 
 export default store

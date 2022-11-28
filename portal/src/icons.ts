@@ -6,7 +6,7 @@ import {
   faHome,
   faPhone,
   faTimesCircle,
-  faTimes
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faFacebook,

@@ -1,9 +1,8 @@
-import { Card } from "../Card"
+import { Card } from '../Card'
 
 export interface CardResponse {
-    timestamp: string
-    status: number
-    status_msg: string
-    data: Card
-  }
-  
+  timestamp: string
+  status: number
+  status_msg: string
+  data: Card
+}
