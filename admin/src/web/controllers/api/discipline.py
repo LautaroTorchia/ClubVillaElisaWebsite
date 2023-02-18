@@ -1,7 +1,7 @@
 from flask import Blueprint
 from src.web.helpers.build_response import response
 from src.core.board import list_all_disciplines
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 discipline_api_blueprint = Blueprint(
     "discipline_api", __name__, url_prefix="/disciplines"

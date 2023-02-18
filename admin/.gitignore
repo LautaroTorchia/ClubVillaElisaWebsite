@@ -10,3 +10,5 @@ associate_card_in_pdf.png
 *.pdf
 
 associate_pics/*
+report.html
+tests/assets/*
