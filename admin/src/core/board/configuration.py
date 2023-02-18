@@ -40,12 +40,12 @@ class Configuration(db.Model):
 
     def to_dict(self):
         return {
-            "id" : self.id,
-            "record_number" : self.record_number,
-            "currency" : self.currency,
-            "base_fee" : self.base_fee,
-            "due_fee" : self.due_fee,
-            "payment_available" : self.payment_available,
-            "contact" : self.contact,
-            "payment_header" : self.payment_header
+            "id": self.id,
+            "record_number": self.record_number,
+            "currency": self.currency,
+            "base_fee": self.base_fee,
+            "due_fee": self.due_fee,
+            "payment_available": self.payment_available,
+            "contact": self.contact,
+            "payment_header": self.payment_header,
         }

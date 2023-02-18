@@ -19,6 +19,7 @@ class GenderOptions(enum.Enum):
     female = 2
     other = 3
 
+
 class DNIOptions(enum.Enum):
     DNI = 1
     LE = 2
@@ -43,7 +44,9 @@ class Associate(BaseModel):
     name = Column(String(50), nullable=False)
     surname = Column(String(50), nullable=False)
     active = Column(Boolean(), default=True)
-    profile_pic = Column(String(),default=os.path.join(os.getcwd(), "public", "profile_icon.png"))
+    profile_pic = Column(
+        String(), default=os.path.join(os.getcwd(), "public", "profile_icon.png")
+    )
     email = Column(String(50), nullable=False)
     DNI_number = Column(Integer, nullable=False)
     DNI_type = Column(Enum(DNIOptions, validate_string=True))
@@ -73,7 +76,6 @@ class Associate(BaseModel):
     def __repr__(self):
         return f"""{self.name} {self.surname} con el dni {self.DNI_number} con el correo {self.email}"""
 
-
     def _to_dict(self):
         """Returns:
         User: The dictionary representation of the user.
@@ -84,10 +86,10 @@ class Associate(BaseModel):
             "email": self.email,
             "DNI_number": self.DNI_number,
             "DNI_type": str(self.DNI_type).rsplit(".", 1)[-1],
-            "gender":str(self.gender).rsplit(".", 1)[-1],
-            "address":self.address,
-            "phone_number":self.phone_number,
-            }
+            "gender": str(self.gender).rsplit(".", 1)[-1],
+            "address": self.address,
+            "phone_number": self.phone_number,
+        }
 
     def _to_dict_with_disciplines(self):
         """Returns:
@@ -100,11 +102,11 @@ class Associate(BaseModel):
             "email": self.email,
             "DNI_number": self.DNI_number,
             "DNI_type": str(self.DNI_type).rsplit(".", 1)[-1],
-            "gender":str(self.gender).rsplit(".", 1)[-1],
-            "address":self.address,
-            "phone_number":self.phone_number,
-            "disciplines":list(map(lambda d:d.to_dict(), self.disciplines))
-            }
+            "gender": str(self.gender).rsplit(".", 1)[-1],
+            "address": self.address,
+            "phone_number": self.phone_number,
+            "disciplines": list(map(lambda d: d.to_dict(), self.disciplines)),
+        }
 
-    def to_dict(self,disciplines=False):
+    def to_dict(self, disciplines=False):
         return self._to_dict_with_disciplines() if disciplines else self._to_dict()

@@ -33,9 +33,9 @@ const routes = [
     component: Login,
   },
   {
-    path:'/:pathMatch(.*)*',
-    redirect: '/'
-  }
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ]
 
 const router = createRouter({
@@ -45,14 +45,11 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  if (
-    !store.getters['auth/isLoggedIn'] &&
-    to.name == 'disciplines'
-  ) {
+  if (!store.getters['auth/isLoggedIn'] && to.name == 'disciplines') {
     // redirect the user to the login page
     return { name: 'login' }
   }
-  if (store.getters['auth/isLoggedIn']&&to.name=='login'){
+  if (store.getters['auth/isLoggedIn'] && to.name == 'login') {
     return { name: 'home' }
   }
 })

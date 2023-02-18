@@ -1,4 +1,4 @@
-import { Discipline } from "./Discipline"
+import { Discipline } from './Discipline'
 export interface Associate {
   id?: number
   DNI_number: number

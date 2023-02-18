@@ -16,7 +16,7 @@ def associate_payments(id):
     Returns:
         JSON: List of payments for an associate
     """
-    associate=get_associate_by_id(id)
+    associate = get_associate_by_id(id)
     if not associate:
         return response(404, "No existe el asociado")
     last_fee = get_last_fee_paid(associate)
@@ -30,7 +30,7 @@ def associate_payments(id):
     res = {
         "payments": payments,
         "name": associate.name,
-        "actual_amount": payment[3], # amount
+        "actual_amount": payment[3],  # amount
         "surname": associate.surname,
         "entry_date": associate.entry_date.strftime("%Y-%m-%d %H:%M:%S.%f"),
     }
@@ -45,7 +45,7 @@ def add_payment(id):
     Returns:
         JSON: Payment created/error
     """
-    associate=get_associate_by_id(id)
+    associate = get_associate_by_id(id)
     if not associate:
         return response(404, "No existe el asociado")
     last_fee = get_last_fee_paid(associate)

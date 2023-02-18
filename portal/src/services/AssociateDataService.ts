@@ -3,7 +3,7 @@ import { AssociateResponse } from '../interfaces/responses/AssociateResponse'
 import { CardResponse } from '../interfaces/responses/CardResponse'
 
 export const getAssociates = async (): Promise<AssociateResponse> => {
-    const response = await axios.get('/stats/associates' )
+  const response = await axios.get('/stats/associates')
   return response.data
 }
 
